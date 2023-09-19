@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'colors.dart';
+import '../theme/colors.dart';
 
-const bigTitleOne = TextStyle(
-  fontFamily: "Cabin",
-  fontSize: 100,
-  fontWeight: FontWeight.w800,
-  height: 1,
-);
 
 const bigTitleTwo = TextStyle(
   fontFamily: "Cabin",
@@ -21,21 +15,21 @@ const subtitleStyle = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w400,
     height: 1,
-    color: textColorDark);
+    color: accentColor);
 
 const basicStyle = TextStyle(
   fontFamily: "Cabin",
   fontSize: 22,
   fontWeight: FontWeight.w400,
-  color: textColorDim,
+  color: foregroundColorDark,
   // height: 2
 );
 
 final inputUnderlineStyle = InputDecoration(
   enabledBorder: UnderlineInputBorder(
-    borderSide: BorderSide(color: textColorDark.withOpacity(.05)),
+    borderSide: BorderSide(color: accentColor.withOpacity(.05)),
   ),
   focusedBorder: const UnderlineInputBorder(
-    borderSide: BorderSide(color: textColorDark),
+    borderSide: BorderSide(color: accentColor),
   ),
 );

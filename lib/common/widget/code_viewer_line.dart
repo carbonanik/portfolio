@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/common/colors.dart';
+import 'package:portfolio/theme/colors.dart';
 
 class CodeViewerLine extends StatelessWidget {
   final int lineNumber;

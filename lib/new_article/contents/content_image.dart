@@ -7,20 +7,21 @@ import '../../common/widget/editable_content_container.dart';
 class ContentImage extends ContentBase {
   final String? path;
   final String? url;
+
   ContentImage({
     this.path,
     this.url,
   });
 
   @override
-  Widget generateView(
-    bool readOnly,
-    final Function(ContentBase)? close,
+  Widget generateView({
+    bool readOnly = true,
+    final Function(ContentBase content)? close,
     final Function(ContentBase oldObject, ContentBase newObject)? updated,
-    final void Function(ContentBase)? goUp,
-    final void Function(ContentBase)? goDown,
-    final void Function(ContentBase, ContentType)? contentItemClick,
-  ) {
+    final void Function(ContentBase content)? goUp,
+    final void Function(ContentBase content)? goDown,
+    final void Function(ContentBase content, ContentType type)? contentItemClick,
+  }) {
     Widget content;
     if (path != null) {
       content = Image(

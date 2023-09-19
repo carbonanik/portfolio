@@ -1,59 +1,46 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:portfolio/common/styles.dart';
-import 'package:portfolio/common/widget/editable_content_container.dart';
+import 'package:portfolio/common/widget/input_block_title.dart';
 import 'package:portfolio/new_article/contents/content_base.dart';
+import 'package:portfolio/new_article/contents/content_title.dart';
 
 class Article implements List<ContentBase> {
-  String _headline = "";
+  ContentTitle _headline = ContentTitle(text: "");
   List<ContentBase> _contents = [];
 
   Article();
 
   Article.initial({
-    required String headline,
+    required ContentTitle headline,
     required List<ContentBase> contents,
   }) {
     _headline = headline;
     _contents = contents;
   }
 
-  void updateHeadline(String headline) {
-    _headline = headline;
-  }
-
-  // Widget generateHeadlineView(
-  //   bool readOnly,
-  //   final Function()? updated,
-  // ) {
-  //   if (readOnly) {
-  //     return Text(_headline, style: bigTitleTwo);
-  //   }
-
-  //   return EditableContentContainer(
-  //     content: TextFormField(
-  //       onChanged: (value) {
-  //         _headline = value;
-  //         updated?.call();
-  //       },
-  //       maxLines: 5000,
-  //       minLines: 1,
-  //       style: bigTitleTwo,
-  //       initialValue: _headline,
-  //     ),
-  //     title: "Head Line",
-  //     close: null,
-  //     hideControl: true,
-  //     contentItemClick: () {},
-  //   );
+  // void updateHeadline(String headlineText) {
+  //   _headline = ContentTitle(text: headlineText);
   // }
 
-  //
-  //
-  // List implementation
-  //
-  //
+  Widget generateHeadlineView({
+    bool readOnly = true,
+    final Function(ContentBase)? close,
+    final Function(ContentBase oldObject, ContentBase newObject)? updated,
+    final void Function(ContentBase)? goUp,
+    final void Function(ContentBase)? goDown,
+    final void Function(ContentBase, ContentType)? contentItemClick,
+  }) {
+    return _headline.generateView(
+      readOnly: readOnly,
+      close: close,
+      updated: updated,
+      goUp: goUp,
+      goDown: goDown,
+      contentItemClick: contentItemClick,
+    );
+  }
+
   @override
   Iterator<ContentBase> get iterator => _contents.iterator;
 
@@ -191,8 +178,7 @@ class Article implements List<ContentBase> {
   }
 
   @override
-  void setRange(int start, int end, Iterable<ContentBase> iterable,
-      [int skipCount = 0]) {
+  void setRange(int start, int end, Iterable<ContentBase> iterable, [int skipCount = 0]) {
     _contents.setRange(start, end, iterable, skipCount);
   }
 
@@ -245,14 +231,12 @@ class Article implements List<ContentBase> {
   ContentBase get first => _contents.first;
 
   @override
-  ContentBase firstWhere(bool Function(ContentBase element) test,
-      {ContentBase Function()? orElse}) {
+  ContentBase firstWhere(bool Function(ContentBase element) test, {ContentBase Function()? orElse}) {
     return _contents.firstWhere(test, orElse: orElse);
   }
 
   @override
-  T fold<T>(T initialValue,
-      T Function(T previousValue, ContentBase element) combine) {
+  T fold<T>(T initialValue, T Function(T previousValue, ContentBase element) combine) {
     return _contents.fold(initialValue, combine);
   }
 
@@ -281,8 +265,7 @@ class Article implements List<ContentBase> {
   ContentBase get last => _contents.last;
 
   @override
-  ContentBase lastWhere(bool Function(ContentBase element) test,
-      {ContentBase Function()? orElse}) {
+  ContentBase lastWhere(bool Function(ContentBase element) test, {ContentBase Function()? orElse}) {
     return _contents.lastWhere(test, orElse: orElse);
   }
 
@@ -295,8 +278,7 @@ class Article implements List<ContentBase> {
   }
 
   @override
-  ContentBase reduce(
-      ContentBase Function(ContentBase value, ContentBase element) combine) {
+  ContentBase reduce(ContentBase Function(ContentBase value, ContentBase element) combine) {
     return _contents.reduce(combine);
   }
 
@@ -304,8 +286,7 @@ class Article implements List<ContentBase> {
   ContentBase get single => _contents.single;
 
   @override
-  ContentBase singleWhere(bool Function(ContentBase element) test,
-      {ContentBase Function()? orElse}) {
+  ContentBase singleWhere(bool Function(ContentBase element) test, {ContentBase Function()? orElse}) {
     return _contents.singleWhere(test, orElse: orElse);
   }
 

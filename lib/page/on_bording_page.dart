@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:portfolio/common/widget/subtitle.dart';
-import 'package:portfolio/home_page.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:portfolio/page/menu/about_page.dart';
+import 'package:portfolio/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
-
-import '../common/colors.dart';
-import '../common/widget/text_background.dart';
+import 'package:portfolio/common/widget/text_background.dart';
+import 'package:portfolio/theme/colors.dart';
 
 class OnBoardPage extends StatefulWidget {
   const OnBoardPage({Key? key}) : super(key: key);
@@ -19,26 +19,23 @@ class _OnBoardPageState extends State<OnBoardPage> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 2), () {
-      Navigator.pushReplacement(
-        context,
-        PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) =>
-                const HomePage(),
-            transitionDuration: 500.milliseconds,
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) {
-              const curve = Curves.ease;
-
-              var tween =
-                  Tween(begin: 0.0, end: 1.0).chain(CurveTween(curve: curve));
-
-              return FadeTransition(
-                opacity: animation.drive(tween),
-                child: child,
-              );
-            }),
-      );
+    Timer(2.seconds, () {
+      // Navigator.pushReplacement(
+      //   context,
+      //   PageRouteBuilder(
+      //       pageBuilder: (context, animation, secondaryAnimation) => const AboutPage(),
+      //       transitionDuration: 500.milliseconds,
+      //       transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      //         const curve = Curves.ease;
+      //
+      //         var tween = Tween(begin: 0.0, end: 1.0).chain(CurveTween(curve: curve));
+      //
+      //         return FadeTransition(
+      //           opacity: animation.drive(tween),
+      //           child: child,
+      //         );
+      //       }),
+      // );
     });
   }
 
@@ -53,14 +50,13 @@ class _OnBoardPageState extends State<OnBoardPage> {
             child: TweenAnimationBuilder(
               tween: ColorTween(
                 begin: backgroundColor,
-                end: textColorDark,
+                end: accentColor,
               ),
-              duration: const Duration(seconds: 1),
+              duration: 1.seconds,
               builder: (BuildContext context, Color? color, __) {
-                return Subtitle(
-                  text: "Hi,",
-                  fontSize: 200,
-                  color: color!,
+                return Text(
+                  "Hi,",
+                  style: titleTwoTextStyle.copyWith(fontSize: 200, color: color),
                 );
               },
             ),
@@ -89,7 +85,7 @@ class ColumnOfRowBox extends StatelessWidget {
     return TweenAnimationBuilder(
       // child: ,
       tween: IntTween(begin: 0, end: biggerBoxCount * 2),
-      duration: const Duration(seconds: 2),
+      duration: 2.seconds,
       builder: (BuildContext context, int disappearStep, __) {
         return Column(
           children: List.generate(
@@ -112,14 +108,14 @@ class RowOfBox extends StatefulWidget {
   final int boxWidth;
   final int rowBoxCount;
   final int boxReduce;
-  final Duration duration;
+  final Duration? duration;
 
   const RowOfBox({
     required this.boxHeight,
     required this.boxWidth,
     required this.rowBoxCount,
     this.boxReduce = 0,
-    this.duration = const Duration(milliseconds: 500),
+    this.duration,
     Key? key,
   }) : super(key: key);
 
@@ -139,14 +135,10 @@ class _RowOfBoxState extends State<RowOfBox> {
             Positioned.fill(
               child: Center(
                 child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 400),
-                  color: textColorDark,
-                  height: minZero(widget.rowBoxCount - widget.boxReduce) > index
-                      ? widget.boxHeight.toDouble()
-                      : 0,
-                  width: minZero(widget.rowBoxCount - widget.boxReduce) > index
-                      ? widget.boxWidth.toDouble()
-                      : 0,
+                  duration: 400.milliseconds,
+                  color: accentColor,
+                  height: minZero(widget.rowBoxCount - widget.boxReduce) <= index  ? 0 : widget.boxHeight.toDouble(),
+                  width: minZero(widget.rowBoxCount - widget.boxReduce) <= index ? 0 : widget.boxWidth.toDouble(),
                 ),
               ),
             ),

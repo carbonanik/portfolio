@@ -28,7 +28,7 @@ class _StaggeredAnimationState extends State<StaggeredAnimation>
     super.initState();
 
     controller = AnimationController(
-      duration: const Duration(milliseconds: 2000),
+      duration: 2.seconds,
       vsync: this,
     );
 

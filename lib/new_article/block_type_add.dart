@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/common/colors.dart';
+import 'package:portfolio/theme/colors.dart';
 import 'package:portfolio/common/styles.dart';
 
 class BlockTypeAdd extends StatelessWidget {
@@ -20,7 +20,7 @@ class BlockTypeAdd extends StatelessWidget {
         onTap: onTap,
         child: Container(
           padding: const EdgeInsets.all(8),
-          color: textColorDark.withOpacity(.3),
+          color: accentColor.withOpacity(.3),
           child: Text(
             text,
             style: subtitleStyle,

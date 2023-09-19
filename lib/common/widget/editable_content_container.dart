@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/common/colors.dart';
+import 'package:portfolio/theme/colors.dart';
 import 'package:portfolio/common/widget/input_block_title.dart';
 
 class EditableContentContainer extends StatelessWidget {
@@ -27,7 +27,7 @@ class EditableContentContainer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        color: textColorDim.withOpacity(.02),
+        color: foregroundColorDark.withOpacity(.02),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -6,7 +6,7 @@ import 'package:flutter_highlight/themes/zenburn.dart';
 import 'package:highlight/highlight.dart';
 import 'package:highlight/languages/dart.dart';
 import 'package:highlight/languages/python.dart';
-import 'package:portfolio/common/colors.dart';
+import 'package:portfolio/theme/colors.dart';
 
 class CodeEditor extends StatefulWidget {
   final String source;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../colors.dart';
+import '../../theme/colors.dart';
 
 class SkeletonButton extends StatelessWidget {
   final String text;
@@ -21,13 +21,13 @@ class SkeletonButton extends StatelessWidget {
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
-            side: const BorderSide(color: textColorDark),
+            side: const BorderSide(color: accentColor),
           ),
         ),
         backgroundColor: MaterialStateProperty.resolveWith(
           (states) {
             if (states.contains(MaterialState.pressed)) {
-              return textColorDark.withOpacity(.5);
+              return accentColor.withOpacity(.5);
             }
             return Colors.transparent;
           },
@@ -42,7 +42,7 @@ class SkeletonButton extends StatelessWidget {
               fontSize: 22,
               fontWeight: FontWeight.w400,
               height: 0,
-              color: textColorDark,
+              color: accentColor,
             ),
 
         ),

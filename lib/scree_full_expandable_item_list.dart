@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/common/colors.dart';
+import 'package:portfolio/theme/colors.dart';
+import 'package:supercharged/supercharged.dart';
 
 class ScreenFull extends StatefulWidget {
   const ScreenFull({Key? key}) : super(key: key);
@@ -12,8 +13,9 @@ class _ScreenFullState extends State<ScreenFull> {
   //
   List<bool> opened = [false, false, false, false, false];
   List<Color> colors = List.generate(
-    5, (index) => backgroundColor,
-    // (index) => index % 2 == 0 ? Color(0xff051A16) : Color(0xFF04211C),
+    5,
+    // (index) => backgroundColor,
+    (index) => index % 2 == 0 ? Color(0xff051A16) : Color(0xFF04211C),
   );
 
   bool allClosed = true;
@@ -87,46 +89,47 @@ class _ScreenFullState extends State<ScreenFull> {
     );
   }
 
-  Widget item(String title, bool expanded, double height, Color color,
-      VoidCallback onTap) {
+  Widget item(String title, bool expanded, double height, Color color, VoidCallback onTap) {
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 200),
+      duration: 200.milliseconds,
       height: height,
       child: GestureDetector(
         onTap: onTap,
         child: Container(
           color: color,
           child: expanded
-              ? Column(
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        color: textColorDark,
-                        fontSize: 100,
+              ? SingleChildScrollView(
+                child: Column(
+                    children: [
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          color: accentColor,
+                          fontSize: 100,
+                        ),
                       ),
-                    ),
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        color: textColorDark,
-                        fontSize: 100,
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          color: accentColor,
+                          fontSize: 100,
+                        ),
                       ),
-                    ),
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        color: textColorDark,
-                        fontSize: 100,
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          color: accentColor,
+                          fontSize: 100,
+                        ),
                       ),
-                    ),
-                  ],
-                )
+                    ],
+                  ),
+              )
               : Center(
                   child: Text(
                     title,
                     style: const TextStyle(
-                      color: textColorDark,
+                      color: accentColor,
                       fontSize: 100,
                     ),
                   ),

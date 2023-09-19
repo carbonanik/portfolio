@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'common/colors.dart';
+import 'theme/colors.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({super.key});
@@ -19,19 +19,20 @@ class MenuPage extends StatelessWidget {
           ],
         ));
   }
-}
-
-menuItem(String title, bool hovered, Function(bool) setHovered) {
-  return InkWell(
-    onHover: ((value) => setHovered(value)),
-    child: Center(
-      child: Text(
-        title,
-        style: const TextStyle(
-          color: textColorDark,
-          fontSize: 100,
+  menuItem(String title, bool hovered, Function(bool) setHovered) {
+    return InkWell(
+      onHover: ((value) => setHovered(value)),
+      child: Center(
+        child: Text(
+          title,
+          style: const TextStyle(
+            color: accentColor,
+            fontSize: 100,
+          ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }
+
+

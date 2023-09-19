@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../common/colors.dart';
+import '../theme/colors.dart';
 import '../common/widget/text_background.dart';
 
 class ArticleListPage extends StatelessWidget {
@@ -8,10 +8,10 @@ class ArticleListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Stack(
         children: [
-          const TextBackground(),
+          TextBackground(),
           SingleChildScrollView(
             child: Center(
               child: Column(
@@ -21,14 +21,14 @@ class ArticleListPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
+                        SizedBox(
                             height: 200,
                             child:
-                                const Image(image: AssetImage("image/banner.png"))),
-                        const SizedBox(width: 20,),
+                                Image(image: AssetImage("image/banner.png"))),
+                        SizedBox(width: 20,),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Text(
                               "Title",
                               style:  TextStyle(
@@ -49,7 +49,7 @@ class ArticleListPage extends StatelessWidget {
                                 maxLines: 4,
                                 style:  TextStyle(
                                   fontFamily: "Cabin",
-                                      fontSize: 22, fontWeight: FontWeight.w400, color: textColorDim
+                                      fontSize: 22, fontWeight: FontWeight.w400, color: foregroundColorDark
                                     // height: 2
                                   ),
 
@@ -63,7 +63,7 @@ class ArticleListPage extends StatelessWidget {
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
                                     height: 1,
-                                    color: textColorDark),
+                                    color: accentColor),
                               ),
 
                           ],

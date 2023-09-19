@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/block_type_add.dart';
+import 'package:portfolio/new_article/block_type_add.dart';
 import 'package:portfolio/common/widget/input_block_title.dart';
 import 'package:portfolio/common/widget/skeleton_button.dart';
 import 'package:portfolio/new_article/article.dart';
@@ -8,22 +8,21 @@ import 'package:portfolio/new_article/contents/content_code.dart';
 import 'package:portfolio/new_article/contents/content_image.dart';
 import 'package:portfolio/new_article/contents/content_text.dart';
 import 'package:portfolio/new_article/contents/content_title.dart';
+import 'package:supercharged/supercharged.dart';
 
-import '../new_article/contents/content_subtitle.dart';
-import 'article_open_page.dart';
-import '../article_view.dart';
 import '../common/widget/text_background.dart';
+import 'contents/content_subtitle.dart';
+import '../page/article_open_page.dart';
 
 class CreateArticlePage extends StatefulWidget {
   CreateArticlePage({Key? key}) : super(key: key);
 
   final Article article = Article.initial(
-    headline: "Function Decorator Python",
+    headline: ContentTitle(text: "Function Decorator Python"),
     contents: [
-      ContentText(text: longText),
       ContentSubtitle(text: "✏️ the coder"),
-      ContentSubtitle(text: "✏️ the coder 2"),
-      // ContentImage(path: "image/banner.png"),
+      ContentText(text: longText),
+      ContentImage(path: "image/banner.png"),
       ContentCode(code: sourceCode, language: "python"),
     ],
   );
@@ -36,68 +35,50 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
   bool readOnly = false;
 
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
+
   @override
   Widget build(BuildContext context) {
-    // final articleView = ArticleView(
-    //   article: widget.article,
-    //   readOnly: readOnly,
-    //   updated: (oldObject, newObject) {
-    //     var index = widget.article.indexOf(oldObject);
-    //     widget.article[index] = newObject;
-    //     setState(() {});
-    //   },
-    //   updatedHeader: () {
-    //     setState(() {});
-    //   },
-    //   close: (content) {
-    //     setState(() {
-    //       widget.article.remove(content);
-    //     });
-    //   },
-    //   goUp: (content) {
-    //     setState(() {
-    //       var index = widget.article.indexOf(content);
-    //       if (index > 0) {
-    //         widget.article.insert(index - 1, widget.article.removeAt(index));
-    //       }
-    //     });
-    //   },
-    //   goDown: (content) {
-    //     setState(() {
-    //       var index = widget.article.indexOf(content);
-    //       if (index < widget.article.length - 1) {
-    //         widget.article.insert(index + 1, widget.article.removeAt(index));
-    //       }
-    //     });
-    //   },
-    // );
-
+    final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         children: [
           const TextBackground(),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: screenSize.width > 1200 ? MainAxisAlignment.center : MainAxisAlignment.start,
             children: [
-              // articleView,
-              Expanded(
+              SizedBox(
+                width: screenSize.width > 1200 ? 800 : screenSize.width - 200,
                 child: AnimatedList(
                   key: _listKey,
-                  initialItemCount: widget.article.length,
+                  initialItemCount: widget.article.length + 1, // added 1 for header
                   itemBuilder: (context, index, animation) {
-                    final content = widget.article[index];
+                    if (index == 0) {
+                      // generate header first
+                      return widget.article.generateHeadlineView(
+                        readOnly: readOnly,
+                        updated: updated,
+                      );
+                    }
+
+                    final contentIndex = index - 1; // remove the added one
+                    final content = widget.article[contentIndex];
 
                     return slideIt(
                       context,
-                      index,
+                      contentIndex,
                       animation,
                       content,
                     );
                   },
                 ),
               ),
-              const SizedBox(width: 30),
-              SizedBox(
+            ],
+          ),
+          // TopMenuBar(),
+          Positioned(
+              top: 0,
+              right: 0,
+              child: SizedBox(
                 width: 200,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -135,10 +116,7 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
                     ),
                   ],
                 ),
-              )
-            ],
-          ),
-          // TopMenuBar(),
+              )),
           Positioned(
             bottom: 30,
             right: 30,
@@ -155,30 +133,9 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
                     readOnly = !readOnly;
                   }),
                 ),
-                TextButton(
-                  onPressed: () {},
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(Colors.transparent),
-                    shape:
-                        MaterialStateProperty.all(const BeveledRectangleBorder(
-                      side: BorderSide(color: Colors.red),
-                      // Despite referencing circles and radii, this means "make all corners 4.0".
-                      borderRadius:
-                          BorderRadius.only(topLeft: Radius.circular(16.0)),
-                    )),
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(15.0),
-                    child: Text(
-                      "Button",
-                      style: TextStyle(fontSize: 22),
-                    ),
-                  ),
-                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
@@ -275,18 +232,25 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
   void addToState(int index) {
     _listKey.currentState?.insertItem(
       index,
-      duration: const Duration(milliseconds: 500),
+      duration: 500.milliseconds,
     );
   }
 
   void removeFromState(int index, ContentBase content) {
     _listKey.currentState?.removeItem(
       index,
-      duration: const Duration(milliseconds: 500),
+      duration: 500.milliseconds,
       (context, animation) => SizeTransition(
         sizeFactor: animation,
         child: content.generateView(
-            readOnly, close, updated, goUp, goDown, insert),
+          // readOnly, close, updated, goUp, goDown, insert
+          readOnly: readOnly,
+          close: close,
+          updated: updated,
+          goUp: goUp,
+          goDown: goDown,
+          contentItemClick: insert,
+        ),
       ),
     );
   }
@@ -302,12 +266,12 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
     return SizeTransition(
       sizeFactor: animation,
       child: content.generateView(
-        readOnly,
-        close,
-        updated,
-        isFirstItem ? null : goUp,
-        isLastItem ? null : goDown,
-        insert,
+        readOnly: readOnly,
+        close: close,
+        updated: updated,
+        goUp: isFirstItem ? null : goUp,
+        goDown: isLastItem ? null : goDown,
+        contentItemClick: insert,
       ),
     );
   }

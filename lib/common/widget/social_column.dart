@@ -1,208 +1,166 @@
-import 'dart:math';
-
-import 'package:collection/collection.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:simple_animations/simple_animations.dart';
+import 'package:portfolio/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
 
-import '../colors.dart';
+import '../../theme/colors.dart';
+
+class SocialItem {
+  final String shortName;
+  final IconData icon;
+
+  SocialItem({
+    required this.shortName,
+    required this.icon,
+  });
+}
 
 class SocialColumn extends StatelessWidget {
   const SocialColumn({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    const socialItems = ["gh.", "in.", "tw.", "fb.", "em."]; //em = email
-    const socialIcons = [
-      EvaIcons.github,
-      EvaIcons.linkedin,
-      EvaIcons.twitter,
-      EvaIcons.facebook,
-      Icons.email_rounded
-    ];
+    final socialItems = [
+      SocialItem(shortName: "gh.", icon: EvaIcons.github),
+      SocialItem(shortName: "in.", icon: EvaIcons.linkedin),
+      SocialItem(shortName: "tw.", icon: EvaIcons.twitter),
+      SocialItem(shortName: "fb.", icon: EvaIcons.facebook),
+      SocialItem(shortName: "em.", icon: Icons.email_rounded),
+    ]; //em = email
 
     final size = MediaQuery.of(context).size;
-    return Container(
-      height: size.height / 1.2,
-      padding: const EdgeInsets.only(bottom: 10),
-      color: textColorDark.withOpacity(.8),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: IterableZip([socialItems, socialIcons])
-            .map((zip) => VerticalSocialItem(zip: zip))
-            .toList(),
-      ),
+    return Stack(
+      alignment: AlignmentDirectional.centerEnd,
+      children: [
+        Positioned(
+          // right: 0,
+          child: Row(
+            children: [
+              const SizedBox(width: 10),
+              Container(
+                height: size.height / 1.2,
+                width: 30,
+                padding: const EdgeInsets.only(bottom: 10),
+                color: accentColor.withOpacity(.8),
+              ),
+            ],
+          ),
+        ),
+        Positioned(
+          right: 0,
+          child: Container(
+            height: size.height / 1.2,
+            padding: const EdgeInsets.only(bottom: 10),
+            // color: Colors.red.withOpacity(.5),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: socialItems
+                  .map((item) => Column(
+                        children: [
+                          const SizedBox(height: 30),
+                          VerticalSocialItem(item: item),
+                          const SizedBox(height: 40),
+                        ],
+                      ))
+                  .toList(),
+            ),
+          ),
+        ),
+        // Positioned(
+        //   right: 0,
+        //   child: RotatedBox(
+        //     quarterTurns: -1,
+        //     child: Padding(
+        //       padding: EdgeInsets.only(left: 8, top: 8, bottom: 8),
+        //       child: Text(
+        //         "Hi",
+        //         style: const TextStyle(
+        //             fontFamily: "IBMPlexMono", fontSize: 22, fontWeight: FontWeight.w600, color: Colors.blue
+        //           // height: 2
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
+      ],
     );
   }
 }
 
 class VerticalSocialItem extends StatefulWidget {
-  final List zip;
+  final SocialItem item;
 
-  const VerticalSocialItem({Key? key, required this.zip}) : super(key: key);
+  const VerticalSocialItem({Key? key, required this.item}) : super(key: key);
 
   @override
   State<VerticalSocialItem> createState() => _VerticalSocialItemState();
 }
 
-class _VerticalSocialItemState extends State<VerticalSocialItem> {
-  bool hovred = false;
+class _VerticalSocialItemState extends State<VerticalSocialItem> with TickerProviderStateMixin {
+  bool hovered = false;
+
+  late final AnimationController _controller = AnimationController(
+    duration: 200.milliseconds,
+    vsync: this,
+  );
+  late final Animation<Offset> _offsetAnimation = Tween<Offset>(
+    begin: Offset.zero,
+    end: const Offset(1.5, 0.0),
+  ).animate(
+    CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOut,
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: RotatedBox(
-        quarterTurns: -1,
-        child: Container(
-          padding: const EdgeInsets.only(right: 38.0),
-          child: TextButton(
-            onPressed: () {},
-            onHover: (hover) {
-              hovred = hover;
-              setState(() {});
-            },
-            child: AnimatedSwitcher(
-              duration: 100.milliseconds,
-              child: hovred
-                  ? Transform.scale(
-                      scale: 2,
-                      child: Icon(
-                        widget.zip[1],
-                        color: textColorLite,
-                      ),
-                    )
-                  : Text(
-                      widget.zip[0],
-                      style: const TextStyle(
-                          fontFamily: "IBMPlexMono",
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600,
-                          color: backgroundColor
-                          // height: 2
-                          ),
+      child: MouseRegion(
+        onEnter: (event) {
+          _controller.forward();
+          setState(() {});
+        },
+        onExit: (event) {
+          _controller.reverse();
+          setState(() {});
+        },
+        child: ClipRect(
+          child: SlideTransition(
+            position: _offsetAnimation,
+            child: Stack(
+              alignment: AlignmentDirectional.center,
+              children: [
+                Transform.scale(
+                  scale: 2,
+                  child: Container(
+                    transform: Matrix4.translationValues(-30, 0, 0),
+                    child: Icon(
+                      widget.item.icon,
+                      color: foregroundColor,
                     ),
+                  ),
+                ),
+                RotatedBox(
+                  quarterTurns: -1,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 8,
+                      right: 8,
+                      top: 10,
+                      bottom: 3,
+                    ),
+                    child: Text(
+                      widget.item.shortName,
+                      style: menuTextStyle.copyWith(color: backgroundColor),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
       ),
     );
   }
-}
-
-
-class SwitchButton extends StatefulWidget {
-  @override
-  _SwitchButtonState createState() => _SwitchButtonState();
-}
-
-class _SwitchButtonState extends State<SwitchButton> {
-  bool enableSwitch = false;
-
-  void _toggle() {
-    setState(() {
-      enableSwitch = !enableSwitch;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white70,
-      body: GestureDetector(
-        onTap: _toggle,
-        behavior: HitTestBehavior.translucent,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              const SizedBox(height: 10,),
-              const SizedBox(height: 10,),
-              CustomSwitch(switched: enableSwitch),
-
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-}
-
-enum _SwitchBoxProps { paddingLeft, color, text, rotation }
-
-
-class CustomSwitch extends StatelessWidget {
-  final bool switched;
-
-  const CustomSwitch({super.key, required this.switched});
-
-  @override
-  Widget build(BuildContext context) {
-    var tween = MultiTween<_SwitchBoxProps>()
-      ..add(_SwitchBoxProps.paddingLeft, 0.0.tweenTo(60.0), 1.seconds)
-      ..add(_SwitchBoxProps.color, Colors.red.tweenTo(Colors.blue), 1.seconds)
-      ..add(_SwitchBoxProps.text, ConstantTween("OFF"), 500.milliseconds)
-      ..add(_SwitchBoxProps.text, ConstantTween("ON"), 500.milliseconds)
-      ..add(_SwitchBoxProps.rotation, (-2.0 * pi).tweenTo(0.0), 1.seconds);
-
-    return CustomAnimation<MultiTweenValues<_SwitchBoxProps>>(
-      control: switched
-          ? CustomAnimationControl.play
-          : CustomAnimationControl.playReverse,
-      startPosition: switched ? 1.0 : 0.0,
-      duration: tween.duration * 1.2,
-      tween: tween,
-      curve: Curves.easeInOut,
-      builder: _buildSwitchBox,
-    );
-  }
-
-  Widget _buildSwitchBox(
-      context, child, MultiTweenValues<_SwitchBoxProps> value) {
-    return Container(
-      decoration: _outerBoxDecoration(value.get(_SwitchBoxProps.color)),
-      width: 100,
-      height: 40,
-      padding: const EdgeInsets.all(3.0),
-      child: Stack(
-        children: [
-          Positioned(
-              child: Padding(
-                padding:
-                EdgeInsets.only(left: value.get(_SwitchBoxProps.paddingLeft)),
-                child: Transform.rotate(
-                  angle: value.get(_SwitchBoxProps.rotation),
-                  child: Container(
-                    decoration:
-                    _innerBoxDecoration(value.get(_SwitchBoxProps.color)),
-                    width: 30,
-                    child: Center(
-                        child: Text(value.get(_SwitchBoxProps.text),
-                            style: labelStyle)),
-                  ),
-                ),
-              ))
-        ],
-      ),
-    );
-  }
-
-  BoxDecoration _innerBoxDecoration(Color color) => BoxDecoration(
-      borderRadius: const BorderRadius.all(Radius.circular(25)), color: color);
-
-  BoxDecoration _outerBoxDecoration(Color color) => BoxDecoration(
-    borderRadius: const BorderRadius.all(Radius.circular(30)),
-    border: Border.all(
-      width: 2,
-      color: color,
-    ),
-  );
-
-  static const labelStyle = TextStyle(
-      height: 1.3,
-      fontWeight: FontWeight.bold,
-      fontSize: 12,
-      color: Colors.white);
 }

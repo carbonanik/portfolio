@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/common/colors.dart';
+import 'package:portfolio/theme/colors.dart';
 import 'package:portfolio/new_article/contents/content_title.dart';
 
 class EditableContentTitle extends StatelessWidget {
@@ -38,8 +38,8 @@ class EditableContentTitle extends StatelessWidget {
                       child: Icon(
                         Icons.arrow_upward,
                         color: goUp != null
-                            ? textColorDim
-                            : textColorDim.withOpacity(.3),
+                            ? foregroundColorDark
+                            : foregroundColorDark.withOpacity(.3),
                         size: 32,
                       ),
                     ),
@@ -52,8 +52,8 @@ class EditableContentTitle extends StatelessWidget {
                       child: Icon(
                         Icons.arrow_downward,
                         color: goDown != null
-                            ? textColorDim
-                            : textColorDim.withOpacity(.3),
+                            ? foregroundColorDark
+                            : foregroundColorDark.withOpacity(.3),
                         size: 32,
                       ),
                     ),
@@ -78,7 +78,7 @@ class EditableContentTitle extends StatelessWidget {
                       },
                       child: const Icon(
                         Icons.add,
-                        color: textColorDim,
+                        color: foregroundColorDark,
                         size: 32,
                       ),
                     ),
@@ -87,7 +87,7 @@ class EditableContentTitle extends StatelessWidget {
                       onTap: close,
                       child: const Icon(
                         Icons.close,
-                        color: textColorDim,
+                        color: foregroundColorDark,
                         size: 32,
                       ),
                     ),
@@ -97,7 +97,7 @@ class EditableContentTitle extends StatelessWidget {
           ),
         ),
         const Divider(
-          color: textColorDim,
+          color: foregroundColorDark,
         )
       ],
     );
@@ -119,27 +119,27 @@ class EditableContentTitle extends StatelessWidget {
       ),
       items: [
         PopupMenuItem(
-            child: Text('Title'),
+            child: const Text('Title'),
             onTap: () {
               contentItemClick(ContentType.title);
             }),
         PopupMenuItem(
-            child: Text('Subtitle'),
+            child: const Text('Subtitle'),
             onTap: () {
               contentItemClick(ContentType.subtitle);
             }),
         PopupMenuItem(
-            child: Text('Image'),
+            child: const Text('Image'),
             onTap: () {
               contentItemClick(ContentType.image);
             }),
         PopupMenuItem(
-            child: Text('Text'),
+            child: const Text('Text'),
             onTap: () {
               contentItemClick(ContentType.text);
             }),
         PopupMenuItem(
-            child: Text('Code'),
+            child: const Text('Code'),
             onTap: () {
               contentItemClick(ContentType.code);
             }),

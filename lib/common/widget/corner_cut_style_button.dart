@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/common/colors.dart';
+import 'package:portfolio/theme/colors.dart';
+import 'package:portfolio/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
 
-class CornerCutStyleButton extends StatefulWidget {
+class CornerCutButton extends StatefulWidget {
   final String text;
   final VoidCallback? onTap;
+  final double? fontSize;
 
-  CornerCutStyleButton({
+  const CornerCutButton({
     Key? key,
     required this.text,
     this.onTap,
+    this.fontSize,
   }) : super(key: key);
 
   @override
-  State<CornerCutStyleButton> createState() => _CornerCutStyleButtonState();
+  State<CornerCutButton> createState() => _CornerCutButtonState();
 }
 
-class _CornerCutStyleButtonState extends State<CornerCutStyleButton> {
+class _CornerCutButtonState extends State<CornerCutButton> {
   Size? cardSize;
   Offset? cardPosition;
   bool hovered = false;
@@ -30,8 +33,7 @@ class _CornerCutStyleButtonState extends State<CornerCutStyleButton> {
   }
 
   getSizeAndPosition() {
-    RenderBox? _cardBox =
-        _cardKey.currentContext?.findRenderObject() as RenderBox;
+    RenderBox? _cardBox = _cardKey.currentContext?.findRenderObject() as RenderBox;
     cardSize = _cardBox.size;
     cardPosition = _cardBox.localToGlobal(Offset.zero);
     print(cardSize);
@@ -61,11 +63,11 @@ class _CornerCutStyleButtonState extends State<CornerCutStyleButton> {
                 // color: Colors.green,
                 border: Border(
                   bottom: BorderSide(
-                    color: textColorLite.withOpacity(.5),
+                    color: foregroundColor.withOpacity(.5),
                     width: hovered ? 1 : 3,
                   ),
                   right: BorderSide(
-                    color: textColorLite.withOpacity(.5),
+                    color: foregroundColor.withOpacity(.5),
                     width: hovered ? 1 : 3,
                   ),
                 ),
@@ -101,21 +103,17 @@ class _CornerCutStyleButtonState extends State<CornerCutStyleButton> {
             //
             TextButton(
               key: _cardKey,
-              onPressed: () {
-                print("Click Me!");
-                widget.onTap?.call();
-              },
+              onPressed: widget.onTap?.call,
               onHover: (hover) {
                 hovered = hover;
                 setState(() {});
               },
               style: ButtonStyle(
                 shadowColor: MaterialStateProperty.all(Colors.white),
-                backgroundColor: MaterialStateProperty.all(
-                    Colors.yellow[900]!.withOpacity(.05)),
+                backgroundColor: MaterialStateProperty.all(Colors.yellow[900]!.withOpacity(.05)),
                 shape: MaterialStateProperty.all(
                   const BeveledRectangleBorder(
-                    side: BorderSide(color: textColorDark),
+                    side: BorderSide(color: accentColor),
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(18.0),
                       // bottomRight: Radius.circular(18.0)
@@ -127,9 +125,9 @@ class _CornerCutStyleButtonState extends State<CornerCutStyleButton> {
                 padding: const EdgeInsets.all(18.0),
                 child: Text(
                   widget.text,
-                  style: const TextStyle(
-                    fontSize: 22,
-                    color: textColorDark,
+                  style: TextStyle(
+                    fontSize: widget.fontSize ?? fontSize_22,
+                    color: accentColor,
                     fontFamily: "IBMPlexMono",
                   ),
                 ),
