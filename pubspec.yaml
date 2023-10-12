@@ -38,23 +38,22 @@ dependencies:
   code_text_field: ^1.1.0
   highlight: ^0.7.0
   flutter_highlight: ^0.7.0
-  simple_animations: ^4.0.0
+  simple_animations: ^5.0.2
   supercharged: ^2.1.1
   image: ^4.0.12
   eva_icons_flutter: ^3.1.0
   collection: ^1.16.0
-  flutter_shaders: ^0.1.1
+  flutter_shaders: ^0.1.2
   matrix4_transform: ^2.0.1
   flutter_gallery_3d: ^1.1.1
-
   build_runner: 2.4.6
   flutter_gen_runner: 5.3.1
+  sa4_migration_kit: ^1.0.0
   # dart pub global activate flutter_gen
   # flutter packages pub run build_runner build
-  flutter_staggered_animations: ^1.1.1
-  flutter_improved_scrolling: ^0.0.3
-  responsive_builder: ^0.7.0
-
+#  flutter_staggered_animations: ^1.1.1
+#  flutter_improved_scrolling: ^0.0.3
+#  responsive_builder: ^0.7.0
 
 dev_dependencies:
   flutter_test:

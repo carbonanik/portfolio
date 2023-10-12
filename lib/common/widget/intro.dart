@@ -5,7 +5,7 @@ import 'package:portfolio/common/menu_content_page.dart';
 import 'package:portfolio/common/widget/step_text.dart';
 import 'package:portfolio/theme/colors.dart';
 import 'package:portfolio/theme/typography.dart';
-import 'package:simple_animations/timeline_tween/timeline_tween.dart';
+import 'package:sa4_migration_kit/sa4_migration_kit.dart';
 import 'package:supercharged/supercharged.dart';
 
 import 'corner_cut_style_button.dart';
@@ -123,8 +123,8 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
           child: MouseRegion(
             onEnter: (hovering) {
               widget.blobHoverEffect?.call(
-                const BlobHoverData(
-                  color: foregroundColor,
+                 BlobHoverData(
+                  color: appColors.foregroundColor,
                   size: 200,
                 ),
               );
@@ -140,9 +140,9 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
                 "Hi,",
                 style: titleTwoTextStyle.copyWith(
                   shadows: [
-                    const Shadow(
+                     Shadow(
                       blurRadius: 10,
-                      color: accentColor,
+                      color: appColors.accentColor,
                     ),
                   ],
                 ),
@@ -156,8 +156,8 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
           child: MouseRegion(
             onEnter: (hovering) {
               widget.blobHoverEffect?.call(
-                const BlobHoverData(
-                  color: accentColor,
+                 BlobHoverData(
+                  color: appColors.accentColor,
                   size: 400,
                 ),
               );
@@ -174,7 +174,7 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
                 shadows: [
                   Shadow(
                     blurRadius: 10,
-                    color: foregroundColor.withOpacity(.5),
+                    color: appColors.foregroundColor.withOpacity(.5),
                   ),
                 ],
                 fontFamily: ibmPlexMono,
@@ -185,7 +185,7 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
           ),
           reduceRightMargin: animation.value.get(AnimProps.titleReduceRightMargin),
           increaseLeftMargin: animation.value.get(AnimProps.titleIncreaseLeftMargin),
-          boxColor: foregroundColor,
+          boxColor: appColors.foregroundColor,
         ),
         _animatedAppear(
           child: SizedBox(
@@ -194,9 +194,9 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
               "a coder, breaker, fixer.",
               style: subtitleTextStyle.copyWith(
                 shadows: [
-                  const Shadow(
+                   Shadow(
                     blurRadius: 10,
-                    color: accentColor,
+                    color: appColors.accentColor,
                   ),
                 ],
               ),
@@ -209,7 +209,7 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
         _animatedAppear(
           child: SizedBox(
             width: size.width / 3 + 150,
-            child: const Text(
+            child:  Text(
               "I’m a software engineer specializing in building (and occasionally designing) "
               "exceptional digital experiences. Currently, I’m focused on building accessible, "
               "human-centered products.",
@@ -218,7 +218,7 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
           ),
           reduceRightMargin: animation.value.get(AnimProps.descriptionReduceRightMargin),
           increaseLeftMargin: animation.value.get(AnimProps.descriptionIncreaseLeftMargin),
-          boxColor: foregroundColorDark,
+          boxColor: appColors.foregroundColorDark,
         ),
         const SizedBox(height: 50),
         _animatedAppear(
@@ -226,18 +226,18 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
             width: 180,
             child: CornerCutButton(
               onTap: () {
-                if (controller.status == AnimationStatus.dismissed) {
-                  controller.forward();
-                } else if (controller.status == AnimationStatus.completed) {
-                  controller.reverse();
-                }
+                // if (controller.status == AnimationStatus.dismissed) {
+                //   controller.forward();
+                // } else if (controller.status == AnimationStatus.completed) {
+                //   controller.reverse();
+                // }
               },
               text: "Click Me!",
             ),
           ),
           reduceRightMargin: animation.value.get(AnimProps.buttonReduceRightMargin),
           increaseLeftMargin: animation.value.get(AnimProps.buttonIncreaseLeftMargin),
-          boxColor: foregroundColorDark,
+          boxColor: appColors.foregroundColorDark,
         ),
       ],
     );
@@ -248,7 +248,7 @@ Widget _animatedAppear({
   required Widget child,
   required reduceRightMargin,
   required increaseLeftMargin,
-  boxColor = accentColor,
+  Color? boxColor,
 }) {
   return Stack(
     children: [
@@ -262,7 +262,7 @@ Widget _animatedAppear({
             right: reduceRightMargin,
             left: increaseLeftMargin,
           ),
-          color: boxColor,
+          color: boxColor ?? appColors.accentColor,
         ),
       ),
     ],

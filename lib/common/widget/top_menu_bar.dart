@@ -29,34 +29,6 @@ class TopMenuBar extends StatelessWidget {
     ];
     return Stack(
       children: [
-        // ClipRRect(
-        //   child: BackdropFilter(
-        //     filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-        //     child: SizedBox(
-        //       height: 150,
-        //       width: MediaQuery.of(context).size.width,
-        //       // width: 100,
-        //     ),
-        //   ),
-        // ),
-        // Container(
-        //   height: 150,
-        //   width: MediaQuery.of(context).size.width,
-        //   decoration: BoxDecoration(
-        //     // borderRadius: BorderRadius.circular(30),
-        //     // border: Border.all(color: Colors.white.withOpacity(0.13)),
-        //     // color: Colors.white,
-        //     gradient: LinearGradient(
-        //         begin: Alignment.topCenter,
-        //         end: Alignment.bottomCenter,
-        //         colors: [
-        //           //begin color
-        //           backgroundColor.withOpacity(1),
-        //           //end color
-        //           backgroundColor.withOpacity(0.1),
-        //         ]),
-        //   ),
-        // ),
         Container(
           padding: const EdgeInsets.only(right: 35.0, top: 50, bottom: 50),
           child: Row(
@@ -179,7 +151,7 @@ class _MenuItemState extends State<MenuItem> {
                   ? EdgeInsets.zero
                   : EdgeInsets.only(right: widget.width),
               duration: 100.milliseconds,
-              color: accentColor,
+              color: appColors.accentColor,
             ),
           ),
           InkWell(
@@ -192,7 +164,7 @@ class _MenuItemState extends State<MenuItem> {
                   Text(
                     "0${widget.serial}.",
                     style: menuTextStyle.copyWith(
-                      color: isHovered || (widget.selected && firstAnimate) ? foregroundColor : accentColor,
+                      color: isHovered || (widget.selected && firstAnimate) ? appColors.foregroundColor : appColors.accentColor,
                     ),
                   ),
                   const SizedBox(width: 6),
@@ -212,7 +184,7 @@ class _MenuItemState extends State<MenuItem> {
                       const Spacer(),
                       Container(
                         height: 1,
-                        color: accentColor,
+                        color: appColors.accentColor,
                       ),
                     ],
                   ),

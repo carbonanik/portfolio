@@ -1,11 +1,15 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:portfolio/page/menu/about_page.dart';
+import 'package:portfolio/page/menu/contact_page.dart';
 import 'package:portfolio/page/menu/work_page.dart';
 import 'package:portfolio/page/on_bording_page.dart';
 import 'package:portfolio/theme/colors.dart';
 import 'package:portfolio/theme/typography.dart';
 
 void main() {
+  colorIndex = Random().nextInt(appColorsList.length);
   runApp(const MyApp());
 }
 
@@ -18,15 +22,15 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.yellow,
-        scaffoldBackgroundColor: backgroundColor,
+        primarySwatch: appColors.primarySwatch,
+        scaffoldBackgroundColor: appColors.backgroundColor,
         textTheme: Theme.of(context).textTheme.apply(
-              bodyColor: foregroundColor,
-              displayColor: foregroundColor,
+              bodyColor: appColors.foregroundColor,
+              displayColor: appColors.foregroundColor,
               fontFamily: "Cabin",
             ),
       ),
-      home: OnBoardPage(),
+      home: const OnBoardPage(),
     );
   }
 }

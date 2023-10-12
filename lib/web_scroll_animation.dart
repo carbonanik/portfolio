@@ -54,12 +54,12 @@ class WebScrollAnimation extends StatelessWidget {
               Container(
                 height: screenSize.height,
                 width: screenSize.width,
-                color: foregroundColor,
+                color: appColors.foregroundColor,
                 child: Stack(
                   children: [
                     Text(
                       "Section Three",
-                      style: titleOneTextStyle.copyWith(color: backgroundColor),
+                      style: titleOneTextStyle.copyWith(color: appColors.backgroundColor),
                     ),
                     Positioned(right: 50, child: Image.asset(Assets.image.mockAppUi2.path))
                   ],

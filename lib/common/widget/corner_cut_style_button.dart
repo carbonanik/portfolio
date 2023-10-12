@@ -55,19 +55,15 @@ class _CornerCutButtonState extends State<CornerCutButton> {
           children: [
             AnimatedContainer(
               duration: 50.milliseconds,
-              margin: EdgeInsets.only(
-                top: hovered ? 0 : 10,
-                left: hovered ? 0 : 10,
-              ),
               decoration: BoxDecoration(
                 // color: Colors.green,
                 border: Border(
                   bottom: BorderSide(
-                    color: foregroundColor.withOpacity(.5),
+                    color: appColors.foregroundColor.withOpacity(.5),
                     width: hovered ? 1 : 3,
                   ),
                   right: BorderSide(
-                    color: foregroundColor.withOpacity(.5),
+                    color: appColors.foregroundColor.withOpacity(.5),
                     width: hovered ? 1 : 3,
                   ),
                 ),
@@ -75,60 +71,54 @@ class _CornerCutButtonState extends State<CornerCutButton> {
               height: cardSize?.height,
               width: cardSize?.width,
             ),
-            // Positioned.fill(
-            //   child: Transform(
-            //     transform: Matrix4.translationValues(10, 10, 0),
-            //     child: AnimatedContainer(
-            //       duration: 50.milliseconds,
-            //       margin: EdgeInsets.only(
-            //           right: widget.hover ? 10 : 0,
-            //           bottom: widget.hover ? 10 : 0,
-            //           top: 0,
-            //           left: 0),
-            //       decoration: BoxDecoration(
-            //         border: Border(
-            //           top: BorderSide(width: 0),
-            //           left: BorderSide(width: 0),
-            //           right: BorderSide(
-            //               color: textColorDark.withOpacity(.5),
-            //               width: widget.hover ? 0 : 10),
-            //           bottom: BorderSide(
-            //               color: textColorDark.withOpacity(.5),
-            //               width: widget.hover ? 0 : 10),
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            //
-            TextButton(
-              key: _cardKey,
-              onPressed: widget.onTap?.call,
-              onHover: (hover) {
-                hovered = hover;
-                setState(() {});
-              },
-              style: ButtonStyle(
-                shadowColor: MaterialStateProperty.all(Colors.white),
-                backgroundColor: MaterialStateProperty.all(Colors.yellow[900]!.withOpacity(.05)),
-                shape: MaterialStateProperty.all(
-                  const BeveledRectangleBorder(
-                    side: BorderSide(color: accentColor),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(18.0),
-                      // bottomRight: Radius.circular(18.0)
+            AnimatedContainer(
+              duration: 50.milliseconds,
+              transform: Matrix4.translationValues(
+                hovered ? 0 : -10,
+                hovered ? 0 : -10,
+                0,
+              ),
+              child: Listener(
+                onPointerDown: (_) {
+                  setState(() {
+                    hovered = true;
+                  });
+                },
+                onPointerUp: (_) {
+                  setState(() {
+                    hovered = false;
+                  });
+                },
+                child: TextButton(
+                  key: _cardKey,
+                  onPressed:
+                    widget.onTap?.call,
+                  onHover: (hover) {
+                    // hovered = hover;
+                    // setState(() {});
+                  },
+                  style: ButtonStyle(
+                    shadowColor: MaterialStateProperty.all(Colors.white),
+                    backgroundColor: MaterialStateProperty.all(Colors.yellow[900]!.withOpacity(.05)),
+                    shape: MaterialStateProperty.all(
+                       BeveledRectangleBorder(
+                        side: BorderSide(color: appColors.accentColor),
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(18.0),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Text(
-                  widget.text,
-                  style: TextStyle(
-                    fontSize: widget.fontSize ?? fontSize_22,
-                    color: accentColor,
-                    fontFamily: "IBMPlexMono",
+                  child: Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: Text(
+                      widget.text,
+                      style: TextStyle(
+                        fontSize: widget.fontSize ?? fontSize_22,
+                        color: appColors.accentColor,
+                        fontFamily: "IBMPlexMono",
+                      ),
+                    ),
                   ),
                 ),
               ),

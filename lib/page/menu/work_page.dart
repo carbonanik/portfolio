@@ -1,13 +1,12 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:matrix4_transform/matrix4_transform.dart';
 import 'package:portfolio/common/menu_content_page.dart';
-import 'package:portfolio/common/widget/corner_cut_style_button.dart';
-import 'package:portfolio/gen/assets.gen.dart';
+import 'package:portfolio/common/widget/project_item.dart';
 import 'package:portfolio/theme/colors.dart';
-import 'package:portfolio/theme/typography.dart';
-import 'package:simple_animations/simple_animations.dart';
+import 'package:sa4_migration_kit/timeline_tween/timeline_tween.dart';
 import 'package:supercharged/supercharged.dart';
 
 enum _AnimProps {
@@ -20,6 +19,11 @@ enum _AnimProps {
   rightScaleAnimation,
   // button button
   buttonTransition,
+
+  // line appear
+  lineTransition,
+  // branch appear
+  branchTransition,
 }
 
 class WorkPage extends StatefulWidget {
@@ -30,15 +34,26 @@ class WorkPage extends StatefulWidget {
 }
 
 class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
-  late AnimationController controller;
+  late AnimationController _controller;
+  late AnimationController _nextButtonController;
+
   late Animation<TimelineValue<_AnimProps>> animation;
   bool isLoading = false;
+  final borderColor = appColors.accentColor;//const Color(0xFF382A04);
+  final lineColor = appColors.accentColor;//const Color(0xFF382A04);///backgroundTextColor;
+  final lineWidth = 1.0;
+  BlobHoverData blobHoverData = const BlobHoverData.initial();
 
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(duration: 1000.milliseconds, vsync: this);
+    _controller = AnimationController(duration: 1000.milliseconds, vsync: this);
+    _nextButtonController = AnimationController(duration: 10.seconds, vsync: this);
+
+    _nextButtonController.repeat();
+
     animation = TimelineTween<_AnimProps>()
+
         // left side
         .addScene(begin: 0.milliseconds, end: 100.milliseconds, curve: Curves.ease)
         .animate(_AnimProps.leftOffsetAnimation, tween: Tween(begin: const Offset(-200, -100), end: Offset.zero))
@@ -54,28 +69,56 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
         // Button
         .addSubsequentScene(delay: 50.milliseconds, duration: 100.milliseconds, curve: Curves.ease)
         .animate(_AnimProps.buttonTransition, tween: Tween(begin: const Offset(0, 200), end: Offset.zero))
+
+        //line transition
+        .addSubsequentScene(delay: 50.milliseconds, duration: 200.milliseconds, curve: Curves.ease)
+        .animate(_AnimProps.lineTransition, tween: Tween(begin: 0, end: 1))
+
+        // branch
+        .addSubsequentScene(delay: 50.milliseconds, duration: 200.milliseconds, curve: Curves.ease)
+        .animate(_AnimProps.branchTransition, tween: Tween(begin: 0, end: 1))
+
         //
         .parent
-        .animatedBy(controller);
+        .animatedBy(_controller);
 
     Timer(700.milliseconds, () {
-      controller.forward();
+      _controller.forward();
     });
   }
 
   @override
   void dispose() {
     super.dispose();
-    controller.dispose();
+    _controller.dispose();
+    _nextButtonController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    final isSingleItem = width < 1600;
+    final branchWidth = max(0.0, (width - 440 * 2) / 6);
+
+    /// 440 => item width
+    /// 2 => 2 item
+    /// 6 => 1/2 of 1 of 3 space around the 2 items
+
     return MenuContentPage(
+      blobHoverData: blobHoverData,
+      showClock: false,
       menuItem: 'Work',
       isLoading: isLoading,
       children: [
-        buildAnimatedProjectList(),
+        Positioned(
+          bottom: 80 + 70,
+          child: buildMiddleLine(
+            height - 300,
+            branchWidth,
+          ),
+        ),
+        buildAnimatedProjectList(isSingleItem),
         Positioned(
           bottom: 80,
           child: buildAnimatedNextButton(),
@@ -84,44 +127,150 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
     );
   }
 
-  AnimatedBuilder buildAnimatedNextButton() {
+  Widget buildAnimatedNextButton() {
     return AnimatedBuilder(
-        animation: controller,
+        animation: _controller,
         builder: (context, child) {
           return Container(
+            height: 70,
+            width: 70,
             transform: Matrix4Transform().translateOffset(animation.value.get(_AnimProps.buttonTransition)).matrix4,
-            child: RawMaterialButton(
-              onPressed: () {
-                controller.reverse();
-                Timer(1000.milliseconds, () {
-                  isLoading = true;
-                  setState(() {});
-                  Timer(1000.milliseconds, () {
-                    isLoading = false;
-                    setState(() {});
-                    Timer(500.milliseconds, () {
-                      controller.forward();
-                    });
-                  });
-                });
-              },
-              elevation: 2.0,
-              fillColor: accentColor.withOpacity(.1),
-              padding: const EdgeInsets.all(18.0),
-              shape: const CircleBorder(side: BorderSide(color: accentColor, width: 2)),
-              child: const Icon(
-                Icons.keyboard_double_arrow_down_rounded,
-                size: 35.0,
-                color: accentColor,
-              ),
+            child: Stack(
+              children: [
+                AnimatedBuilder(
+                    animation: _nextButtonController,
+                    builder: (context, child) {
+                      return Transform.rotate(
+                        angle: _nextButtonController.value * 2.0 * pi,
+                        child: CustomPaint(
+                          painter: DottedCirclePainter(),
+                          child: Container(),
+                        ),
+                      );
+                    }),
+                MouseRegion(
+                  onEnter: (_) {
+                    _nextButtonController.duration = 2.seconds;
+                    _nextButtonController.repeat();
+                  },
+                  onExit: (_){
+                    _nextButtonController.duration = 10.seconds;
+                    _nextButtonController.repeat();
+                  },
+                  child: RawMaterialButton(
+                    onPressed: () {
+                      _controller.reverse();
+                      Timer(1000.milliseconds, () {
+                        // isLoading = true;
+                        // setState(() {});
+                        Timer(1000.milliseconds, () {
+                          // isLoading = false;
+                          // setState(() {});
+                          Timer(500.milliseconds, () {
+                            _controller.forward();
+                          });
+                        });
+                      });
+                    },
+                    elevation: 2.0,
+                    fillColor: appColors.accentColor.withOpacity(.1),
+                    padding: const EdgeInsets.all(18.0),
+                    shape: const CircleBorder(),
+                    child:  Icon(
+                      Icons.keyboard_double_arrow_down_rounded,
+                      size: 35.0,
+                      color: appColors.accentColor,
+                    ),
+                  ),
+                ),
+              ],
             ),
           );
         });
   }
 
-  AnimatedBuilder buildAnimatedProjectList() {
+  Widget buildMiddleLine(
+    double lineHeight,
+    double branchWidth,
+  ) {
     return AnimatedBuilder(
-      animation: controller,
+        animation: _controller,
+        builder: (context, child) {
+          return Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Column(
+                children: [
+                  Container(
+                    width: branchWidth * animation.value.get(_AnimProps.branchTransition),
+                    height: lineWidth,
+                    color: lineColor,
+                  ),
+                  const SizedBox(height: 505),
+                ],
+              ),
+              Container(
+                width: lineWidth ,
+                height: lineHeight * animation.value.get(_AnimProps.lineTransition),
+                color: lineColor,
+              ),
+              Column(
+                children: [
+                  Container(
+                    width: branchWidth * animation.value.get(_AnimProps.branchTransition),
+                    height: lineWidth,
+                    color: lineColor,
+                  ),
+                  const SizedBox(height: 390),
+                ],
+              ),
+            ],
+          );
+        });
+  }
+
+  Widget buildAnimatedProjectItem(bool leftItem) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Opacity(
+              opacity: animation.value.get(
+                leftItem ? _AnimProps.leftFadeAnimation : _AnimProps.rightFadeAnimation,
+              ),
+              child: Container(
+                // padding:
+                //     leftItem ? const EdgeInsets.only(bottom: 120, right: 60) : const EdgeInsets.only(top: 60, left: 20),
+                transform: Matrix4Transform()
+                    .scale(
+                      animation.value.get(
+                        leftItem ? _AnimProps.leftScaleAnimation : _AnimProps.rightScaleAnimation,
+                      ),
+                    )
+                    .translateOffset(
+                      animation.value.get(
+                        leftItem ? _AnimProps.leftOffsetAnimation : _AnimProps.rightOffsetAnimation,
+                      ),
+                    )
+                    .matrix4,
+                child: ProjectItem(
+                  leftItem: leftItem,
+                  borderColor: borderColor,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget buildAnimatedProjectList(bool isSingleItem) {
+    return AnimatedBuilder(
+      animation: _controller,
       builder: (context, child) {
         return Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -130,132 +279,84 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
             Opacity(
               opacity: animation.value.get(_AnimProps.leftFadeAnimation),
               child: Container(
-                padding: const EdgeInsets.only(bottom: 120, right: 60),
+                padding: const EdgeInsets.only(
+                  bottom: 120,
+                  // right: 60,
+                ),
                 transform: Matrix4Transform()
                     .scale(animation.value.get(_AnimProps.leftScaleAnimation))
                     .translateOffset(animation.value.get(_AnimProps.leftOffsetAnimation))
                     .matrix4,
-                child: buildProjectItem(mirror: true),
+                child: ProjectItem(
+                  borderColor: borderColor,
+                ),
               ),
             ),
             Opacity(
               opacity: animation.value.get(_AnimProps.rightFadeAnimation),
               child: Container(
-                  padding: const EdgeInsets.only(top: 60, left: 20),
-                  transform: Matrix4Transform()
-                      .scale(animation.value.get(_AnimProps.rightScaleAnimation))
-                      .translateOffset(animation.value.get(_AnimProps.rightOffsetAnimation))
-                      .matrix4,
-                  child: buildProjectItem(mirror: false)),
+                padding: const EdgeInsets.only(
+                  top: 120,
+                  // left: 20,
+                ),
+                transform: Matrix4Transform()
+                    .scale(animation.value.get(_AnimProps.rightScaleAnimation))
+                    .translateOffset(animation.value.get(_AnimProps.rightOffsetAnimation))
+                    .matrix4,
+                child: ProjectItem(
+                    borderColor: borderColor,
+                    leftItem: false,
+                    blobHoverEffect: (data) {
+                      setState(() {
+                        blobHoverData = data;
+                      });
+                    }),
+              ),
             ),
           ],
         );
       },
     );
   }
+}
 
-  Widget buildProjectItem({required bool mirror}) {
-    return Align(
-      alignment: Alignment.center,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          mirror ? projectDetail(mirror: mirror) : projectImage(mirror: mirror),
-          const SizedBox(width: 80),
-          mirror ? projectImage(mirror: mirror) : projectDetail(mirror: mirror),
-        ],
-      ),
-    );
+class DottedCirclePainter extends CustomPainter {
+  DottedCirclePainter({
+    this.length = 24,
+    this.height,
+    this.width,
+    this.color,
+    this.strokeWidth = 2,
+  });
+
+  final int length;
+  final double? height;
+  final double? width;
+  final Color? color;
+  final int strokeWidth;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final dashLineBrush = Paint()
+      ..color = color ?? appColors.accentColor
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = 2;
+
+    final dashLength = pi * 2 / length;
+
+    for (int index = 0; index < length; index++) {
+      if (index % 2 == 0) {
+        final rect = Rect.fromLTRB(0, 0, width ?? size.width, height ?? size.height);
+        final startAngle = dashLength * index;
+        final sweepAngle = dashLength;
+        canvas.drawArc(rect, startAngle, sweepAngle, false, dashLineBrush);
+      }
+    }
   }
 
-  Widget projectImage({required bool mirror}) {
-    return Image.asset(
-      Assets.image.mockAppUi2.path,
-      scale: 1.8,
-    );
-
-    Padding(
-      padding: mirror ? const EdgeInsets.only(right: 100) : const EdgeInsets.only(left: 100),
-      child: Stack(
-        clipBehavior: Clip.none,
-        alignment: mirror ? AlignmentDirectional.centerEnd : AlignmentDirectional.centerStart,
-        children: [
-          Positioned(
-            right: mirror ? null : 90,
-            left: mirror ? 90 : null,
-            child: Image.asset(
-              Assets.image.mockAppUi2.path,
-              scale: 2.4,
-              color: Colors.black.withOpacity(.6),
-              colorBlendMode: BlendMode.darken,
-            ),
-          ),
-          Positioned(
-            right: mirror ? null : 50,
-            left: mirror ? 50 : null,
-            child: Image.asset(
-              Assets.image.mockAppUi2.path,
-              scale: 2.1,
-              color: Colors.black.withOpacity(.3),
-              colorBlendMode: BlendMode.darken,
-            ),
-          ),
-          Positioned(
-            right: mirror ? null : 0,
-            left: mirror ? 0 : null,
-            child: Image.asset(
-              Assets.image.mockAppUi2.path,
-              scale: 1.8,
-            ),
-          ),
-          Positioned(
-              child: Container(
-            width: 200,
-          ))
-        ],
-      ),
-    );
-  }
-
-  Widget projectDetail({required bool mirror}) {
-    return SizedBox(
-      height: 400,
-      width: 400,
-      child: Column(
-        crossAxisAlignment: mirror ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-        children: [
-          const Icon(
-            Icons.folder,
-            color: foregroundColorDark,
-            size: 80,
-          ),
-          const SizedBox(height: 30),
-          Row(
-            mainAxisAlignment: mirror ? MainAxisAlignment.end : MainAxisAlignment.start,
-            children: [
-
-              Text(
-                "The Real project",
-                style: titleOneTextStyle.copyWith(fontSize: 46),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Text(
-            "This is the real project i have made, you can believe me.",
-            style: paragraphTextStyle.copyWith(fontSize: fontSize_18),
-            textAlign: mirror ? TextAlign.right : TextAlign.left,
-          ),
-          const SizedBox(height: 40),
-          CornerCutButton(
-            text: "Explore",
-            onTap: () {},
-            fontSize: 18,
-          )
-        ],
-      ),
-    );
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
   }
 }

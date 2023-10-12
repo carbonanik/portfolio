@@ -54,7 +54,7 @@ class _CodeEditorState extends State<CodeEditor> {
   Widget build(BuildContext context) {
     late Color background;
     if (widget.readOnly == true){
-      background = backgroundColor.withOpacity(0.8);
+      background = appColors.backgroundColor.withOpacity(0.8);
     } else {
       background = Colors.transparent;
     }

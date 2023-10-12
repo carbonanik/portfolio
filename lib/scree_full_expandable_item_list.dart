@@ -67,7 +67,7 @@ class _ScreenFullState extends State<ScreenFull> {
     }
 
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: appColors.backgroundColor,
       body: Column(
           children: List.generate(menuItems, (index) {
         return item(
@@ -103,22 +103,22 @@ class _ScreenFullState extends State<ScreenFull> {
                     children: [
                       Text(
                         title,
-                        style: const TextStyle(
-                          color: accentColor,
+                        style:  TextStyle(
+                          color: appColors.accentColor,
                           fontSize: 100,
                         ),
                       ),
                       Text(
                         title,
-                        style: const TextStyle(
-                          color: accentColor,
+                        style:  TextStyle(
+                          color: appColors.accentColor,
                           fontSize: 100,
                         ),
                       ),
                       Text(
                         title,
-                        style: const TextStyle(
-                          color: accentColor,
+                        style:  TextStyle(
+                          color: appColors.accentColor,
                           fontSize: 100,
                         ),
                       ),
@@ -128,8 +128,8 @@ class _ScreenFullState extends State<ScreenFull> {
               : Center(
                   child: Text(
                     title,
-                    style: const TextStyle(
-                      color: accentColor,
+                    style:  TextStyle(
+                      color: appColors.accentColor,
                       fontSize: 100,
                     ),
                   ),

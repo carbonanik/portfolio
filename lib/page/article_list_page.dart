@@ -8,10 +8,10 @@ class ArticleListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  Scaffold(
       body: Stack(
         children: [
-          TextBackground(),
+          const TextBackground(),
           SingleChildScrollView(
             child: Center(
               child: Column(
@@ -21,15 +21,15 @@ class ArticleListPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
+                        const SizedBox(
                             height: 200,
                             child:
                                 Image(image: AssetImage("image/banner.png"))),
-                        SizedBox(width: 20,),
+                        const SizedBox(width: 20,),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               "Title",
                               style:  TextStyle(
                                 fontFamily: "Cabin",
@@ -39,7 +39,7 @@ class ArticleListPage extends StatelessWidget {
 
                               ),
                             ),
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
                             SizedBox(
                               width: 1000,
                               child: Text(
@@ -49,13 +49,13 @@ class ArticleListPage extends StatelessWidget {
                                 maxLines: 4,
                                 style:  TextStyle(
                                   fontFamily: "Cabin",
-                                      fontSize: 22, fontWeight: FontWeight.w400, color: foregroundColorDark
+                                      fontSize: 22, fontWeight: FontWeight.w400, color: appColors.foregroundColorDark
                                     // height: 2
                                   ),
 
                               ),
                             ),
-                            SizedBox(height: 15,),
+                            const SizedBox(height: 15,),
                             Text(
                               "Title",
                               style:  TextStyle(
@@ -63,7 +63,7 @@ class ArticleListPage extends StatelessWidget {
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
                                     height: 1,
-                                    color: accentColor),
+                                    color: appColors.accentColor),
                               ),
 
                           ],

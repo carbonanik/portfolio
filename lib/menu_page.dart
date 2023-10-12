@@ -8,7 +8,7 @@ class MenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: appColors.backgroundColor,
         body: Column(
           children: [
             menuItem("Home", false, (v) {}),
@@ -25,8 +25,8 @@ class MenuPage extends StatelessWidget {
       child: Center(
         child: Text(
           title,
-          style: const TextStyle(
-            color: accentColor,
+          style:  TextStyle(
+            color: appColors.accentColor,
             fontSize: 100,
           ),
         ),

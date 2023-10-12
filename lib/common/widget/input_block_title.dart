@@ -38,8 +38,8 @@ class EditableContentTitle extends StatelessWidget {
                       child: Icon(
                         Icons.arrow_upward,
                         color: goUp != null
-                            ? foregroundColorDark
-                            : foregroundColorDark.withOpacity(.3),
+                            ? appColors.foregroundColorDark
+                            : appColors.foregroundColorDark.withOpacity(.3),
                         size: 32,
                       ),
                     ),
@@ -52,8 +52,8 @@ class EditableContentTitle extends StatelessWidget {
                       child: Icon(
                         Icons.arrow_downward,
                         color: goDown != null
-                            ? foregroundColorDark
-                            : foregroundColorDark.withOpacity(.3),
+                            ? appColors.foregroundColorDark
+                            : appColors.foregroundColorDark.withOpacity(.3),
                         size: 32,
                       ),
                     ),
@@ -76,18 +76,18 @@ class EditableContentTitle extends StatelessWidget {
                       onTap: () {
                         showFloatingMenu(context, contentItemClick);
                       },
-                      child: const Icon(
+                      child:  Icon(
                         Icons.add,
-                        color: foregroundColorDark,
+                        color: appColors.foregroundColorDark,
                         size: 32,
                       ),
                     ),
                     const SizedBox(width: 8),
                     GestureDetector(
                       onTap: close,
-                      child: const Icon(
+                      child:  Icon(
                         Icons.close,
-                        color: foregroundColorDark,
+                        color: appColors.foregroundColorDark,
                         size: 32,
                       ),
                     ),
@@ -96,8 +96,8 @@ class EditableContentTitle extends StatelessWidget {
             ],
           ),
         ),
-        const Divider(
-          color: foregroundColorDark,
+        Divider(
+          color: appColors.foregroundColorDark,
         )
       ],
     );
@@ -110,7 +110,7 @@ class EditableContentTitle extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     showMenu(
       context: context,
-      color: backgroundColor,
+      color: appColors.backgroundColor,
       position: RelativeRect.fromLTRB(
         offset.dx + size.width - 400,
         offset.dy,

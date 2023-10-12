@@ -1,12 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:portfolio/common/widget/text_background.dart';
 import 'package:portfolio/page/menu/about_page.dart';
+import 'package:portfolio/theme/colors.dart';
 import 'package:portfolio/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
-import 'package:portfolio/common/widget/text_background.dart';
-import 'package:portfolio/theme/colors.dart';
 
 class OnBoardPage extends StatefulWidget {
   const OnBoardPage({Key? key}) : super(key: key);
@@ -20,22 +19,22 @@ class _OnBoardPageState extends State<OnBoardPage> {
   void initState() {
     super.initState();
     Timer(2.seconds, () {
-      // Navigator.pushReplacement(
-      //   context,
-      //   PageRouteBuilder(
-      //       pageBuilder: (context, animation, secondaryAnimation) => const AboutPage(),
-      //       transitionDuration: 500.milliseconds,
-      //       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      //         const curve = Curves.ease;
-      //
-      //         var tween = Tween(begin: 0.0, end: 1.0).chain(CurveTween(curve: curve));
-      //
-      //         return FadeTransition(
-      //           opacity: animation.drive(tween),
-      //           child: child,
-      //         );
-      //       }),
-      // );
+      Navigator.pushReplacement(
+        context,
+        PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) => const AboutPage(),
+            transitionDuration: 500.milliseconds,
+            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+              const curve = Curves.ease;
+
+              var tween = Tween(begin: 0.0, end: 1.0).chain(CurveTween(curve: curve));
+
+              return FadeTransition(
+                opacity: animation.drive(tween),
+                child: child,
+              );
+            }),
+      );
     });
   }
 
@@ -49,8 +48,8 @@ class _OnBoardPageState extends State<OnBoardPage> {
           Center(
             child: TweenAnimationBuilder(
               tween: ColorTween(
-                begin: backgroundColor,
-                end: accentColor,
+                begin: appColors.backgroundColor,
+                end: appColors.accentColor,
               ),
               duration: 1.seconds,
               builder: (BuildContext context, Color? color, __) {
@@ -136,8 +135,8 @@ class _RowOfBoxState extends State<RowOfBox> {
               child: Center(
                 child: AnimatedContainer(
                   duration: 400.milliseconds,
-                  color: accentColor,
-                  height: minZero(widget.rowBoxCount - widget.boxReduce) <= index  ? 0 : widget.boxHeight.toDouble(),
+                  color: appColors.accentColor,
+                  height: minZero(widget.rowBoxCount - widget.boxReduce) <= index ? 0 : widget.boxHeight.toDouble(),
                   width: minZero(widget.rowBoxCount - widget.boxReduce) <= index ? 0 : widget.boxWidth.toDouble(),
                 ),
               ),

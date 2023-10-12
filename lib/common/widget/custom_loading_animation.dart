@@ -54,7 +54,7 @@ class _CustomLoadingAnimationState extends State<CustomLoadingAnimation> with Ti
                         0,
                       ),
                       width: 50,
-                      color: index % 2 == 0 ? backgroundColor : accentColor,
+                      color: index % 2 == 0 ? appColors.backgroundColor : appColors.accentColor,
                     ),
                   ),
                 ).toList(),

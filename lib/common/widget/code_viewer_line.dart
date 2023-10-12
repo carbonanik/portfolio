@@ -16,7 +16,7 @@ class CodeViewerLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: lineNumber % 2 == 0 ? backgroundColor.withOpacity(.7) : Colors.grey.withOpacity(.1),
+      color: lineNumber % 2 == 0 ? appColors.backgroundColor.withOpacity(.7) : Colors.grey.withOpacity(.1),
       child: Row(
         children: [
           LineNumber(number: lineNumber, fontSize: fontSize),
@@ -49,7 +49,7 @@ class LineNumber extends StatelessWidget {
         bottom: 8,
         right: 8,
       ),
-      color: backgroundColor,
+      color: appColors.backgroundColor,
       width: 35 + 16,
       child: Text(
         number.toString(),

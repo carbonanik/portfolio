@@ -10,26 +10,26 @@ const bigTitleTwo = TextStyle(
   height: 1,
 );
 
-const subtitleStyle = TextStyle(
+final subtitleStyle = TextStyle(
     fontFamily: "Cabin",
     fontSize: 18,
     fontWeight: FontWeight.w400,
     height: 1,
-    color: accentColor);
+    color: appColors.accentColor);
 
-const basicStyle = TextStyle(
+final basicStyle = TextStyle(
   fontFamily: "Cabin",
   fontSize: 22,
   fontWeight: FontWeight.w400,
-  color: foregroundColorDark,
+  color: appColors.foregroundColorDark,
   // height: 2
 );
 
 final inputUnderlineStyle = InputDecoration(
   enabledBorder: UnderlineInputBorder(
-    borderSide: BorderSide(color: accentColor.withOpacity(.05)),
+    borderSide: BorderSide(color: appColors.accentColor.withOpacity(.05)),
   ),
-  focusedBorder: const UnderlineInputBorder(
-    borderSide: BorderSide(color: accentColor),
+  focusedBorder:  UnderlineInputBorder(
+    borderSide: BorderSide(color: appColors.accentColor),
   ),
 );

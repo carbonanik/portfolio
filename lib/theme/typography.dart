@@ -18,51 +18,51 @@ const fontWeight_800 = FontWeight.w800;
 const fontWeight_600 = FontWeight.w600;
 const fontWeight_400 = FontWeight.w400;
 
-const titleOneTextStyle = TextStyle(
+final titleOneTextStyle = TextStyle(
   fontFamily: cabin,
   fontSize: fontSize_100,
   height: 1,
   fontWeight: fontWeight_800,
-  color: foregroundColor,
+  color: appColors.foregroundColor,
 );
 
-const titleTwoTextStyle = TextStyle(
+final titleTwoTextStyle = TextStyle(
   fontFamily: ibmPlexMono,
   fontSize: fontSize_26,
   height: 1,
   fontWeight: fontWeight_400,
-  color: accentColor,
+  color: appColors.accentColor,
 );
 
-const subtitleTextStyle = TextStyle(
+final subtitleTextStyle = TextStyle(
   fontFamily: ibmPlexMono,
   fontSize: fontSize_18,
   height: 1,
   fontWeight: fontWeight_400,
-  color: accentColor,
+  color: appColors.accentColor,
 );
 
-const paragraphTextStyle = TextStyle(
+final paragraphTextStyle = TextStyle(
   fontFamily: cabin,
   fontSize: fontSize_22,
   fontWeight: fontWeight_400,
-  color: foregroundColorDark,
+  color: appColors.foregroundColorDark,
   letterSpacing: 1.2,
   wordSpacing: 1.2,
   height: 1.3,
 );
 
-const menuTextStyle = TextStyle(
+final menuTextStyle = TextStyle(
   fontFamily: ibmPlexMono,
   fontSize: fontSize_22,
   fontWeight: fontWeight_600,
-  color: foregroundColor,
+  color: appColors.foregroundColor,
 );
 
-const backgroundTextStyle = TextStyle(
+final backgroundTextStyle = TextStyle(
   fontFamily: cabin,
   fontSize: fontSize_200,
   fontWeight: fontWeight_400,
-  color: backgroundTextColor,
+  color: appColors.backgroundColorLite.withOpacity(.3),
   height: .5,
 );

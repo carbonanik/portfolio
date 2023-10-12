@@ -6,10 +6,17 @@ class ContactPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isLoading = false;
     return const MenuContentPage(
+      showClock: false,
       menuItem: "Contact",
-      children: [],
+      children: [
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [],
+          ),
+        )
+      ],
     );
   }
 }

@@ -23,8 +23,8 @@ class _ExperiencePageState extends State<ExperiencePage> {
           child: MouseRegion(
             onEnter: (hovering) {
               setState((){
-                blobHoverData = const BlobHoverData(
-                  color: foregroundColor,
+                blobHoverData =  BlobHoverData(
+                  color: appColors.foregroundColor,
                   size: 400,
                 );
               });
@@ -40,11 +40,11 @@ class _ExperiencePageState extends State<ExperiencePage> {
                 shadows: [
                   Shadow(
                     blurRadius: 20,
-                    color: foregroundColor.withOpacity(.7),
+                    color: appColors.foregroundColor.withOpacity(.7),
                   ),
                   Shadow(
                     blurRadius: 30,
-                    color: backgroundTextColor.withOpacity(.2),
+                    color: appColors.backgroundColorLite.withOpacity(.2),
                   )
                 ],
               ),

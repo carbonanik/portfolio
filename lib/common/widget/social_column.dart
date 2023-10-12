@@ -41,7 +41,7 @@ class SocialColumn extends StatelessWidget {
                 height: size.height / 1.2,
                 width: 30,
                 padding: const EdgeInsets.only(bottom: 10),
-                color: accentColor.withOpacity(.8),
+                color: appColors.accentColor.withOpacity(.8),
               ),
             ],
           ),
@@ -66,22 +66,6 @@ class SocialColumn extends StatelessWidget {
             ),
           ),
         ),
-        // Positioned(
-        //   right: 0,
-        //   child: RotatedBox(
-        //     quarterTurns: -1,
-        //     child: Padding(
-        //       padding: EdgeInsets.only(left: 8, top: 8, bottom: 8),
-        //       child: Text(
-        //         "Hi",
-        //         style: const TextStyle(
-        //             fontFamily: "IBMPlexMono", fontSize: 22, fontWeight: FontWeight.w600, color: Colors.blue
-        //           // height: 2
-        //         ),
-        //       ),
-        //     ),
-        //   ),
-        // ),
       ],
     );
   }
@@ -100,17 +84,14 @@ class _VerticalSocialItemState extends State<VerticalSocialItem> with TickerProv
   bool hovered = false;
 
   late final AnimationController _controller = AnimationController(
-    duration: 200.milliseconds,
+    duration: 80.milliseconds,
     vsync: this,
   );
   late final Animation<Offset> _offsetAnimation = Tween<Offset>(
     begin: Offset.zero,
-    end: const Offset(1.5, 0.0),
+    end: const Offset(-1.4, 0.0),
   ).animate(
-    CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeInOut,
-    ),
+    _controller,
   );
 
   @override
@@ -134,10 +115,10 @@ class _VerticalSocialItemState extends State<VerticalSocialItem> with TickerProv
                 Transform.scale(
                   scale: 2,
                   child: Container(
-                    transform: Matrix4.translationValues(-30, 0, 0),
+                    transform: Matrix4.translationValues(30, 0, 0),
                     child: Icon(
                       widget.item.icon,
-                      color: foregroundColor,
+                      color: appColors.foregroundColor,
                     ),
                   ),
                 ),
@@ -152,7 +133,7 @@ class _VerticalSocialItemState extends State<VerticalSocialItem> with TickerProv
                     ),
                     child: Text(
                       widget.item.shortName,
-                      style: menuTextStyle.copyWith(color: backgroundColor),
+                      style: menuTextStyle.copyWith(color: appColors.backgroundColor),
                     ),
                   ),
                 ),

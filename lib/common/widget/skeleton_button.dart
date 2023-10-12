@@ -21,13 +21,13 @@ class SkeletonButton extends StatelessWidget {
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
-            side: const BorderSide(color: accentColor),
+            side:  BorderSide(color: appColors.accentColor),
           ),
         ),
         backgroundColor: MaterialStateProperty.resolveWith(
           (states) {
             if (states.contains(MaterialState.pressed)) {
-              return accentColor.withOpacity(.5);
+              return appColors.accentColor.withOpacity(.5);
             }
             return Colors.transparent;
           },
@@ -42,7 +42,7 @@ class SkeletonButton extends StatelessWidget {
               fontSize: 22,
               fontWeight: FontWeight.w400,
               height: 0,
-              color: accentColor,
+              color: appColors.accentColor,
             ),
 
         ),

@@ -46,11 +46,11 @@ class _RandomAppearAnimationTextState extends State<RandomAppearAnimationText> w
   Widget build(BuildContext context) {
     return Text(
       animatedText(widget.text, _animation.value.toInt()),
-      style: const TextStyle(
+      style:  TextStyle(
         fontFamily: "Cabin",
         fontSize: 300,
         fontWeight: FontWeight.w600,
-        color: randomTextColor,
+        color: appColors.backgroundColorLite,
       ),
     );
   }

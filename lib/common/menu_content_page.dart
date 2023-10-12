@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio/common/widget/clock/clock_view.dart';
 import 'package:portfolio/common/widget/custom_loading_animation.dart';
 import 'package:portfolio/common/widget/social_column.dart';
 import 'package:portfolio/common/widget/text_background.dart';
@@ -42,6 +43,7 @@ class MenuContentPage extends StatefulWidget {
     this.isLoading = false,
     this.showMenu = true,
     this.showSocial = true,
+    this.showClock = true,
     this.blobHoverData = const BlobHoverData.initial(),
     Key? key,
   }) : super(key: key);
@@ -49,6 +51,7 @@ class MenuContentPage extends StatefulWidget {
   final bool isLoading;
   final bool showMenu;
   final bool showSocial;
+  final bool showClock;
   final List<Widget>? children;
   final String menuItem;
   final BlobHoverData blobHoverData;
@@ -77,12 +80,19 @@ class _MenuContentPageState extends State<MenuContentPage> with TickerProviderSt
         child: Stack(
           alignment: AlignmentDirectional.center,
           children: [
-            const TextBackground(),
+            TextBackground(),
             Positioned(
               left: -50,
               bottom: -100,
               child: RandomAppearAnimationText(text: widget.menuItem),
             ),
+            widget.showClock
+                ? const Positioned(
+                    bottom: 30,
+                    right: 70,
+                    child: ClockView(),
+                  )
+                : const SizedBox(),
             buildAnimatedMouseFollower(height),
 
             // content goes here
@@ -121,36 +131,19 @@ class _MenuContentPageState extends State<MenuContentPage> with TickerProviderSt
       top: mouseY * 2 - height,
       left: mouseX - (400 / 2),
       child: IgnorePointer(
-        child: Center(
-          child: SizedBox(
-            height: 400,
-            width: 400,
-            child: Center(
-              child:
-
-                  // AnimatedContainer(
-                  //   duration: 500.milliseconds,
-                  //   curve: Curves.ease,
-                  //   height: widget.blobHoverData.isHovering ? widget.blobHoverData.size.toDouble() : 40,
-                  //   width: widget.blobHoverData.isHovering ? widget.blobHoverData.size.toDouble() : 40,
-                  //   decoration: BoxDecoration(
-                  //     borderRadius: BorderRadius.circular(widget.blobHoverData.isHovering ? widget.blobHoverData.size / 2 : 20),
-                  //     border: widget.blobHoverData.isHovering
-                  //         ? Border.all(color: accentColor.withOpacity(.0))
-                  //         : Border.all(color: accentColor.withOpacity(.2)),
-                  //     color: widget.blobHoverData.isHovering ? widget.blobHoverData.color : null,
-                  //   ),
-                  // ),
-                  AnimatedContainer(
-                duration: 400.milliseconds,
-                curve: Curves.ease,
-                height: widget.blobHoverData.size.toDouble(),
-                width: widget.blobHoverData.size.toDouble(),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(widget.blobHoverData.size / 2),
-                  border: widget.blobHoverData.color == null ? Border.all(color: accentColor.withOpacity(.2)) : null,
-                  color: widget.blobHoverData.color,
-                ),
+        child: SizedBox(
+          height: 400,
+          width: 400,
+          child: Center(
+            child: AnimatedContainer(
+              duration: 400.milliseconds,
+              curve: Curves.ease,
+              height: widget.blobHoverData.size.toDouble(),
+              width: widget.blobHoverData.size.toDouble(),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(widget.blobHoverData.size / 2),
+                border: widget.blobHoverData.color == null ? Border.all(color: appColors.accentColor.withOpacity(.2)) : null,
+                color: widget.blobHoverData.color,
               ),
             ),
           ),
