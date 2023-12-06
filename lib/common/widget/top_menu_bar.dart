@@ -6,6 +6,7 @@ import 'package:portfolio/page/menu/about_page.dart';
 import 'package:portfolio/page/menu/contact_page.dart';
 import 'package:portfolio/page/menu/experience_page.dart';
 import 'package:portfolio/page/menu/work_page.dart';
+import 'package:portfolio/page/menu/work_page_2.dart';
 import 'package:portfolio/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
 
@@ -23,7 +24,7 @@ class TopMenuBar extends StatelessWidget {
   Widget build(BuildContext context) {
     const menuItems = [
       "About",
-      "Experience",
+      "Blog",
       "Work",
       "Contact",
     ];
@@ -54,7 +55,7 @@ class TopMenuBar extends StatelessWidget {
                         );
                       }
                       break;
-                    case "Experience":
+                    case "Blog":
                       if (selectedItem != menuItems[index]) {
                         Navigator.push(
                           context,
@@ -72,7 +73,7 @@ class TopMenuBar extends StatelessWidget {
                           context,
                           PageRouteBuilder(
                             pageBuilder: (context, animation, secondaryAnimation) {
-                              return const WorkPage();
+                              return const WorkPage2();
                             },
                           ),
                         );

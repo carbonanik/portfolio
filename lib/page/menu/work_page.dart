@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:matrix4_transform/matrix4_transform.dart';
 import 'package:portfolio/common/menu_content_page.dart';
 import 'package:portfolio/common/widget/project_item.dart';
+import 'package:portfolio/page/menu/work_page_2.dart';
 import 'package:portfolio/theme/colors.dart';
 import 'package:sa4_migration_kit/timeline_tween/timeline_tween.dart';
 import 'package:supercharged/supercharged.dart';
@@ -39,8 +40,8 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
 
   late Animation<TimelineValue<_AnimProps>> animation;
   bool isLoading = false;
-  final borderColor = appColors.accentColor;//const Color(0xFF382A04);
-  final lineColor = appColors.accentColor;//const Color(0xFF382A04);///backgroundTextColor;
+  final borderColor = appColors.accentColor; //const Color(0xFF382A04);
+  final lineColor = appColors.accentColor; //const Color(0xFF382A04);///backgroundTextColor;
   final lineWidth = 1.0;
   BlobHoverData blobHoverData = const BlobHoverData.initial();
 
@@ -153,7 +154,7 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
                     _nextButtonController.duration = 2.seconds;
                     _nextButtonController.repeat();
                   },
-                  onExit: (_){
+                  onExit: (_) {
                     _nextButtonController.duration = 10.seconds;
                     _nextButtonController.repeat();
                   },
@@ -176,7 +177,7 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
                     fillColor: appColors.accentColor.withOpacity(.1),
                     padding: const EdgeInsets.all(18.0),
                     shape: const CircleBorder(),
-                    child:  Icon(
+                    child: Icon(
                       Icons.keyboard_double_arrow_down_rounded,
                       size: 35.0,
                       color: appColors.accentColor,
@@ -210,7 +211,7 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
                 ],
               ),
               Container(
-                width: lineWidth ,
+                width: lineWidth,
                 height: lineHeight * animation.value.get(_AnimProps.lineTransition),
                 color: lineColor,
               ),
@@ -259,6 +260,7 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
                 child: ProjectItem(
                   leftItem: leftItem,
                   borderColor: borderColor,
+                  project: categories[0].projects[0],
                 ),
               ),
             ),
@@ -289,6 +291,7 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
                     .matrix4,
                 child: ProjectItem(
                   borderColor: borderColor,
+                  project: categories[0].projects[0],
                 ),
               ),
             ),
@@ -305,6 +308,7 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
                     .matrix4,
                 child: ProjectItem(
                     borderColor: borderColor,
+                    project: categories[0].projects[1],
                     leftItem: false,
                     blobHoverEffect: (data) {
                       setState(() {

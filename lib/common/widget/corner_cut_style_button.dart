@@ -99,7 +99,7 @@ class _CornerCutButtonState extends State<CornerCutButton> {
                   },
                   style: ButtonStyle(
                     shadowColor: MaterialStateProperty.all(Colors.white),
-                    backgroundColor: MaterialStateProperty.all(Colors.yellow[900]!.withOpacity(.05)),
+                    backgroundColor: MaterialStateProperty.all(appColors.accentColor.withOpacity(.05)),
                     shape: MaterialStateProperty.all(
                        BeveledRectangleBorder(
                         side: BorderSide(color: appColors.accentColor),

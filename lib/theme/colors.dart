@@ -12,11 +12,11 @@ import 'package:flutter/material.dart';
 // const randomTextColor = ;
 
 /// random color
-const randomColor1 = Color(0xffFF934F);
-const randomColor2 = Color(0xffaf5ae0);
-const randomColor3 = Color(0xffA9CBB7);
-const randomColor4 = Color(0xffF7FF58);
-const randomColor5 = Color(0xff5E565A);
+// const randomColor1 = Color(0xffFF934F);
+const randomColor1 = Color(0xffaf5ae0);
+const randomColor2 = Color(0xffd544a2);
+const randomColor3 = Color(0xffF7FF58);
+const randomColor4 = Color(0xff5E565A);
 
 final randomColor = [
   randomColor1,
@@ -65,7 +65,7 @@ const appColorsList = [
     backgroundColorLite: Color(0xff160938),
     foregroundColor: Color(0xffd6c7ff),
     foregroundColorDark: Color(0xffb4a0ec),
-    accentColor: Color(0xff714cda),
+    accentColor: Color(0xff673ab7),
   ),
   AppColors(
     primarySwatch: Colors.pink,

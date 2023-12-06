@@ -5,6 +5,7 @@ import 'package:portfolio/common/menu_content_page.dart';
 import 'package:portfolio/common/paths/corner_cut_border_clipper.dart';
 import 'package:portfolio/common/widget/corner_cut_style_button.dart';
 import 'package:portfolio/gen/assets.gen.dart';
+import 'package:portfolio/page/menu/work_page_2.dart';
 import 'package:portfolio/theme/colors.dart';
 import 'package:portfolio/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
@@ -13,13 +14,15 @@ class ProjectItem extends StatefulWidget {
   const ProjectItem({
     this.blobHoverEffect,
     this.leftItem = true,
-    required this.borderColor,
+    this.borderColor,
     Key? key,
+    required this.project,
   }) : super(key: key);
 
   final bool leftItem;
   final void Function(BlobHoverData data)? blobHoverEffect;
   final Color? borderColor;
+  final Project project;
 
   @override
   State<ProjectItem> createState() => _ProjectItemState();
@@ -28,40 +31,41 @@ class ProjectItem extends StatefulWidget {
 class _ProjectItemState extends State<ProjectItem> with TickerProviderStateMixin {
   bool imageHovered = false;
   bool hovered = false;
-  String title = "The Real Project";
+
+  // String title = widget.project.name;
   final defaultBorderColor = appColors.accentColor.withOpacity(.2);
 
-  late AnimationController _controller;
-  late AnimationController _circleAnimationController;
-  late Animation<double> _animation;
-  late Animation<double> _circleAnimation;
+  late AnimationController _titleAnimationController;
+  late AnimationController _borderAnimationController;
+  late Animation<double> _titleAnimation;
+  late Animation<double> _borderAnimation;
 
   @override
   void dispose() {
     super.dispose();
-    _controller.dispose();
-    _circleAnimationController.dispose();
+    _titleAnimationController.dispose();
+    _borderAnimationController.dispose();
   }
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(duration: 210.milliseconds, vsync: this);
+    _titleAnimationController = AnimationController(duration: 210.milliseconds, vsync: this);
 
-    _circleAnimationController = AnimationController(duration: 1000.milliseconds, vsync: this);
+    _borderAnimationController = AnimationController(duration: 1000.milliseconds, vsync: this);
 
-    _animation = Tween<double>(
+    _titleAnimation = Tween<double>(
       begin: 0,
-      end: title.length.toDouble(),
-    ).animate(_controller)
+      end: widget.project.name.length.toDouble(),
+    ).animate(_titleAnimationController)
       ..addListener(() {
         setState(() {});
       });
 
-    _circleAnimation = Tween<double>(
+    _borderAnimation = Tween<double>(
       begin: 0,
       end: 1,
-    ).animate(_circleAnimationController)
+    ).animate(_borderAnimationController)
       ..addListener(() {
         setState(() {});
       });
@@ -72,9 +76,9 @@ class _ProjectItemState extends State<ProjectItem> with TickerProviderStateMixin
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       onEnter: (event) {
-        if (!_circleAnimationController.isAnimating) {
-          _circleAnimationController.reset();
-          _circleAnimationController.forward();
+        if (!_borderAnimationController.isAnimating) {
+          _borderAnimationController.reset();
+          _borderAnimationController.forward();
         }
       },
       child: Stack(
@@ -105,15 +109,15 @@ class _ProjectItemState extends State<ProjectItem> with TickerProviderStateMixin
           ),
           Positioned.fill(
             child: ClipPath(
-              clipper: CornerCutBorderClipper(leftCut: widget.leftItem),
+              clipper: CornerCutBorderClipper(leftCut: widget.leftItem, width: 3),
               child: Container(color: widget.borderColor ?? defaultBorderColor),
             ),
           ),
           Positioned.fill(
             child: ClipPath(
-              clipper: CornerCutBorderClipper(leftCut: widget.leftItem, width: 10),
+              clipper: CornerCutBorderClipper(leftCut: widget.leftItem, width: 3),
               child: CustomPaint(
-                foregroundPainter: CirclePainter(value: _circleAnimation.value),
+                foregroundPainter: ColorSplashPainter(value: _borderAnimation.value),
               ),
             ),
           ),
@@ -152,7 +156,8 @@ class _ProjectItemState extends State<ProjectItem> with TickerProviderStateMixin
               child: AnimatedContainer(
                 duration: 1000.milliseconds,
                 curve: Curves.ease,
-                color: imageHovered ? appColors.backgroundColor.withOpacity(0) : appColors.backgroundColor.withOpacity(.2),
+                color:
+                    imageHovered ? appColors.backgroundColor.withOpacity(0) : appColors.backgroundColor.withOpacity(.2),
               ),
             )
           ],
@@ -169,7 +174,7 @@ class _ProjectItemState extends State<ProjectItem> with TickerProviderStateMixin
         crossAxisAlignment: leftItem ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-           MouseRegion(
+          MouseRegion(
             // onEnter: (_) {
             //   widget.blobHoverEffect?.call(
             //     const BlobHoverData(
@@ -193,7 +198,7 @@ class _ProjectItemState extends State<ProjectItem> with TickerProviderStateMixin
           MouseRegion(
             onEnter: (_) {
               setState(() {
-                _controller.forward();
+                _titleAnimationController.forward();
                 // if (!_circleAnimationController.isAnimating ) {
                 //   _circleAnimationController.reset();
                 //   _circleAnimationController.forward();
@@ -202,23 +207,23 @@ class _ProjectItemState extends State<ProjectItem> with TickerProviderStateMixin
             },
             onExit: (_) {
               setState(() {
-                _controller.reverse();
+                _titleAnimationController.reverse();
                 // _circleAnimationController.reverse();
               });
             },
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Transform(
                   transform: Matrix4.translationValues(0, -10, 0),
                   child: Text(
-                    title.substring(0, _animation.value.toInt()),
-                    style: titleOneTextStyle.copyWith(fontSize: 46),
+                    widget.project.name.substring(0, _titleAnimation.value.toInt()),
+                    style: titleOneTextStyle.copyWith(fontSize: 46, fontFamily: ibmPlexMono),
                   ),
                 ),
                 Text(
-                  title.substring(_animation.value.toInt()),
-                  style: titleOneTextStyle.copyWith(fontSize: 46),
+                  widget.project.name.substring(_titleAnimation.value.toInt()),
+                  style: titleOneTextStyle.copyWith(fontSize: 46, fontFamily: ibmPlexMono),
                 ),
               ],
             ),
@@ -243,14 +248,18 @@ class _ProjectItemState extends State<ProjectItem> with TickerProviderStateMixin
   }
 }
 
-class CirclePainter extends CustomPainter {
-  CirclePainter({
+class ColorSplashPainter extends CustomPainter {
+  ColorSplashPainter({
     required this.value,
   });
 
   final double value;
   final factor = 2000;
 
+  // get sliced fraction of the animation value
+  // 0-----from----------to-----------1
+  //       .3-----------.6             - clamped
+  //       .0-----------.3             - shifted
   double getShiftedFraction({
     required double from,
     required double to,
@@ -262,58 +271,61 @@ class CirclePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    const circle1StartAt = 0.0;
-    const circle2StartAt = 0.1;
-    const circle3StartAt = 0.2;
-    const circle4StartAt = 0.3;
+    // color circles starts at these time fragments of the animation
+    const c1StartAt = 0.0;
+    const c2StartAt = 0.1;
+    const c3StartAt = 0.2;
+    const c4StartAt = 0.3;
 
-    const circleLength = 0.1;
+    // how long will the color circles last in the animation
+    const cLength = 0.1;
 
-    const circle1EndAt = circle1StartAt + circleLength;
-    const circle2EndAt = circle2StartAt + circleLength;
-    const circle3EndAt = circle3StartAt + circleLength;
-    const circle4EndAt = circle4StartAt + circleLength;
+    // color circles ends at these time fragments of the animation
+    const c1EndAt = c1StartAt + cLength;
+    const c2EndAt = c2StartAt + cLength;
+    const c3EndAt = c3StartAt + cLength;
+    const c4EndAt = c4StartAt + cLength;
 
-    const center = Offset.zero; //Offset(size.width / 2, size.height / 2);
+    const cStartsFrom = Offset.zero;
 
     final circleBrash1 = Paint()
       ..color = randomColor1
       ..style = PaintingStyle.stroke
-      ..strokeWidth = getShiftedFraction(from: circle1StartAt, to: circle1EndAt) * 2;
+      ..strokeWidth = getShiftedFraction(from: c1StartAt, to: c1EndAt) * 2;
 
     final circleBrash2 = Paint()
       ..color = randomColor2
       ..style = PaintingStyle.stroke
-      ..strokeWidth = getShiftedFraction(from: circle2StartAt, to: circle2EndAt) * 2;
+      ..strokeWidth = getShiftedFraction(from: c2StartAt, to: c2EndAt) * 2;
 
     final circleBrash3 = Paint()
       ..color = randomColor3
       ..style = PaintingStyle.stroke
-      ..strokeWidth = getShiftedFraction(from: circle3StartAt, to: circle3EndAt) * 2;
+      ..strokeWidth = getShiftedFraction(from: c3StartAt, to: c3EndAt) * 2;
 
     final circleBrash4 = Paint()
       ..color = randomColor4
       ..style = PaintingStyle.stroke
-      ..strokeWidth = getShiftedFraction(from: circle4StartAt, to: circle4EndAt) * 2;
+      ..strokeWidth = getShiftedFraction(from: c4StartAt, to: c4EndAt) * 2;
 
     canvas.drawCircle(
-      center,
-      circleBrash1.strokeWidth == 0 ? 0 : max(1, getShiftedFraction(from: circle1EndAt, to: 1)),
+      cStartsFrom,
+      circleBrash1.strokeWidth == 0 ? 0 : max(1, getShiftedFraction(from: c1EndAt, to: 1)),
       circleBrash1,
     );
     canvas.drawCircle(
-      center,
-      circleBrash2.strokeWidth == 0 ? 0 : max(1, getShiftedFraction(from: circle2EndAt, to: 1)),
+      cStartsFrom,
+      circleBrash2.strokeWidth == 0 ? 0 : max(1, getShiftedFraction(from: c2EndAt, to: 1)),
       circleBrash2,
     );
     canvas.drawCircle(
-      center,
-      circleBrash3.strokeWidth == 0 ? 0 : max(1, getShiftedFraction(from: circle3EndAt, to: 1)),
+      cStartsFrom,
+      circleBrash3.strokeWidth == 0 ? 0 : max(1, getShiftedFraction(from: c3EndAt, to: 1)),
       circleBrash3,
     );
     canvas.drawCircle(
-      center,
-      circleBrash4.strokeWidth == 0 ? 0 : max(1, getShiftedFraction(from: circle4EndAt, to: 1)),
+      cStartsFrom,
+      circleBrash4.strokeWidth == 0 ? 0 : max(1, getShiftedFraction(from: c4EndAt, to: 1)),
       circleBrash4,
     );
   }

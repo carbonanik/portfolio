@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/page/menu/about_page.dart';
 import 'package:portfolio/page/menu/contact_page.dart';
 import 'package:portfolio/page/menu/work_page.dart';
+import 'package:portfolio/page/menu/work_page_2.dart';
 import 'package:portfolio/page/on_bording_page.dart';
 import 'package:portfolio/theme/colors.dart';
 import 'package:portfolio/theme/typography.dart';
@@ -34,3 +35,17 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+// todo:
+// adopt the click me button style in everywhere
+// sharp shadow of a object in opposite direction of the mouse
+// Work Design change (like nested folder)
+// --> 📁 Work
+//     |--> 📁 Complete Project
+//     |    |--> 📁 E-Commerce
+//     |    |--> 📁 Portfolio
+//     |--> 📁 Demos
+//     |    |--> 📁 Weather App
+//     |--> 📁 Working On
+//     |--> 📁
+//     |--> 📁

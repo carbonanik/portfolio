@@ -16,7 +16,7 @@ class _ExperiencePageState extends State<ExperiencePage> {
   @override
   Widget build(BuildContext context) {
     return MenuContentPage(
-      menuItem: "Experience",
+      menuItem: "Blog",
       blobHoverData: blobHoverData,
       children: [
         Positioned(
