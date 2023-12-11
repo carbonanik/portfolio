@@ -1,12 +1,9 @@
 import 'dart:async';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:portfolio/page/menu/about_page.dart';
 import 'package:portfolio/page/menu/contact_page.dart';
-import 'package:portfolio/page/menu/experience_page.dart';
-import 'package:portfolio/page/menu/work_page.dart';
-import 'package:portfolio/page/menu/work_page_2.dart';
+import 'package:portfolio/page/menu/blog_page.dart';
+import 'package:portfolio/page/menu/work/work_page.dart';
 import 'package:portfolio/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
 
@@ -24,8 +21,8 @@ class TopMenuBar extends StatelessWidget {
   Widget build(BuildContext context) {
     const menuItems = [
       "About",
-      "Blog",
       "Work",
+      "Blog",
       "Contact",
     ];
     return Stack(
@@ -61,7 +58,7 @@ class TopMenuBar extends StatelessWidget {
                           context,
                           PageRouteBuilder(
                             pageBuilder: (context, animation, secondaryAnimation) {
-                              return const ExperiencePage();
+                              return const BlogPage();
                             },
                           ),
                         );
@@ -73,7 +70,7 @@ class TopMenuBar extends StatelessWidget {
                           context,
                           PageRouteBuilder(
                             pageBuilder: (context, animation, secondaryAnimation) {
-                              return const WorkPage2();
+                              return const WorkPage();
                             },
                           ),
                         );
@@ -165,7 +162,9 @@ class _MenuItemState extends State<MenuItem> {
                   Text(
                     "0${widget.serial}.",
                     style: menuTextStyle.copyWith(
-                      color: isHovered || (widget.selected && firstAnimate) ? appColors.foregroundColor : appColors.accentColor,
+                      color: isHovered || (widget.selected && firstAnimate)
+                          ? appColors.foregroundColor
+                          : appColors.accentColor,
                     ),
                   ),
                   const SizedBox(width: 6),

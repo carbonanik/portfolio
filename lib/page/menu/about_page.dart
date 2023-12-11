@@ -1,11 +1,8 @@
-import 'dart:async';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:portfolio/ascii_media.dart';
 import 'package:portfolio/common/menu_content_page.dart';
-import 'package:portfolio/common/widget/clock/clock_view.dart';
 import 'package:portfolio/common/widget/intro.dart';
-import 'package:portfolio/theme/colors.dart';
+import 'package:portfolio/ext.dart';
 
 class AboutPage extends StatefulWidget {
   const AboutPage({Key? key}) : super(key: key);
@@ -19,13 +16,13 @@ class _AboutPageState extends State<AboutPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MenuContentPage(
+    return PageContainer(
       menuItem: "About",
       blobHoverData: blobHoverData,
-      children:  [
+      children: [
         Positioned(
           top: 200,
-          left: 120,
+          left: context.responsiveSize(desktop: 120, mobile: 20),
           child: Intro(
             blobHoverEffect: (data) {
               setState(() {
@@ -34,14 +31,16 @@ class _AboutPageState extends State<AboutPage> {
             },
           ),
         ),
+        // Positioned(
+        //   right: 100,
+        //   child: AsciiMedia(),
+        // )
         // const Positioned(
         //     right: 0,
         //     bottom: 0,
         //     child: CustomGallery()
         // ),
-
       ],
     );
   }
 }
-

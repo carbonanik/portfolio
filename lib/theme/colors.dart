@@ -25,6 +25,18 @@ final randomColor = [
   randomColor4,
 ];
 
+const randomColor5 = Colors.deepPurpleAccent;
+const randomColor6 = Colors.pinkAccent;
+const randomColor7 = Colors.lightGreenAccent;
+const randomColor8 = Colors.greenAccent;
+
+final randomColors2 = [
+  randomColor5,
+  randomColor6,
+  randomColor7,
+  randomColor8,
+];
+
 const appColorsList = [
   AppColors(
     primarySwatch: Colors.orange,

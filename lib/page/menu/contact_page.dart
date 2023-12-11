@@ -8,7 +8,7 @@ class ContactPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MenuContentPage(
+    return PageContainer(
       showClock: false,
       menuItem: "Contact",
       children: [
@@ -17,9 +17,10 @@ class ContactPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "✉ carbonanik@gmail.com",
+                "carbonanik@gmail.com",
                 style: titleOneTextStyle.copyWith(
                   fontFamily: ibmPlexMono,
+                  fontSize: 28,
                   shadows: [
                     Shadow(
                       blurRadius: 20,
@@ -32,10 +33,12 @@ class ContactPage extends StatelessWidget {
                   ],
                 ),
               ),
+              const SizedBox(height: 20),
               Text(
-                "☎ +880 1766 785027",
+                "+880 1766 785027",
                 style: titleOneTextStyle.copyWith(
                   fontFamily: ibmPlexMono,
+                  fontSize: 28,
                   shadows: [
                     Shadow(
                       blurRadius: 20,

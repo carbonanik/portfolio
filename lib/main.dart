@@ -1,16 +1,14 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:portfolio/ascii_media.dart';
 import 'package:portfolio/page/menu/about_page.dart';
-import 'package:portfolio/page/menu/contact_page.dart';
-import 'package:portfolio/page/menu/work_page.dart';
-import 'package:portfolio/page/menu/work_page_2.dart';
-import 'package:portfolio/page/on_bording_page.dart';
+import 'package:portfolio/page/menu/blog_page.dart';
 import 'package:portfolio/theme/colors.dart';
-import 'package:portfolio/theme/typography.dart';
 
 void main() {
-  colorIndex = Random().nextInt(appColorsList.length);
+  colorIndex = 0;
+  Random().nextInt(appColorsList.length);
   runApp(const MyApp());
 }
 
@@ -31,7 +29,7 @@ class MyApp extends StatelessWidget {
               fontFamily: "Cabin",
             ),
       ),
-      home: const OnBoardPage(),
+      home: const AboutPage(),
     );
   }
 }
@@ -49,3 +47,16 @@ class MyApp extends StatelessWidget {
 //     |--> 📁 Working On
 //     |--> 📁
 //     |--> 📁
+// big menu https://atlason.com/ || https://musemind.agency/
+// follow me text with random appear animation
+// article search box that search category and article both
+// nested work category
+// work animated big folder
+// explore window for project
+// project search tag like github readme badge
+// color selector
+
+// ? Commands
+// flutter run -d chrome --web-hostname 0.0.0.0 --web-port 8080
+// flutter pub run build_runner build --delete-conflicting-outputs
+

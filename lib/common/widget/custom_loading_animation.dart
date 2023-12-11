@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:portfolio/theme/colors.dart';
+import 'package:portfolio/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
 
 class CustomLoadingAnimation extends StatefulWidget {
@@ -16,6 +17,11 @@ class _CustomLoadingAnimationState extends State<CustomLoadingAnimation> with Ti
     duration: 200.milliseconds,
     vsync: this,
   )..repeat(reverse: false);
+  late final AnimationController _loadingPercentageController = AnimationController(
+    duration: 1000.milliseconds,
+    vsync: this,
+  );
+
   late final Animation<Offset> _offsetAnimation = Tween<Offset>(
     begin: Offset.zero,
     end: const Offset(2.0, 0.0),
@@ -25,6 +31,28 @@ class _CustomLoadingAnimationState extends State<CustomLoadingAnimation> with Ti
       curve: Curves.linear,
     ),
   );
+
+  late final Animation<double> _loadingPercentageAnimation = Tween<double>(
+    begin: 0,
+    end: 100,
+  ).animate(
+    CurvedAnimation(
+      parent: _loadingPercentageController,
+      curve: Curves.ease,
+    ),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    _loadingPercentageController.forward();
+
+    _loadingPercentageController.addListener(() {
+      if ((_loadingPercentageAnimation.value - _loadingPercentageAnimation.value.floor()) < .15) {
+        setState(() {});
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +87,15 @@ class _CustomLoadingAnimationState extends State<CustomLoadingAnimation> with Ti
                   ),
                 ).toList(),
               ),
+            ),
+          ),
+        ),
+        Center(
+          child: Transform.translate(
+            offset: Offset(0, 100),
+            child: Text(
+              " ${_loadingPercentageAnimation.value.toInt()}%",
+              style: titleTwoTextStyle.copyWith(color: appColors.accentColor, fontSize: 52),
             ),
           ),
         ),

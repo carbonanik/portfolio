@@ -1,5 +1,7 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio/ext.dart';
+import 'package:portfolio/page/random_appear_animation_text.dart';
 import 'package:portfolio/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
 
@@ -15,8 +17,15 @@ class SocialItem {
   });
 }
 
-class SocialColumn extends StatelessWidget {
+class SocialColumn extends StatefulWidget {
   const SocialColumn({Key? key}) : super(key: key);
+
+  @override
+  State<SocialColumn> createState() => _SocialColumnState();
+}
+
+class _SocialColumnState extends State<SocialColumn> with TickerProviderStateMixin {
+  AnimationController? backController; // todo: paglami code need to be changed
 
   @override
   Widget build(BuildContext context) {
@@ -25,48 +34,98 @@ class SocialColumn extends StatelessWidget {
       SocialItem(shortName: "in.", icon: EvaIcons.linkedin),
       SocialItem(shortName: "tw.", icon: EvaIcons.twitter),
       SocialItem(shortName: "fb.", icon: EvaIcons.facebook),
-      SocialItem(shortName: "em.", icon: Icons.email_rounded),
+      // SocialItem(shortName: "Follow me", icon: EvaIcons.bookOpen),
+
+      // SocialItem(shortName: "em.", icon: Icons.email_rounded),
     ]; //em = email
 
     final size = MediaQuery.of(context).size;
-    return Stack(
-      alignment: AlignmentDirectional.centerEnd,
-      children: [
-        Positioned(
-          // right: 0,
-          child: Row(
-            children: [
-              const SizedBox(width: 10),
-              Container(
-                height: size.height / 1.2,
-                width: 30,
-                padding: const EdgeInsets.only(bottom: 10),
-                color: appColors.accentColor.withOpacity(.8),
+    return GestureDetector(
+      onTap: () {
+        backController?.reset();
+        backController?.forward();
+      },
+      child: MouseRegion(
+        onEnter: (event) {
+          backController?.reset();
+          backController?.forward();
+        },
+        child: Stack(
+          alignment: AlignmentDirectional.bottomEnd,
+          children: [
+            SizedBox(
+              height: size.height,
+              width: context.responsiveSize(desktop: 30, tablet: 30, mobile: 20),
+            ),
+            Container(
+              height: size.height / 1.4,
+              width: context.responsiveSize(desktop: 30, tablet: 30, mobile: 20),
+              padding: const EdgeInsets.only(bottom: 10),
+              color: appColors.accentColor.withOpacity(.8),
+            ),
+            Container(
+              height: size.height / 5,
+              width: context.responsiveSize(desktop: 30, tablet: 30, mobile: 20),
+              padding: const EdgeInsets.only(bottom: 10),
+              color: appColors.accentColor.darken(70),
+            ),
+            SizedBox(
+              height: size.height / 1.2,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  ...socialItems.map(
+                    (item) => Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        SizedBox(height: size.height * .03),
+                        VerticalSocialItem(item: item),
+                        SizedBox(height: size.height * .03),
+                      ],
+                    ),
+                  ),
+                  buildFollowMeAnimation(size, context)
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-        Positioned(
-          right: 0,
-          child: Container(
-            height: size.height / 1.2,
-            padding: const EdgeInsets.only(bottom: 10),
-            // color: Colors.red.withOpacity(.5),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: socialItems
-                  .map((item) => Column(
-                        children: [
-                          const SizedBox(height: 30),
-                          VerticalSocialItem(item: item),
-                          const SizedBox(height: 40),
-                        ],
-                      ))
-                  .toList(),
+      ),
+    );
+  }
+
+  SizedBox buildFollowMeAnimation(Size size, BuildContext context) {
+    return SizedBox(
+      height: size.height / 5,
+      child: Center(
+        child: RotatedBox(
+          quarterTurns: -1,
+          child: Padding(
+            padding: EdgeInsets.only(
+              // left: 20,
+              // right: 20,
+              top: 10,
+              bottom: context.responsiveSize(desktop: 3, tablet: 3, mobile: 0),
+            ),
+            child: RandomAppearAnimationText(
+              giveMeMyAnimationController: (controller) {
+                backController = controller;
+              },
+              runOnHover: true,
+              text: "Follow me",
+              style: menuTextStyle.copyWith(
+                color: appColors.accentColor.darken(30),
+                fontSize: context.responsiveSize(
+                  desktop: menuTextStyle.fontSize!,
+                  tablet: menuTextStyle.fontSize!,
+                  mobile: menuTextStyle.fontSize! - 4,
+                ),
+              ),
             ),
           ),
         ),
-      ],
+      ),
     );
   }
 }
@@ -97,47 +156,63 @@ class _VerticalSocialItemState extends State<VerticalSocialItem> with TickerProv
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: MouseRegion(
-        onEnter: (event) {
-          _controller.forward();
-          setState(() {});
-        },
-        onExit: (event) {
-          _controller.reverse();
-          setState(() {});
-        },
-        child: ClipRect(
-          child: SlideTransition(
-            position: _offsetAnimation,
-            child: Stack(
-              alignment: AlignmentDirectional.center,
-              children: [
-                Transform.scale(
-                  scale: 2,
-                  child: Container(
-                    transform: Matrix4.translationValues(30, 0, 0),
-                    child: Icon(
-                      widget.item.icon,
-                      color: appColors.foregroundColor,
-                    ),
+      onTap: () {
+        // launchURL(widget.item.shortName); todo
+      },
+      child: context.isMobile ? buildItemTitle(context) : buildITemTitleWithHoverAnim(context),
+    );
+  }
+
+  Widget buildITemTitleWithHoverAnim(BuildContext context) {
+    return MouseRegion(
+      onEnter: (event) {
+        _controller.forward();
+        setState(() {});
+      },
+      onExit: (event) {
+        _controller.reverse();
+        setState(() {});
+      },
+      child: SlideTransition(
+          position: _offsetAnimation,
+          child: Stack(
+            alignment: AlignmentDirectional.center,
+            children: [
+              Transform.scale(
+                scale: 2,
+                child: Container(
+                  transform: Matrix4.translationValues(30, 0, 0),
+                  child: Icon(
+                    widget.item.icon,
+                    color: appColors.foregroundColor,
                   ),
                 ),
-                RotatedBox(
-                  quarterTurns: -1,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 8,
-                      right: 8,
-                      top: 10,
-                      bottom: 3,
-                    ),
-                    child: Text(
-                      widget.item.shortName,
-                      style: menuTextStyle.copyWith(color: appColors.backgroundColor),
-                    ),
-                  ),
-                ),
-              ],
+              ),
+              buildItemTitle(context),
+            ],
+          ),
+        ),
+    );
+  }
+
+  RotatedBox buildItemTitle(BuildContext context) {
+    return RotatedBox(
+      quarterTurns: -1,
+      child: Padding(
+        padding: EdgeInsets.only(
+          left: 8,
+          right: 8,
+          top: 10,
+          bottom: context.responsiveSize(desktop: 3, tablet: 3, mobile: 0),
+        ),
+        child: Text(
+          widget.item.shortName,
+          style: menuTextStyle.copyWith(
+            color: appColors.backgroundColor,
+            fontSize: context.responsiveSize(
+              desktop: menuTextStyle.fontSize!,
+              tablet: menuTextStyle.fontSize!,
+              mobile: menuTextStyle.fontSize! - 4,
             ),
           ),
         ),

@@ -12,23 +12,58 @@ import 'package:flutter/widgets.dart';
 class $AssetsImageGen {
   const $AssetsImageGen();
 
+  /// File path: assets/image/apple.png
+  AssetGenImage get apple => const AssetGenImage('assets/image/apple.png');
+
+  /// File path: assets/image/bannar_black.jpg
+  AssetGenImage get bannarBlack =>
+      const AssetGenImage('assets/image/bannar_black.jpg');
+
   /// File path: assets/image/banner.png
   AssetGenImage get banner => const AssetGenImage('assets/image/banner.png');
+
+  /// File path: assets/image/banner.png.xmp
+  String get bannerPng => 'assets/image/banner.png.xmp';
+
+  /// File path: assets/image/carbon_logo.png
+  AssetGenImage get carbonLogo =>
+      const AssetGenImage('assets/image/carbon_logo.png');
 
   /// File path: assets/image/cat-low-res.png
   AssetGenImage get catLowRes =>
       const AssetGenImage('assets/image/cat-low-res.png');
 
+  /// File path: assets/image/cat-low-res.png.xmp
+  String get catLowResPng => 'assets/image/cat-low-res.png.xmp';
+
   /// File path: assets/image/mock_app_ui.png
   AssetGenImage get mockAppUi =>
       const AssetGenImage('assets/image/mock_app_ui.png');
+
+  /// File path: assets/image/mock_app_ui.png.xmp
+  String get mockAppUiPng => 'assets/image/mock_app_ui.png.xmp';
 
   /// File path: assets/image/mock_app_ui_2.png
   AssetGenImage get mockAppUi2 =>
       const AssetGenImage('assets/image/mock_app_ui_2.png');
 
+  /// File path: assets/image/mock_app_ui_2.png.xmp
+  String get mockAppUi2Png => 'assets/image/mock_app_ui_2.png.xmp';
+
   /// List of all assets
-  List<AssetGenImage> get values => [banner, catLowRes, mockAppUi, mockAppUi2];
+  List<dynamic> get values => [
+        apple,
+        bannarBlack,
+        banner,
+        bannerPng,
+        carbonLogo,
+        catLowRes,
+        catLowResPng,
+        mockAppUi,
+        mockAppUiPng,
+        mockAppUi2,
+        mockAppUi2Png
+      ];
 }
 
 class Assets {

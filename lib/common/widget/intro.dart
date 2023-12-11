@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:portfolio/common/menu_content_page.dart';
 import 'package:portfolio/common/widget/step_text.dart';
+import 'package:portfolio/ext.dart';
 import 'package:portfolio/theme/colors.dart';
 import 'package:portfolio/theme/typography.dart';
 import 'package:sa4_migration_kit/sa4_migration_kit.dart';
@@ -96,19 +97,6 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AnimatedBuilder(animation: controller, builder: _buildAnimation),
-        // const SizedBox(height: 50),
-        // showButton
-        //     ? CornerCutButton(
-        //         onTap: () {
-        //           if (controller.status == AnimationStatus.dismissed) {
-        //             controller.forward();
-        //           } else if (controller.status == AnimationStatus.completed) {
-        //             controller.reverse();
-        //           }
-        //         },
-        //         text: "Click Me!",
-        //       )
-        //     : const SizedBox.shrink()
       ],
     );
   }
@@ -119,13 +107,14 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // ? hi
         _animatedAppear(
           child: MouseRegion(
             onEnter: (hovering) {
               widget.blobHoverEffect?.call(
-                 BlobHoverData(
+                BlobHoverData(
                   color: appColors.foregroundColor,
-                  size: 200,
+                  size: context.responsiveSize(desktop: 200),
                 ),
               );
             },
@@ -135,12 +124,13 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
               );
             },
             child: SizedBox(
-              width: 400,
+              width: context.responsiveSize(desktop: 400),
               child: Text(
                 "Hi,",
                 style: titleTwoTextStyle.copyWith(
+                  fontSize: context.responsiveSize(desktop: titleTwoTextStyle.fontSize!),
                   shadows: [
-                     Shadow(
+                    Shadow(
                       blurRadius: 10,
                       color: appColors.accentColor,
                     ),
@@ -152,13 +142,14 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
           reduceRightMargin: animation.value.get(AnimProps.topTitleReduceRightMargin),
           increaseLeftMargin: animation.value.get(AnimProps.topTitleIncreaseLeftMargin),
         ),
+        // ? Title
         _animatedAppear(
           child: MouseRegion(
             onEnter: (hovering) {
               widget.blobHoverEffect?.call(
-                 BlobHoverData(
+                BlobHoverData(
                   color: appColors.accentColor,
-                  size: 400,
+                  size: context.responsiveSize(desktop: 400),
                 ),
               );
             },
@@ -169,8 +160,8 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
             },
             child: StepText(
               text: "I am Makhdum",
-              style: titleOneTextStyle
-                  .copyWith(
+              style: titleOneTextStyle.copyWith(
+                fontSize: context.responsiveSize(desktop: titleOneTextStyle.fontSize!),
                 shadows: [
                   Shadow(
                     blurRadius: 10,
@@ -179,22 +170,23 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
                 ],
                 fontFamily: ibmPlexMono,
                 wordSpacing: -20,
-              )
-              ,
+              ),
             ),
           ),
           reduceRightMargin: animation.value.get(AnimProps.titleReduceRightMargin),
           increaseLeftMargin: animation.value.get(AnimProps.titleIncreaseLeftMargin),
           boxColor: appColors.foregroundColor,
         ),
+        // ? Subtitle
         _animatedAppear(
           child: SizedBox(
-            width: 700,
+            width: size.width / 3 + 200,
             child: Text(
               "a coder, breaker, fixer.",
               style: subtitleTextStyle.copyWith(
+                fontSize: context.responsiveSize(desktop: subtitleTextStyle.fontSize!),
                 shadows: [
-                   Shadow(
+                  Shadow(
                     blurRadius: 10,
                     color: appColors.accentColor,
                   ),
@@ -206,32 +198,30 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
           increaseLeftMargin: animation.value.get(AnimProps.subtitleIncreaseLeftMargin),
         ),
         const SizedBox(height: 50),
+        // ? Description
         _animatedAppear(
           child: SizedBox(
             width: size.width / 3 + 150,
-            child:  Text(
+            child: Text(
               "I’m a software engineer specializing in building (and occasionally designing) "
               "exceptional digital experiences. Currently, I’m focused on building accessible, "
               "human-centered products.",
-              style: paragraphTextStyle,
+              style: paragraphTextStyle.copyWith(
+                fontSize: context.responsiveSize(desktop: paragraphTextStyle.fontSize!),
+              ),
             ),
           ),
           reduceRightMargin: animation.value.get(AnimProps.descriptionReduceRightMargin),
           increaseLeftMargin: animation.value.get(AnimProps.descriptionIncreaseLeftMargin),
           boxColor: appColors.foregroundColorDark,
         ),
-        const SizedBox(height: 50),
+        const SizedBox(height:  50),
+        // ? Button
         _animatedAppear(
-          child: SizedBox(
-            width: 180,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10, top: 10),
             child: CornerCutButton(
-              onTap: () {
-                // if (controller.status == AnimationStatus.dismissed) {
-                //   controller.forward();
-                // } else if (controller.status == AnimationStatus.completed) {
-                //   controller.reverse();
-                // }
-              },
+              onTap: () {},
               text: "Click Me!",
             ),
           ),

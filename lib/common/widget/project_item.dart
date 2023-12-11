@@ -2,10 +2,12 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:portfolio/common/menu_content_page.dart';
+import 'package:portfolio/common/paths/color_splash_painter.dart';
 import 'package:portfolio/common/paths/corner_cut_border_clipper.dart';
 import 'package:portfolio/common/widget/corner_cut_style_button.dart';
+import 'package:portfolio/ext.dart';
 import 'package:portfolio/gen/assets.gen.dart';
-import 'package:portfolio/page/menu/work_page_2.dart';
+import 'package:portfolio/page/menu/work/work_page.dart';
 import 'package:portfolio/theme/colors.dart';
 import 'package:portfolio/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
@@ -71,58 +73,80 @@ class _ProjectItemState extends State<ProjectItem> with TickerProviderStateMixin
       });
   }
 
+  void runSplashAnimation() {
+    if (!_borderAnimationController.isAnimating) {
+      _borderAnimationController.reset();
+      _borderAnimationController.forward();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      onEnter: (event) {
-        if (!_borderAnimationController.isAnimating) {
-          _borderAnimationController.reset();
-          _borderAnimationController.forward();
-        }
-      },
-      child: Stack(
-        children: [
-          Material(
-            color: Colors.transparent,
-            // shape: BeveledRectangleBorder(
-            //   side: BorderSide(color: widget.borderColor ?? defaultBorderColor, width: 20),
-            //   borderRadius: BorderRadius.only(
-            //     topLeft: widget.leftItem ? const Radius.circular(80.0) : Radius.zero,
-            //     topRight: !widget.leftItem ? const Radius.circular(80.0) : Radius.zero,
-            //     // bottomRight: Radius.circular(18.0)
-            //   ),
-            // ),
-            child: Padding(
-              padding: const EdgeInsets.all(40),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // widget.leftItem ? projectDetail(leftItem: widget.leftItem) : projectImage(leftItem: widget.leftItem),
-                  // const SizedBox(width: 40),
-                  // widget.leftItem ? projectImage(leftItem: widget.leftItem) : projectDetail(leftItem: widget.leftItem),
-                  projectDetail(leftItem: widget.leftItem),
-                ],
-              ),
+    return context.isMobile
+        ? GestureDetector(
+            onTap: () {
+              runSplashAnimation();
+            },
+            child: buildDetailsView(context))
+        : MouseRegion(
+            cursor: SystemMouseCursors.click,
+            onEnter: (event) {
+              runSplashAnimation();
+            },
+            child: buildDetailsView(context),
+          );
+  }
+
+  Stack buildDetailsView(BuildContext context) {
+    return Stack(
+      children: [
+        Material(
+          color: Colors.transparent,
+          // shape: BeveledRectangleBorder(
+          //   side: BorderSide(color: widget.borderColor ?? defaultBorderColor, width: 20),
+          //   borderRadius: BorderRadius.only(
+          //     topLeft: widget.leftItem ? const Radius.circular(80.0) : Radius.zero,
+          //     topRight: !widget.leftItem ? const Radius.circular(80.0) : Radius.zero,
+          //     // bottomRight: Radius.circular(18.0)
+          //   ),
+          // ),
+          child: Padding(
+            padding: EdgeInsets.all(context.responsiveSize(desktop: 40)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // widget.leftItem ? projectDetail(leftItem: widget.leftItem) : projectImage(leftItem: widget.leftItem),
+                // const SizedBox(width: 40),
+                // widget.leftItem ? projectImage(leftItem: widget.leftItem) : projectDetail(leftItem: widget.leftItem),
+                projectDetail(leftItem: widget.leftItem),
+              ],
             ),
           ),
-          Positioned.fill(
-            child: ClipPath(
-              clipper: CornerCutBorderClipper(leftCut: widget.leftItem, width: 3),
-              child: Container(color: widget.borderColor ?? defaultBorderColor),
+        ),
+        Positioned.fill(
+          child: ClipPath(
+            clipper: CornerCutBorderClipper(
+              leftCut: widget.leftItem,
+              width: 3,
+              cornerRadius: context.responsiveSize(desktop: 80, tablet: 80, mobile: 60),
+            ),
+            child: Container(color: widget.borderColor ?? defaultBorderColor),
+          ),
+        ),
+        Positioned.fill(
+          child: ClipPath(
+            clipper: CornerCutBorderClipper(
+              leftCut: widget.leftItem,
+              width: 3,
+              cornerRadius: context.responsiveSize(desktop: 80, tablet: 80, mobile: 60),
+            ),
+            child: CustomPaint(
+              foregroundPainter: ColorSplashPainter(value: _borderAnimation.value),
             ),
           ),
-          Positioned.fill(
-            child: ClipPath(
-              clipper: CornerCutBorderClipper(leftCut: widget.leftItem, width: 3),
-              child: CustomPaint(
-                foregroundPainter: ColorSplashPainter(value: _borderAnimation.value),
-              ),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -168,170 +192,123 @@ class _ProjectItemState extends State<ProjectItem> with TickerProviderStateMixin
 
   Widget projectDetail({required bool leftItem}) {
     return Container(
-      width: 360,
-      padding: const EdgeInsets.all(20),
+      width: context.responsiveSize(desktop: 360, tablet: 300, mobile: 200),
+      padding: EdgeInsets.all(context.responsiveSize(desktop: 20)),
       child: Column(
         crossAxisAlignment: leftItem ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          MouseRegion(
-            // onEnter: (_) {
-            //   widget.blobHoverEffect?.call(
-            //     const BlobHoverData(
-            //       color: foregroundColor,
-            //       size: 200,
-            //     ),
-            //   );
-            // },
-            // onExit: (_) {
-            //   widget.blobHoverEffect?.call(
-            //     const BlobHoverData.initial(),
-            //   );
-            // },
-            child: Icon(
-              Icons.folder,
-              color: appColors.foregroundColorDark,
-              size: 80,
-            ),
+          Icon(
+            Icons.folder,
+            color: appColors.foregroundColorDark,
+            size: context.responsiveSize(desktop: 80, tablet: 80, mobile: 60),
           ),
-          const SizedBox(height: 30),
-          MouseRegion(
-            onEnter: (_) {
-              setState(() {
-                _titleAnimationController.forward();
-                // if (!_circleAnimationController.isAnimating ) {
-                //   _circleAnimationController.reset();
-                //   _circleAnimationController.forward();
-                // }
-              });
-            },
-            onExit: (_) {
-              setState(() {
-                _titleAnimationController.reverse();
-                // _circleAnimationController.reverse();
-              });
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Transform(
-                  transform: Matrix4.translationValues(0, -10, 0),
-                  child: Text(
-                    widget.project.name.substring(0, _titleAnimation.value.toInt()),
-                    style: titleOneTextStyle.copyWith(fontSize: 46, fontFamily: ibmPlexMono),
-                  ),
-                ),
-                Text(
-                  widget.project.name.substring(_titleAnimation.value.toInt()),
-                  style: titleOneTextStyle.copyWith(fontSize: 46, fontFamily: ibmPlexMono),
-                ),
-              ],
-            ),
-          ),
+          SizedBox(height: context.responsiveSize(desktop: 30)),
+          context.isMobile ? buildTitle() : buildAnimatedTitle(),
           const SizedBox(
             height: 10,
           ),
           Text(
-            "This is the real project i have made,\n you can believe me.",
-            style: paragraphTextStyle.copyWith(fontSize: fontSize_18),
+            "This is the real project i have made, you can believe me.",
+            style: paragraphTextStyle.copyWith(fontSize: context.responsiveSize(desktop: fontSize_18)),
             textAlign: leftItem ? TextAlign.right : TextAlign.left,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: 40),
+          SizedBox(height: context.responsiveSize(desktop: 40)),
           CornerCutButton(
             text: "Explore",
-            onTap: () {},
-            fontSize: 18,
+            onTap: () {
+              runSplashAnimation();
+            },
+            fontSize: context.responsiveSize(desktop: 18),
+            padding: EdgeInsets.all(context.responsiveSize(desktop: 18)),
+            cornerCutRadius: context.responsiveSize(desktop: 18),
+            elevation: context.responsiveSize(desktop: 10),
           )
         ],
       ),
     );
   }
-}
 
-class ColorSplashPainter extends CustomPainter {
-  ColorSplashPainter({
-    required this.value,
-  });
-
-  final double value;
-  final factor = 2000;
-
-  // get sliced fraction of the animation value
-  // 0-----from----------to-----------1
-  //       .3-----------.6             - clamped
-  //       .0-----------.3             - shifted
-  double getShiftedFraction({
-    required double from,
-    required double to,
-  }) {
-    final clumped = (value).clamp(from, to);
-    final shifted = clumped - from;
-    return (shifted * factor).toInt().toDouble();
+  MouseRegion buildAnimatedTitle() {
+    return MouseRegion(
+        onEnter: (_) {
+          setState(() {
+            _titleAnimationController.forward();
+          });
+        },
+        onExit: (_) {
+          setState(() {
+            _titleAnimationController.reverse();
+          });
+        },
+        child: RichText(
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          textAlign: widget.leftItem ? TextAlign.right : TextAlign.left,
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: widget.project.name.substring(0, _titleAnimation.value.toInt()),
+                style: titleOneTextStyle.copyWith(
+                  fontSize: context.responsiveSize(desktop: 46, tablet: 46, mobile: 30),
+                  fontFamily: ibmPlexMono,
+                ),
+              ),
+              TextSpan(
+                text: widget.project.name.substring(_titleAnimation.value.toInt()),
+                style: titleOneTextStyle.copyWith(
+                  fontSize: context.responsiveSize(desktop: 46, tablet: 46, mobile: 30),
+                  fontFamily: ibmPlexMono,
+                  color: appColors.foregroundColor.darken(70),
+                ),
+              ),
+            ],
+          ),
+        )
+        // Row(
+        //   mainAxisSize: MainAxisSize.min,
+        //   children: [
+        // Transform(
+        //   transform: Matrix4.translationValues(0, -10, 0),
+        //   child: Container(
+        //     color: Colors.redAccent,
+        //     // width: context.responsiveSize(desktop: 320, tablet: 270, mobile: 0),
+        //     child: Text(
+        //       widget.project.name.substring(0, _titleAnimation.value.toInt()),
+        //       style: titleOneTextStyle.copyWith(
+        //           fontSize: context.responsiveSize(desktop: 46, tablet: 46, mobile: 30), fontFamily: ibmPlexMono),
+        //       textAlign: TextAlign.left,
+        //     ),
+        //
+        //   ),
+        // ),
+        // Container(
+        //   color: Colors.greenAccent,
+        //   width: context.responsiveSize(desktop: 320, tablet: 270, mobile: 0),
+        //   child: Text(
+        //     widget.project.name.substring(_titleAnimation.value.toInt()),
+        //     style: titleOneTextStyle.copyWith(
+        //         fontSize: context.responsiveSize(desktop: 46, tablet: 46, mobile: 30), fontFamily: ibmPlexMono),
+        //     textAlign: TextAlign.right,
+        //     maxLines: 2,
+        //     overflow: TextOverflow.ellipsis,
+        //   ),
+        // ),
+        // ],
+        // ),
+        );
   }
 
-  @override
-  void paint(Canvas canvas, Size size) {
-    // color circles starts at these time fragments of the animation
-    const c1StartAt = 0.0;
-    const c2StartAt = 0.1;
-    const c3StartAt = 0.2;
-    const c4StartAt = 0.3;
-
-    // how long will the color circles last in the animation
-    const cLength = 0.1;
-
-    // color circles ends at these time fragments of the animation
-    const c1EndAt = c1StartAt + cLength;
-    const c2EndAt = c2StartAt + cLength;
-    const c3EndAt = c3StartAt + cLength;
-    const c4EndAt = c4StartAt + cLength;
-
-    const cStartsFrom = Offset.zero;
-
-    final circleBrash1 = Paint()
-      ..color = randomColor1
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = getShiftedFraction(from: c1StartAt, to: c1EndAt) * 2;
-
-    final circleBrash2 = Paint()
-      ..color = randomColor2
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = getShiftedFraction(from: c2StartAt, to: c2EndAt) * 2;
-
-    final circleBrash3 = Paint()
-      ..color = randomColor3
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = getShiftedFraction(from: c3StartAt, to: c3EndAt) * 2;
-
-    final circleBrash4 = Paint()
-      ..color = randomColor4
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = getShiftedFraction(from: c4StartAt, to: c4EndAt) * 2;
-
-    canvas.drawCircle(
-      cStartsFrom,
-      circleBrash1.strokeWidth == 0 ? 0 : max(1, getShiftedFraction(from: c1EndAt, to: 1)),
-      circleBrash1,
+  Widget buildTitle() {
+    return Text(
+      widget.project.name,
+      style: titleOneTextStyle.copyWith(
+          fontSize: context.responsiveSize(desktop: 46, tablet: 46, mobile: 30), fontFamily: ibmPlexMono),
+      textAlign: TextAlign.right,
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
     );
-    canvas.drawCircle(
-      cStartsFrom,
-      circleBrash2.strokeWidth == 0 ? 0 : max(1, getShiftedFraction(from: c2EndAt, to: 1)),
-      circleBrash2,
-    );
-    canvas.drawCircle(
-      cStartsFrom,
-      circleBrash3.strokeWidth == 0 ? 0 : max(1, getShiftedFraction(from: c3EndAt, to: 1)),
-      circleBrash3,
-    );
-    canvas.drawCircle(
-      cStartsFrom,
-      circleBrash4.strokeWidth == 0 ? 0 : max(1, getShiftedFraction(from: c4EndAt, to: 1)),
-      circleBrash4,
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
   }
 }

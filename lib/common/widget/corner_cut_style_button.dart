@@ -1,28 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/common/paths/color_splash_painter.dart';
+import 'package:portfolio/common/paths/corner_cut_border_clipper.dart';
+import 'package:portfolio/ext.dart';
 import 'package:portfolio/theme/colors.dart';
 import 'package:portfolio/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
 
 class CornerCutButton extends StatefulWidget {
-  final String text;
+  final String? text;
+  final Widget? child;
   final VoidCallback? onTap;
   final double? fontSize;
+  final bool transparent;
+  final bool colorBorder;
+  final EdgeInsets? padding;
+  final double? cornerCutRadius;
+  final double elevation;
 
   const CornerCutButton({
     Key? key,
-    required this.text,
+    this.text,
+    this.child,
     this.onTap,
     this.fontSize,
+    this.transparent = true,
+    this.colorBorder = false,
+    this.padding,
+    this.cornerCutRadius,
+    this.elevation = 10,
   }) : super(key: key);
 
   @override
   State<CornerCutButton> createState() => _CornerCutButtonState();
 }
 
-class _CornerCutButtonState extends State<CornerCutButton> {
+class _CornerCutButtonState extends State<CornerCutButton> with TickerProviderStateMixin {
   Size? cardSize;
   Offset? cardPosition;
-  bool hovered = false;
+  bool pointerDown = false;
+  late Animation<double> _borderAnimation;
+  late AnimationController _borderAnimationController;
+
+  @override
+  void dispose() {
+    super.dispose();
+    _borderAnimationController.dispose();
+  }
 
   @override
   void initState() {
@@ -30,14 +53,22 @@ class _CornerCutButtonState extends State<CornerCutButton> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getSizeAndPosition();
     });
+
+    _borderAnimationController = AnimationController(duration: 3000.milliseconds, vsync: this);
+
+    _borderAnimation = Tween<double>(
+      begin: 0,
+      end: 1,
+    ).animate(_borderAnimationController)
+      ..addListener(() {
+        setState(() {});
+      });
   }
 
   getSizeAndPosition() {
     RenderBox? _cardBox = _cardKey.currentContext?.findRenderObject() as RenderBox;
     cardSize = _cardBox.size;
     cardPosition = _cardBox.localToGlobal(Offset.zero);
-    print(cardSize);
-    print(cardPosition);
     setState(() {});
   }
 
@@ -45,80 +76,128 @@ class _CornerCutButtonState extends State<CornerCutButton> {
 
   @override
   Widget build(BuildContext context) {
+    final corner = context.responsiveSize(desktop: 18, tablet: 16, mobile: 14);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Container(
-          width: cardSize?.width != null ? cardSize!.width + 10 : null,
-        ),
+        // Container(
+        //   width: cardSize?.width != null ? cardSize!.width + 10 : null,
+        // ),
         Stack(
           children: [
-            AnimatedContainer(
-              duration: 50.milliseconds,
+            // ? background border
+            Container(
               decoration: BoxDecoration(
-                // color: Colors.green,
                 border: Border(
                   bottom: BorderSide(
                     color: appColors.foregroundColor.withOpacity(.5),
-                    width: hovered ? 1 : 3,
+                    width: pointerDown ? 1 : 3,
                   ),
                   right: BorderSide(
                     color: appColors.foregroundColor.withOpacity(.5),
-                    width: hovered ? 1 : 3,
+                    width: pointerDown ? 1 : 3,
                   ),
                 ),
               ),
               height: cardSize?.height,
               width: cardSize?.width,
             ),
+            // ? button
             AnimatedContainer(
               duration: 50.milliseconds,
               transform: Matrix4.translationValues(
-                hovered ? 0 : -10,
-                hovered ? 0 : -10,
+                pointerDown ? 0 : -widget.elevation,
+                pointerDown ? 0 : -widget.elevation,
                 0,
               ),
               child: Listener(
                 onPointerDown: (_) {
                   setState(() {
-                    hovered = true;
+                    pointerDown = true;
+                    if (widget.colorBorder) {
+                      _borderAnimationController.reset();
+                      _borderAnimationController.forward();
+                    }
                   });
                 },
                 onPointerUp: (_) {
                   setState(() {
-                    hovered = false;
+                    pointerDown = false;
                   });
                 },
                 child: TextButton(
                   key: _cardKey,
-                  onPressed:
-                    widget.onTap?.call,
+                  onPressed: widget.onTap,
                   onHover: (hover) {
-                    // hovered = hover;
-                    // setState(() {});
+                    if (hover && widget.colorBorder) {
+                      _borderAnimationController.reset();
+                      _borderAnimationController.forward();
+                    }
                   },
                   style: ButtonStyle(
                     shadowColor: MaterialStateProperty.all(Colors.white),
-                    backgroundColor: MaterialStateProperty.all(appColors.accentColor.withOpacity(.05)),
+                    backgroundColor: MaterialStateProperty.all(
+                      widget.transparent ? appColors.accentColor.withOpacity(.05) : appColors.backgroundColorLite,
+                    ),
                     shape: MaterialStateProperty.all(
-                       BeveledRectangleBorder(
+                      BeveledRectangleBorder(
                         side: BorderSide(color: appColors.accentColor),
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(18.0),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(widget.cornerCutRadius ?? corner),
                         ),
                       ),
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: Text(
-                      widget.text,
-                      style: TextStyle(
-                        fontSize: widget.fontSize ?? fontSize_22,
-                        color: appColors.accentColor,
-                        fontFamily: "IBMPlexMono",
-                      ),
-                    ),
+                    padding: widget.padding ??
+                        EdgeInsets.symmetric(
+                          vertical: widget.child != null ? 8.0 : 18.0,
+                          horizontal: widget.child != null ? 8.0 : 18.0,
+                        ),
+                    child: widget.child != null && widget.text != null
+                        ? Row(
+                            children: [
+                              widget.child!,
+                              Text(
+                                widget.text!,
+                                style: TextStyle(
+                                  fontSize: widget.fontSize ?? context.responsiveSize(desktop: fontSize_22),
+                                  color: appColors.foregroundColor,
+                                  fontFamily: "IBMPlexMono",
+                                ),
+                              ),
+                            ],
+                          )
+                        : widget.text != null
+                            ? Text(
+                                widget.text!,
+                                style: TextStyle(
+                                  fontSize: widget.fontSize ?? context.responsiveSize(desktop: fontSize_22),
+                                  color: appColors.foregroundColor,
+                                  fontFamily: "IBMPlexMono",
+                                ),
+                              )
+                            : widget.child != null
+                                ? widget.child!
+                                : const SizedBox.shrink(),
+                  ),
+                ),
+              ),
+            ),
+
+            // ? corner cut splash
+            Positioned.fill(
+              child: Transform(
+                transform: Matrix4.translationValues(
+                  pointerDown ? 0 : -widget.elevation,
+                  pointerDown ? 0 : -widget.elevation,
+                  0,
+                ),
+                child: ClipPath(
+                  clipper:
+                      CornerCutBorderClipper(leftCut: true, width: 3, cornerRadius: widget.cornerCutRadius ?? corner),
+                  child: CustomPaint(
+                    foregroundPainter: ColorSplashPainter(value: _borderAnimation.value, cLength: 0.05),
                   ),
                 ),
               ),

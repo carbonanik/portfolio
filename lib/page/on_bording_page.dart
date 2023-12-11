@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:portfolio/common/widget/text_background.dart';
+import 'package:portfolio/ext.dart';
 import 'package:portfolio/page/menu/about_page.dart';
 import 'package:portfolio/theme/colors.dart';
 import 'package:portfolio/theme/typography.dart';
@@ -54,7 +56,7 @@ class _OnBoardPageState extends State<OnBoardPage> {
               duration: 1.seconds,
               builder: (BuildContext context, Color? color, __) {
                 return Text(
-                  "Hi,",
+                  "Know me,",
                   style: titleTwoTextStyle.copyWith(fontSize: 200, color: color),
                 );
               },
@@ -135,7 +137,7 @@ class _RowOfBoxState extends State<RowOfBox> {
               child: Center(
                 child: AnimatedContainer(
                   duration: 400.milliseconds,
-                  color: appColors.accentColor,
+                  color: appColors.backgroundColorLite,
                   height: minZero(widget.rowBoxCount - widget.boxReduce) <= index ? 0 : widget.boxHeight.toDouble(),
                   width: minZero(widget.rowBoxCount - widget.boxReduce) <= index ? 0 : widget.boxWidth.toDouble(),
                 ),

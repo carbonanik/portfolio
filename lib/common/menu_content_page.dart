@@ -5,6 +5,9 @@ import 'package:portfolio/common/widget/custom_loading_animation.dart';
 import 'package:portfolio/common/widget/social_column.dart';
 import 'package:portfolio/common/widget/text_background.dart';
 import 'package:portfolio/common/widget/top_menu_bar.dart';
+import 'package:portfolio/common/widget/top_menu_bar_collapsed.dart';
+import 'package:portfolio/ext.dart';
+import 'package:portfolio/gen/assets.gen.dart';
 import 'package:portfolio/page/random_appear_animation_text.dart';
 import 'package:portfolio/theme/colors.dart';
 import 'package:supercharged/supercharged.dart';
@@ -18,11 +21,7 @@ class BlobHoverData {
     required this.size,
   });
 
-  const BlobHoverData.initial()
-      : this(
-          color: null,
-          size: 40,
-        );
+  const BlobHoverData.initial() : this(color: null, size: 40);
 
   BlobHoverData copyWith({
     Color? color,
@@ -36,12 +35,12 @@ class BlobHoverData {
   }
 }
 
-class MenuContentPage extends StatefulWidget {
-  const MenuContentPage({
+class PageContainer extends StatefulWidget {
+  const PageContainer({
     required this.menuItem,
-    this.children,
+    this.children = const [],
     this.isLoading = false,
-    this.showMenu = true,
+    this.hasMenu = true,
     this.showSocial = true,
     this.showClock = true,
     this.blobHoverData = const BlobHoverData.initial(),
@@ -49,18 +48,18 @@ class MenuContentPage extends StatefulWidget {
   }) : super(key: key);
 
   final bool isLoading;
-  final bool showMenu;
+  final bool hasMenu;
   final bool showSocial;
   final bool showClock;
-  final List<Widget>? children;
+  final List<Widget> children;
   final String menuItem;
   final BlobHoverData blobHoverData;
 
   @override
-  State<MenuContentPage> createState() => _MenuContentPageState();
+  State<PageContainer> createState() => _PageContainerState();
 }
 
-class _MenuContentPageState extends State<MenuContentPage> with TickerProviderStateMixin {
+class _PageContainerState extends State<PageContainer> with TickerProviderStateMixin {
   double mouseX = 0;
   double mouseY = 0;
 
@@ -75,51 +74,73 @@ class _MenuContentPageState extends State<MenuContentPage> with TickerProviderSt
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: MouseRegion(
-        onHover: _updateLocation,
-        child: Stack(
-          alignment: AlignmentDirectional.center,
-          children: [
-            TextBackground(),
-            Positioned(
-              left: -50,
-              bottom: -100,
-              child: RandomAppearAnimationText(text: widget.menuItem),
+      body: context.isMobile
+          ? buildPageContent(context, height)
+          : MouseRegion(
+              onHover: _updateLocation,
+              child: buildPageContent(context, height),
             ),
-            widget.showClock
-                ? const Positioned(
-                    bottom: 30,
-                    right: 70,
-                    child: ClockView(),
-                  )
-                : const SizedBox(),
-            buildAnimatedMouseFollower(height),
+    );
+  }
 
-            // content goes here
-            ...widget.children ?? [],
-
-            widget.showSocial
-                ? const Positioned(
-                    right: 0,
-                    bottom: 0,
-                    child: SocialColumn(),
-                  )
-                : const SizedBox(),
-
-            widget.showMenu
-                ? Positioned(
-                    top: 0,
-                    right: 0,
-                    left: 0,
-                    child: TopMenuBar(
-                      selectedItem: widget.menuItem,
-                    ),
-                  )
-                : const SizedBox(),
-            widget.isLoading ? const CustomLoadingAnimation() : const SizedBox(),
-          ],
+  Stack buildPageContent(BuildContext context, double height) {
+    return Stack(
+      alignment: AlignmentDirectional.center,
+      children: [
+        // ? Full Page Container
+        // Expanded(child: Container()),
+        // ?*
+        const TextBackground(),
+        // ? Random appear animation
+        Positioned(
+          left: context.responsiveSize(desktop: -50),
+          bottom: context.responsiveSize(desktop: -100),
+          child: RandomAppearAnimationText(text: widget.menuItem),
         ),
-      ),
+        // ? Clock
+        if (widget.showClock)
+          Positioned(
+            bottom: 30,
+            right: context.responsiveSize(desktop: 70, tablet: 70, mobile: 40),
+            child: ClockView(),
+          ),
+        if (!context.isMobile) buildAnimatedMouseFollower(height),
+        // ? content goes here
+        ...widget.children,
+        // ? Social Column
+        if (widget.showSocial)
+          const Positioned(
+            right: 0,
+            bottom: 0,
+            child: SocialColumn(),
+          ),
+        // ? Top Menu
+        if (widget.hasMenu)
+          Positioned(
+            top: 0,
+            right: 0,
+            left: 0,
+            child: context.isMobile
+                ? TopMenuBarCollapsed(
+                    selectedItem: widget.menuItem,
+                  )
+                : TopMenuBar(
+                    selectedItem: widget.menuItem,
+                  ),
+          ),
+        // ? Logo
+        Positioned(
+          top: 10,
+          left: 20,
+          child: Image.asset(
+            Assets.image.carbonLogo.path,
+            color: appColors.accentColor.darken(30),
+            width: context.responsiveSize(desktop: 120,tablet: 100, mobile: 80),
+          ),
+        ),
+        // ? Loading
+        if (widget.isLoading) const CustomLoadingAnimation(),
+      ],
     );
   }
 
@@ -142,7 +163,9 @@ class _MenuContentPageState extends State<MenuContentPage> with TickerProviderSt
               width: widget.blobHoverData.size.toDouble(),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(widget.blobHoverData.size / 2),
-                border: widget.blobHoverData.color == null ? Border.all(color: appColors.accentColor.withOpacity(.2)) : null,
+                border: widget.blobHoverData.color == null
+                    ? Border.all(color: appColors.accentColor.withOpacity(.2))
+                    : null,
                 color: widget.blobHoverData.color,
               ),
             ),
