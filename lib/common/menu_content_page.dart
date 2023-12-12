@@ -102,7 +102,7 @@ class _PageContainerState extends State<PageContainer> with TickerProviderStateM
           Positioned(
             bottom: 30,
             right: context.responsiveSize(desktop: 70, tablet: 70, mobile: 40),
-            child: ClockView(),
+            child: const ClockView(),
           ),
         if (!context.isMobile) buildAnimatedMouseFollower(height),
         // ? content goes here

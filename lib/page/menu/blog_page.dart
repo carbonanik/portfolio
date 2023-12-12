@@ -65,9 +65,9 @@ class _BlogPageState extends State<BlogPage> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    super.dispose();
     _titleAnimationController.dispose();
     _blinkAnimationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -84,6 +84,7 @@ class _BlogPageState extends State<BlogPage> with TickerProviderStateMixin {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(width: width,),
                 if (!context.isMobile) const SizedBox(height: 40),
                 // ? Title & Subtitle
                 Padding(

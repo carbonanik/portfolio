@@ -19,16 +19,16 @@ class ArticleItem extends StatefulWidget {
   final Color? borderColor;
 
   @override
-  State<ArticleItem> createState() => _ProjectItemState();
+  State<ArticleItem> createState() => _ArticleItemState();
 }
 
-class _ProjectItemState extends State<ArticleItem> {
+class _ArticleItemState extends State<ArticleItem> {
   bool hovered = false;
   final bool leftCut = true;
 
   String title = "Python programming Tutorial for biggners";
   final defaultBorderColor = appColors.accentColor;
-  final hoverOffset = const Offset(-.025, -.025);
+  final hoverOffset = const Offset(-.02, -.02);
   final hoverDuration = 200.milliseconds;
   final hoverCurve = Curves.fastOutSlowIn;
 
@@ -37,6 +37,7 @@ class _ProjectItemState extends State<ArticleItem> {
     return Padding(
       // ? padding for hover shift effect to not clip
       padding: const EdgeInsets.only(top: 10),
+      // ? mobile = click | desktop = hover
       child: context.isMobile
           ? GestureDetector(
               onTap: () {
@@ -123,9 +124,10 @@ class _ProjectItemState extends State<ArticleItem> {
                 child: ClipPath(
                   clipper: CornerCutBorderClipper(leftCut: leftCut, filled: true, width: 10),
                   child: AnimatedContainer(
-                      curve: hoverCurve,
-                      duration: hoverDuration,
-                      color: hovered ? Colors.transparent : Colors.black.withOpacity(.5)),
+                    curve: hoverCurve,
+                    duration: hoverDuration,
+                    color: hovered ? Colors.transparent : Colors.black.withOpacity(.5),
+                  ),
                 ),
               ),
               // ? detail
@@ -143,10 +145,10 @@ class _ProjectItemState extends State<ArticleItem> {
               ),
               // ? read button
               Positioned(
-                right: 20,
-                bottom: 20,
+                right: context.responsiveSize(desktop: 20),
+                bottom: context.responsiveSize(desktop: 20),
                 child: Padding(
-                  padding: const EdgeInsets.all(40),
+                  padding: EdgeInsets.all(context.responsiveSize(desktop: 40)),
                   child: AnimatedOpacity(
                     duration: hoverDuration,
                     opacity: hovered ? 1 : 0,

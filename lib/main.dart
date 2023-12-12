@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
               fontFamily: "Cabin",
             ),
       ),
-      home: const AboutPage(),
+      home: const BlogPage(),
     );
   }
 }

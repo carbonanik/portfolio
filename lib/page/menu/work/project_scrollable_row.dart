@@ -41,6 +41,7 @@ class _ScrollableRowState extends State<ScrollableRow> with TickerProviderStateM
   @override
   void dispose() {
     _nextButtonController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -69,7 +70,7 @@ class _ScrollableRowState extends State<ScrollableRow> with TickerProviderStateM
               child: SizedBox(
                 height: widget.contentHeight ?? context.responsiveSize(desktop: 432, tablet: 432, mobile: 320),
                 child: ListView.builder(
-                  // clipBehavior: Clip.none,
+                  clipBehavior: context.isMobile ? Clip.none : Clip.hardEdge,
                   scrollDirection: Axis.horizontal,
                   controller: _scrollController,
                   itemCount: widget.itemCount,

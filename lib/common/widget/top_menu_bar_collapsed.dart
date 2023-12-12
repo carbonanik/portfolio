@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:portfolio/common/widget/corner_cut_style_button.dart';
 import 'package:portfolio/ext.dart';
@@ -138,7 +140,7 @@ class _TopMenuBarCollapsedState extends State<TopMenuBarCollapsed> with SingleTi
                 (index) => Column(
                   children: [
                     const SizedBox(height: 20),
-                    MenuItem(
+                    MenuItemCollapsed(
                       serial: index + 1,
                       name: menuItems[index],
                       selected: widget.selectedItem == menuItems[index],
@@ -172,29 +174,31 @@ class _TopMenuBarCollapsedState extends State<TopMenuBarCollapsed> with SingleTi
   }
 
   void go(Widget page, BuildContext context, int index) async {
-    await Future.delayed(500.milliseconds);
-    if (widget.selectedItem != menuItems[index]) {
-      // ignore: use_build_context_synchronously
-      Navigator.push(
-        context,
-        PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) {
-            return page;
-          },
-        ),
-      );
-    }
+    // await Future.delayed(500.milliseconds);
+    Timer(500.milliseconds, () {
+      if (widget.selectedItem != menuItems[index]) {
+        // ignore: use_build_context_synchronously
+        Navigator.push(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) {
+              return page;
+            },
+          ),
+        );
+      }
+    });
   }
 }
 
-class MenuItem extends StatefulWidget {
+class MenuItemCollapsed extends StatefulWidget {
   final int serial;
   final String name;
 
   final bool selected;
   final void Function(String item)? onTap;
 
-  const MenuItem({
+  const MenuItemCollapsed({
     required this.serial,
     required this.name,
     required this.selected,
@@ -203,10 +207,10 @@ class MenuItem extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<MenuItem> createState() => _MenuItemState();
+  State<MenuItemCollapsed> createState() => _MenuItemCollapsedState();
 }
 
-class _MenuItemState extends State<MenuItem> with SingleTickerProviderStateMixin {
+class _MenuItemCollapsedState extends State<MenuItemCollapsed> with SingleTickerProviderStateMixin {
   late AnimationController _blinkAnimationController;
   late Animation<double> _blinkAnimation;
 
@@ -227,6 +231,12 @@ class _MenuItemState extends State<MenuItem> with SingleTickerProviderStateMixin
   }
 
   @override
+  void dispose() {
+    _blinkAnimationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => widget.onTap?.call(widget.name),
@@ -241,7 +251,7 @@ class _MenuItemState extends State<MenuItem> with SingleTickerProviderStateMixin
           ),
           const SizedBox(width: 6),
           Text(
-            widget.name,// + (_blinkAnimation.value > 1 ? "_" : ""),
+            widget.name, // + (_blinkAnimation.value > 1 ? "_" : ""),
             style: menuTextStyle,
           ),
           const SizedBox(width: 16),

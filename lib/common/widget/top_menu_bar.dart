@@ -123,13 +123,25 @@ class MenuItem extends StatefulWidget {
 class _MenuItemState extends State<MenuItem> {
   bool isHovered = false;
   bool firstAnimate = true;
+  late Timer _timer;
 
   @override
-  Widget build(BuildContext context) {
-    Timer(500.milliseconds, () {
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    _timer = Timer(500.milliseconds, () {
       firstAnimate = false;
       setState(() {});
     });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
 
     return MouseRegion(
       onEnter: (event) {

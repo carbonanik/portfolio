@@ -38,14 +38,15 @@ class Intro extends StatefulWidget {
 }
 
 class _IntroState extends State<Intro> with TickerProviderStateMixin {
-  late AnimationController controller;
+  late AnimationController _timeLineController;
   late Animation<TimelineValue<AnimProps>> animation;
+  late Timer _startTimer;
 
   @override
   void initState() {
     super.initState();
 
-    controller = AnimationController(duration: 1600.milliseconds, vsync: this);
+    _timeLineController = AnimationController(duration: 1600.milliseconds, vsync: this);
     animation = TimelineTween<AnimProps>()
         // Over Title
         .addScene(begin: 0.milliseconds, end: 100.milliseconds, curve: Curves.ease)
@@ -78,16 +79,17 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
         .animate(AnimProps.buttonIncreaseLeftMargin, tween: Tween(begin: 0.0, end: 1000.0))
         //
         .parent
-        .animatedBy(controller);
+        .animatedBy(_timeLineController);
 
-    Timer(700.milliseconds, () {
-      controller.forward();
+    _startTimer = Timer(700.milliseconds, () {
+      _timeLineController.forward();
     });
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    _startTimer.cancel();
+    _timeLineController.dispose();
     super.dispose();
   }
 
@@ -96,7 +98,7 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        AnimatedBuilder(animation: controller, builder: _buildAnimation),
+        AnimatedBuilder(animation: _timeLineController, builder: _buildAnimation),
       ],
     );
   }
