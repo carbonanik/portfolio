@@ -1,9 +1,6 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:portfolio/ascii_media.dart';
-import 'package:portfolio/page/menu/about_page.dart';
-import 'package:portfolio/page/menu/blog_page.dart';
+import 'package:portfolio/features/articles/ui/page/blog_page.dart';
 import 'package:portfolio/theme/colors.dart';
 
 void main() {

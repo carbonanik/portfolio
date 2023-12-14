@@ -51,6 +51,7 @@ dependencies:
   sa4_migration_kit: ^1.0.0
   uuid: ^4.2.1
   responsive_grid: ^2.4.4
+  url_launcher: ^6.2.2
   # dart pub global activate flutter_gen
   # flutter packages pub run build_runner build
 #  flutter_staggered_animations: ^1.1.1
