@@ -1,5 +1,7 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:portfolio/core/theme/selected_theme_provider.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/menu_content_page.dart';
 import 'package:portfolio/features/common/paths/color_splash_painter.dart';
 import 'package:portfolio/features/common/paths/corner_cut_border_clipper.dart';
@@ -108,14 +110,11 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
           //   ),
           // ),
           child: Padding(
-            padding: EdgeInsets.all(context.responsiveSize(desktop: 40)),
+            padding: EdgeInsets.symmetric(horizontal: context.responsiveSize(desktop: 40), vertical: context.responsiveSize(desktop: 20)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // widget.leftItem ? projectDetail(leftItem: widget.leftItem) : projectImage(leftItem: widget.leftItem),
-                // const SizedBox(width: 40),
-                // widget.leftItem ? projectImage(leftItem: widget.leftItem) : projectDetail(leftItem: widget.leftItem),
                 projectDetail(),
               ],
             ),
@@ -226,7 +225,7 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
               );
             },
             fontSize: context.responsiveSize(desktop: 18),
-            padding: EdgeInsets.all(context.responsiveSize(desktop: 18)),
+            padding: EdgeInsets.all(context.responsiveSize(desktop: 14)),
             cornerCutRadius: context.responsiveSize(desktop: 18),
             elevation: context.responsiveSize(desktop: 10),
           )

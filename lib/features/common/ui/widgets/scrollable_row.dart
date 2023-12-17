@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:portfolio/core/theme/selected_theme_provider.dart';
 import 'package:portfolio/features/common/paths/dotted_circle_painter.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/theme/colors.dart';
@@ -8,39 +10,35 @@ import 'package:supercharged/supercharged.dart';
 
 class ScrollableRow extends StatefulWidget {
   const ScrollableRow({
-    // required this.items,
     required this.itemBuilder,
     required this.itemCount,
     this.contentHeight,
+    this.itemTotalWidth,
     super.key,
   });
 
-  // final List<Item> items;
-  final  Widget? Function(BuildContext context, int index) itemBuilder;
+  final Widget? Function(BuildContext context, int index) itemBuilder;
   final int itemCount;
   final double? contentHeight;
+  final double? itemTotalWidth;
 
   @override
   State<ScrollableRow> createState() => _ScrollableRowState();
 }
 
 class _ScrollableRowState extends State<ScrollableRow> with TickerProviderStateMixin {
-  late AnimationController _nextButtonController;
-  final borderColor = appColors.accentColor.withOpacity(.2); //const Color(0xFF382A04);
-  final lineColor = appColors.accentColor.withOpacity(.4); //const Color(0xFF382A04);///backgroundTextColor;
+
   int currentProjectIndex = 0;
   final _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    _nextButtonController = AnimationController(duration: 10.seconds, vsync: this);
-    _nextButtonController.repeat();
   }
 
   @override
   void dispose() {
-    _nextButtonController.dispose();
+
     _scrollController.dispose();
     super.dispose();
   }
@@ -53,14 +51,14 @@ class _ScrollableRowState extends State<ScrollableRow> with TickerProviderStateM
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // if (!context.isMobile) const SizedBox(width: 40),
+            if (!context.isMobile) const SizedBox(width: 40),
             if (!context.isMobile)
-              buildAnimatedNextButton(
-                1,
-                () {
+              AnimatedNextButton(
+                turns: 1,
+                onPressed: () {
                   currentProjectIndex = (currentProjectIndex - 1) % widget.itemCount;
                   _scrollController.animateTo(
-                    currentProjectIndex * 500,
+                    currentProjectIndex * (widget.itemTotalWidth ?? 500),
                     duration: 1.seconds,
                     curve: Curves.easeInOutCubic,
                   );
@@ -78,23 +76,65 @@ class _ScrollableRowState extends State<ScrollableRow> with TickerProviderStateM
                 ),
               ),
             ),
-            // if (!context.isMobile) const SizedBox(width: 60),
             if (!context.isMobile)
-              buildAnimatedNextButton(3, () {
+              AnimatedNextButton(turns: 3, onPressed: () {
                 currentProjectIndex = (currentProjectIndex + 1) % widget.itemCount;
+
+                final double offset = currentProjectIndex * (widget.itemTotalWidth ?? 500);
+                // print("width$width");
+                // print("offset-left${_scrollController.position.maxScrollExtent - offset + 160}");
+                // if (_scrollController.position.maxScrollExtent - offset > 0) {
                 _scrollController.animateTo(
-                  currentProjectIndex * 500,
+                  offset,
                   duration: 1.seconds,
                   curve: Curves.easeInOutCubic,
                 );
+                // } else {
+                //   currentProjectIndex = 0;
+                //
+                //   _scrollController.animateTo(
+                //     0,
+                //     duration: 1.seconds,
+                //     curve: Curves.easeInOutCubic,
+                //   );
+                // }
               }),
           ],
         ),
       ],
     );
   }
+}
 
-  Widget buildAnimatedNextButton(int turns, void Function() onPressed) {
+class AnimatedNextButton extends ConsumerStatefulWidget {
+  const AnimatedNextButton({required this.turns, required this.onPressed, super.key});
+
+  final int turns;
+  final void Function() onPressed;
+
+  @override
+  ConsumerState<AnimatedNextButton> createState() => _AnimatedNextButtonState();
+}
+
+class _AnimatedNextButtonState extends ConsumerState<AnimatedNextButton> with SingleTickerProviderStateMixin {
+  late AnimationController _nextButtonController;
+  final lineColor = appColors.accentColor.withOpacity(.4);
+
+  @override
+  void initState() {
+    super.initState();
+    _nextButtonController = AnimationController(duration: 10.seconds, vsync: this);
+    _nextButtonController.repeat();
+  }
+
+  @override
+  void dispose() {
+    _nextButtonController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return SizedBox(
       height: 60,
       width: 60,
@@ -106,7 +146,7 @@ class _ScrollableRowState extends State<ScrollableRow> with TickerProviderStateM
                 return Transform.rotate(
                   angle: _nextButtonController.value * 2.0 * pi,
                   child: CustomPaint(
-                    painter: DottedCirclePainter(color: lineColor),
+                    painter: DottedCirclePainter(color: appColors.accentColor.withOpacity(.4)),
                     child: Container(),
                   ),
                 );
@@ -121,13 +161,13 @@ class _ScrollableRowState extends State<ScrollableRow> with TickerProviderStateM
               _nextButtonController.repeat();
             },
             child: RawMaterialButton(
-              onPressed: onPressed,
+              onPressed: widget.onPressed,
               elevation: 2.0,
               fillColor: appColors.accentColor.withOpacity(.1),
               padding: const EdgeInsets.all(15.0),
               shape: const CircleBorder(),
               child: RotatedBox(
-                quarterTurns: turns,
+                quarterTurns: widget.turns,
                 child: Icon(
                   Icons.keyboard_double_arrow_down_rounded,
                   size: 30.0,

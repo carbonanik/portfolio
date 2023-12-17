@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/core/router/app_router.dart';
 import 'package:portfolio/features/common/ui/widgets/menu/menu_item.dart';
+import 'package:portfolio/features/common/ui/widgets/page_shared_content/theme_selector.dart';
 
 
 class TopMenuBar extends StatelessWidget {
@@ -61,6 +62,11 @@ class TopMenuBar extends StatelessWidget {
               ),
             ),
           ),
+        ),
+        const Positioned(
+          top: 50,
+          right: 630,
+          child: ThemeSelector(),
         ),
       ],
     );

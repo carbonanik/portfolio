@@ -9,20 +9,20 @@ class DottedCirclePainter extends CustomPainter {
     this.length = 24,
     this.height,
     this.width,
-    this.color,
+    required this.color,
     this.strokeWidth = 2,
   });
 
   final int length;
   final double? height;
   final double? width;
-  final Color? color;
+  final Color color;
   final int strokeWidth;
 
   @override
   void paint(Canvas canvas, Size size) {
     final dashLineBrush = Paint()
-      ..color = color ?? appColors.accentColor
+      ..color = color
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 2;

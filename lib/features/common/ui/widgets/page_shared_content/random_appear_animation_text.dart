@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:portfolio/core/theme/selected_theme_provider.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/theme/colors.dart';
 import 'package:supercharged/supercharged.dart';
@@ -50,7 +52,7 @@ class _RandomAppearAnimationTextState extends State<RandomAppearAnimationText> w
     _controller.forward();
   }
 
-  void hoverRun (){
+  void hoverRun() {
     _controller.reset();
     _controller.forward();
   }

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/core/router/app_router.dart';
+import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/text_background.dart';
 import 'package:portfolio/theme/colors.dart';
 import 'package:portfolio/theme/typography.dart';
@@ -57,8 +58,8 @@ class _OnBoardPageState extends State<OnBoardPage> {
               duration: 1.seconds,
               builder: (BuildContext context, Color? color, __) {
                 return Text(
-                  "Know me,",
-                  style: titleTwoTextStyle.copyWith(fontSize: 200, color: color),
+                  "welcome,",
+                  style: titleTwoTextStyle.copyWith(fontSize: context.responsiveSize(desktop:  200, mobile: 70), color: color),
                 );
               },
             ),

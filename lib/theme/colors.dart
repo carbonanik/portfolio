@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:portfolio/core/theme/selected_theme_provider.dart';
 
 // const backgroundColor = ;
 // const backgroundColorLite = ;
@@ -36,8 +36,8 @@ final randomColors2 = [
   randomColor8,
 ];
 
-const appColorsList = [
-  AppColors(
+const appColorsThemes = {
+  "canary": AppColors(
     primarySwatch: Colors.orange,
     backgroundColor: Color(0xFF0B0900),
     foregroundColor: Color(0xFFFDF1D2),
@@ -45,7 +45,7 @@ const appColorsList = [
     accentColor: Color(0xFFEAAD13),
     backgroundColorLite: Color(0xFF131210),
   ),
-  AppColors(
+  "mute": AppColors(
     primarySwatch: Colors.grey,
     backgroundColor: Color(0xff1c1a1b),
     foregroundColor: Color(0xffdecfd6),
@@ -54,7 +54,7 @@ const appColorsList = [
     backgroundColorLite: Color(0xff232022),
     colorBurst: randomColor2,
   ),
-  AppColors(
+  "fern": AppColors(
     primarySwatch: Colors.lightGreen,
     backgroundColor: Color(0xff1a1e00),
     foregroundColor: Color(0xfffbffe1),
@@ -62,7 +62,7 @@ const appColorsList = [
     accentColor: Color(0xffd3f401),
     backgroundColorLite: Color(0xff232900),
   ),
-  AppColors(
+  "space": AppColors(
     primarySwatch: Colors.blue,
     backgroundColor: Color(0xff00242d),
     backgroundColorLite: Color(0xff002e3a),
@@ -70,7 +70,7 @@ const appColorsList = [
     foregroundColorDark: Color(0xffafbec2),
     accentColor: Color(0xff3F78FD),
   ),
-  AppColors(
+  "prism": AppColors(
     primarySwatch: Colors.deepPurple,
     backgroundColor: Color(0xff0e0623),
     backgroundColorLite: Color(0xff160938),
@@ -78,7 +78,7 @@ const appColorsList = [
     foregroundColorDark: Color(0xffb4a0ec),
     accentColor: Color(0xff673ab7),
   ),
-  AppColors(
+  "pink": AppColors(
     primarySwatch: Colors.pink,
     backgroundColor: Color(0xff11030b),
     backgroundColorLite: Color(0xff1e0613),
@@ -87,7 +87,7 @@ const appColorsList = [
     accentColor: Color(0xFFFF4081),
     colorBurst: Color(0xFFE91E63),
   ),
-  AppColors(
+  "mono": AppColors(
     primarySwatch: Colors.grey,
     backgroundColor: Color(0xff050505),
     backgroundColorLite: Color(0xff141414),
@@ -96,11 +96,9 @@ const appColorsList = [
     accentColor: Color(0xff6e6e6e),
     colorBurst: Color(0xFFf2f2f2),
   ),
-];
+};
 
-
-int colorIndex = 0;
-final appColors = appColorsList[colorIndex];
+AppColors appColors = appColorsThemes.values.first;
 
 class AppColors {
   const AppColors({

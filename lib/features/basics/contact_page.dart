@@ -19,7 +19,7 @@ class ContactPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "carbonanik@gmail.com",
+                "sheikhanikbd@gmail.com",
                 style: titleOneTextStyle.copyWith(
                   fontFamily: ibmPlexMono,
                   fontSize: 28,

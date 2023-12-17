@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:portfolio/core/theme/selected_theme_provider.dart';
 import 'package:portfolio/features/articles/state/provider/filtered_article_provider.dart';
 import 'package:portfolio/features/articles/state/provider/search_text_provider.dart';
 import 'package:portfolio/features/articles/state/provider/selected_tag_provider.dart';
@@ -14,26 +15,24 @@ import 'package:portfolio/theme/colors.dart';
 import 'package:portfolio/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
 
+final titleAnimationState = StateProvider.autoDispose<double>((ref) => 0);
+final blinkingAnimationState = StateProvider.autoDispose<bool>((ref) => true);
+
 @RoutePage()
-class BlogPage extends StatefulWidget {
+class BlogPage extends ConsumerStatefulWidget {
   const BlogPage({super.key});
 
   @override
-  State<BlogPage> createState() => _BlogPageState();
+  ConsumerState<BlogPage> createState() => _BlogPageState();
 }
 
-class _BlogPageState extends State<BlogPage> with TickerProviderStateMixin {
+class _BlogPageState extends ConsumerState<BlogPage> with TickerProviderStateMixin {
   BlobHoverData blobHoverData = const BlobHoverData.initial();
   late AnimationController _titleAnimationController;
   late AnimationController _blinkAnimationController;
   late Animation<double> _titleAnimation;
-  late Animation<double> _blinkAnimation;
 
   final subtitle = "Python tutorial for everyone. if your are a noob this is for you. \nif you are a pro go home.";
-
-  // List<String> selectedSearchTags = ["Python"];
-
-  bool subtitleCursor = true;
 
   @override
   void initState() {
@@ -46,24 +45,21 @@ class _BlogPageState extends State<BlogPage> with TickerProviderStateMixin {
       end: subtitle.length.toDouble(),
     ).animate(_titleAnimationController)
       ..addListener(() {
-        setState(() {});
-      });
-
-    _blinkAnimation = Tween<double>(
-      begin: 0,
-      end: 2,
-    ).animate(_blinkAnimationController)
-      ..addListener(() {
-        if (_blinkAnimation.value > 1) {
-          setState(() {
-            subtitleCursor = false;
-          });
-        } else {
-          setState(() {
-            subtitleCursor = true;
-          });
+        if (_titleAnimation.value.toInt() == 0 && ref.read(titleAnimationState.notifier).state.toInt() != 0) {
+          ref.read(titleAnimationState.notifier).state = _titleAnimation.value;
+        }
+        if (_titleAnimation.value.toInt() > ref.read(titleAnimationState.notifier).state.toInt()) {
+          ref.read(titleAnimationState.notifier).state = _titleAnimation.value;
         }
       });
+
+    _blinkAnimationController.addListener(() {
+      if (_blinkAnimationController.value > .5) {
+        ref.read(blinkingAnimationState.notifier).state = false;
+      } else {
+        ref.read(blinkingAnimationState.notifier).state = true;
+      }
+    });
 
     _titleAnimationController.forward();
 
@@ -121,23 +117,27 @@ class _BlogPageState extends State<BlogPage> with TickerProviderStateMixin {
                       ),
                       const SizedBox(height: 10),
                       // ? Subtitle
-                      Text(
-                        subtitle.substring(0, _titleAnimation.value.toInt()) +
-                            (_titleAnimationController.isAnimating || subtitleCursor ? "_" : ""),
-                        style: subtitleTextStyle.copyWith(
-                          height: 1.5,
-                          fontSize: context.adaptiveResponsiveWidth(desktop: subtitleTextStyle.fontSize!),
-                          shadows: [
-                            Shadow(
-                              blurRadius: 10,
-                              color: appColors.accentColor,
-                            ),
-                          ],
-                        ),
-                        textAlign: TextAlign.start,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                      Consumer(builder: (context, ref, child) {
+                        final titleAnimValue = ref.watch(titleAnimationState);
+                        final blinkingAnimValue = ref.watch(blinkingAnimationState);
+                        return Text(
+                          subtitle.substring(0, titleAnimValue.toInt()) +
+                              (_titleAnimationController.isAnimating || blinkingAnimValue ? "_" : ""),
+                          style: subtitleTextStyle.copyWith(
+                            height: 1.5,
+                            fontSize: context.adaptiveResponsiveWidth(desktop: subtitleTextStyle.fontSize!),
+                            shadows: [
+                              Shadow(
+                                blurRadius: 10,
+                                color: appColors.accentColor,
+                              ),
+                            ],
+                          ),
+                          textAlign: TextAlign.start,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        );
+                      }),
                     ],
                   ),
                 ),
@@ -153,26 +153,32 @@ class _BlogPageState extends State<BlogPage> with TickerProviderStateMixin {
               Expanded(child: Container()),
               Consumer(builder: (context, ref, child) {
                 final articles = ref.watch(searchedArticleProvider);
+                final double contentHeight = context.isMobile
+                    ? context.adaptiveResponsiveWidth(desktop: 0, mobile: 240)
+                    : context.adaptiveResponsiveHeight(desktop: 400, tablet: 300);
+                final contentWidth = context.adaptiveResponsiveWidth(desktop: 340, tablet: 340, mobile: 200);
+                final horizontalSpace = context.adaptiveResponsiveHeight(desktop: 60, mobile: 20);
                 return Container(
                   padding:
                       EdgeInsets.only(left: 20, right: context.responsiveSize(desktop: 50, tablet: 50, mobile: 20)),
                   // ? Horizontal list of article
                   child: ScrollableRow(
-                    contentHeight: context.isMobile
-                        ? context.adaptiveResponsiveWidth(desktop: 0, mobile: 240)
-                        : context.adaptiveResponsiveHeight(desktop: 400, tablet: 300),
+                    contentHeight: contentHeight,
+                    itemTotalWidth: contentWidth + horizontalSpace,
                     itemCount: articles.length,
                     itemBuilder: (context, index) {
                       return Row(
                         children: [
-                          SizedBox(width: context.adaptiveResponsiveHeight(desktop: 60, mobile: 20)),
+                          SizedBox(width: horizontalSpace),
                           ArticleItemV2(
                             article: articles[index],
                             blobHoverEffect: (data) {
-                              setState(() {
-                                blobHoverData = data;
-                              });
+                              // setState(() {
+                              blobHoverData = data;
+                              // });
                             },
+                            height: contentHeight,
+                            width: contentWidth,
                           ),
                           //
                         ],
@@ -192,14 +198,12 @@ class _BlogPageState extends State<BlogPage> with TickerProviderStateMixin {
             children: [
               SizedBox(
                 width: context.adaptiveResponsiveWidth(desktop: 600, tablet: 600, mobile: 300),
-                child: Consumer(builder: (context, ref, child) {
-                  return InputField(
-                    hint: "Search",
-                    onChanged: (value) {
-                      ref.read(searchTextProvider.notifier).state = value;
-                    },
-                  );
-                }),
+                child: InputField(
+                  hint: "Search",
+                  onChanged: (value) {
+                    ref.read(searchTextProvider.notifier).state = value;
+                  },
+                ),
               ),
               const SizedBox(height: 10),
               Container(
@@ -225,9 +229,10 @@ class _BlogPageState extends State<BlogPage> with TickerProviderStateMixin {
                                     ),
                                   ),
                                   Consumer(builder: (context, ref, child) {
+                                    final selectedTag = ref.watch(selectedTagProvider);
                                     return GestureDetector(
                                       onTap: () {
-                                        if (ref.read(selectedTagProvider).contains(tags[index])) {
+                                        if (selectedTag.contains(tags[index])) {
                                           final selectedSearchTags = ref.read(selectedTagProvider)..remove(tags[index]);
                                           ref.read(selectedTagProvider.notifier).state = [...selectedSearchTags];
                                         } else {
@@ -238,11 +243,11 @@ class _BlogPageState extends State<BlogPage> with TickerProviderStateMixin {
                                         }
                                       },
                                       child: Container(
-                                        transform: ref.read(selectedTagProvider).contains(tags[index])
+                                        transform: selectedTag.contains(tags[index])
                                             ? Matrix4.translationValues(-1, -1, 0)
                                             : Matrix4.translationValues(-3, -3, 0),
                                         padding: const EdgeInsets.all(6.0),
-                                        color: ref.read(selectedTagProvider).contains(tags[index])
+                                        color: selectedTag.contains(tags[index])
                                             ? appColors.accentColor.darken(80)
                                             : appColors.accentColor.darken(60),
                                         child: Row(

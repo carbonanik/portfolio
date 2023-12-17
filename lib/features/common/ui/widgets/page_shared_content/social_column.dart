@@ -1,5 +1,7 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:portfolio/core/theme/selected_theme_provider.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/random_appear_animation_text.dart';
 import 'package:portfolio/theme/colors.dart';
@@ -19,14 +21,14 @@ class SocialItem {
   });
 }
 
-class SocialColumn extends StatefulWidget {
+class SocialColumn extends ConsumerStatefulWidget {
   const SocialColumn({super.key});
 
   @override
-  State<SocialColumn> createState() => _SocialColumnState();
+  ConsumerState<SocialColumn> createState() => _SocialColumnState();
 }
 
-class _SocialColumnState extends State<SocialColumn> with TickerProviderStateMixin {
+class _SocialColumnState extends ConsumerState<SocialColumn> with TickerProviderStateMixin {
   AnimationController? backController; // todo: paglami code need to be changed
 
   @override

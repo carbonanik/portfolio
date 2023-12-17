@@ -1,6 +1,8 @@
 import 'package:code_text_field/code_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:highlight/highlight.dart';
+import 'package:portfolio/core/theme/selected_theme_provider.dart';
 import 'package:portfolio/gen/fonts.gen.dart';
 import 'package:portfolio/theme/colors.dart';
 
@@ -80,11 +82,13 @@ class _CodeEditorState extends State<CodeEditor> {
 }
 
 final customTheme = {
-  'root': const TextStyle(backgroundColor: Colors.transparent, color: Color(0xffdcdcdc), fontFamily: FontFamily.iBMPlexMono),
+  'root': const TextStyle(
+      backgroundColor: Colors.transparent, color: Color(0xffdcdcdc), fontFamily: FontFamily.iBMPlexMono),
   'tag': const TextStyle(color: Color(0xfff8f8f2), fontFamily: FontFamily.iBMPlexMono),
   'subst': const TextStyle(color: Color(0xfff8f8f2), fontFamily: FontFamily.iBMPlexMono),
   'strong': const TextStyle(color: Color(0xffa8a8a2), fontWeight: FontWeight.bold, fontFamily: FontFamily.iBMPlexMono),
-  'emphasis': const TextStyle(color: Color(0xffa8a8a2), fontStyle: FontStyle.italic, fontFamily: FontFamily.iBMPlexMono),
+  'emphasis':
+      const TextStyle(color: Color(0xffa8a8a2), fontStyle: FontStyle.italic, fontFamily: FontFamily.iBMPlexMono),
   'bullet': const TextStyle(color: Color(0xffae81ff), fontFamily: FontFamily.iBMPlexMono),
   'quote': const TextStyle(color: Color(0xffae81ff), fontFamily: FontFamily.iBMPlexMono),
   'number': const TextStyle(color: Color(0xffae81ff), fontFamily: FontFamily.iBMPlexMono),

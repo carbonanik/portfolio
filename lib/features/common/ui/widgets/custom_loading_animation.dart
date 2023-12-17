@@ -1,18 +1,20 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:portfolio/core/theme/selected_theme_provider.dart';
 import 'package:portfolio/theme/colors.dart';
 import 'package:portfolio/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
 
-class CustomLoadingAnimation extends StatefulWidget {
+class CustomLoadingAnimation extends ConsumerStatefulWidget {
   const CustomLoadingAnimation({super.key});
 
   @override
-  State<CustomLoadingAnimation> createState() => _CustomLoadingAnimationState();
+  ConsumerState<CustomLoadingAnimation> createState() => _CustomLoadingAnimationState();
 }
 
-class _CustomLoadingAnimationState extends State<CustomLoadingAnimation> with TickerProviderStateMixin {
+class _CustomLoadingAnimationState extends ConsumerState<CustomLoadingAnimation> with TickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     duration: 200.milliseconds,
     vsync: this,

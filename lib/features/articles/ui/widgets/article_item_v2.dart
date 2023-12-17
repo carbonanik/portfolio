@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:portfolio/core/router/app_router.dart';
+import 'package:portfolio/core/theme/selected_theme_provider.dart';
 import 'package:portfolio/features/articles/data_source/article_static_data.dart';
 import 'package:portfolio/features/articles/models/article.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/menu_content_page.dart';
@@ -15,13 +17,16 @@ class ArticleItemV2 extends StatefulWidget {
     required this.article,
     this.blobHoverEffect,
     this.borderColor,
-
+    required this.height,
+    required this.width,
     super.key,
   });
 
   final void Function(BlobHoverData data)? blobHoverEffect;
   final Color? borderColor;
   final Article article;
+  final double height;
+  final double width;
 
   @override
   State<ArticleItemV2> createState() => _ArticleItemState();
@@ -99,21 +104,12 @@ class _ArticleItemState extends State<ArticleItemV2> with SingleTickerProviderSt
   }
 
   Stack buildArticleView() {
-    final width = context.adaptiveResponsiveWidth(desktop: 340, tablet: 340, mobile: 200);
-     final height =  context.isMobile
-        ? context.adaptiveResponsiveWidth(desktop: 0, mobile: 240)
-        : context.adaptiveResponsiveHeight(desktop: 400, tablet: 300);
     return Stack(
       children: [
-        // Container(
-        //   ? card width will be taken from this width
-          // width: context.adaptiveResponsiveWidth(desktop: 340, tablet: 340, mobile: 200),
-          // height: height,
-        // ),
         // ? back border
         Container(
-          width: width,
-          height: height,
+          width: widget.width,
+          height: widget.height,
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
@@ -133,7 +129,7 @@ class _ArticleItemState extends State<ArticleItemV2> with SingleTickerProviderSt
           builder: (context, child) {
             return Transform.translate(
               offset: _slideAnimation.value,
-              child: buildAnimatedSlide(height, width),
+              child: buildAnimatedSlide(widget.height, widget.width),
             );
           },
         ),

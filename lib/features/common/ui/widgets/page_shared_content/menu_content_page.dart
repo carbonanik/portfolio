@@ -1,5 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:portfolio/core/theme/selected_theme_provider.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/clock/clock_view.dart';
 import 'package:portfolio/features/common/ui/widgets/custom_loading_animation.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/social_column.dart';
@@ -8,6 +10,7 @@ import 'package:portfolio/features/common/ui/widgets/menu/top_menu_bar.dart';
 import 'package:portfolio/features/common/ui/widgets/menu/top_menu_bar_collapsed.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/random_appear_animation_text.dart';
+import 'package:portfolio/features/common/ui/widgets/page_shared_content/theme_selector.dart';
 import 'package:portfolio/theme/colors.dart';
 import 'package:supercharged/supercharged.dart';
 
@@ -134,13 +137,13 @@ class _PageContainerState extends State<PageContainer> with TickerProviderStateM
         //   left: 20,
         //   child:
 
-          // Image.asset(
-          //   Assets.image.carbonLogo.path,
-          //   color: appColors.accentColor.darken(30),
-          //   width: context.responsiveSize(desktop: 120, tablet: 100, mobile: 80),
-          //   cacheWidth: 120,
-          //   cacheHeight: 98,
-          // ),
+        // Image.asset(
+        //   Assets.image.carbonLogo.path,
+        //   color: appColors.accentColor.darken(30),
+        //   width: context.responsiveSize(desktop: 120, tablet: 100, mobile: 80),
+        //   cacheWidth: 120,
+        //   cacheHeight: 98,
+        // ),
         // ),
         // ? Loading
         if (widget.isLoading) const CustomLoadingAnimation(),

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/core/router/app_router.dart';
 import 'package:portfolio/features/common/paths/corner_cut_border_clipper.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
+import 'package:portfolio/features/common/ui/widgets/page_shared_content/theme_selector.dart';
 import 'package:portfolio/theme/colors.dart';
 import 'package:portfolio/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
@@ -253,6 +254,11 @@ class _TopMenuBarCollapsedState extends State<TopMenuBarCollapsed> with SingleTi
                 ),
               ),
             ),
+          ),
+          const Positioned(
+            bottom: 10,
+            right: 0,
+            child: ThemeSelector(),
           ),
         ],
       ),

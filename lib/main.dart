@@ -1,11 +1,13 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:portfolio/core/router/app_router.dart';
+import 'package:portfolio/core/theme/selected_theme_provider.dart';
+import 'package:portfolio/gen/fonts.gen.dart';
 import 'package:portfolio/theme/colors.dart';
 
-void main() {
-  colorIndex = Random().nextInt(appColorsList.length);
+void main() async {
+  final savedKey = await loadTheme();
+  appColors = appColorsThemes[savedKey ?? getRandomThemeKey()]!;
   runApp(ProviderScope(child: MyApp()));
 }
 
@@ -58,7 +60,6 @@ class MyApp extends StatelessWidget {
 // ? Commands
 // flutter run -d chrome --web-hostname 0.0.0.0 --web-port 8080
 // flutter pub run build_runner build --delete-conflicting-outputs
-
 
 // ? Deploy to Firebase
 // sudo npm install -g firebase-tools
