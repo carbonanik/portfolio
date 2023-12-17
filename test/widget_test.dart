@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  final color = Color(0x00ff00);
+  const color = Color(0x0000ff00);
   print(color.value);
   final value = color.value;
   final color2 = Color(value);

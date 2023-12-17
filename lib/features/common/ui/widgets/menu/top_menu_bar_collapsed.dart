@@ -5,10 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/core/router/app_router.dart';
 import 'package:portfolio/features/common/paths/corner_cut_border_clipper.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
-import 'package:portfolio/features/articles/ui/page/blog_page.dart';
-import 'package:portfolio/features/basics/about/about_page.dart';
-import 'package:portfolio/features/basics/contact_page.dart';
-import 'package:portfolio/features/projects/ui/page/work_page.dart';
 import 'package:portfolio/theme/colors.dart';
 import 'package:portfolio/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
@@ -284,8 +280,8 @@ class MenuItemCollapsed extends StatefulWidget {
     required this.name,
     required this.selected,
     this.onTap,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<MenuItemCollapsed> createState() => _MenuItemCollapsedState();

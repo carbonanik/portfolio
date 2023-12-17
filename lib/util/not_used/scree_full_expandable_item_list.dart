@@ -3,7 +3,7 @@ import 'package:portfolio/theme/colors.dart';
 import 'package:supercharged/supercharged.dart';
 
 class ScreenFull extends StatefulWidget {
-  const ScreenFull({Key? key}) : super(key: key);
+  const ScreenFull({super.key});
 
   @override
   State<ScreenFull> createState() => _ScreenFullState();
@@ -15,7 +15,7 @@ class _ScreenFullState extends State<ScreenFull> {
   List<Color> colors = List.generate(
     5,
     // (index) => backgroundColor,
-    (index) => index % 2 == 0 ? Color(0xff051A16) : Color(0xFF04211C),
+    (index) => index % 2 == 0 ? const Color(0xff051A16) : const Color(0xFF04211C),
   );
 
   bool allClosed = true;

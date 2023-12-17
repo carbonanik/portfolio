@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/features/articles/models/article.dart';
+import 'package:portfolio/features/articles/ui/styles.dart';
 import 'package:portfolio/features/articles/ui/widgets/contents/code_content_view.dart';
 import 'package:portfolio/features/articles/ui/widgets/contents/image_content_view.dart';
 import 'package:portfolio/features/articles/ui/widgets/contents/text_content_view.dart';
@@ -54,6 +55,10 @@ class _ArticleViewState extends State<ArticleView> {
             Padding(
               padding: const EdgeInsets.only(bottom: 30),
               child: TitleContentView(title: widget.article.title),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: Text("#${widget.article.tags.join(", #")}", style: subtitleStyle),
             ),
             ...List.generate(
               widget.article.contents.length,

@@ -6,7 +6,7 @@ import 'package:portfolio/gen/fonts.gen.dart';
 import 'package:portfolio/theme/colors.dart';
 
 class AsciiMedia extends StatefulWidget {
-  const AsciiMedia({Key? key}) : super(key: key);
+  const AsciiMedia({super.key});
 
   @override
   State<AsciiMedia> createState() => _AsciiMediaState();

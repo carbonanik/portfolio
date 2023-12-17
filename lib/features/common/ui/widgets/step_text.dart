@@ -6,8 +6,8 @@ class StepText extends StatelessWidget {
   const StepText({
     required this.text,
     required this.style,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   final String text;
   final TextStyle style;
 

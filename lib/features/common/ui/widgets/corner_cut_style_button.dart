@@ -66,9 +66,9 @@ class _CornerCutButtonState extends State<CornerCutButton> with TickerProviderSt
   }
 
   getSizeAndPosition() {
-    RenderBox? _cardBox = _cardKey.currentContext?.findRenderObject() as RenderBox;
-    cardSize = _cardBox.size;
-    cardPosition = _cardBox.localToGlobal(Offset.zero);
+    RenderBox? cardBox = _cardKey.currentContext?.findRenderObject() as RenderBox;
+    cardSize = cardBox.size;
+    cardPosition = cardBox.localToGlobal(Offset.zero);
     setState(() {});
   }
 

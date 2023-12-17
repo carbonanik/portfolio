@@ -4,8 +4,8 @@ import 'package:portfolio/theme/typography.dart';
 
 class TextBackground extends StatelessWidget {
   const TextBackground({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

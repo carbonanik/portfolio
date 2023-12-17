@@ -6,7 +6,7 @@ import 'package:portfolio/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
 
 class CustomLoadingAnimation extends StatefulWidget {
-  const CustomLoadingAnimation({Key? key}) : super(key: key);
+  const CustomLoadingAnimation({super.key});
 
   @override
   State<CustomLoadingAnimation> createState() => _CustomLoadingAnimationState();
@@ -92,7 +92,7 @@ class _CustomLoadingAnimationState extends State<CustomLoadingAnimation> with Ti
         ),
         Center(
           child: Transform.translate(
-            offset: Offset(0, 100),
+            offset: const Offset(0, 100),
             child: Text(
               " ${_loadingPercentageAnimation.value.toInt()}%",
               style: titleTwoTextStyle.copyWith(color: appColors.accentColor, fontSize: 52),

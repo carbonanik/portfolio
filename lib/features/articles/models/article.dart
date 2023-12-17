@@ -1,4 +1,5 @@
 class Article {
+  final String id;
   final TitleContent title;
   final String author;
   final List<String> tags;
@@ -6,6 +7,7 @@ class Article {
   final DateTime publishedAt;
 
   const Article({
+    required this.id,
     required this.title,
     required this.author,
     required this.tags,

@@ -19,8 +19,8 @@ class MenuItemS2 extends StatefulWidget {
     // required this.width,
     required this.selected,
     this.onTap,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<MenuItemS2> createState() => _MenuItemS2State();

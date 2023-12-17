@@ -4,10 +4,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/clock/painter/clock_painter.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
-import 'package:portfolio/theme/colors.dart';
 
 class ClockView extends StatefulWidget {
-  const ClockView({Key? key}) : super(key: key);
+  const ClockView({super.key});
 
   @override
   State<ClockView> createState() => _ClockViewState();

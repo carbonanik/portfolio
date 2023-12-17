@@ -22,12 +22,14 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     ArticleOpenPageRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<ArticleOpenPageRouteArgs>(
-          orElse: () => const ArticleOpenPageRouteArgs());
+          orElse: () =>
+              ArticleOpenPageRouteArgs(id: pathParams.getString('id')));
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: ArticleOpenPage(
-          article: args.article,
+          id: args.id,
           key: args.key,
         ),
       );
@@ -77,15 +79,16 @@ class AboutPageRoute extends PageRouteInfo<void> {
 /// [ArticleOpenPage]
 class ArticleOpenPageRoute extends PageRouteInfo<ArticleOpenPageRouteArgs> {
   ArticleOpenPageRoute({
-    Article? article,
+    required String id,
     Key? key,
     List<PageRouteInfo>? children,
   }) : super(
           ArticleOpenPageRoute.name,
           args: ArticleOpenPageRouteArgs(
-            article: article,
+            id: id,
             key: key,
           ),
+          rawPathParams: {'id': id},
           initialChildren: children,
         );
 
@@ -97,17 +100,17 @@ class ArticleOpenPageRoute extends PageRouteInfo<ArticleOpenPageRouteArgs> {
 
 class ArticleOpenPageRouteArgs {
   const ArticleOpenPageRouteArgs({
-    this.article,
+    required this.id,
     this.key,
   });
 
-  final Article? article;
+  final String id;
 
   final Key? key;
 
   @override
   String toString() {
-    return 'ArticleOpenPageRouteArgs{article: $article, key: $key}';
+    return 'ArticleOpenPageRouteArgs{id: $id, key: $key}';
   }
 }
 

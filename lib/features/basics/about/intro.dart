@@ -32,7 +32,7 @@ enum AnimProps {
 }
 
 class Intro extends StatefulWidget {
-  const Intro({this.blobHoverEffect, Key? key}) : super(key: key);
+  const Intro({this.blobHoverEffect, super.key});
   final void Function(BlobHoverData data)? blobHoverEffect;
 
   @override
@@ -370,7 +370,7 @@ Widget buildDialog(BuildContext context) {
               const SizedBox(
                 height: 40,
               ),
-              Spacer(),
+              const Spacer(),
               Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: CornerCutButton(

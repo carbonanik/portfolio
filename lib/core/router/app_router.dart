@@ -24,7 +24,7 @@ class AppRouter extends _$AppRouter {
           page: OnBoardPageRoute.page,
         ),
         AutoRoute(
-          path: '/',
+          path: '/about',
           page: AboutPageRoute.page,
         ),
         AutoRoute(
@@ -40,7 +40,7 @@ class AppRouter extends _$AppRouter {
           page: ContactPageRoute.page,
         ),
         AutoRoute(
-          path: '/article',
+          path: '/article/:id',
           page: ArticleOpenPageRoute.page,
         )
       ];

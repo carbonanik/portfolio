@@ -1,12 +1,12 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:portfolio/core/router/app_router.dart';
 import 'package:portfolio/theme/colors.dart';
 
 void main() {
-  colorIndex = 0;
-  Random().nextInt(appColorsList.length);
-  runApp(MyApp());
+  colorIndex = Random().nextInt(appColorsList.length);
+  runApp(ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -58,3 +58,16 @@ class MyApp extends StatelessWidget {
 // ? Commands
 // flutter run -d chrome --web-hostname 0.0.0.0 --web-port 8080
 // flutter pub run build_runner build --delete-conflicting-outputs
+
+
+// ? Deploy to Firebase
+// sudo npm install -g firebase-tools
+// dart pub global activate flutterfire_cli
+// export PATH="$PATH":"$HOME/.pub-cache/bin"
+// firebase login
+// flutterfire configure
+// git ignore
+// firebase experiments:enable webframeworks
+// firebase init hosting
+// flutter build web
+// firebase deploy

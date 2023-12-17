@@ -7,7 +7,6 @@ import 'package:portfolio/features/common/ui/widgets/page_shared_content/text_ba
 import 'package:portfolio/features/common/ui/widgets/menu/top_menu_bar.dart';
 import 'package:portfolio/features/common/ui/widgets/menu/top_menu_bar_collapsed.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
-import 'package:portfolio/gen/assets.gen.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/random_appear_animation_text.dart';
 import 'package:portfolio/theme/colors.dart';
 import 'package:supercharged/supercharged.dart';
@@ -44,8 +43,8 @@ class PageContainer extends StatefulWidget {
     this.showSocial = true,
     this.showClock = true,
     this.blobHoverData = const BlobHoverData.initial(),
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final bool isLoading;
   final bool hasMenu;

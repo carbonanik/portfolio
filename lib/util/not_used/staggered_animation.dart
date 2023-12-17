@@ -12,7 +12,7 @@ enum AnimProps {
 }
 
 class StaggeredAnimation extends StatefulWidget {
-  const StaggeredAnimation({Key? key}) : super(key: key);
+  const StaggeredAnimation({super.key});
 
   @override
   State<StaggeredAnimation> createState() => _StaggeredAnimationState();

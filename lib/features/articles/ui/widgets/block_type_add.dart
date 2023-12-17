@@ -9,8 +9,8 @@ class BlockTypeAdd extends StatelessWidget {
   const BlockTypeAdd({
     required this.text,
     this.onTap,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

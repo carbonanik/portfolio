@@ -6,10 +6,10 @@ class SkeletonButton extends StatelessWidget {
   final VoidCallback? onPressed;
 
   const SkeletonButton({
-    Key? key,
+    super.key,
     this.onPressed,
     required this.text,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

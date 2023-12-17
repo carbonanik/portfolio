@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:highlight/languages/stylus.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/theme/colors.dart';
 import 'package:supercharged/supercharged.dart';

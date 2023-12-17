@@ -1,22 +1,18 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/util/not_used/code_viewer_line.dart';
 
 class CustomCodeViewer extends StatelessWidget {
-  const CustomCodeViewer({Key? key}) : super(key: key);
+  const CustomCodeViewer({super.key});
 
   @override
   Widget build(BuildContext context) {
     final sourceCodeLines = sourceCode.split('\n');
     return Scaffold(
-      body: Container(
-        // padding: EdgeInsets.only(top: 12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: List.generate(
-            sourceCodeLines.length,
-            (index) => CodeViewerLine(line: sourceCodeLines[index], lineNumber: index + 1),
-          ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: List.generate(
+          sourceCodeLines.length,
+          (index) => CodeViewerLine(line: sourceCodeLines[index], lineNumber: index + 1),
         ),
       ),
     );

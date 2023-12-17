@@ -12,8 +12,8 @@ class ScrollableRow extends StatefulWidget {
     required this.itemBuilder,
     required this.itemCount,
     this.contentHeight,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   // final List<Item> items;
   final  Widget? Function(BuildContext context, int index) itemBuilder;

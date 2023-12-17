@@ -3,7 +3,7 @@ import 'package:portfolio/features/common/ui/widgets/page_shared_content/text_ba
 import 'package:portfolio/theme/colors.dart';
 
 class ArticleListPage extends StatelessWidget {
-  const ArticleListPage({Key? key}) : super(key: key);
+  const ArticleListPage({super.key});
 
   @override
   Widget build(BuildContext context) {

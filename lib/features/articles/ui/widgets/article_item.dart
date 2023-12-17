@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/core/router/app_router.dart';
+import 'package:portfolio/features/articles/models/article.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/menu_content_page.dart';
 import 'package:portfolio/features/common/paths/corner_cut_border_clipper.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
@@ -11,6 +12,7 @@ import 'package:supercharged/supercharged.dart';
 
 class ArticleItem extends StatefulWidget {
   const ArticleItem({
+    required this.article,
     this.blobHoverEffect,
     this.borderColor,
     super.key,
@@ -18,6 +20,7 @@ class ArticleItem extends StatefulWidget {
 
   final void Function(BlobHoverData data)? blobHoverEffect;
   final Color? borderColor;
+  final Article article;
 
   @override
   State<ArticleItem> createState() => _ArticleItemState();
@@ -70,7 +73,7 @@ class _ArticleItemState extends State<ArticleItem> with SingleTickerProviderStat
           }
         },
         onTap: () {
-          AutoRouter.of(context).push(ArticleOpenPageRoute());
+          AutoRouter.of(context).push(ArticleOpenPageRoute(id: widget.article.id));
         },
         child: context.isMobile
             ? buildArticleView()

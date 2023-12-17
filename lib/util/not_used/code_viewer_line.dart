@@ -7,11 +7,11 @@ class CodeViewerLine extends StatelessWidget {
   final double fontSize;
 
   const CodeViewerLine({
-    Key? key,
+    super.key,
     required this.line,
     required this.lineNumber,
     this.fontSize = 22,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +38,8 @@ class LineNumber extends StatelessWidget {
   const LineNumber({
     required this.number,
     required this.fontSize,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -68,8 +68,8 @@ class LineCode extends StatelessWidget {
   const LineCode({
     required this.line,
     required this.fontSize,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +84,7 @@ class LineCode extends StatelessWidget {
 }
 
 Widget highlightedPair(String line){
-  return Text.rich(
+  return const Text.rich(
     TextSpan(
       text: 'Hello', // default text style
       children: <TextSpan>[

@@ -4,7 +4,7 @@ import 'package:portfolio/theme/colors.dart';
 
 class InputField extends StatelessWidget {
   const InputField({
-    Key? key,
+    super.key,
     this.title,
     required this.hint,
     this.controller,
@@ -12,7 +12,8 @@ class InputField extends StatelessWidget {
     this.obscureText = false,
     this.validator,
     this.padding,
-  }) : super(key: key);
+    this.onChanged,
+  });
 
   final String? title;
   final String hint;
@@ -20,8 +21,8 @@ class InputField extends StatelessWidget {
   final TextInputType? keyboardType;
   final bool obscureText;
   final String? Function(String?)? validator;
-
   final EdgeInsetsGeometry? padding;
+  final void Function(String value)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +48,7 @@ class InputField extends StatelessWidget {
             keyboardType: keyboardType,
             obscureText: obscureText,
             validator: validator,
+            onChanged: onChanged,
             style: TextStyle(color: appColors.foregroundColor, fontWeight: FontWeight.bold, fontSize: 32, height: .0),
             decoration: InputDecoration(
               prefixIcon:  Icon(

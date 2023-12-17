@@ -6,10 +6,16 @@ import 'package:supercharged/supercharged.dart';
 
 import '../../gen/assets.gen.dart';
 
-class WebScrollAnimation extends StatelessWidget {
-  WebScrollAnimation({Key? key}) : super(key: key);
+class WebScrollAnimation extends StatefulWidget {
+  const WebScrollAnimation({super.key});
 
+  @override
+  State<WebScrollAnimation> createState() => _WebScrollAnimationState();
+}
+
+class _WebScrollAnimationState extends State<WebScrollAnimation> {
   final controller = ScrollController();
+
   double desiredOffset = 0.0;
 
   @override
@@ -33,11 +39,11 @@ class WebScrollAnimation extends StatelessWidget {
           }
         },
         child: SingleChildScrollView(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           controller: controller,
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 height: screenSize.height,
                 width: screenSize.width,
                 child: Text(

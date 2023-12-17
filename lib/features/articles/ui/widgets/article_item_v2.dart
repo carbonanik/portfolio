@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/core/router/app_router.dart';
+import 'package:portfolio/features/articles/data_source/article_static_data.dart';
+import 'package:portfolio/features/articles/models/article.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/menu_content_page.dart';
 import 'package:portfolio/features/common/paths/corner_cut_border_clipper.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
@@ -10,13 +12,16 @@ import 'package:supercharged/supercharged.dart';
 
 class ArticleItemV2 extends StatefulWidget {
   const ArticleItemV2({
+    required this.article,
     this.blobHoverEffect,
     this.borderColor,
+
     super.key,
   });
 
   final void Function(BlobHoverData data)? blobHoverEffect;
   final Color? borderColor;
+  final Article article;
 
   @override
   State<ArticleItemV2> createState() => _ArticleItemState();
@@ -69,7 +74,7 @@ class _ArticleItemState extends State<ArticleItemV2> with SingleTickerProviderSt
           }
         },
         onTap: () {
-          AutoRouter.of(context).push(ArticleOpenPageRoute());
+          AutoRouter.of(context).push(ArticleOpenPageRoute(id: widget.article.id));
         },
         child: context.isMobile
             ? buildArticleView()
@@ -215,7 +220,7 @@ class _ArticleItemState extends State<ArticleItemV2> with SingleTickerProviderSt
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            "#Python, #Docker, #API",
+            "#${widget.article.tags.join(", #")}",
             style: subtitleTextStyle.copyWith(
               fontSize: context.adaptiveResponsiveWidth(
                 desktop: 16,
@@ -227,7 +232,7 @@ class _ArticleItemState extends State<ArticleItemV2> with SingleTickerProviderSt
             maxLines: 1,
           ),
           Text(
-            title,
+            widget.article.title.text,
             style: titleOneTextStyle.copyWith(
               fontSize: context.adaptiveResponsiveWidth(
                 desktop: 30,

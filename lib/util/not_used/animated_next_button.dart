@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 //
 // class AnimatedNextButton extends StatelessWidget {
 //   const AnimatedNextButton({Key? key}) : super(key: key);

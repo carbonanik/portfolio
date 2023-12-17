@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/features/common/paths/color_splash_painter.dart';
 import 'package:portfolio/features/common/paths/corner_cut_border_clipper.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/theme/colors.dart';
@@ -19,7 +18,7 @@ class CornerCutButton2 extends StatefulWidget {
   final double elevation;
 
   const CornerCutButton2({
-    Key? key,
+    super.key,
     required this.text,
     // this.child,
     this.onTap,
@@ -29,7 +28,7 @@ class CornerCutButton2 extends StatefulWidget {
     this.padding,
     this.cornerCutRadius,
     this.elevation = 10,
-  }) : super(key: key);
+  });
 
   @override
   State<CornerCutButton2> createState() => _CornerCutButtonState();

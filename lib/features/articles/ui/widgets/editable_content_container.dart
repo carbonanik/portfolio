@@ -19,8 +19,8 @@ class EditableContentContainer extends StatelessWidget {
     this.goUp,
     this.goDown,
     this.hideControl = false,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

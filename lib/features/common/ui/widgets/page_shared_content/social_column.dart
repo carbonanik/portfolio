@@ -20,7 +20,7 @@ class SocialItem {
 }
 
 class SocialColumn extends StatefulWidget {
-  const SocialColumn({Key? key}) : super(key: key);
+  const SocialColumn({super.key});
 
   @override
   State<SocialColumn> createState() => _SocialColumnState();
@@ -135,7 +135,7 @@ class _SocialColumnState extends State<SocialColumn> with TickerProviderStateMix
 class VerticalSocialItem extends StatefulWidget {
   final SocialItem item;
 
-  const VerticalSocialItem({Key? key, required this.item}) : super(key: key);
+  const VerticalSocialItem({super.key, required this.item});
 
   @override
   State<VerticalSocialItem> createState() => _VerticalSocialItemState();
