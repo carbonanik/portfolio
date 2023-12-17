@@ -37,7 +37,7 @@ class BlobHoverData {
 
 class PageContainer extends StatefulWidget {
   const PageContainer({
-    required this.menuItem,
+    this.menuItem,
     this.children = const [],
     this.isLoading = false,
     this.hasMenu = true,
@@ -52,7 +52,7 @@ class PageContainer extends StatefulWidget {
   final bool showSocial;
   final bool showClock;
   final List<Widget> children;
-  final String menuItem;
+  final String? menuItem;
   final BlobHoverData blobHoverData;
 
   @override
@@ -92,11 +92,12 @@ class _PageContainerState extends State<PageContainer> with TickerProviderStateM
         // ?*
         const TextBackground(),
         // ? Random appear animation
-        Positioned(
-          left: context.responsiveSize(desktop: -50),
-          bottom: context.responsiveSize(desktop: -100),
-          child: RandomAppearAnimationText(text: widget.menuItem),
-        ),
+        if (widget.menuItem != null)
+          Positioned(
+            left: context.responsiveSize(desktop: -50),
+            bottom: context.responsiveSize(desktop: -100),
+            child: RandomAppearAnimationText(text: widget.menuItem!),
+          ),
         // ? Clock
         if (widget.showClock)
           Positioned(
@@ -129,17 +130,19 @@ class _PageContainerState extends State<PageContainer> with TickerProviderStateM
                   ),
           ),
         // ? Logo
-        Positioned(
-          top: 10,
-          left: 20,
-          child: Image.asset(
-            Assets.image.carbonLogo.path,
-            color: appColors.accentColor.darken(30),
-            width: context.responsiveSize(desktop: 120,tablet: 100, mobile: 80),
-            cacheWidth: 120,
-            cacheHeight: 98,
-          ),
-        ),
+        // Positioned(
+        //   top: 10,
+        //   left: 20,
+        //   child:
+
+          // Image.asset(
+          //   Assets.image.carbonLogo.path,
+          //   color: appColors.accentColor.darken(30),
+          //   width: context.responsiveSize(desktop: 120, tablet: 100, mobile: 80),
+          //   cacheWidth: 120,
+          //   cacheHeight: 98,
+          // ),
+        // ),
         // ? Loading
         if (widget.isLoading) const CustomLoadingAnimation(),
       ],

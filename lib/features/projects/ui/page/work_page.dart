@@ -1,17 +1,14 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/menu_content_page.dart';
 import 'package:portfolio/features/projects/ui/widgets/project_item.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
-import 'package:portfolio/gen/assets.gen.dart';
 import 'package:portfolio/features/projects/models/category_project.dart';
 import 'package:portfolio/features/projects/models/project.dart';
 import 'package:portfolio/features/common/ui/widgets/scrollable_row.dart';
 import 'package:portfolio/theme/colors.dart';
 import 'package:portfolio/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
-
-
-
 
 const des = "This is the real project i have made, you can believe me.";
 final categories = [
@@ -20,25 +17,26 @@ final categories = [
     projects: [
       Project(
         name: 'Grocery Shop',
-        description: des,
+        description:
+            'Complete e-commerce app 🛒 with robust performannce 🚀 & beautiful ui✨. And with a python backend 💻.',
         link: 'https://github.com/carbonanik/grocery-app/#readme',
       ),
       Project(
         name: 'Logic Builder',
-        description: des,
-        imagePath: "https://raw.githubusercontent.com/carbonanik/logic_builder/master/screenshot/logic-builder-logo.png",
+        description: 'Friendly 👋 and lightweight 🎈 tool 🔬 to Design digital logic circuits 🧮',
+        imagePath:
+            "https://raw.githubusercontent.com/carbonanik/logic_builder/master/screenshot/logic-builder-logo.png",
         link: 'https://github.com/carbonanik/logic_builder#readme',
       ),
       Project(
-        name: 'Logic Builder',
+        name: 'Portfolio',
         description: des,
-        imagePath: "https://raw.githubusercontent.com/carbonanik/logic_builder/master/screenshot/",
-        link: 'https://github.com/carbonanik/logic_builder#readme',
+        link: 'https://github.com/carbonanik/protfolio#readme',
       ),
       Project(
-        name: 'E-Commerce2',
-        description: des,
-        link: 'https://www.google.com',
+        name: 'Pin Bord',
+        description: 'A simple sticky note app 📝',
+        link: 'https://github.com/carbonanik/pin_bord#readme',
       ),
     ],
   ),
@@ -48,7 +46,6 @@ final categories = [
       Project(
         name: 'Weather App',
         description: des,
-        imagePath: Assets.image.banner.path,
         link: 'https://www.google.com',
       ),
     ],
@@ -59,21 +56,20 @@ final categories = [
       Project(
         name: 'Project 1',
         description: des,
-        imagePath: Assets.image.banner.path,
         link: 'https://www.google.com',
       ),
       Project(
         name: 'Project 2',
         description: des,
-        imagePath: Assets.image.banner.path,
         link: 'https://www.google.com',
       ),
     ],
   ),
 ];
 
+@RoutePage()
 class WorkPage extends StatefulWidget {
-  const WorkPage({Key? key}) : super(key: key);
+  const WorkPage({super.key});
 
   @override
   State<WorkPage> createState() => _WorkPageState();
@@ -90,8 +86,6 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-
-
 
     return PageContainer(
       blobHoverData: blobHoverData,

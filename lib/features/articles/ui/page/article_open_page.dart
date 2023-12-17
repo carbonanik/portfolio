@@ -1,27 +1,40 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:portfolio/features/common/ui/widgets/menu/top_menu_bar.dart';
-import 'package:portfolio/features/common/ui/widgets/page_shared_content/text_background.dart';
+import 'package:portfolio/features/articles/models/article.dart';
+import 'package:portfolio/features/articles/ui/widgets/article_view.dart';
+import 'package:portfolio/features/common/ui/widgets/page_shared_content/menu_content_page.dart';
 
+Article mocArticle = Article(
+  title: const TitleContent(text: "Function Decorator Python"),
+  tags: ["python"],
+  author: "✏️ the coder",
+  publishedAt: DateTime.now(),
+  contents: [
+    // const ImageContent(alt: "image/banner.png"),
+    // const TextContent(text: longText),
+    const CodeContent(code: sourceCode, language: "python"),
+    const ImageContent(alt: "image/banner.png"),
+    const TextContent(text: longText),
+    const CodeContent(code: sourceCode, language: "python"),
+  ],
+);
+
+@RoutePage()
 class ArticleOpenPage extends StatelessWidget {
-  const ArticleOpenPage({Key? key}) : super(key: key);
+  final Article? article;
+
+  const ArticleOpenPage({
+    this.article,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Stack(
-        children: [
-          TextBackground(),
-          // ArticleView(
-          //   updatedHeader: () {
-          //
-          //   },
-          //   updated: ,
-          //   article: ,
-          //   close: ,
-          // ),
-          TopMenuBar(),
-        ],
-      ),
+    return PageContainer(
+      menuItem: 'Blog',
+      children: [
+        ArticleView(article: article ?? mocArticle),
+      ],
     );
   }
 }

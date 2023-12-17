@@ -80,7 +80,6 @@ class _CornerCutButtonState extends State<CornerCutButton2> with TickerProviderS
                   child: SizedBox(
                     child: ClipPath(
                       clipper: CornerCutBorderClipper(
-                        leftCut: true,
                         cornerRadius: context.adaptiveResponsiveHeight(desktop: 16),
                         width: 3,
                       ),

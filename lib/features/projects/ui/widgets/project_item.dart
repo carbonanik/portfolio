@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/menu_content_page.dart';
@@ -16,13 +14,11 @@ import 'package:url_launcher/url_launcher.dart';
 class ProjectItemView extends StatefulWidget {
   const ProjectItemView({
     this.blobHoverEffect,
-    this.leftItem = true,
     this.borderColor,
-    Key? key,
+    super.key,
     required this.project,
-  }) : super(key: key);
+  });
 
-  final bool leftItem;
   final void Function(BlobHoverData data)? blobHoverEffect;
   final Color? borderColor;
   final Project project;
@@ -120,7 +116,7 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
                 // widget.leftItem ? projectDetail(leftItem: widget.leftItem) : projectImage(leftItem: widget.leftItem),
                 // const SizedBox(width: 40),
                 // widget.leftItem ? projectImage(leftItem: widget.leftItem) : projectDetail(leftItem: widget.leftItem),
-                projectDetail(leftItem: widget.leftItem),
+                projectDetail(),
               ],
             ),
           ),
@@ -128,7 +124,6 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
         Positioned.fill(
           child: ClipPath(
             clipper: CornerCutBorderClipper(
-              leftCut: widget.leftItem,
               width: 3,
               cornerRadius: context.responsiveSize(desktop: 80, tablet: 80, mobile: 60),
             ),
@@ -138,7 +133,6 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
         Positioned.fill(
           child: ClipPath(
             clipper: CornerCutBorderClipper(
-              leftCut: widget.leftItem,
               width: 3,
               cornerRadius: context.responsiveSize(desktop: 80, tablet: 80, mobile: 60),
             ),
@@ -192,12 +186,12 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
   //   );
   // }
 
-  Widget projectDetail({required bool leftItem}) {
+  Widget projectDetail() {
     return Container(
       width: context.responsiveSize(desktop: 360, tablet: 300, mobile: 200),
       padding: EdgeInsets.all(context.responsiveSize(desktop: 20)),
       child: Column(
-        crossAxisAlignment: leftItem ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisSize: MainAxisSize.min,
         children: [
           buildProjectIconOrPlaceholder(widget.project, context),
@@ -211,7 +205,7 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
           Text(
             widget.project.description,
             style: paragraphTextStyle.copyWith(fontSize: context.responsiveSize(desktop: fontSize_18)),
-            textAlign: leftItem ? TextAlign.right : TextAlign.left,
+            textAlign: TextAlign.right,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
@@ -260,7 +254,7 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
       child: RichText(
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-        textAlign: widget.leftItem ? TextAlign.right : TextAlign.left,
+        textAlign: TextAlign.right,
         text: TextSpan(
           children: [
             TextSpan(
@@ -347,7 +341,6 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
             CornerCutButton(
               text: "Visit project",
               onTap: () async {
-                // print(project.link);
                 await launchUrl(Uri.parse(project.link));
               },
             )

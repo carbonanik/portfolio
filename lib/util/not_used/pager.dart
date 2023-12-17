@@ -3,10 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class Pager extends StatefulWidget {
-  const Pager({Key? key}) : super(key: key);
+  const Pager({super.key});
 
   @override
-  _PagerState createState() => _PagerState();
+  State createState() => _PagerState();
 }
 
 class _PagerState extends State<Pager> {

@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio/core/router/app_router.dart';
 import 'package:portfolio/features/common/paths/corner_cut_border_clipper.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/features/articles/ui/page/blog_page.dart';
@@ -16,8 +18,8 @@ class TopMenuBarCollapsed extends StatefulWidget {
 
   const TopMenuBarCollapsed({
     this.selectedItem,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<TopMenuBarCollapsed> createState() => _TopMenuBarCollapsedState();
@@ -78,7 +80,6 @@ class _TopMenuBarCollapsedState extends State<TopMenuBarCollapsed> with SingleTi
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final heightUnit = context.adaptiveResponsiveHeight(desktop: 1);
     return SizedBox(
       height: size.height,
       width: size.width,
@@ -185,12 +186,11 @@ class _TopMenuBarCollapsedState extends State<TopMenuBarCollapsed> with SingleTi
                   },
                   child: Material(
                     color: Colors.transparent,
-                    child: Container(
+                    child: SizedBox(
                       width: context.adaptiveResponsiveHeight(desktop: 70),
                       height: context.adaptiveResponsiveHeight(desktop: 70),
                       child: ClipPath(
                         clipper: CornerCutBorderClipper(
-                          leftCut: true,
                           cornerRadius: context.adaptiveResponsiveHeight(desktop: 20),
                           width: 2,
                         ),
@@ -238,16 +238,16 @@ class _TopMenuBarCollapsedState extends State<TopMenuBarCollapsed> with SingleTi
                         closeMenu();
                         switch (item) {
                           case "About":
-                            go(const AboutPage(), context, index);
+                            go(const AboutPageRoute(), context, index);
                             break;
                           case "Blog":
-                            go(const BlogPage(), context, index);
+                            go(const BlogPageRoute(), context, index);
                             break;
                           case "Work":
-                            go(const WorkPage(), context, index);
+                            go(const WorkPageRoute(), context, index);
                             break;
                           case "Contact":
-                            go(const ContactPage(), context, index);
+                            go(const ContactPageRoute(), context, index);
                             break;
                           default:
                         }
@@ -263,19 +263,10 @@ class _TopMenuBarCollapsedState extends State<TopMenuBarCollapsed> with SingleTi
     );
   }
 
-  void go(Widget page, BuildContext context, int index) async {
-    // await Future.delayed(500.milliseconds);
+  void go(PageRouteInfo route, BuildContext context, int index) async {
     Timer(500.milliseconds, () {
       if (widget.selectedItem != menuItems[index]) {
-        // ignore: use_build_context_synchronously
-        Navigator.push(
-          context,
-          PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) {
-              return page;
-            },
-          ),
-        );
+        AutoRouter.of(context).push(route);
       }
     });
   }

@@ -2,18 +2,20 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/random_appear_animation_text.dart';
+import 'package:portfolio/theme/colors.dart';
 import 'package:portfolio/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
-
-import '../../../../../theme/colors.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SocialItem {
   final String shortName;
   final IconData icon;
+  final String? url;
 
   SocialItem({
     required this.shortName,
     required this.icon,
+    this.url,
   });
 }
 
@@ -30,10 +32,10 @@ class _SocialColumnState extends State<SocialColumn> with TickerProviderStateMix
   @override
   Widget build(BuildContext context) {
     final socialItems = [
-      SocialItem(shortName: "gh.", icon: EvaIcons.github),
-      SocialItem(shortName: "in.", icon: EvaIcons.linkedin),
-      SocialItem(shortName: "tw.", icon: EvaIcons.twitter),
-      SocialItem(shortName: "fb.", icon: EvaIcons.facebook),
+      SocialItem(shortName: "gh.", icon: EvaIcons.github, url: "https://github.com/carbonanik"),
+      SocialItem(shortName: "in.", icon: EvaIcons.linkedin, url: "https://www.linkedin.com/in/carbonanik"),
+      SocialItem(shortName: "tw.", icon: EvaIcons.twitter, url: "https://twitter.com/carbonanik"),
+      SocialItem(shortName: "fb.", icon: EvaIcons.facebook, url: "https://www.facebook.com/makhdum.sh/"),
       // SocialItem(shortName: "Follow me", icon: EvaIcons.bookOpen),
 
       // SocialItem(shortName: "em.", icon: Icons.email_rounded),
@@ -114,7 +116,6 @@ class _SocialColumnState extends State<SocialColumn> with TickerProviderStateMix
               },
               runOnHover: true,
               text: "Follow me",
-
               style: menuTextStyle.copyWith(
                 color: appColors.accentColor.darken(30),
                 fontSize: context.responsiveSize(
@@ -156,11 +157,16 @@ class _VerticalSocialItemState extends State<VerticalSocialItem> with TickerProv
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // launchURL(widget.item.shortName); todo
-      },
-      child: context.isMobile ? buildItemTitle(context) : buildITemTitleWithHoverAnim(context),
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () async {
+          if (widget.item.url != null) {
+            await launchUrl(Uri.parse(widget.item.url!));
+          }
+        },
+        child: context.isMobile ? buildItemTitle(context) : buildITemTitleWithHoverAnim(context),
+      ),
     );
   }
 
@@ -175,24 +181,24 @@ class _VerticalSocialItemState extends State<VerticalSocialItem> with TickerProv
         setState(() {});
       },
       child: SlideTransition(
-          position: _offsetAnimation,
-          child: Stack(
-            alignment: AlignmentDirectional.center,
-            children: [
-              Transform.scale(
-                scale: 2,
-                child: Container(
-                  transform: Matrix4.translationValues(30, 0, 0),
-                  child: Icon(
-                    widget.item.icon,
-                    color: appColors.foregroundColor,
-                  ),
+        position: _offsetAnimation,
+        child: Stack(
+          alignment: AlignmentDirectional.center,
+          children: [
+            Transform.scale(
+              scale: 2,
+              child: Container(
+                transform: Matrix4.translationValues(30, 0, 0),
+                child: Icon(
+                  widget.item.icon,
+                  color: appColors.foregroundColor,
                 ),
               ),
-              buildItemTitle(context),
-            ],
-          ),
+            ),
+            buildItemTitle(context),
+          ],
         ),
+      ),
     );
   }
 

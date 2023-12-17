@@ -4,13 +4,12 @@ import 'package:portfolio/core/router/app_router.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/menu_content_page.dart';
 import 'package:portfolio/features/common/paths/corner_cut_border_clipper.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
-import 'package:portfolio/gen/assets.gen.dart';
 import 'package:portfolio/theme/colors.dart';
 import 'package:portfolio/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
 
-class ArticleItem extends StatefulWidget {
-  const ArticleItem({
+class ArticleItemV2 extends StatefulWidget {
+  const ArticleItemV2({
     this.blobHoverEffect,
     this.borderColor,
     super.key,
@@ -20,10 +19,10 @@ class ArticleItem extends StatefulWidget {
   final Color? borderColor;
 
   @override
-  State<ArticleItem> createState() => _ArticleItemState();
+  State<ArticleItemV2> createState() => _ArticleItemState();
 }
 
-class _ArticleItemState extends State<ArticleItem> with SingleTickerProviderStateMixin {
+class _ArticleItemState extends State<ArticleItemV2> with SingleTickerProviderStateMixin {
   String title = "Python programming Tutorial for biggners";
   final defaultBorderColor = appColors.accentColor;
   final hoverOffset = const Offset(-.02, -.02);
@@ -95,25 +94,30 @@ class _ArticleItemState extends State<ArticleItem> with SingleTickerProviderStat
   }
 
   Stack buildArticleView() {
-    // final width = context.adaptiveResponsiveWidth(desktop: 340, tablet: 340, mobile: 200);
-    // final height = context.isMobile
-    //     ? context.adaptiveResponsiveWidth(desktop: 0, mobile: 240)
-    //     : context.adaptiveResponsiveHeight(desktop: 400, tablet: 300);
+    final width = context.adaptiveResponsiveWidth(desktop: 340, tablet: 340, mobile: 200);
+     final height =  context.isMobile
+        ? context.adaptiveResponsiveWidth(desktop: 0, mobile: 240)
+        : context.adaptiveResponsiveHeight(desktop: 400, tablet: 300);
     return Stack(
       children: [
+        // Container(
+        //   ? card width will be taken from this width
+          // width: context.adaptiveResponsiveWidth(desktop: 340, tablet: 340, mobile: 200),
+          // height: height,
+        // ),
         // ? back border
-        Positioned.fill(
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  color: appColors.accentColor.darken(30),
-                  width: 3,
-                ),
-                right: BorderSide(
-                  color: appColors.accentColor.darken(30),
-                  width: 3,
-                ),
+        Container(
+          width: width,
+          height: height,
+          decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                color: appColors.foregroundColor.darken(70),
+                width: 3,
+              ),
+              right: BorderSide(
+                color: appColors.foregroundColor.darken(70),
+                width: 3,
               ),
             ),
           ),
@@ -124,7 +128,7 @@ class _ArticleItemState extends State<ArticleItem> with SingleTickerProviderStat
           builder: (context, child) {
             return Transform.translate(
               offset: _slideAnimation.value,
-              child: buildAnimatedSlide(),
+              child: buildAnimatedSlide(height, width),
             );
           },
         ),
@@ -132,65 +136,70 @@ class _ArticleItemState extends State<ArticleItem> with SingleTickerProviderStat
     );
   }
 
-  Widget buildAnimatedSlide() {
+  Widget buildAnimatedSlide(height, width) {
     return Stack(
       children: [
-        Container(
-          // ? card width will be taken from this width
-          width: context.adaptiveResponsiveWidth(desktop: 340, tablet: 340, mobile: 200),
-        ),
+        // Container(
+        //   // ? card width will be taken from this width
+        //   width: width,
+        //   height: height,
+        // ),
         // ? image
-        Positioned.fill(
-          child: SizedBox(
-            child: ClipPath(
-              clipper: CornerCutBorderClipper(
-                width: 10,
-                cornerRadius: context.adaptiveResponsiveWidth(desktop: 80, tablet: 80, mobile: 60),
-                filled: true,
-              ),
-              child: Image.asset(
-                Assets.image.bannarBlack.path,
-                fit: BoxFit.cover,
-              ),
+        // Positioned.fill(
+        //   child: ClipPath(
+        //     clipper: CornerCutBorderClipper(
+        //       width: 10,
+        //       cornerRadius: context.adaptiveResponsiveWidth(desktop: 80, tablet: 80, mobile: 60),
+        //       filled: true,
+        //     ),
+        //     child: Image.asset(
+        //       Assets.image.bannarBlack.path,
+        //       fit: BoxFit.cover,
+        //       cacheWidth: 100,
+        //       cacheHeight: 100,
+        //     ),
+        //   ),
+        // ),
+
+        // ? shadow over image
+        SizedBox(
+          width: width,
+          height: height,
+          child: ClipPath(
+            clipper: CornerCutBorderClipper(
+              width: 10,
+              cornerRadius: context.adaptiveResponsiveWidth(desktop: 80, tablet: 80, mobile: 60),
+              filled: true,
             ),
-          ),
-        ),
-        Positioned.fill(
-          child: SizedBox(
-            child: ClipPath(
-              clipper: CornerCutBorderClipper(
-                width: 10,
-                cornerRadius: context.adaptiveResponsiveWidth(desktop: 80, tablet: 80, mobile: 60),
-                filled: true,
-              ),
-              child: Container(
-                color: appColors.accentColor.darken(90).withOpacity(.4),
-              ),
+            child: Container(
+              color: appColors.accentColor.darken(90).withOpacity(.4),
             ),
           ),
         ),
         // ? detail
-        Positioned.fill(
-          child: Padding(
-            padding: EdgeInsets.only(
-              right: context.responsiveSize(desktop: 40),
-              left: context.responsiveSize(desktop: 20),
-            ),
-            child: Center(
-              child: articleDetail(),
-            ),
+        Container(
+          width: width,
+          height: height,
+          padding: EdgeInsets.only(
+            right: context.responsiveSize(desktop: 40),
+            left: context.responsiveSize(desktop: 20),
+          ),
+          child: Center(
+            child: articleDetail(),
           ),
         ),
 
         // ? border
-        Positioned.fill(
+        SizedBox(
+          width: width,
+          height: height,
           child: ClipPath(
             clipper: CornerCutBorderClipper(
               width: 4,
               cornerRadius: context.adaptiveResponsiveWidth(desktop: 80, tablet: 80, mobile: 60),
             ),
             child: Container(
-              color: appColors.accentColor,
+              color: appColors.accentColor.darken(80),
             ),
           ),
         ),

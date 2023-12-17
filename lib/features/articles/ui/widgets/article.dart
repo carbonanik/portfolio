@@ -1,16 +1,14 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:portfolio/features/articles/ui/widgets/input_block_title.dart';
 import 'package:portfolio/features/articles/ui/widgets/contents/content_base.dart';
 import 'package:portfolio/features/articles/ui/widgets/contents/content_title.dart';
 
 class Article {
-  final ContentTitle headline;
+  final ContentTitle title;
   final List<ContentBase> contents;
 
   Article({
-    required this.headline,
+    required this.title,
     required this.contents,
   });
 
@@ -22,7 +20,7 @@ class Article {
     final void Function(ContentBase)? goDown,
     final void Function(ContentBase, ContentType)? contentItemClick,
   }) {
-    return headline.generateView(
+    return title.generateView(
       readOnly: readOnly,
       close: close,
       updated: updated,

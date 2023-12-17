@@ -1,20 +1,22 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:portfolio/features/articles/ui/page/blog_page.dart';
+import 'package:portfolio/core/router/app_router.dart';
 import 'package:portfolio/theme/colors.dart';
 
 void main() {
   colorIndex = 0;
   Random().nextInt(appColorsList.length);
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({super.key});
+
+  final _router = AppRouter();
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -26,15 +28,15 @@ class MyApp extends StatelessWidget {
               fontFamily: "Cabin",
             ),
       ),
-      home: const BlogPage(),
+      routerConfig: _router.config(),
     );
   }
 }
 
 // todo:
-// adopt the click me button style in everywhere
+// adopt the click me button style in everywhere ✔
 // sharp shadow of a object in opposite direction of the mouse
-// Work Design change (like nested folder)
+// Work Design change (like nested folder) ✔
 // --> 📁 Work
 //     |--> 📁 Complete Project
 //     |    |--> 📁 E-Commerce
@@ -45,15 +47,14 @@ class MyApp extends StatelessWidget {
 //     |--> 📁
 //     |--> 📁
 // big menu https://atlason.com/ || https://musemind.agency/
-// follow me text with random appear animation
+// follow me text with random appear animation ✔
 // article search box that search category and article both
 // nested work category
 // work animated big folder
-// explore window for project
+// explore window for project ✔
 // project search tag like github readme badge
 // color selector
 
 // ? Commands
 // flutter run -d chrome --web-hostname 0.0.0.0 --web-port 8080
 // flutter pub run build_runner build --delete-conflicting-outputs
-

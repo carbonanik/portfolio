@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/features/common/ui/widgets/input_field.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/menu_content_page.dart';
@@ -9,10 +10,12 @@ import 'package:portfolio/theme/colors.dart';
 import 'package:portfolio/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
 
+import '../widgets/article_item_v2.dart';
 
 
+@RoutePage()
 class BlogPage extends StatefulWidget {
-  const BlogPage({Key? key}) : super(key: key);
+  const BlogPage({super.key});
 
   @override
   State<BlogPage> createState() => _BlogPageState();
@@ -160,7 +163,7 @@ class _BlogPageState extends State<BlogPage> with TickerProviderStateMixin {
                     return Row(
                       children: [
                         SizedBox(width: context.adaptiveResponsiveHeight(desktop: 60, mobile: 20)),
-                        ArticleItem(
+                        ArticleItemV2(
                           blobHoverEffect: (data) {
                             setState(() {
                               blobHoverData = data;

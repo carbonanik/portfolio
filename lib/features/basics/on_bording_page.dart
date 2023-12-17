@@ -1,13 +1,16 @@
 import 'dart:async';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio/core/router/app_router.dart';
 import 'package:portfolio/features/basics/about/about_page.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/text_background.dart';
 import 'package:portfolio/theme/colors.dart';
 import 'package:portfolio/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
 
+@RoutePage()
 class OnBoardPage extends StatefulWidget {
-  const OnBoardPage({Key? key}) : super(key: key);
+  const OnBoardPage({super.key});
 
   @override
   State<OnBoardPage> createState() => _OnBoardPageState();
@@ -18,22 +21,24 @@ class _OnBoardPageState extends State<OnBoardPage> {
   void initState() {
     super.initState();
     Timer(2.seconds, () {
-      Navigator.pushReplacement(
-        context,
-        PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) => const AboutPage(),
-            transitionDuration: 500.milliseconds,
-            transitionsBuilder: (context, animation, secondaryAnimation, child) {
-              const curve = Curves.ease;
+      AutoRouter.of(context).replace(const AboutPageRoute());
 
-              var tween = Tween(begin: 0.0, end: 1.0).chain(CurveTween(curve: curve));
-
-              return FadeTransition(
-                opacity: animation.drive(tween),
-                child: child,
-              );
-            }),
-      );
+      // Navigator.pushReplacement(
+      //   context,
+      //   PageRouteBuilder(
+      //       pageBuilder: (context, animation, secondaryAnimation) => const AboutPage(),
+      //       transitionDuration: 500.milliseconds,
+      //       transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      //         const curve = Curves.ease;
+      //
+      //         var tween = Tween(begin: 0.0, end: 1.0).chain(CurveTween(curve: curve));
+      //
+      //         return FadeTransition(
+      //           opacity: animation.drive(tween),
+      //           child: child,
+      //         );
+      //       }),
+      // );
     });
   }
 
@@ -66,7 +71,7 @@ class _OnBoardPageState extends State<OnBoardPage> {
 }
 
 class ColumnOfRowBox extends StatelessWidget {
-  const ColumnOfRowBox({Key? key}) : super(key: key);
+  const ColumnOfRowBox({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -114,8 +119,8 @@ class RowOfBox extends StatefulWidget {
     required this.rowBoxCount,
     this.boxReduce = 0,
     this.duration,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<RowOfBox> createState() => _RowOfBoxState();

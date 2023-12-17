@@ -5,6 +5,9 @@ import 'package:portfolio/features/articles/ui/widgets/input_block_title.dart';
 
 import 'content_base.dart';
 
+
+
+
 class ContentTitle extends ContentBase {
   final String text;
   TextEditingController? controller;

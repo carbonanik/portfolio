@@ -21,6 +21,26 @@ extension ColorExtension on Color {
     // Return the new color
     return Color.fromARGB(alpha, red, green, blue);
   }
+
+  Color lighten(double percent) {
+    assert(percent >= 0 && percent <= 100, 'Percent should be between 0 and 100');
+
+    // Calculate the lighten factor
+    double factor = percent / 100.0;
+
+    // Calculate the new color components
+    int red = (this.red + (255 - this.red) * factor).round();
+    int green = (this.green + (255 - this.green) * factor).round();
+    int blue = (this.blue + (255 - this.blue) * factor).round();
+
+    // Ensure the color components are in the valid range (0-255)
+    red = red.clamp(0, 255);
+    green = green.clamp(0, 255);
+    blue = blue.clamp(0, 255);
+
+    // Return the new color
+    return Color.fromARGB(alpha, red, green, blue);
+  }
 }
 
 extension ListExtension<T> on List<T> {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/features/articles/ui/widgets/block_type_add.dart';
 import 'package:portfolio/features/articles/ui/widgets/input_block_title.dart';
-import 'package:portfolio/common/not_used/skeleton_button.dart';
+import 'package:portfolio/util/not_used/skeleton_button.dart';
 import 'package:portfolio/features/articles/ui/widgets/article.dart';
 import 'package:portfolio/features/articles/ui/widgets/contents/content_base.dart';
 import 'package:portfolio/features/articles/ui/widgets/contents/content_code.dart';
@@ -17,7 +17,7 @@ class CreateArticlePage extends StatefulWidget {
   CreateArticlePage({Key? key}) : super(key: key);
 
   final Article article = Article(
-    headline: ContentTitle(text: "Function Decorator Python"),
+    title: ContentTitle(text: "Function Decorator Python"),
     contents: [
       ContentSubtitle(text: "✏️ the coder"),
       ContentText(text: longText),

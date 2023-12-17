@@ -18,7 +18,7 @@ class CornerCutButton extends StatefulWidget {
   final double elevation;
 
   const CornerCutButton({
-    Key? key,
+    super.key,
     this.text,
     this.child,
     this.onTap,
@@ -28,7 +28,7 @@ class CornerCutButton extends StatefulWidget {
     this.padding,
     this.cornerCutRadius,
     this.elevation = 10,
-  }) : super(key: key);
+  });
 
   @override
   State<CornerCutButton> createState() => _CornerCutButtonState();
@@ -196,7 +196,7 @@ class _CornerCutButtonState extends State<CornerCutButton> with TickerProviderSt
                 ),
                 child: ClipPath(
                   clipper:
-                      CornerCutBorderClipper(leftCut: true, width: 3, cornerRadius: widget.cornerCutRadius ?? corner),
+                      CornerCutBorderClipper( width: 3, cornerRadius: widget.cornerCutRadius ?? corner),
                   child: CustomPaint(
                     foregroundPainter: ColorSplashPainter(value: _borderAnimation.value, cLength: 0.05),
                   ),
