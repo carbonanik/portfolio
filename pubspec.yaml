@@ -55,6 +55,7 @@ dependencies:
   riverpod: ^2.4.9
   flutter_riverpod: ^2.4.9
   shared_preferences: ^2.2.2
+  firebase_core: ^2.24.2
   # dart pub global activate flutter_gen
   # flutter packages pub run build_runner build
   # flutter_staggered_animations: ^1.1.1

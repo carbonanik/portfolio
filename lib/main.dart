@@ -66,6 +66,7 @@ class MyApp extends StatelessWidget {
 // dart pub global activate flutterfire_cli
 // export PATH="$PATH":"$HOME/.pub-cache/bin"
 // firebase login
+// add firebase_core to pubspec.yaml
 // flutterfire configure
 // git ignore
 // firebase experiments:enable webframeworks

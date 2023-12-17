@@ -154,8 +154,8 @@ class _CornerCutButtonState extends State<CornerCutButton> with TickerProviderSt
                   child: Padding(
                     padding: widget.padding ??
                         EdgeInsets.symmetric(
-                          vertical: widget.child != null ? 8.0 : 10.0,
-                          horizontal: widget.child != null ? 8.0 : 10.0,
+                          vertical: widget.child != null ? 8.0 : 18.0,
+                          horizontal: widget.child != null ? 8.0 : 18.0,
                         ),
                     child: widget.child != null && widget.text != null
                         ? Row(

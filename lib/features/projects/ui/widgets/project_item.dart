@@ -110,7 +110,7 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
           //   ),
           // ),
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: context.responsiveSize(desktop: 40), vertical: context.responsiveSize(desktop: 20)),
+            padding: EdgeInsets.symmetric(horizontal: context.responsiveSize(desktop: 40), vertical: context.responsiveSize(desktop: 40)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -225,7 +225,7 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
               );
             },
             fontSize: context.responsiveSize(desktop: 18),
-            padding: EdgeInsets.all(context.responsiveSize(desktop: 14)),
+            // padding: EdgeInsets.all(context.responsiveSize(desktop: 14)),
             cornerCutRadius: context.responsiveSize(desktop: 18),
             elevation: context.responsiveSize(desktop: 10),
           )
