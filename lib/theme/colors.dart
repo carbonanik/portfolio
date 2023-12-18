@@ -64,8 +64,8 @@ const appColorsThemes = {
   ),
   "space": AppColors(
     primarySwatch: Colors.blue,
-    backgroundColor: Color(0xff00242d),
-    backgroundColorLite: Color(0xff002e3a),
+    backgroundColor: Color(0xff040c24),
+    backgroundColorLite: Color(0xff051031),
     foregroundColor: Color(0xffE6FAFF),
     foregroundColorDark: Color(0xffafbec2),
     accentColor: Color(0xff3F78FD),
@@ -77,6 +77,7 @@ const appColorsThemes = {
     foregroundColor: Color(0xffd6c7ff),
     foregroundColorDark: Color(0xffb4a0ec),
     accentColor: Color(0xff673ab7),
+    colorBurst: Color(0xFFAA00FF),
   ),
   "pink": AppColors(
     primarySwatch: Colors.pink,
@@ -85,7 +86,7 @@ const appColorsThemes = {
     foregroundColor: Color(0xffe8b8d2),
     foregroundColorDark: Color(0xffec97c4),
     accentColor: Color(0xFFFF4081),
-    colorBurst: Color(0xFFE91E63),
+    colorBurst: Color(0xFFf60b45),
   ),
   "mono": AppColors(
     primarySwatch: Colors.grey,
@@ -97,6 +98,19 @@ const appColorsThemes = {
     colorBurst: Color(0xFFf2f2f2),
   ),
 };
+
+const _21 = AppColors(
+  primarySwatch: Colors.red,
+  backgroundColor: Color(0xff006a4e),
+  backgroundColorLite: Color(0xff006a4e),
+  foregroundColor: Color(0xfff42a41),
+  foregroundColorDark: Color(0xfff42a41),
+  accentColor: Color(0xff6e6e6e),
+  colorBurst: Color(0xFFf2f2f2),
+);
+
+const r = Color(0xfff60b45);
+const g = Color(0xff00321f);
 
 AppColors appColors = appColorsThemes.values.first;
 

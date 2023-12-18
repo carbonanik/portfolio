@@ -1,16 +1,13 @@
-# protfolio
+# Portfolio
 
-A new Flutter project.
+This is the portfolio of the author.
 
-## Getting Started
+# Screenshots
 
-This project is a starting point for a Flutter application.
+<img src="screenshots/about_mobile_canary.jpg" width="100"><img src="screenshots/about_mobile_farn_menu_down.jpg" width="100"><img src="screenshots/about_pc_prism.png" width="200">
 
-A few resources to get you started if this is your first Flutter project:
+<img src="screenshots/blog_mobile_space.jpg" width="100"><img src="screenshots/blog_pc_canary.png" width="200">
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+<img src="screenshots/work_mobile_mute.jpg" width="100"><img src="screenshots/project_pc_fern.png" width="200">
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="screenshots/intro_pc_moto.png" width="200"><img src="screenshots/intro_pc_pink.png" width="200">
