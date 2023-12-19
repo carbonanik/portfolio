@@ -93,7 +93,7 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
       menuItem: 'Work',
       children: [
         Positioned.fill(
-          left: context.responsiveSize(desktop: 100, mobile: 10),
+          left: context.adaptiveResponsiveWidth(desktop: 100, mobile: 10),
           top: context.responsiveSize(desktop: 100, tablet: 100, mobile: 80),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,13 +103,13 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
                   Icon(
                     Icons.folder,
                     color: appColors.foregroundColor,
-                    size: context.responsiveSize(desktop: 70),
+                    size: context.adaptiveResponsiveWidth(desktop: 70),
                   ),
                   SizedBox(width: context.responsiveSize(desktop: 20)),
                   Text(
                     "Projects",
                     style: titleTwoTextStyle.copyWith(
-                      fontSize: context.responsiveSize(desktop: 32),
+                      fontSize: context.adaptiveResponsiveWidth(desktop: 32),
                       fontWeight: FontWeight.bold,
                       color: appColors.foregroundColor,
                     ),
@@ -120,11 +120,11 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(width: context.responsiveSize(desktop: 34)),
+                    SizedBox(width: context.adaptiveResponsiveWidth(desktop: 34)),
                     // ? side line
                     Container(
                       width: lineWidth,
-                      height: height - context.responsiveSize(desktop: 200, tablet: 200, mobile: 150), // line height
+                      height: height - context.responsiveSize(desktop: 100, tablet: 200, mobile: 150), // line height
                       color: lineColor,
                     ),
                     SingleChildScrollView(
@@ -140,7 +140,7 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
                               buildProjectCategoryItem(
                                 index: index,
                                 category: categories[index],
-                                width: width - context.responsiveSize(desktop: 200, tablet: 200, mobile: 50),
+                                width: width - context.adaptiveResponsiveWidth(desktop: 200, tablet: 200, mobile: 50),
                               ),
                             ],
                           ),
@@ -164,7 +164,7 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
         Row(
           children: [
             Container(
-              width: context.responsiveSize(desktop: 100, mobile: 30),
+              width: context.adaptiveResponsiveWidth(desktop: 100, mobile: 30),
               height: lineWidth,
               color: lineColor,
             ),
@@ -179,13 +179,13 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
                   Icon(
                     index == selectedIndex ? Icons.folder_copy : Icons.folder,
                     color: appColors.foregroundColor,
-                    size: context.responsiveSize(desktop: 55),
+                    size: context.adaptiveResponsiveWidth(desktop: 55),
                   ),
                   SizedBox(width: context.responsiveSize(desktop: 20)),
                   Text(
                     category.name,
                     style: titleTwoTextStyle.copyWith(
-                      fontSize: context.responsiveSize(desktop: 24),
+                      fontSize: context.adaptiveResponsiveWidth(desktop: 24),
                       fontWeight: FontWeight.bold,
                       color: appColors.foregroundColor,
                     ),
@@ -216,17 +216,34 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
                 );
               },
               child: index == selectedIndex
-                  ? ScrollableRow(
-                      itemCount: category.projects.length,
-                      itemBuilder: (context, index) {
-                        return Row(
-                          children: [
-                            SizedBox(width: context.responsiveSize(desktop: 60, mobile: 20)),
-                            ProjectItemView(
-                              project: category.projects[index],
-                              borderColor: borderColor,
-                            ),
-                          ],
+                  ? Builder(
+                      builder: (context) {
+                        final double contentHeight = context.isMobile
+                            ? context.adaptiveResponsiveWidth(desktop: 0, mobile: 260)
+                            : context.adaptiveResponsiveHeight(desktop: 450, tablet: 220);
+                        final contentWidth = context.adaptiveResponsiveWidth(desktop: 380, tablet: 360, mobile: 220);
+                        final horizontalSpace = context.adaptiveResponsiveHeight(desktop: 60, mobile: 20);
+
+                        return ScrollableRow(
+                          contentHeight: contentHeight,
+                          itemTotalWidth: contentWidth + horizontalSpace,
+                          itemCount: category.projects.length,
+                          itemBuilder: (context, index) {
+                            return Row(
+                              children: [
+                                SizedBox(width: horizontalSpace),
+                                ProjectItemView(
+                                  project: category.projects[index],
+                                  borderColor: borderColor,
+                                  blobHoverEffect: (data) {
+                                    blobHoverData = data;
+                                  },
+                                  width: contentWidth,
+                                  height: contentHeight,
+                                ),
+                              ],
+                            );
+                          },
                         );
                       },
                     )
