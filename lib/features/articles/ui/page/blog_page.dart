@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:portfolio/core/theme/selected_theme_provider.dart';
 import 'package:portfolio/features/articles/state/provider/filtered_article_provider.dart';
 import 'package:portfolio/features/articles/state/provider/search_text_provider.dart';
 import 'package:portfolio/features/articles/state/provider/selected_tag_provider.dart';
@@ -173,14 +172,11 @@ class _BlogPageState extends ConsumerState<BlogPage> with TickerProviderStateMix
                           ArticleItemV2(
                             article: articles[index],
                             blobHoverEffect: (data) {
-                              // setState(() {
                               blobHoverData = data;
-                              // });
                             },
                             height: contentHeight,
                             width: contentWidth,
                           ),
-                          //
                         ],
                       );
                     },

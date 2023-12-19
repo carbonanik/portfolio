@@ -1,7 +1,5 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:portfolio/core/theme/selected_theme_provider.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/menu_content_page.dart';
 import 'package:portfolio/features/common/paths/color_splash_painter.dart';
 import 'package:portfolio/features/common/paths/corner_cut_border_clipper.dart';
@@ -17,6 +15,8 @@ class ProjectItemView extends StatefulWidget {
   const ProjectItemView({
     this.blobHoverEffect,
     this.borderColor,
+    required this.height,
+    required this.width,
     super.key,
     required this.project,
   });
@@ -24,6 +24,8 @@ class ProjectItemView extends StatefulWidget {
   final void Function(BlobHoverData data)? blobHoverEffect;
   final Color? borderColor;
   final Project project;
+  final double height;
+  final double width;
 
   @override
   State<ProjectItemView> createState() => _ProjectItemViewState();
@@ -96,29 +98,13 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
           );
   }
 
-  Stack buildDetailsView(BuildContext context) {
+  Widget buildDetailsView(BuildContext context) {
     return Stack(
       children: [
-        Material(
-          color: Colors.transparent,
-          // shape: BeveledRectangleBorder(
-          //   side: BorderSide(color: widget.borderColor ?? defaultBorderColor, width: 20),
-          //   borderRadius: BorderRadius.only(
-          //     topLeft: widget.leftItem ? const Radius.circular(80.0) : Radius.zero,
-          //     topRight: !widget.leftItem ? const Radius.circular(80.0) : Radius.zero,
-          //     // bottomRight: Radius.circular(18.0)
-          //   ),
-          // ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: context.responsiveSize(desktop: 40), vertical: context.responsiveSize(desktop: 40)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                projectDetail(),
-              ],
-            ),
-          ),
+        SizedBox(
+          width: widget.width,
+          height: widget.height,
+          child: projectDetail(),
         ),
         Positioned.fill(
           child: ClipPath(
@@ -144,57 +130,18 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
     );
   }
 
-  //
-  // Widget projectImage({required bool leftItem}) {
-  //   return MouseRegion(
-  //     onEnter: (_) => setState(() => imageHovered = true),
-  //     onExit: (_) => setState(() => imageHovered = false),
-  //     child: Container(
-  //       height: 325,
-  //       width: 200,
-  //       margin: const EdgeInsets.all(20),
-  //       decoration: BoxDecoration(
-  //         border: Border.all(color: widget.borderColor ?? defaultBorderColor, width: 2),
-  //       ),
-  //       child: Stack(
-  //         clipBehavior: Clip.none,
-  //         children: [
-  //           Positioned.fill(
-  //             child: ClipRect(
-  //               child: AnimatedScale(
-  //                 scale: imageHovered ? 1.8 : 1.4,
-  //                 curve: Curves.ease,
-  //                 duration: 1000.milliseconds,
-  //                 child: Image.asset(
-  //                   Assets.image.mockAppUi.path,
-  //                 ),
-  //               ),
-  //             ),
-  //           ),
-  //           Positioned.fill(
-  //             child: AnimatedContainer(
-  //               duration: 1000.milliseconds,
-  //               curve: Curves.ease,
-  //               color:
-  //               imageHovered ? appColors.backgroundColor.withOpacity(0) : appColors.backgroundColor.withOpacity(.2),
-  //             ),
-  //           )
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
-
   Widget projectDetail() {
     return Container(
-      width: context.responsiveSize(desktop: 360, tablet: 300, mobile: 200),
-      padding: EdgeInsets.all(context.responsiveSize(desktop: 20)),
+      padding: EdgeInsets.symmetric(
+        vertical: context.adaptiveResponsiveHeight(desktop: 40),
+        horizontal: context.adaptiveResponsiveWidth(desktop: 40),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisSize: MainAxisSize.min,
         children: [
           buildProjectIconOrPlaceholder(widget.project, context),
-          SizedBox(height: context.responsiveSize(desktop: 30)),
+          SizedBox(height: context.adaptiveResponsiveHeight(desktop: 30)),
           // ? Project title in project card
           context.isMobile ? buildTitleMobile(widget.project.name) : buildAnimatedTitle(),
           const SizedBox(
@@ -203,12 +150,12 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
           // ? Project description in project card
           Text(
             widget.project.description,
-            style: paragraphTextStyle.copyWith(fontSize: context.responsiveSize(desktop: fontSize_18)),
+            style: paragraphTextStyle.copyWith(fontSize: context.adaptiveResponsiveWidth(desktop: fontSize_18)),
             textAlign: TextAlign.right,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
-          SizedBox(height: context.responsiveSize(desktop: 40)),
+          const Spacer(),
           // ? Explore button
           CornerCutButton(
             text: "Explore",
@@ -224,10 +171,6 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
                 },
               );
             },
-            fontSize: context.responsiveSize(desktop: 18),
-            // padding: EdgeInsets.all(context.responsiveSize(desktop: 14)),
-            cornerCutRadius: context.responsiveSize(desktop: 18),
-            elevation: context.responsiveSize(desktop: 10),
           )
         ],
       ),
@@ -236,7 +179,7 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
 
   MouseRegion buildAnimatedTitle() {
     final style = titleOneTextStyle.copyWith(
-      fontSize: context.responsiveSize(desktop: 40, tablet: 40, mobile: 30),
+      fontSize: context.adaptiveResponsiveWidth(desktop: 40, tablet: 40, mobile: 30),
       fontFamily: ibmPlexMono,
     );
     return MouseRegion(
@@ -276,9 +219,11 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
     return Text(
       title,
       style: titleOneTextStyle.copyWith(
-          fontSize: context.responsiveSize(desktop: 46, tablet: 46, mobile: 30), fontFamily: ibmPlexMono),
+        fontSize: context.adaptiveResponsiveWidth(desktop: 0, tablet: 0, mobile: 30),
+        fontFamily: ibmPlexMono,
+      ),
       textAlign: TextAlign.right,
-      maxLines: 2,
+      maxLines: 1,
       overflow: TextOverflow.ellipsis,
     );
   }
@@ -297,13 +242,14 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
             ),
           ),
           GestureDetector(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: Icon(
-                Icons.close,
-                color: appColors.foregroundColorDark,
-              ))
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Icon(
+              Icons.close,
+              color: appColors.foregroundColorDark,
+            ),
+          )
         ],
       ),
       backgroundColor: appColors.backgroundColor,
@@ -323,10 +269,12 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
             const SizedBox(
               height: 40,
             ),
-            Text(project.name,
-                style: titleOneTextStyle.copyWith(
-                  fontSize: context.responsiveSize(desktop: 40, tablet: 36, mobile: 30),
-                )),
+            Text(
+              project.name,
+              style: titleOneTextStyle.copyWith(
+                fontSize: context.responsiveSize(desktop: 40, tablet: 36, mobile: 30),
+              ),
+            ),
             const SizedBox(
               height: 20,
             ),
@@ -342,6 +290,7 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
               onTap: () async {
                 await launchUrl(Uri.parse(project.link));
               },
+
             )
           ],
         ),
@@ -359,7 +308,7 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
     return Icon(
       EvaIcons.grid,
       color: appColors.foregroundColorDark,
-      size: context.responsiveSize(
+      size: context.adaptiveResponsiveWidth(
         desktop: 80,
         tablet: 80,
         mobile: 60,
@@ -370,7 +319,7 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
   Widget buildProjectIcon(BuildContext context, Project project) {
     return Image.network(
       project.imagePath!,
-      height: context.responsiveSize(
+      height: context.adaptiveResponsiveWidth(
         desktop: 80,
         tablet: 80,
         mobile: 60,
