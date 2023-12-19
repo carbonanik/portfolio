@@ -230,7 +230,12 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
               onTap: () {
                 showDialog(context: context, builder: buildDialog);
               },
-              text: "Click Me!",
+              text: "About me!",
+              padding: EdgeInsets.symmetric(
+                vertical: context.responsiveSize(desktop: 20),
+                horizontal: context.responsiveSize(desktop: 40),
+              ),
+              elevation: 10,
             ),
           ),
           reduceRightMargin: animation.value.get(AnimProps.buttonReduceRightMargin),
@@ -319,6 +324,7 @@ Widget buildDialog(BuildContext context) {
                         style: titleOneTextStyle.copyWith(
                             fontSize: context.responsiveSize(desktop: 40, tablet: 36, mobile: 30),
                             fontFamily: FontFamily.iBMPlexMono),
+                        textAlign: TextAlign.center,
                       ),
                       const SizedBox(
                         height: 20,

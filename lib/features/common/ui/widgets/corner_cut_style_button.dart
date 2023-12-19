@@ -33,7 +33,7 @@ class _CornerCutButtonState extends State<CornerCutButton> with TickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    final corner = context.responsiveSize(desktop: 18, tablet: 16, mobile: 14);
+    final corner = context.adaptiveResponsiveWidth(desktop: 18, tablet: 16, mobile: 14);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [

@@ -133,8 +133,8 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
   Widget projectDetail() {
     return Container(
       padding: EdgeInsets.symmetric(
-        vertical: context.adaptiveResponsiveHeight(desktop: 40),
-        horizontal: context.adaptiveResponsiveWidth(desktop: 40),
+        vertical: context.adaptiveResponsiveHeight(desktop: 40, mobile: 24),
+        horizontal: context.adaptiveResponsiveWidth(desktop: 40, mobile: 24),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -278,19 +278,35 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
             const SizedBox(
               height: 20,
             ),
-            Text(project.description,
-                style: paragraphTextStyle.copyWith(
-                  fontSize: context.responsiveSize(desktop: fontSize_18),
-                )),
+            Text(
+              project.description,
+              style: paragraphTextStyle.copyWith(
+                fontSize: context.responsiveSize(desktop: fontSize_18),
+              ),
+            ),
             const SizedBox(
               height: 40,
             ),
-            CornerCutButton(
-              text: "Visit project",
-              onTap: () async {
-                await launchUrl(Uri.parse(project.link));
-              },
-
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                project.links.length,
+                (index) {
+                  return Row(
+                    children: [
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      CornerCutButton(
+                        text: project.links[index].name,
+                        onTap: () async {
+                          await launchUrl(Uri.parse(project.links[index].link));
+                        },
+                      )
+                    ],
+                  );
+                },
+              ),
             )
           ],
         ),
