@@ -1,11 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:portfolio/core/theme/selected_theme_provider.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/menu_content_page.dart';
 import 'package:portfolio/features/common/ui/widgets/step_text.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
+import 'package:portfolio/gen/assets.gen.dart';
 import 'package:portfolio/gen/fonts.gen.dart';
 import 'package:portfolio/theme/colors.dart';
 import 'package:portfolio/theme/typography.dart';
@@ -35,6 +34,7 @@ enum AnimProps {
 
 class Intro extends StatefulWidget {
   const Intro({this.blobHoverEffect, super.key});
+
   final void Function(BlobHoverData data)? blobHoverEffect;
 
   @override
@@ -227,7 +227,6 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
           child: Padding(
             padding: const EdgeInsets.only(left: 10, top: 10),
             child: CornerCutButton(
-
               onTap: () {
                 showDialog(context: context, builder: buildDialog);
               },
@@ -269,26 +268,28 @@ Widget _animatedAppear({
 }
 
 Widget buildDialog(BuildContext context) {
+  final height = MediaQuery.of(context).size.height;
   return AlertDialog(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(
+          Text(
             "Resume",
             style: TextStyle(
-              color: Colors.grey,
+              color: appColors.foregroundColorDark,
               fontWeight: FontWeight.bold,
               fontSize: 22,
             ),
           ),
           GestureDetector(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: Icon(
-                Icons.close,
-                color: appColors.foregroundColorDark,
-              ))
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Icon(
+              Icons.close,
+              color: appColors.foregroundColorDark,
+            ),
+          )
         ],
       ),
       backgroundColor: appColors.backgroundColor,
@@ -299,93 +300,136 @@ Widget buildDialog(BuildContext context) {
           width: 2,
         ),
       ),
-      content: SizedBox(
+      content: Container(
+        padding: EdgeInsets.symmetric(horizontal: context.responsiveSize(desktop: 100, tablet: 50, mobile: 20)),
+        height: height - 200,
         width: context.responsiveSize(desktop: 1000, tablet: 600, mobile: 200),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: context.responsiveSize(desktop: 100, tablet: 50, mobile: 20)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 40,
-              ),
-              Text(
-                "SHEIKH ANIK",
-                style: titleOneTextStyle.copyWith(
-                    fontSize: context.responsiveSize(desktop: 40, tablet: 36, mobile: 30),
-                    fontFamily: FontFamily.iBMPlexMono),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Flutter Developer",
-                style: paragraphTextStyle.copyWith(
-                    fontSize: context.responsiveSize(desktop: 24), fontFamily: FontFamily.iBMPlexMono),
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              Text(
-                "OBJECTIVE",
-                style: titleOneTextStyle.copyWith(
-                    fontSize: context.responsiveSize(desktop: 24), fontFamily: FontFamily.iBMPlexMono),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Enthusiastic App developer with 5 years of experience cooking up clean code for fast-paced businesses. "
-                "Excited to jazz up products and whip up awesome user experiences.",
-                style: paragraphTextStyle.copyWith(
-                    fontSize: context.responsiveSize(desktop: fontSize_18), fontFamily: FontFamily.iBMPlexMono),
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              Text(
-                "Education",
-                style: titleOneTextStyle.copyWith(
-                    fontSize: context.responsiveSize(desktop: 24), fontFamily: FontFamily.iBMPlexMono),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Diploma in electronics",
-                style: paragraphTextStyle.copyWith(
-                    fontSize: context.responsiveSize(desktop: fontSize_18), fontFamily: FontFamily.iBMPlexMono),
-              ),
-              // Text(
-              //   "Dhaka Polytechnic Institute",
-              //   style: paragraphTextStyle.copyWith(
-              //     fontSize: context.responsiveSize(desktop: fontSize_18),
-              //   ),
-              // ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                "BSc in Computer Science",
-                style: paragraphTextStyle.copyWith(
-                    fontSize: context.responsiveSize(desktop: fontSize_18), fontFamily: FontFamily.iBMPlexMono),
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              const Spacer(),
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: CornerCutButton(
-                  text: "Download",
-                  onTap: () async {
-                    await launchUrl(Uri.parse(
-                        "https://docs.google.com/document/d/1qTTUmrEADgqPEE9lBHMHdGlnGjBsDNBOuNuHzh7gJXk/edit?usp=sharing"));
-                  },
+        child: Column(
+          children: [
+            Expanded(
+              child: SizedBox(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      Text(
+                        "SHEIKH ANIK",
+                        style: titleOneTextStyle.copyWith(
+                            fontSize: context.responsiveSize(desktop: 40, tablet: 36, mobile: 30),
+                            fontFamily: FontFamily.iBMPlexMono),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "Flutter Developer",
+                        style: paragraphTextStyle.copyWith(
+                            fontSize: context.responsiveSize(desktop: 24),
+                            fontFamily: FontFamily.iBMPlexMono,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Image.asset(
+                        Assets.image.flutterIconWhite.path,
+                        color: appColors.foregroundColorDark,
+                        width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                        height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      // Text(
+                      //   "OBJECTIVE",
+                      //   style: titleOneTextStyle.copyWith(
+                      //       fontSize: context.responsiveSize(desktop: 24), fontFamily: FontFamily.iBMPlexMono),
+                      // ),
+                      // const SizedBox(
+                      //   height: 20,
+                      // ),
+                      Text(
+                        "Enthusiastic App developer with 5 years of experience cooking up clean code for fast-paced businesses. "
+                        "Excited to jazz up products and whip up awesome user experiences.",
+                        style: paragraphTextStyle.copyWith(
+                          fontSize: context.responsiveSize(desktop: fontSize_22),
+                          fontFamily: FontFamily.cabin,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      Text(
+                        "PROFESSIONAL SKILLS",
+                        style: titleOneTextStyle.copyWith(
+                            fontSize: context.responsiveSize(desktop: 32), fontFamily: FontFamily.iBMPlexMono),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        """I've built 20+ Flutter (Dart) apps and seamlessly integrated native development. Proficient in Provider, RiverPod, SQFLite, Hive, Freezed, and more for Flutter dependencies. Embrace modern app development with clean architecture.
+
+Backend-wise, I leverage Python for development, automation, and backups, while SQL (Postgres) is my playground for crafting schemas and powerful queries. Docker is my go-to for smooth deployment, complemented by a robust CI/CD pipeline.
+
+In the automation realm, I wield Jenkins, Ansible, and ShellScript for tasks like CI/CD and backups. Command-line proficiency in Linux is second nature to me.
+                        """,
+                        style: paragraphTextStyle.copyWith(
+                          fontSize: context.responsiveSize(desktop: fontSize_22),
+                          fontFamily: FontFamily.cabin,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      Text(
+                        "EDUCATION",
+                        style: titleOneTextStyle.copyWith(
+                            fontSize: context.responsiveSize(desktop: 24), fontFamily: FontFamily.iBMPlexMono),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "Diploma in electronics",
+                        style: paragraphTextStyle.copyWith(
+                            fontSize: context.responsiveSize(desktop: fontSize_18), fontFamily: FontFamily.iBMPlexMono),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "BSc in Computer Science",
+                        style: paragraphTextStyle.copyWith(
+                            fontSize: context.responsiveSize(desktop: fontSize_18), fontFamily: FontFamily.iBMPlexMono),
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                    ],
+                  ),
                 ),
-              )
-            ],
-          ),
+              ),
+            ),
+            const SizedBox(height: 60),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: CornerCutButton(
+                text: "Download",
+                onTap: () async {
+                  await launchUrl(
+                    Uri.parse(
+                      "https://docs.google.com/document/d/1qTTUmrEADgqPEE9lBHMHdGlnGjBsDNBOuNuHzh7gJXk/export?format=pdf",
+                    ),
+                  );
+                },
+              ),
+            )
+          ],
         ),
       ));
 }

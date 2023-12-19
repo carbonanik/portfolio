@@ -3,27 +3,38 @@ import 'package:portfolio/theme/colors.dart';
 import 'package:portfolio/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
 
-class MenuItemS2 extends StatefulWidget {
+// class MenuItemThemeData {
+//   final String name;
+//   final Color color;
+//
+//   const MenuItemThemeData({
+//     required this.name,
+//     required this.color,
+//   });
+// }
+
+class MenuItemTheme extends StatefulWidget {
   final String name;
-  final String changeName;
+  final String Function(String name) next;
 
-  final Function(String item)? onTap;
+  final Function(String name)? onTap;
 
-  const MenuItemS2({
+  const MenuItemTheme({
     required this.name,
-    required this.changeName,
+    required this.next,
     this.onTap,
     super.key,
   });
 
   @override
-  State<MenuItemS2> createState() => _MenuItemS2State();
+  State<MenuItemTheme> createState() => _MenuItemThemeState();
 }
 
-class _MenuItemS2State extends State<MenuItemS2> with SingleTickerProviderStateMixin {
+class _MenuItemThemeState extends State<MenuItemTheme> with SingleTickerProviderStateMixin {
   bool isHovered = false;
   late AnimationController _slideAnimationController;
   late Animation<Offset> _slideAnimation;
+  late String nextName;
 
   @override
   void dispose() {
@@ -38,6 +49,7 @@ class _MenuItemS2State extends State<MenuItemS2> with SingleTickerProviderStateM
       begin: Offset.zero,
       end: const Offset(-1, 0),
     ).animate(_slideAnimationController);
+    nextName = widget.next(widget.name);
     super.initState();
   }
 
@@ -45,14 +57,17 @@ class _MenuItemS2State extends State<MenuItemS2> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     return MouseRegion(
       onEnter: (event) {
-          _slideAnimationController.forward();
+        setState(() {
+          nextName = widget.next(widget.name);
+        });
+        _slideAnimationController.forward();
       },
       onExit: (event) {
-          _slideAnimationController.reverse();
+        _slideAnimationController.reverse();
       },
       child: ClipRRect(
         child: InkWell(
-          onTap: () => widget.onTap?.call(widget.name),
+          onTap: () => widget.onTap?.call(nextName),
           splashFactory: NoSplash.splashFactory,
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
@@ -80,22 +95,23 @@ class _MenuItemS2State extends State<MenuItemS2> with SingleTickerProviderStateM
                   ),
                 ),
                 FractionalTranslation(
-                  translation:  const Offset(1, 0),
+                  translation: const Offset(1, 0),
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 3),
                     child: Row(
                       children: [
                         const SizedBox(width: 36),
-
                         Text(
-                          widget.changeName,
-                          style: menuTextStyle,
+                          nextName,
+                          style: menuTextStyle.copyWith(
+                            color: appColorsThemes[nextName]?.foregroundColor ?? appColors.foregroundColor,
+                          ),
                         ),
                         const SizedBox(width: 36),
                         Container(
                           width: 10,
                           height: 22,
-                          color: appColors.accentColor,
+                          color: appColorsThemes[nextName]?.accentColor ?? appColors.accentColor,
                         ),
                         const SizedBox(width: 16),
                       ],
