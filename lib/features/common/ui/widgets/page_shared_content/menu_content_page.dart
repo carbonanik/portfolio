@@ -95,13 +95,15 @@ class _PageContainerState extends State<PageContainer> with TickerProviderStateM
         // ?*
         TextBackground(
           onTap: () async {
-            setState(() {
-              reGurGur = !reGurGur;
-            });
-            await Future.delayed(100.milliseconds);
-            setState(() {
-              reGurGur = !reGurGur;
-            });
+            if (!context.isMobile) {
+              setState(() {
+                reGurGur = !reGurGur;
+              });
+              await Future.delayed(100.milliseconds);
+              setState(() {
+                reGurGur = !reGurGur;
+              });
+            }
           },
         ),
         // ? Random appear animation

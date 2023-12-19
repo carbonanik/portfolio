@@ -19,24 +19,52 @@ final categories = [
         name: 'Grocery Shop',
         description:
             'Complete e-commerce app 🛒 with robust performannce 🚀 & beautiful ui✨. And with a python backend 💻.',
-        link: 'https://github.com/carbonanik/grocery-app/#readme',
+        links: [
+          ProjectLink(
+            name: "Github",
+            link: 'https://github.com/carbonanik/grocery-app/#readme',
+          ),
+        ],
       ),
       Project(
         name: 'Logic Builder',
         description: 'Friendly 👋 and lightweight 🎈 tool 🔬 to Design digital logic circuits 🧮',
         imagePath:
             "https://raw.githubusercontent.com/carbonanik/logic_builder/master/screenshot/logic-builder-logo.png",
-        link: 'https://github.com/carbonanik/logic_builder#readme',
+        links: [
+          ProjectLink(
+            name: "Github",
+            link: 'https://github.com/carbonanik/logic_builder/#readme',
+          ),
+        ],
       ),
       Project(
         name: 'Portfolio',
-        description: des,
-        link: 'https://github.com/carbonanik/protfolio#readme',
+        description: "My personal website 🌐 (This site)",
+        links: [
+          ProjectLink(
+            name: "Github",
+            link: 'https://github.com/carbonanik/protfolio/#readme',
+          ),
+          ProjectLink(
+            name: "Live",
+            link: 'https://carbonanik.web.app/',
+          ),
+        ],
       ),
       Project(
         name: 'Pin Bord',
         description: 'A simple sticky note app 📝',
-        link: 'https://github.com/carbonanik/pin_bord#readme',
+        links: [
+          ProjectLink(
+            name: "Github",
+            link: 'https://github.com/carbonanik/pin_bord/#readme',
+          ),
+          ProjectLink(
+            name: "Live",
+            link: 'https://pin-bord.web.app/',
+          ),
+        ],
       ),
     ],
   ),
@@ -46,7 +74,12 @@ final categories = [
       Project(
         name: 'Weather App',
         description: des,
-        link: 'https://www.google.com',
+        links: [
+          ProjectLink(
+            name: "Github",
+            link: 'https://github.com/carbonanik/',
+          ),
+        ],
       ),
     ],
   ),
@@ -56,12 +89,22 @@ final categories = [
       Project(
         name: 'Project 1',
         description: des,
-        link: 'https://www.google.com',
+        links: [
+          ProjectLink(
+            name: "Github",
+            link: 'https://github.com/carbonanik/',
+          ),
+        ],
       ),
       Project(
         name: 'Project 2',
         description: des,
-        link: 'https://www.google.com',
+        links: [
+          ProjectLink(
+            name: "Github",
+            link: 'https://github.com/carbonanik/',
+          ),
+        ],
       ),
     ],
   ),
