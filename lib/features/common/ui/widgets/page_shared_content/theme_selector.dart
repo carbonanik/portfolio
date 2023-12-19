@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:portfolio/core/theme/selected_theme_provider.dart';
@@ -15,12 +17,13 @@ class ThemeSelector extends StatelessWidget {
 
       return sk.map(
             data: (data) => InkWell(
-              child: MenuItemS2(
+              child: MenuItemTheme(
                 name: data.value ?? "theme",
-                changeName: keyToSave(data.value ?? "theme") ?? "theme",
-                onTap: (item) async {
-                  final kt = keyToSave(data.value ?? "theme");
-                  await saveTheme(kt ?? "theme");
+                next: (name) {
+                  return keyToSave(name);
+                },
+                onTap: (name) async {
+                  await saveTheme(name);
                   html.window.location.reload();
                 },
               ),
@@ -36,10 +39,10 @@ class ThemeSelector extends StatelessWidget {
     });
   }
 
-  String? keyToSave(String key) {
+  String keyToSave(String selectedKey) {
     final keys = appColorsThemes.keys.toList();
-    final index = keys.indexOf(key);
-    final keyToSave = keys[(index + 1) % keys.length];
+    final keysWithoutSelected = keys.where((element) => element != selectedKey).toList();
+    final keyToSave = keysWithoutSelected.toList()[Random().nextInt(keysWithoutSelected.length)];
     return keyToSave;
   }
 }

@@ -64,6 +64,7 @@ class PageContainer extends StatefulWidget {
 class _PageContainerState extends State<PageContainer> with TickerProviderStateMixin {
   double mouseX = 0;
   double mouseY = 0;
+  bool reGurGur = true;
 
   void _updateLocation(PointerHoverEvent event) {
     setState(() {
@@ -92,9 +93,19 @@ class _PageContainerState extends State<PageContainer> with TickerProviderStateM
         // ? Full Page Container
         // Expanded(child: Container()),
         // ?*
-        const TextBackground(),
+        TextBackground(
+          onTap: () async {
+            setState(() {
+              reGurGur = !reGurGur;
+            });
+            await Future.delayed(100.milliseconds);
+            setState(() {
+              reGurGur = !reGurGur;
+            });
+          },
+        ),
         // ? Random appear animation
-        if (widget.menuItem != null)
+        if (widget.menuItem != null && reGurGur)
           Positioned(
             left: context.responsiveSize(desktop: -50),
             bottom: context.responsiveSize(desktop: -100),

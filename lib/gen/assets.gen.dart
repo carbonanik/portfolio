@@ -36,6 +36,10 @@ class $AssetsImageGen {
   /// File path: assets/image/cat-low-res.png.xmp
   String get catLowResPng => 'assets/image/cat-low-res.png.xmp';
 
+  /// File path: assets/image/flutter_icon_white.png
+  AssetGenImage get flutterIconWhite =>
+      const AssetGenImage('assets/image/flutter_icon_white.png');
+
   /// File path: assets/image/mock_app_ui.png
   AssetGenImage get mockAppUi =>
       const AssetGenImage('assets/image/mock_app_ui.png');
@@ -59,6 +63,7 @@ class $AssetsImageGen {
         carbonLogo,
         catLowRes,
         catLowResPng,
+        flutterIconWhite,
         mockAppUi,
         mockAppUiPng,
         mockAppUi2,
