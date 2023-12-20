@@ -4,7 +4,7 @@ This is the portfolio of the author.
 
 # Screenshots
 
-<img src="screenshots/about_mobile_canary.jpg" width="100"><img src="screenshots/about_mobile_farn_menu_down.jpg" width="100"><img src="screenshots/about_pc_prism.png" width="200">
+<img src="screenshots/about_mobile_canary.jpg" width="100"><img src="screenshots/about_mobile_farn_menu_down.jpg" width="100"><img src="screenshots/about_pc_prism.png" width="300">
 
 <img src="screenshots/blog_mobile_space.jpg" width="200"><img src="screenshots/blog_pc_canary.png" width="200">
 
