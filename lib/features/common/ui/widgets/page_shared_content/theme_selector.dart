@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:portfolio/core/theme/selected_theme_provider.dart';
 import 'package:portfolio/features/common/ui/widgets/menu/menu_item_style_2.dart';
-import 'package:portfolio/theme/colors.dart';
+import 'package:portfolio/core/theme/colors.dart';
 import 'package:universal_html/html.dart';
 
 class ThemeSelector extends StatelessWidget {

@@ -97,16 +97,17 @@ const appColorsThemes = {
     accentColor: Color(0xff6e6e6e),
     colorBurst: Color(0xFFf2f2f2),
   ),
+  // "ekush": ekush,
 };
 
-const _21 = AppColors(
+const ekush = AppColors(
   primarySwatch: Colors.red,
-  backgroundColor: Color(0xff006a4e),
-  backgroundColorLite: Color(0xff006a4e),
-  foregroundColor: Color(0xfff42a41),
-  foregroundColorDark: Color(0xfff42a41),
-  accentColor: Color(0xff6e6e6e),
-  colorBurst: Color(0xFFf2f2f2),
+  backgroundColor: Color(0xff00110b),
+  backgroundColorLite: Color(0xff002a1a),
+  foregroundColor: Color(0xfff60b45),
+  foregroundColorDark: Color(0xff8d0929),
+  accentColor: Color(0xfff60b45),
+  colorBurst: Color(0xfff60b45),
 );
 
 const r = Color(0xfff60b45);

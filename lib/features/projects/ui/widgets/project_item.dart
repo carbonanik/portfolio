@@ -6,8 +6,8 @@ import 'package:portfolio/features/common/paths/corner_cut_border_clipper.dart';
 import 'package:portfolio/features/common/ui/widgets/corner_cut_style_button.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/features/projects/models/project.dart';
-import 'package:portfolio/theme/colors.dart';
-import 'package:portfolio/theme/typography.dart';
+import 'package:portfolio/core/theme/colors.dart';
+import 'package:portfolio/core/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -45,9 +45,9 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
 
   @override
   void dispose() {
-    super.dispose();
     _titleAnimationController.dispose();
     _borderAnimationController.dispose();
+    super.dispose();
   }
 
   @override

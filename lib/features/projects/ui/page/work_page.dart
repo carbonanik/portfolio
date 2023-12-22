@@ -6,8 +6,8 @@ import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/features/projects/models/category_project.dart';
 import 'package:portfolio/features/projects/models/project.dart';
 import 'package:portfolio/features/common/ui/widgets/scrollable_row.dart';
-import 'package:portfolio/theme/colors.dart';
-import 'package:portfolio/theme/typography.dart';
+import 'package:portfolio/core/theme/colors.dart';
+import 'package:portfolio/core/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
 
 const des = "This is the real project i have made, you can believe me.";

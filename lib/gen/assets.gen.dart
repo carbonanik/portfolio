@@ -54,6 +54,9 @@ class $AssetsImageGen {
   /// File path: assets/image/mock_app_ui_2.png.xmp
   String get mockAppUi2Png => 'assets/image/mock_app_ui_2.png.xmp';
 
+  /// File path: assets/image/test.png
+  AssetGenImage get test => const AssetGenImage('assets/image/test.png');
+
   /// List of all assets
   List<dynamic> get values => [
         apple,
@@ -67,7 +70,8 @@ class $AssetsImageGen {
         mockAppUi,
         mockAppUiPng,
         mockAppUi2,
-        mockAppUi2Png
+        mockAppUi2Png,
+        test
       ];
 }
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
-import 'package:portfolio/theme/typography.dart';
+import 'package:portfolio/core/theme/typography.dart';
 
 class TextBackground extends StatelessWidget {
   final VoidCallback? onTap;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
-import 'package:portfolio/theme/colors.dart';
+import 'package:portfolio/core/theme/colors.dart';
 
 class InputField extends StatelessWidget {
   const InputField({
