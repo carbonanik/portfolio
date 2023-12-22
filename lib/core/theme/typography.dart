@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:portfolio/theme/colors.dart';
+import 'package:portfolio/core/theme/colors.dart';
 
 // ? Fonts
 const ibmPlexMono = "IBMPlexMono";

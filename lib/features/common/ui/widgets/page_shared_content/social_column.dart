@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:portfolio/core/theme/selected_theme_provider.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/random_appear_animation_text.dart';
-import 'package:portfolio/theme/colors.dart';
-import 'package:portfolio/theme/typography.dart';
+import 'package:portfolio/core/theme/colors.dart';
+import 'package:portfolio/core/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:url_launcher/url_launcher.dart';
 

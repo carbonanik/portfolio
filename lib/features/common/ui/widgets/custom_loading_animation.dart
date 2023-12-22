@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:portfolio/core/theme/selected_theme_provider.dart';
-import 'package:portfolio/theme/colors.dart';
-import 'package:portfolio/theme/typography.dart';
+import 'package:portfolio/core/theme/colors.dart';
+import 'package:portfolio/core/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
 
 class CustomLoadingAnimation extends ConsumerStatefulWidget {

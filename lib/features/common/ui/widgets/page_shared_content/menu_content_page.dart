@@ -1,7 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:portfolio/core/theme/selected_theme_provider.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/clock/clock_view.dart';
 import 'package:portfolio/features/common/ui/widgets/custom_loading_animation.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/social_column.dart';
@@ -10,8 +8,7 @@ import 'package:portfolio/features/common/ui/widgets/menu/top_menu_bar.dart';
 import 'package:portfolio/features/common/ui/widgets/menu/top_menu_bar_collapsed.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/random_appear_animation_text.dart';
-import 'package:portfolio/features/common/ui/widgets/page_shared_content/theme_selector.dart';
-import 'package:portfolio/theme/colors.dart';
+import 'package:portfolio/core/theme/colors.dart';
 import 'package:supercharged/supercharged.dart';
 
 class BlobHoverData {
