@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:portfolio/core/router/app_router.dart';
 import 'package:portfolio/core/theme/selected_theme_provider.dart';
 import 'package:portfolio/features/articles/models/article.dart';
-import 'package:portfolio/features/common/ui/widgets/page_shared_content/menu_content_page.dart';
+import 'package:portfolio/features/common/ui/widgets/page_shared_content/page_container.dart';
 import 'package:portfolio/features/common/paths/corner_cut_border_clipper.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/gen/assets.gen.dart';

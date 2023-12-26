@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/features/articles/data_source/article_static_data.dart';
 import 'package:portfolio/features/articles/models/article.dart';
 import 'package:portfolio/features/articles/ui/widgets/article_view.dart';
-import 'package:portfolio/features/common/ui/widgets/page_shared_content/menu_content_page.dart';
+import 'package:portfolio/features/common/ui/widgets/page_shared_content/page_container.dart';
 
 @RoutePage()
 class ArticleOpenPage extends StatelessWidget {

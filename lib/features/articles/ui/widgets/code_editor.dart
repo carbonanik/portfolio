@@ -1,5 +1,6 @@
 import 'package:code_text_field/code_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:highlight/highlight.dart';
 import 'package:portfolio/core/theme/selected_theme_provider.dart';
@@ -31,7 +32,6 @@ class _CodeEditorState extends State<CodeEditor> {
 
   @override
   void initState() {
-    widget.fontSize;
     super.initState();
     _codeController = CodeController(
       text: widget.source,
@@ -57,28 +57,40 @@ class _CodeEditorState extends State<CodeEditor> {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(borderRadius: const BorderRadius.all(Radius.circular(8)), color: background),
-      child: CodeTheme(
-        data: CodeThemeData(styles: customTheme),
-        child: CodeField(
-          controller: _codeController!,
-          textStyle: TextStyle(fontSize: widget.fontSize),
-          onChanged: widget.onChanged,
-          readOnly: widget.readOnly,
-          lineNumbers: false,
-          background: appColors.foregroundColorDark.withOpacity(.1),
-          // lineNumberStyle: LineNumberStyle(
-          //   textStyle: TextStyle(color: appColors.foregroundColor.withOpacity(0.5), fontFamily: FontFamily.iBMPlexMono),
-          //   background: appColors.accentColor.withOpacity(.5),
-          // ),
-        ),
+      child: Stack(
+        children: [
+          CodeTheme(
+            data: CodeThemeData(styles: customTheme),
+            child: CodeField(
+              controller: _codeController!,
+              textStyle: TextStyle(fontSize: widget.fontSize, fontFamily: FontFamily.iBMPlexMono),
+              onChanged: widget.onChanged,
+              readOnly: widget.readOnly,
+              lineNumbers: false,
+              background: appColors.foregroundColorDark.withOpacity(.1),
+            ),
+          ),
+          if (widget.readOnly)
+            Positioned(
+              top: 0,
+              right: 0,
+              child: InkWell(
+                onTap: () {
+                  Clipboard.setData(ClipboardData(text: widget.source));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Icon(
+                    Icons.copy,
+                    color: appColors.foregroundColor.withOpacity(0.5),
+                  ),
+                ),
+              ),
+            ),
+        ],
       ),
     );
   }
-
-// TextSpan _lineNumberBuilder(int line, TextStyle? style)  {
-//   if (line == 2) return TextSpan(text: "@", style: style);
-//   return TextSpan(text: "$line", style: style);
-// }
 }
 
 final customTheme = {

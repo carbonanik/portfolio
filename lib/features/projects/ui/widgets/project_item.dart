@@ -1,6 +1,6 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:portfolio/features/common/ui/widgets/page_shared_content/menu_content_page.dart';
+import 'package:portfolio/features/common/ui/widgets/page_shared_content/page_container.dart';
 import 'package:portfolio/features/common/paths/color_splash_painter.dart';
 import 'package:portfolio/features/common/paths/corner_cut_border_clipper.dart';
 import 'package:portfolio/features/common/ui/widgets/corner_cut_style_button.dart';
@@ -8,6 +8,7 @@ import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/features/projects/models/project.dart';
 import 'package:portfolio/core/theme/colors.dart';
 import 'package:portfolio/core/theme/typography.dart';
+import 'package:portfolio/gen/fonts.gen.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -180,7 +181,7 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
   MouseRegion buildAnimatedTitle() {
     final style = titleOneTextStyle.copyWith(
       fontSize: context.adaptiveResponsiveWidth(desktop: 40, tablet: 40, mobile: 30),
-      fontFamily: ibmPlexMono,
+      fontFamily: FontFamily.iBMPlexMono,
     );
     return MouseRegion(
       onEnter: (_) {
@@ -220,7 +221,7 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
       title,
       style: titleOneTextStyle.copyWith(
         fontSize: context.adaptiveResponsiveWidth(desktop: 0, tablet: 0, mobile: 30),
-        fontFamily: ibmPlexMono,
+        fontFamily: FontFamily.iBMPlexMono,
       ),
       textAlign: TextAlign.right,
       maxLines: 1,

@@ -1,5 +1,9 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gap/gap.dart';
+import 'package:portfolio/core/theme/typography.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/clock/clock_view.dart';
 import 'package:portfolio/features/common/ui/widgets/custom_loading_animation.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/social_column.dart';
@@ -9,6 +13,7 @@ import 'package:portfolio/features/common/ui/widgets/menu/top_menu_bar_collapsed
 import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/random_appear_animation_text.dart';
 import 'package:portfolio/core/theme/colors.dart';
+import 'package:portfolio/gen/assets.gen.dart';
 import 'package:supercharged/supercharged.dart';
 
 class BlobHoverData {
@@ -43,9 +48,11 @@ class PageContainer extends StatefulWidget {
     this.showSocial = true,
     this.showClock = true,
     this.blobHoverData = const BlobHoverData.initial(),
+    this.showMadeWithText = false,
     super.key,
   });
 
+  final bool showMadeWithText;
   final bool isLoading;
   final bool hasMenu;
   final bool showSocial;
@@ -87,8 +94,39 @@ class _PageContainerState extends State<PageContainer> with TickerProviderStateM
     return Stack(
       alignment: AlignmentDirectional.center,
       children: [
-        // ? Full Page Container
-        // Expanded(child: Container()),
+        // ?
+        if (widget.showMadeWithText)
+          Positioned(
+              right: 50,
+              bottom: 0,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    "Made with",
+                    style: subtitleTextStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                  const Gap(10),
+                  Icon(
+                    Icons.favorite,
+                    color: appColors.accentColor,
+                    size: 16,
+                  ),
+                  const Gap(10),
+                  Text(
+                    "Flutter",
+                    style: subtitleTextStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                  const Gap(10),
+                  SvgPicture.asset(Assets.image.flutter,
+                      colorFilter: ColorFilter.mode(appColors.accentColor, BlendMode.srcIn),
+                      width: 14,
+                      height: 14,
+                      semanticsLabel: 'logo'),
+                ],
+              )),
         // ?*
         TextBackground(
           onTap: () async {

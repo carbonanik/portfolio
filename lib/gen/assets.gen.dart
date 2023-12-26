@@ -36,9 +36,17 @@ class $AssetsImageGen {
   /// File path: assets/image/cat-low-res.png.xmp
   String get catLowResPng => 'assets/image/cat-low-res.png.xmp';
 
-  /// File path: assets/image/flutter_icon_white.png
-  AssetGenImage get flutterIconWhite =>
-      const AssetGenImage('assets/image/flutter_icon_white.png');
+  /// File path: assets/image/docker.svg
+  String get docker => 'assets/image/docker.svg';
+
+  /// File path: assets/image/firebase.svg
+  String get firebase => 'assets/image/firebase.svg';
+
+  /// File path: assets/image/flutter.svg
+  String get flutter => 'assets/image/flutter.svg';
+
+  /// File path: assets/image/linux.svg
+  String get linux => 'assets/image/linux.svg';
 
   /// File path: assets/image/mock_app_ui.png
   AssetGenImage get mockAppUi =>
@@ -54,6 +62,12 @@ class $AssetsImageGen {
   /// File path: assets/image/mock_app_ui_2.png.xmp
   String get mockAppUi2Png => 'assets/image/mock_app_ui_2.png.xmp';
 
+  /// File path: assets/image/postgres.svg
+  String get postgres => 'assets/image/postgres.svg';
+
+  /// File path: assets/image/python.svg
+  String get python => 'assets/image/python.svg';
+
   /// File path: assets/image/test.png
   AssetGenImage get test => const AssetGenImage('assets/image/test.png');
 
@@ -66,11 +80,16 @@ class $AssetsImageGen {
         carbonLogo,
         catLowRes,
         catLowResPng,
-        flutterIconWhite,
+        docker,
+        firebase,
+        flutter,
+        linux,
         mockAppUi,
         mockAppUiPng,
         mockAppUi2,
         mockAppUi2Png,
+        postgres,
+        python,
         test
       ];
 }

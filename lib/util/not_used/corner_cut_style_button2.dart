@@ -1,33 +1,31 @@
 // import 'package:flutter/material.dart';
+// import 'package:portfolio/core/theme/colors.dart';
+// import 'package:portfolio/core/theme/typography.dart';
 // import 'package:portfolio/features/common/paths/corner_cut_border_clipper.dart';
 // import 'package:portfolio/features/common/extensions/ext.dart';
-// import 'package:portfolio/theme/colors.dart';
-// import 'package:portfolio/theme/typography.dart';
 // import 'package:supercharged/supercharged.dart';
 //
 // class CornerCutButton2 extends StatefulWidget {
-//   final String text;
 //
-//   // final Widget? child;
+//
+//   final String? text;
 //   final VoidCallback? onTap;
 //   final double? fontSize;
 //   final bool transparent;
-//   final bool colorBorder;
 //   final EdgeInsets? padding;
 //   final double? cornerCutRadius;
-//   final double elevation;
+//   final double? elevation;
 //
 //   const CornerCutButton2({
+//
 //     super.key,
-//     required this.text,
-//     // this.child,
+//     this.text,
 //     this.onTap,
 //     this.fontSize,
 //     this.transparent = true,
-//     this.colorBorder = false,
 //     this.padding,
 //     this.cornerCutRadius,
-//     this.elevation = 10,
+//     this.elevation,
 //   });
 //
 //   @override
@@ -39,80 +37,87 @@
 //
 //   @override
 //   Widget build(BuildContext context) {
-//     return Listener(
-//       onPointerDown: (_) {
-//         setState(() {
-//           pointerDown = true;
-//         });
-//       },
-//       onPointerUp: (_) {
-//         setState(() {
-//           pointerDown = false;
-//         });
-//       },
-//       child: Stack(
-//         children: [
-//           Positioned.fill(
-//             child: Container(
-//               decoration: BoxDecoration(
-//                 color: widget.transparent ? null : selectedTheme.backgroundColor,
-//                 border: Border(
-//                   bottom: BorderSide(
-//                     color: selectedTheme.foregroundColor.darken(70),
-//                     width: 3,
-//                   ),
-//                   right: BorderSide(
-//                     color: selectedTheme.foregroundColor.darken(70),
-//                     width: 3,
+//     final corner = context.adaptiveResponsiveWidth(desktop: 18, tablet: 16, mobile: 14);
+//
+//     return  Column(
+//       crossAxisAlignment: CrossAxisAlignment.center,
+//       children: [
+//         Stack(
+//           children: [
+//             Positioned.fill(
+//               child: Container(
+//                 decoration: BoxDecoration(
+//                   color: widget.transparent ? null : appColors.backgroundColor,
+//                   border: Border(
+//                     bottom: BorderSide(
+//                       color: appColors.foregroundColor.withOpacity(.5),
+//                       width: pointerDown ? 1 : 3,
+//                     ),
+//                     right: BorderSide(
+//                       color: appColors.foregroundColor.withOpacity(.5),
+//                       width: pointerDown ? 1 : 3,
+//                     ),
 //                   ),
 //                 ),
 //               ),
 //             ),
-//           ),
-//           AnimatedSlide(
-//             duration: 300.milliseconds,
-//             offset: pointerDown ? const Offset(-.1, -.1) : Offset.zero,
-//             curve: Curves.fastOutSlowIn,
-//             child: Stack(
-//               children: [
-//                 Positioned.fill(
-//                   child: SizedBox(
-//                     child: ClipPath(
-//                       clipper: CornerCutBorderClipper(
-//                         cornerRadius: context.adaptiveResponsiveHeight(desktop: 16),
-//                         width: 3,
+//             Listener(
+//               onPointerDown: (_) {
+//                 setState(() {
+//                   pointerDown = true;
+//                 });
+//               },
+//               onPointerUp: (_) {
+//                 setState(() {
+//                   pointerDown = false;
+//                 });
+//               },
+//               child: AnimatedContainer(
+//                 duration: 50.milliseconds,
+//                 transform: Matrix4.translationValues(
+//                   pointerDown ? 0 : -(widget.elevation ?? context.adaptiveResponsiveWidth(desktop: 10)),
+//                   pointerDown ? 0 : -(widget.elevation ?? context.adaptiveResponsiveWidth(desktop: 10)),
+//                   0,
+//                 ),
+//                 child: TextButton(
+//                   onPressed: widget.onTap,
+//                   style: ButtonStyle(
+//                     shadowColor: MaterialStateProperty.all(Colors.white),
+//                     backgroundColor: MaterialStateProperty.all(
+//                       widget.transparent ? appColors.accentColor.withOpacity(.05) : appColors.backgroundColorLite,
+//                     ),
+//                     shape: MaterialStateProperty.all(
+//                       BeveledRectangleBorder(
+//                         side: BorderSide(color: appColors.accentColor),
+//                         borderRadius: BorderRadius.only(
+//                           topLeft: Radius.circular(widget.cornerCutRadius ?? corner),
+//                         ),
 //                       ),
-//                       child: Container(
-//                         color: selectedTheme.accentColor.darken(70),
-//                       ),
+//                     ),
+//                     padding: MaterialStateProperty.all(
+//                       EdgeInsets.zero,
 //                     ),
 //                   ),
-//                 ),
-//                 GestureDetector(
-//                   onTap: () {
-//                     widget.onTap?.call();
-//                     setState(() {});
-//                   },
 //                   child: Padding(
-//                     padding: EdgeInsets.symmetric(
-//                       vertical: context.responsiveSize(desktop: 10.0),
-//                       horizontal: context.responsiveSize(desktop: 18.0),
+//                     padding: widget.padding ?? EdgeInsets.symmetric(
+//                       vertical: context.adaptiveResponsiveHeight(desktop: 18.0),
+//                       horizontal: context.adaptiveResponsiveWidth(desktop: 18.0),
 //                     ),
 //                     child: Text(
-//                       widget.text,
+//                       widget.text!,
 //                       style: TextStyle(
-//                         fontSize: context.responsiveSize(desktop: fontSize_22),
-//                         color: selectedTheme.foregroundColor.darken(30),
+//                         fontSize: widget.fontSize ?? context.adaptiveResponsiveWidth(desktop: fontSize_22),
+//                         color: appColors.foregroundColor,
 //                         fontFamily: "IBMPlexMono",
 //                       ),
 //                     ),
 //                   ),
 //                 ),
-//               ],
+//               ),
 //             ),
-//           )
-//         ],
-//       ),
+//           ],
+//         ),
+//       ],
 //     );
 //   }
 // }

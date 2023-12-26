@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:portfolio/core/theme/selected_theme_provider.dart';
-
-import '../../../core/theme/colors.dart';
+import 'package:portfolio/core/theme/colors.dart';
 
 const bigTitleTwo = TextStyle(
   fontFamily: "Cabin",

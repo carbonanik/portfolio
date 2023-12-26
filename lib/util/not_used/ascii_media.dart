@@ -19,7 +19,7 @@ class AsciiMedia extends StatefulWidget {
 }
 
 class _AsciiMediaState extends State<AsciiMedia> {
-  final density = "Ñ@#W\$9876543210?!abc;:+=-    "; // "Ñ@#W\$9876543210?!abc;:+=-,._ "
+  final density = "Ñ@#W\$9876543210?!abc;:+=-,._ "; // "Ñ@#W\$9876543210?!abc;:+=-,._ "
   List<TextSpan> text = [];
   List<TextSpan> textCopy = [];
 

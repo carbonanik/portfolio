@@ -57,6 +57,8 @@ dependencies:
   shared_preferences: ^2.2.2
   firebase_core: ^2.24.2
   universal_html: ^2.2.4
+  flutter_svg: ^2.0.9
+  gap: ^3.0.1
   # dart pub global activate flutter_gen
   # flutter packages pub run build_runner build
   # flutter_staggered_animations: ^1.1.1
@@ -91,26 +93,9 @@ flutter:
     - assets/image/
 
   shaders:
-    - shaders/simple.frag
+    - assets/shaders/ui_glitch.frag
 
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
   fonts:
-#    - family: Bebas
-#      fonts:
-#        - asset: assets/fonts/Bebas-Regular.ttf
-#    - family: RobotoMono
-#      fonts:
-#        - asset: assets/fonts/RobotoMono-VariableFont_wght.ttf
     - family: IBMPlexMono
       fonts:
         - asset: fonts/IBMPlexMono-Regular.ttf

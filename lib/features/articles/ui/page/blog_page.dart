@@ -7,7 +7,7 @@ import 'package:portfolio/features/articles/state/provider/selected_tag_provider
 import 'package:portfolio/features/articles/state/provider/tag_provider.dart';
 import 'package:portfolio/features/articles/ui/widgets/article_item_v2.dart';
 import 'package:portfolio/features/common/ui/widgets/input_field.dart';
-import 'package:portfolio/features/common/ui/widgets/page_shared_content/menu_content_page.dart';
+import 'package:portfolio/features/common/ui/widgets/page_shared_content/page_container.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/features/common/ui/widgets/scrollable_row.dart';
 import 'package:portfolio/core/theme/colors.dart';

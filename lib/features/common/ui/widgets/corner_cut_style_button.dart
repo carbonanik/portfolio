@@ -2,23 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/core/theme/colors.dart';
 import 'package:portfolio/core/theme/typography.dart';
+import 'package:portfolio/features/common/paths/corner_cut_border_clipper.dart';
 import 'package:supercharged/supercharged.dart';
 
 class CornerCutButton extends StatefulWidget {
-  final String? text;
+  final String text;
   final VoidCallback? onTap;
   final double? fontSize;
   final bool transparent;
+  final bool colorBorder;
   final EdgeInsets? padding;
   final double? cornerCutRadius;
   final double? elevation;
 
   const CornerCutButton({
     super.key,
-    this.text,
+    required this.text,
     this.onTap,
     this.fontSize,
     this.transparent = true,
+    this.colorBorder = false,
     this.padding,
     this.cornerCutRadius,
     this.elevation,
@@ -33,11 +36,20 @@ class _CornerCutButtonState extends State<CornerCutButton> with TickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    final corner = context.adaptiveResponsiveWidth(desktop: 18, tablet: 16, mobile: 14);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Stack(
+    return GestureDetector(
+      onTap: widget.onTap,
+      child: Listener(
+        onPointerDown: (_) {
+          setState(() {
+            pointerDown = true;
+          });
+        },
+        onPointerUp: (_) {
+          setState(() {
+            pointerDown = false;
+          });
+        },
+        child: Stack(
           children: [
             Positioned.fill(
               child: Container(
@@ -56,50 +68,23 @@ class _CornerCutButtonState extends State<CornerCutButton> with TickerProviderSt
                 ),
               ),
             ),
-            Listener(
-              onPointerDown: (_) {
-                setState(() {
-                  pointerDown = true;
-                });
-              },
-              onPointerUp: (_) {
-                setState(() {
-                  pointerDown = false;
-                });
-              },
-              child: AnimatedContainer(
-                duration: 50.milliseconds,
-                transform: Matrix4.translationValues(
-                  pointerDown ? 0 : -(widget.elevation ?? context.adaptiveResponsiveWidth(desktop: 10)),
-                  pointerDown ? 0 : -(widget.elevation ?? context.adaptiveResponsiveWidth(desktop: 10)),
-                  0,
-                ),
-                child: TextButton(
-                  onPressed: widget.onTap,
-                  style: ButtonStyle(
-                    shadowColor: MaterialStateProperty.all(Colors.white),
-                    backgroundColor: MaterialStateProperty.all(
-                      widget.transparent ? appColors.accentColor.withOpacity(.05) : appColors.backgroundColorLite,
-                    ),
-                    shape: MaterialStateProperty.all(
-                      BeveledRectangleBorder(
-                        side: BorderSide(color: appColors.accentColor),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(widget.cornerCutRadius ?? corner),
+            AnimatedContainer(
+              duration: 50.milliseconds,
+              transform: Matrix4.translationValues(
+                pointerDown ? 0 : -(widget.elevation ?? context.adaptiveResponsiveWidth(desktop: 10, mobile: 6)),
+                pointerDown ? 0 : -(widget.elevation ?? context.adaptiveResponsiveWidth(desktop: 10, mobile: 6)),
+                0,
+              ),
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: widget.padding ??
+                        EdgeInsets.symmetric(
+                          vertical: context.adaptiveResponsiveHeight(desktop: 18.0, mobile: 14),
+                          horizontal: context.adaptiveResponsiveWidth(desktop: 18.0, mobile: 14),
                         ),
-                      ),
-                    ),
-                    padding: MaterialStateProperty.all(
-                      EdgeInsets.zero,
-                    ),
-                  ),
-                  child: Padding(
-                    padding: widget.padding ?? EdgeInsets.symmetric(
-                      vertical: context.adaptiveResponsiveHeight(desktop: 18.0),
-                      horizontal: context.adaptiveResponsiveWidth(desktop: 18.0),
-                    ),
                     child: Text(
-                      widget.text!,
+                      widget.text,
                       style: TextStyle(
                         fontSize: widget.fontSize ?? context.adaptiveResponsiveWidth(desktop: fontSize_22),
                         color: appColors.foregroundColor,
@@ -107,12 +92,21 @@ class _CornerCutButtonState extends State<CornerCutButton> with TickerProviderSt
                       ),
                     ),
                   ),
-                ),
+                  Positioned.fill(
+                    child: ClipPath(
+                      clipper: CornerCutBorderClipper(
+                          cornerRadius: widget.cornerCutRadius ?? context.adaptiveResponsiveWidth(desktop: 18), width: 2),
+                      child: Container(
+                        color: appColors.accentColor,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
         ),
-      ],
+      ),
     );
   }
 }

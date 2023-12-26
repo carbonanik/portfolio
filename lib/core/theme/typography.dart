@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:portfolio/core/theme/colors.dart';
+import 'package:portfolio/gen/fonts.gen.dart';
 
 // ? Fonts
-const ibmPlexMono = "IBMPlexMono";
-const cabin = "Cabin";
+// const ibmPlexMono = "IBMPlexMono";
+// const cabin = "Cabin";
 
 // ? Font sizes
 const fontSize_200 = 200.0;
@@ -19,7 +20,7 @@ const fontWeight_600 = FontWeight.w600;
 const fontWeight_400 = FontWeight.w400;
 
 final titleOneTextStyle = TextStyle(
-  fontFamily: cabin,
+  // fontFamily: FontFamily.cabin,
   fontSize: fontSize_100,
   height: 1,
   fontWeight: fontWeight_800,
@@ -27,7 +28,7 @@ final titleOneTextStyle = TextStyle(
 );
 
 final titleTwoTextStyle = TextStyle(
-  fontFamily: ibmPlexMono,
+  fontFamily: FontFamily.iBMPlexMono,
   fontSize: fontSize_26,
   height: 1,
   fontWeight: fontWeight_400,
@@ -35,7 +36,7 @@ final titleTwoTextStyle = TextStyle(
 );
 
 final subtitleTextStyle = TextStyle(
-  fontFamily: ibmPlexMono,
+  fontFamily: FontFamily.iBMPlexMono,
   fontSize: fontSize_18,
   height: 1,
   fontWeight: fontWeight_400,
@@ -43,7 +44,7 @@ final subtitleTextStyle = TextStyle(
 );
 
 final paragraphTextStyle = TextStyle(
-  fontFamily: cabin,
+  // fontFamily: FontFamily.cabin,
   fontSize: fontSize_22,
   fontWeight: fontWeight_400,
   color: appColors.foregroundColorDark,
@@ -53,14 +54,14 @@ final paragraphTextStyle = TextStyle(
 );
 
 final menuTextStyle = TextStyle(
-  fontFamily: ibmPlexMono,
+  fontFamily: FontFamily.iBMPlexMono,
   fontSize: fontSize_22,
   fontWeight: fontWeight_600,
   color: appColors.foregroundColor,
 );
 
 final backgroundTextStyle = TextStyle(
-  fontFamily: cabin,
+  // fontFamily: FontFamily.cabin,
   fontSize: fontSize_200,
   fontWeight: fontWeight_400,
   color: appColors.backgroundColorLite.withOpacity(.3),

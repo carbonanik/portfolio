@@ -1,13 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:portfolio/features/common/ui/widgets/page_shared_content/menu_content_page.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gap/gap.dart';
+import 'package:portfolio/features/common/ui/widgets/page_shared_content/page_container.dart';
 import 'package:portfolio/features/common/ui/widgets/step_text.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/gen/assets.gen.dart';
 import 'package:portfolio/gen/fonts.gen.dart';
 import 'package:portfolio/core/theme/colors.dart';
 import 'package:portfolio/core/theme/typography.dart';
+import 'package:portfolio/util/not_used/corner_cut_style_button2.dart';
 import 'package:sa4_migration_kit/sa4_migration_kit.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -174,7 +177,7 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
                     color: appColors.foregroundColor.withOpacity(.5),
                   ),
                 ],
-                fontFamily: ibmPlexMono,
+                fontFamily: FontFamily.iBMPlexMono,
                 wordSpacing: -20,
               ),
             ),
@@ -231,11 +234,11 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
                 showDialog(context: context, builder: buildDialog);
               },
               text: "About me!",
-              padding: EdgeInsets.symmetric(
-                vertical: context.responsiveSize(desktop: 20),
-                horizontal: context.responsiveSize(desktop: 40),
-              ),
-              elevation: 10,
+              // padding: EdgeInsets.symmetric(
+              //   vertical: context.adaptiveResponsiveWidth(desktop: 40),
+              //   horizontal: context.adaptiveResponsiveWidth(desktop: 40),
+              // ),
+              // elevation: 10,
             ),
           ),
           reduceRightMargin: animation.value.get(AnimProps.buttonReduceRightMargin),
@@ -322,8 +325,9 @@ Widget buildDialog(BuildContext context) {
                       Text(
                         "SHEIKH ANIK",
                         style: titleOneTextStyle.copyWith(
-                            fontSize: context.responsiveSize(desktop: 40, tablet: 36, mobile: 30),
-                            fontFamily: FontFamily.iBMPlexMono),
+                          fontSize: context.responsiveSize(desktop: 40, tablet: 36, mobile: 30),
+                          fontFamily: FontFamily.iBMPlexMono,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(
@@ -339,23 +343,16 @@ Widget buildDialog(BuildContext context) {
                       const SizedBox(
                         height: 20,
                       ),
-                      Image.asset(
-                        Assets.image.flutterIconWhite.path,
-                        color: appColors.foregroundColorDark,
-                        width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
-                        height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                      SvgPicture.asset(
+                          Assets.image.flutter,
+                          colorFilter: ColorFilter.mode(appColors.foregroundColorDark, BlendMode.srcIn),
+                          width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                          height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                          semanticsLabel: 'logo'
                       ),
                       const SizedBox(
                         height: 40,
                       ),
-                      // Text(
-                      //   "OBJECTIVE",
-                      //   style: titleOneTextStyle.copyWith(
-                      //       fontSize: context.responsiveSize(desktop: 24), fontFamily: FontFamily.iBMPlexMono),
-                      // ),
-                      // const SizedBox(
-                      //   height: 20,
-                      // ),
                       Text(
                         "Enthusiastic App developer with 5 years of experience cooking up clean code for fast-paced businesses. "
                         "Excited to jazz up products and whip up awesome user experiences.",
@@ -388,6 +385,53 @@ In the automation realm, I wield Jenkins, Ansible, and ShellScript for tasks lik
                           fontFamily: FontFamily.cabin,
                         ),
                         textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                              Assets.image.firebase,
+                              colorFilter: ColorFilter.mode(appColors.foregroundColorDark, BlendMode.srcIn),
+                              width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                              height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                              semanticsLabel: 'firebase'
+                          ),
+                          const Gap(20),
+                          SvgPicture.asset(
+                              Assets.image.python,
+                              colorFilter: ColorFilter.mode(appColors.foregroundColorDark, BlendMode.srcIn),
+                              width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                              height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                              semanticsLabel: 'python'
+                          ),
+                          const Gap(20),
+                          SvgPicture.asset(
+                              Assets.image.postgres,
+                              colorFilter: ColorFilter.mode(appColors.foregroundColorDark, BlendMode.srcIn),
+                              width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                              height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                              semanticsLabel: 'postgres'
+                          ),
+                          const Gap(20),
+                          SvgPicture.asset(
+                              Assets.image.docker,
+                              colorFilter: ColorFilter.mode(appColors.foregroundColorDark, BlendMode.srcIn),
+                              width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                              height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                              semanticsLabel: 'docker'
+                          ),
+                          const Gap(20),
+                          SvgPicture.asset(
+                              Assets.image.linux,
+                              colorFilter: ColorFilter.mode(appColors.foregroundColorDark, BlendMode.srcIn),
+                              width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                              height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                              semanticsLabel: 'linux'
+                          ),
+                        ]
                       ),
                       const SizedBox(
                         height: 40,
@@ -429,7 +473,7 @@ In the automation realm, I wield Jenkins, Ansible, and ShellScript for tasks lik
                 onTap: () async {
                   await launchUrl(
                     Uri.parse(
-                      "https://docs.google.com/document/d/1qTTUmrEADgqPEE9lBHMHdGlnGjBsDNBOuNuHzh7gJXk/export?format=pdf",
+                      "https://docs.google.com/document/d/1JAdnnn9_ftkRjSac_MsAsUhtbGmW7iX3yraUi5xn8GU/export?format=pdf"
                     ),
                   );
                 },

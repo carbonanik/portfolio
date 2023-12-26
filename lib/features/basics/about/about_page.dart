@@ -1,8 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:portfolio/features/common/ui/widgets/page_shared_content/menu_content_page.dart';
+import 'package:portfolio/features/common/ui/widgets/page_shared_content/page_container.dart';
 import 'package:portfolio/features/basics/about/intro.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
+import 'package:portfolio/util/experiment_widget.dart';
 
 @RoutePage()
 class AboutPage extends StatefulWidget {
@@ -20,6 +21,7 @@ class _AboutPageState extends State<AboutPage> {
     return PageContainer(
       menuItem: "About",
       blobHoverData: blobHoverData,
+      showMadeWithText: true,
       children: [
         Positioned(
           top: 200,
@@ -32,9 +34,9 @@ class _AboutPageState extends State<AboutPage> {
             },
           ),
         ),
-        // Positioned(
+        // const Positioned(
         //   right: 100,
-        //   child: AsciiMedia(),
+        //   child: ExperimentWidget(),
         // )
         // const Positioned(
         //     right: 0,

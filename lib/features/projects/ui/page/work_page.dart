@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:portfolio/features/common/ui/widgets/page_shared_content/menu_content_page.dart';
+import 'package:portfolio/features/common/ui/widgets/page_shared_content/page_container.dart';
 import 'package:portfolio/features/projects/ui/widgets/project_item.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/features/projects/models/category_project.dart';
@@ -13,22 +13,24 @@ import 'package:supercharged/supercharged.dart';
 const des = "This is the real project i have made, you can believe me.";
 final categories = [
   ProjectCategory(
-    name: 'Complete Project',
+    name: 'Flutter Projects',
     projects: [
       Project(
         name: 'Grocery Shop',
         description:
             'Complete e-commerce app 🛒 with robust performannce 🚀 & beautiful ui✨. And with a python backend 💻.',
+        tags: ["Flutter", "Python"],
         links: [
           ProjectLink(
             name: "Github",
-            link: 'https://github.com/carbonanik/grocery-app/#readme',
+            link: 'https://github.com/carbonanik/grocery_app/#readme',
           ),
         ],
       ),
       Project(
         name: 'Logic Builder',
         description: 'Friendly 👋 and lightweight 🎈 tool 🔬 to Design digital logic circuits 🧮',
+        tags: ["Flutter"],
         imagePath:
             "https://raw.githubusercontent.com/carbonanik/logic_builder/master/screenshot/logic-builder-logo.png",
         links: [
@@ -41,10 +43,11 @@ final categories = [
       Project(
         name: 'Portfolio',
         description: "My personal website 🌐 (This site)",
+        tags: ["Flutter"],
         links: [
           ProjectLink(
             name: "Github",
-            link: 'https://github.com/carbonanik/protfolio/#readme',
+            link: 'https://github.com/carbonanik/portfolio/#readme',
           ),
           ProjectLink(
             name: "Live",
@@ -55,6 +58,7 @@ final categories = [
       Project(
         name: 'Pin Bord',
         description: 'A simple sticky note app 📝',
+        tags: ["Flutter", "Firebase"],
         links: [
           ProjectLink(
             name: "Github",
@@ -69,26 +73,39 @@ final categories = [
     ],
   ),
   ProjectCategory(
-    name: 'Demos',
+    name: 'Kotlin Projects',
     projects: [
       Project(
-        name: 'Weather App',
-        description: des,
-        links: [
-          ProjectLink(
-            name: "Github",
-            link: 'https://github.com/carbonanik/',
-          ),
-        ],
+          name: 'Tally Note',
+          description: 'Tally Note is a modern account saving apps. 📝',
+          tags: ["Kotlin", "Firebase"],
+          links: [
+            ProjectLink(
+              name: "Github",
+              link: 'https://github.com/carbonanik/TallyNote/#readme',
+            )
+          ]
       ),
+      Project(
+          name: 'Messapp',
+          description: 'A messenger app 📱',
+          tags: ["Kotlin", "Python"],
+          links: [
+            ProjectLink(
+              name: "Github",
+              link: 'https://github.com/carbonanik/MessApp/#readme',
+            )
+          ]
+      )
     ],
   ),
   ProjectCategory(
-    name: 'Working On',
+    name: 'Flutter Demos',
     projects: [
       Project(
-        name: 'Project 1',
-        description: des,
+        name: 'Travel App',
+        description: 'A simple travel app 🚗',
+        tags: ["Flutter"],
         links: [
           ProjectLink(
             name: "Github",
@@ -97,8 +114,9 @@ final categories = [
         ],
       ),
       Project(
-        name: 'Project 2',
-        description: des,
+        name: 'Coffee Shop (Parallax Effect)',
+        description: 'A simple coffee shop app 🍵',
+        tags: ["Flutter"],
         links: [
           ProjectLink(
             name: "Github",
@@ -106,6 +124,50 @@ final categories = [
           ),
         ],
       ),
+      Project(
+        name: 'E-Commerce App',
+        description: 'A simple e-commerce app 🛒',
+        tags: ["Flutter"],
+        links: [
+          ProjectLink(
+            name: "Github",
+            link: 'https://github.com/carbonanik/',
+          ),
+        ],
+      ),
+      Project(
+        name: 'Grocery App (Animation)',
+        description: 'A simple grocery app 🛒',
+        tags: ["Flutter"],
+        links: [
+          ProjectLink(
+            name: "Github",
+            link: 'https://github.com/carbonanik/',
+          )
+        ]
+      ),
+      Project(
+        name: 'Ml Kit',
+        description: 'A simple ml kit app 🤖',
+        tags: ["Flutter"],
+        links: [
+          ProjectLink(
+            name: "Github",
+            link: 'https://github.com/carbonanik/',
+          )
+        ]
+      ),
+      Project(
+        name: 'Nested Todos',
+        description: 'A simple nested todos app 📝',
+        tags: ["Flutter"],
+        links: [
+          ProjectLink(
+            name: "Github",
+            link: 'https://github.com/carbonanik/',
+          )
+        ]
+      )
     ],
   ),
 ];
@@ -261,11 +323,9 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
               child: index == selectedIndex
                   ? Builder(
                       builder: (context) {
-                        final double contentHeight = context.isMobile
-                            ? context.adaptiveResponsiveWidth(desktop: 0, mobile: 260)
-                            : context.adaptiveResponsiveHeight(desktop: 450, tablet: 220);
-                        final contentWidth = context.adaptiveResponsiveWidth(desktop: 380, tablet: 360, mobile: 220);
-                        final horizontalSpace = context.adaptiveResponsiveHeight(desktop: 60, mobile: 20);
+                        final contentHeight = context.adaptiveResponsiveWidth(desktop: 380, tablet: 340, mobile: 260);
+                        final contentWidth = context.adaptiveResponsiveWidth(desktop: 380, tablet: 340, mobile: 220);
+                        final horizontalSpace = context.adaptiveResponsiveWidth(desktop: 60, mobile: 20);
 
                         return ScrollableRow(
                           contentHeight: contentHeight,

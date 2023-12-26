@@ -3,12 +3,14 @@ class Project {
   final String description;
   final String? imagePath;
   final List<ProjectLink> links;
+  final List<String> tags;
 
   Project({
     required this.name,
     required this.description,
     this.imagePath,
     required this.links,
+    required this.tags,
   });
 }
 
