@@ -120,11 +120,13 @@ class _PageContainerState extends State<PageContainer> with TickerProviderStateM
                     style: subtitleTextStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                   const Gap(10),
-                  SvgPicture.asset(Assets.image.flutter,
-                      colorFilter: ColorFilter.mode(appColors.accentColor, BlendMode.srcIn),
-                      width: 14,
-                      height: 14,
-                      semanticsLabel: 'logo'),
+                  SvgPicture.asset(
+                    Assets.image.flutter,
+                    colorFilter: ColorFilter.mode(appColors.accentColor, BlendMode.srcIn),
+                    width: 14,
+                    height: 14,
+                    semanticsLabel: 'logo',
+                  ),
                 ],
               )),
         // ?*
