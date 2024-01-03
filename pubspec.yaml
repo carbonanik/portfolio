@@ -94,6 +94,9 @@ flutter:
 
   shaders:
     - assets/shaders/ui_glitch.frag
+#    - assets/shaders/ui_ascii.frag
+    - assets/shaders/ui_ascii_2.frag
+    - assets/shaders/ui_ascii_3.frag
 
   fonts:
     - family: IBMPlexMono

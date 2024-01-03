@@ -4,7 +4,6 @@ import 'package:portfolio/core/router/app_router.dart';
 import 'package:portfolio/core/theme/selected_theme_provider.dart';
 import 'package:portfolio/core/theme/colors.dart';
 import 'package:portfolio/gen/fonts.gen.dart';
-import 'package:portfolio/util/experiment_widget.dart';
 
 void main() async {
   final savedKey = await loadTheme();

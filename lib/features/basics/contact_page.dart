@@ -28,16 +28,6 @@ class ContactPage extends StatelessWidget {
                     style: titleOneTextStyle.copyWith(
                       fontFamily: FontFamily.iBMPlexMono,
                       fontSize: 48,
-                      // shadows: [
-                      //   Shadow(
-                      //     blurRadius: 20,
-                      //     color: appColors.foregroundColor.withOpacity(.7),
-                      //   ),
-                      //   Shadow(
-                      //     blurRadius: 30,
-                      //     color: appColors.backgroundColorLite.withOpacity(.2),
-                      //   )
-                      // ],
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -46,16 +36,6 @@ class ContactPage extends StatelessWidget {
                     style: titleOneTextStyle.copyWith(
                       fontFamily: FontFamily.iBMPlexMono,
                       fontSize: 48,
-                      // shadows: [
-                      //   Shadow(
-                      //     blurRadius: 20,
-                      //     color: appColors.foregroundColor.withOpacity(.7),
-                      //   ),
-                      //   Shadow(
-                      //     blurRadius: 30,
-                      //     color: appColors.backgroundColorLite.withOpacity(.2),
-                      //   )
-                      // ],
                     ),
                   ),
                 ],

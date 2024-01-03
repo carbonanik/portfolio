@@ -1,15 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/core/theme/selected_theme_provider.dart';
 
-// const backgroundColor = ;
-// const backgroundColorLite = ;
-// const foregroundColor = ;
-// const foregroundColorDark = ;
-// const accentColor = ;
-
-// const backgroundTextColor = ;
-// const randomTextColor = ;
-
 /// random color
 // const randomColor1 = Color(0xffFF934F);
 const randomColor1 = Color(0xffaf5ae0);
@@ -97,16 +88,16 @@ const appColorsThemes = {
     accentColor: Color(0xff6e6e6e),
     colorBurst: Color(0xFFf2f2f2),
   ),
-  // "ekush": ekush,
+  "ekush": ekush,
 };
 
 const ekush = AppColors(
-  primarySwatch: Colors.red,
+  primarySwatch: Colors.pink,
   backgroundColor: Color(0xff00110b),
   backgroundColorLite: Color(0xff002a1a),
   foregroundColor: Color(0xfff60b45),
   foregroundColorDark: Color(0xff8d0929),
-  accentColor: Color(0xfff60b45),
+  accentColor: Color(0xfff3305f),
   colorBurst: Color(0xfff60b45),
 );
 

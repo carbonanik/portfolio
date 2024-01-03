@@ -26,7 +26,6 @@ class BlogPage extends ConsumerStatefulWidget {
 }
 
 class _BlogPageState extends ConsumerState<BlogPage> with TickerProviderStateMixin {
-  BlobHoverData blobHoverData = const BlobHoverData.initial();
   late AnimationController _titleAnimationController;
   late AnimationController _blinkAnimationController;
   late Animation<double> _titleAnimation;
@@ -78,7 +77,6 @@ class _BlogPageState extends ConsumerState<BlogPage> with TickerProviderStateMix
     final height = MediaQuery.of(context).size.height;
     return PageContainer(
       menuItem: "Blog",
-      blobHoverData: blobHoverData,
       children: [
         Positioned(
           child: Padding(
@@ -171,9 +169,6 @@ class _BlogPageState extends ConsumerState<BlogPage> with TickerProviderStateMix
                           SizedBox(width: horizontalSpace),
                           ArticleItemV2(
                             article: articles[index],
-                            blobHoverEffect: (data) {
-                              blobHoverData = data;
-                            },
                             height: contentHeight,
                             width: contentWidth,
                           ),

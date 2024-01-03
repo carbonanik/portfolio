@@ -4,7 +4,7 @@ import 'package:portfolio/core/theme/colors.dart';
 import 'package:portfolio/core/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
 
-import '../../gen/assets.gen.dart';
+import '../../../gen/assets.gen.dart';
 
 class WebScrollAnimation extends StatefulWidget {
   const WebScrollAnimation({super.key});

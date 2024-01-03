@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/page_container.dart';
 import 'package:portfolio/features/basics/about/intro.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
-import 'package:portfolio/util/experiment_widget.dart';
+import 'package:portfolio/core/util/experiment_widget.dart';
 
 @RoutePage()
 class AboutPage extends StatefulWidget {
@@ -14,25 +14,16 @@ class AboutPage extends StatefulWidget {
 }
 
 class _AboutPageState extends State<AboutPage> {
-  BlobHoverData blobHoverData = const BlobHoverData.initial();
-
   @override
   Widget build(BuildContext context) {
     return PageContainer(
       menuItem: "About",
-      blobHoverData: blobHoverData,
       showMadeWithText: true,
       children: [
         Positioned(
           top: 200,
           left: context.responsiveSize(desktop: 120, mobile: 20),
-          child: Intro(
-            blobHoverEffect: (data) {
-              setState(() {
-                blobHoverData = data;
-              });
-            },
-          ),
+          child: const Intro(),
         ),
         // const Positioned(
         //   right: 100,

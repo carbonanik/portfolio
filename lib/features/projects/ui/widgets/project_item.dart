@@ -1,5 +1,6 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio/core/util/show_dialog_animated.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/page_container.dart';
 import 'package:portfolio/features/common/paths/color_splash_painter.dart';
 import 'package:portfolio/features/common/paths/corner_cut_border_clipper.dart';
@@ -14,7 +15,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 class ProjectItemView extends StatefulWidget {
   const ProjectItemView({
-    this.blobHoverEffect,
     this.borderColor,
     required this.height,
     required this.width,
@@ -22,7 +22,6 @@ class ProjectItemView extends StatefulWidget {
     required this.project,
   });
 
-  final void Function(BlobHoverData data)? blobHoverEffect;
   final Color? borderColor;
   final Project project;
   final double height;
@@ -162,7 +161,7 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
             text: "Explore",
             onTap: () {
               runSplashAnimation();
-              showDialog(
+              showDialogAnimated(
                 context: context,
                 builder: (context) {
                   return buildDialog(
