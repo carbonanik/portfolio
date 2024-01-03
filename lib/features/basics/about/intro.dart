@@ -1,8 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:portfolio/core/util/show_dialog_animated.dart';
+import 'package:portfolio/features/common/provider/blob_data_provider.dart';
+import 'package:portfolio/features/common/ui/widgets/arc_text.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/page_container.dart';
 import 'package:portfolio/features/common/ui/widgets/step_text.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
@@ -10,7 +14,7 @@ import 'package:portfolio/gen/assets.gen.dart';
 import 'package:portfolio/gen/fonts.gen.dart';
 import 'package:portfolio/core/theme/colors.dart';
 import 'package:portfolio/core/theme/typography.dart';
-import 'package:portfolio/util/not_used/corner_cut_style_button2.dart';
+import 'package:portfolio/core/util/not_used/corner_cut_style_button2.dart';
 import 'package:sa4_migration_kit/sa4_migration_kit.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -36,9 +40,7 @@ enum AnimProps {
 }
 
 class Intro extends StatefulWidget {
-  const Intro({this.blobHoverEffect, super.key});
-
-  final void Function(BlobHoverData data)? blobHoverEffect;
+  const Intro({super.key});
 
   @override
   State<Intro> createState() => _IntroState();
@@ -118,70 +120,84 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
       children: [
         // ? hi
         _animatedAppear(
-          child: MouseRegion(
-            onEnter: (hovering) {
-              widget.blobHoverEffect?.call(
-                BlobHoverData(
-                  color: appColors.foregroundColor,
-                  size: context.responsiveSize(desktop: 200),
-                ),
-              );
-            },
-            onExit: (event) {
-              widget.blobHoverEffect?.call(
-                const BlobHoverData.initial(),
-              );
-            },
-            child: SizedBox(
-              width: context.responsiveSize(desktop: 400),
-              child: Text(
-                "Hi,",
-                style: titleTwoTextStyle.copyWith(
-                  fontSize: context.responsiveSize(desktop: titleTwoTextStyle.fontSize!),
-                  shadows: [
-                    Shadow(
-                      blurRadius: 10,
-                      color: appColors.accentColor,
-                    ),
-                  ],
+          child: Consumer(builder: (context, ref, child) {
+            return MouseRegion(
+              onEnter: (hovering) {
+                ref.read(blobDataProvider.notifier).update(
+                      color: appColors.foregroundColor,
+                      size: context.responsiveSize(desktop: 200),
+                    );
+              },
+              onExit: (event) {
+                ref.read(blobDataProvider.notifier).reset();
+              },
+              child: SizedBox(
+                width: context.responsiveSize(desktop: 400),
+                child: Text(
+                  "Hi,",
+                  style: titleTwoTextStyle.copyWith(
+                    fontSize: context.responsiveSize(desktop: titleTwoTextStyle.fontSize!),
+                    shadows: [
+                      Shadow(
+                        blurRadius: 10,
+                        color: appColors.accentColor,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ),
+            );
+          }),
           reduceRightMargin: animation.value.get(AnimProps.topTitleReduceRightMargin),
           increaseLeftMargin: animation.value.get(AnimProps.topTitleIncreaseLeftMargin),
         ),
         // ? Title
         _animatedAppear(
-          child: MouseRegion(
-            onEnter: (hovering) {
-              widget.blobHoverEffect?.call(
-                BlobHoverData(
-                  color: appColors.accentColor,
-                  size: context.responsiveSize(desktop: 400),
+          child: Consumer(builder: (context, ref, child) {
+            return MouseRegion(
+              onEnter: (hovering) {
+                ref.read(blobDataProvider.notifier).update(
+                      color: appColors.accentColor,
+                      size: context.responsiveSize(desktop: 400),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          ArcText(
+                            radius: context.responsiveSize(desktop: 120),
+                            text: "Hey! I Am Anik.   Click the Click me!",
+                            textStyle: titleOneTextStyle.copyWith(
+                              color: appColors.backgroundColorLite,
+                              fontSize: context.responsiveSize(desktop: 44),
+                            ),
+                          ),
+                          Icon(
+                            Icons.play_arrow,
+                            color: appColors.backgroundColorLite,
+                            size: context.responsiveSize(desktop: 200),
+                          ),
+                        ],
+                      ),
+                    );
+              },
+              onExit: (event) {
+                ref.read(blobDataProvider.notifier).reset();
+              },
+              child: StepText(
+                text: "I am Anik.",
+                style: titleOneTextStyle.copyWith(
+                  fontSize: context.responsiveSize(desktop: titleOneTextStyle.fontSize!),
+                  shadows: [
+                    Shadow(
+                      blurRadius: 10,
+                      color: appColors.foregroundColor.withOpacity(.5),
+                    ),
+                  ],
+                  fontFamily: FontFamily.iBMPlexMono,
+                  wordSpacing: -20,
                 ),
-              );
-            },
-            onExit: (event) {
-              widget.blobHoverEffect?.call(
-                const BlobHoverData.initial(),
-              );
-            },
-            child: StepText(
-              text: "I am Anik.",
-              style: titleOneTextStyle.copyWith(
-                fontSize: context.responsiveSize(desktop: titleOneTextStyle.fontSize!),
-                shadows: [
-                  Shadow(
-                    blurRadius: 10,
-                    color: appColors.foregroundColor.withOpacity(.5),
-                  ),
-                ],
-                fontFamily: FontFamily.iBMPlexMono,
-                wordSpacing: -20,
               ),
-            ),
-          ),
+            );
+          }),
           reduceRightMargin: animation.value.get(AnimProps.titleReduceRightMargin),
           increaseLeftMargin: animation.value.get(AnimProps.titleIncreaseLeftMargin),
           boxColor: appColors.foregroundColor,
@@ -230,15 +246,8 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
           child: Padding(
             padding: const EdgeInsets.only(left: 10, top: 10),
             child: CornerCutButton(
-              onTap: () {
-                showDialog(context: context, builder: buildDialog);
-              },
-              text: "About me!",
-              // padding: EdgeInsets.symmetric(
-              //   vertical: context.adaptiveResponsiveWidth(desktop: 40),
-              //   horizontal: context.adaptiveResponsiveWidth(desktop: 40),
-              // ),
-              // elevation: 10,
+              onTap: () => showDialog(context: context, builder: buildDialog),
+              text: "Click me!",
             ),
           ),
           reduceRightMargin: animation.value.get(AnimProps.buttonReduceRightMargin),
@@ -277,6 +286,11 @@ Widget _animatedAppear({
 
 Widget buildDialog(BuildContext context) {
   final height = MediaQuery.of(context).size.height;
+  double dialogHeight = 20;
+
+  Timer(200.milliseconds, () {
+    dialogHeight = height - 200;
+  });
   return AlertDialog(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -343,13 +357,11 @@ Widget buildDialog(BuildContext context) {
                       const SizedBox(
                         height: 20,
                       ),
-                      SvgPicture.asset(
-                          Assets.image.flutter,
+                      SvgPicture.asset(Assets.image.flutter,
                           colorFilter: ColorFilter.mode(appColors.foregroundColorDark, BlendMode.srcIn),
                           width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
                           height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
-                          semanticsLabel: 'logo'
-                      ),
+                          semanticsLabel: 'logo'),
                       const SizedBox(
                         height: 40,
                       ),
@@ -375,10 +387,10 @@ Widget buildDialog(BuildContext context) {
                       ),
                       Text(
                         """I've built 20+ Flutter (Dart) apps and seamlessly integrated native development. Proficient in Provider, RiverPod, SQFLite, Hive, Freezed, and more for Flutter dependencies. Embrace modern app development with clean architecture.
-
-Backend-wise, I leverage Python for development, automation, and backups, while SQL (Postgres) is my playground for crafting schemas and powerful queries. Docker is my go-to for smooth deployment, complemented by a robust CI/CD pipeline.
-
-In the automation realm, I wield Jenkins, Ansible, and ShellScript for tasks like CI/CD and backups. Command-line proficiency in Linux is second nature to me.
+      
+      Backend-wise, I leverage Python for development, automation, and backups, while SQL (Postgres) is my playground for crafting schemas and powerful queries. Docker is my go-to for smooth deployment, complemented by a robust CI/CD pipeline.
+      
+      In the automation realm, I wield Jenkins, Ansible, and ShellScript for tasks like CI/CD and backups. Command-line proficiency in Linux is second nature to me.
                         """,
                         style: paragraphTextStyle.copyWith(
                           fontSize: context.responsiveSize(desktop: fontSize_22),
@@ -389,50 +401,37 @@ In the automation realm, I wield Jenkins, Ansible, and ShellScript for tasks lik
                       const SizedBox(
                         height: 20,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                              Assets.image.firebase,
-                              colorFilter: ColorFilter.mode(appColors.foregroundColorDark, BlendMode.srcIn),
-                              width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
-                              height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
-                              semanticsLabel: 'firebase'
-                          ),
-                          const Gap(20),
-                          SvgPicture.asset(
-                              Assets.image.python,
-                              colorFilter: ColorFilter.mode(appColors.foregroundColorDark, BlendMode.srcIn),
-                              width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
-                              height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
-                              semanticsLabel: 'python'
-                          ),
-                          const Gap(20),
-                          SvgPicture.asset(
-                              Assets.image.postgres,
-                              colorFilter: ColorFilter.mode(appColors.foregroundColorDark, BlendMode.srcIn),
-                              width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
-                              height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
-                              semanticsLabel: 'postgres'
-                          ),
-                          const Gap(20),
-                          SvgPicture.asset(
-                              Assets.image.docker,
-                              colorFilter: ColorFilter.mode(appColors.foregroundColorDark, BlendMode.srcIn),
-                              width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
-                              height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
-                              semanticsLabel: 'docker'
-                          ),
-                          const Gap(20),
-                          SvgPicture.asset(
-                              Assets.image.linux,
-                              colorFilter: ColorFilter.mode(appColors.foregroundColorDark, BlendMode.srcIn),
-                              width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
-                              height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
-                              semanticsLabel: 'linux'
-                          ),
-                        ]
-                      ),
+                      Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                        SvgPicture.asset(Assets.image.firebase,
+                            colorFilter: ColorFilter.mode(appColors.foregroundColorDark, BlendMode.srcIn),
+                            width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                            height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                            semanticsLabel: 'firebase'),
+                        const Gap(20),
+                        SvgPicture.asset(Assets.image.python,
+                            colorFilter: ColorFilter.mode(appColors.foregroundColorDark, BlendMode.srcIn),
+                            width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                            height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                            semanticsLabel: 'python'),
+                        const Gap(20),
+                        SvgPicture.asset(Assets.image.postgres,
+                            colorFilter: ColorFilter.mode(appColors.foregroundColorDark, BlendMode.srcIn),
+                            width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                            height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                            semanticsLabel: 'postgres'),
+                        const Gap(20),
+                        SvgPicture.asset(Assets.image.docker,
+                            colorFilter: ColorFilter.mode(appColors.foregroundColorDark, BlendMode.srcIn),
+                            width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                            height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                            semanticsLabel: 'docker'),
+                        const Gap(20),
+                        SvgPicture.asset(Assets.image.linux,
+                            colorFilter: ColorFilter.mode(appColors.foregroundColorDark, BlendMode.srcIn),
+                            width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                            height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                            semanticsLabel: 'linux'),
+                      ]),
                       const SizedBox(
                         height: 40,
                       ),
@@ -473,8 +472,7 @@ In the automation realm, I wield Jenkins, Ansible, and ShellScript for tasks lik
                 onTap: () async {
                   await launchUrl(
                     Uri.parse(
-                      "https://docs.google.com/document/d/1JAdnnn9_ftkRjSac_MsAsUhtbGmW7iX3yraUi5xn8GU/export?format=pdf"
-                    ),
+                        "https://docs.google.com/document/d/1JAdnnn9_ftkRjSac_MsAsUhtbGmW7iX3yraUi5xn8GU/export?format=pdf"),
                   );
                 },
               ),

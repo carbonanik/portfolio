@@ -15,14 +15,12 @@ import 'package:supercharged/supercharged.dart';
 class ArticleItemV2 extends StatefulWidget {
   const ArticleItemV2({
     required this.article,
-    this.blobHoverEffect,
     this.borderColor,
     required this.height,
     required this.width,
     super.key,
   });
 
-  final void Function(BlobHoverData data)? blobHoverEffect;
   final Color? borderColor;
   final Article article;
   final double height;

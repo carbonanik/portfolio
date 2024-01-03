@@ -152,5 +152,5 @@ P(0,0,0,0,0,0,0,0,0);
 }
 
 vec3 col = tex.xyz/max(tex.x,max(tex.y,tex.z));
-oColor = vec4(cha*col,1.);
+oColor = vec4(cha*col,0.);
 }

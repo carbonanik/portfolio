@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final fragmentProgramsProvider = FutureProvider((ref) async {
-  return await _loadFragmentProgram(ascii3Shader);
+  return await _loadFragmentProgram(uiShader);
 });
 
 const String _shaders = 'assets/shaders';

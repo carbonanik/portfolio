@@ -184,7 +184,6 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
   final borderColor = appColors.accentColor.withOpacity(.2); //const Color(0xFF382A04);
   final lineColor = appColors.accentColor.withOpacity(.4); //const Color(0xFF382A04);///backgroundTextColor;
   final lineWidth = 2.0;
-  BlobHoverData blobHoverData = const BlobHoverData.initial();
   int selectedIndex = 0;
 
   @override
@@ -193,7 +192,6 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
     final height = MediaQuery.of(context).size.height;
 
     return PageContainer(
-      blobHoverData: blobHoverData,
       showClock: true,
       menuItem: 'Work',
       children: [
@@ -338,9 +336,6 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
                                 ProjectItemView(
                                   project: category.projects[index],
                                   borderColor: borderColor,
-                                  blobHoverEffect: (data) {
-                                    blobHoverData = data;
-                                  },
                                   width: contentWidth,
                                   height: contentHeight,
                                 ),
