@@ -1,33 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/core/theme/colors.dart';
 
-const bigTitleTwo = TextStyle(
+TextStyle bigTitleTwo = const TextStyle(
   fontFamily: "Cabin",
   fontSize: 48,
   fontWeight: FontWeight.w800,
   height: 1,
 );
 
-final subtitleStyle = TextStyle(
+TextStyle subtitleStyle (BuildContext context) => TextStyle(
     fontFamily: "Cabin",
     fontSize: 18,
     fontWeight: FontWeight.w400,
     height: 1,
-    color: appColors.accentColor);
+    color: Theme.of(context).colorScheme.primary);
 
-final basicStyle = TextStyle(
-  fontFamily: "Cabin",
-  fontSize: 22,
-  fontWeight: FontWeight.w400,
-  color: appColors.foregroundColorDark,
-  // height: 2
-);
+TextStyle basicStyle (BuildContext context) => TextStyle(
+      fontFamily: "Cabin",
+      fontSize: 22,
+      fontWeight: FontWeight.w400,
+      color: Theme.of(context).colorScheme.inversePrimary,
+// height: 2
+    );
 
-final inputUnderlineStyle = InputDecoration(
-  enabledBorder: UnderlineInputBorder(
-    borderSide: BorderSide(color: appColors.accentColor.withOpacity(.05)),
-  ),
-  focusedBorder:  UnderlineInputBorder(
-    borderSide: BorderSide(color: appColors.accentColor),
-  ),
-);
+InputDecoration inputUnderlineStyle (BuildContext context) => InputDecoration(
+      enabledBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: Theme.of(context).colorScheme.primary.withOpacity(.05)),
+      ),
+      focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
+      ),
+    );

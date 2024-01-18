@@ -26,9 +26,10 @@ class ContentSubtitle extends ContentBase {
     final void Function(ContentBase content)? goUp,
     final void Function(ContentBase content)? goDown,
     final void Function(ContentBase content, ContentType type)? contentItemClick,
+    required BuildContext context,
   }) {
     if (readOnly) {
-      return Text(text, style: subtitleStyle);
+      return Text(text, style: subtitleStyle(context) );
     }
 
     return EditableContentContainer(
@@ -44,9 +45,9 @@ class ContentSubtitle extends ContentBase {
         },
         maxLines: 5000,
         minLines: 1,
-        style: subtitleStyle,
+        style: subtitleStyle(context) ,
         controller: controller,
-        decoration: inputUnderlineStyle,
+        decoration: inputUnderlineStyle(context) ,
         // initialValue: text,
       ),
       title: "Subtitle",

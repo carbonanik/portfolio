@@ -4,19 +4,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:portfolio/core/theme/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-String getRandomThemeKey() {
-  return appColorsThemes.keys.toList()[Random().nextInt(appColorsThemes.length)];
-}
-
-Future<void> saveTheme(String key) async {
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.setString('theme', key);
-}
-
-Future<String?> loadTheme() async {
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
-  return await prefs.getString('theme');
-}
+// String getInitialRandomThemeKey() {
+//   final keys = appColorsThemes.keys.toList();
+//   keys.remove("pink");
+//   keys.remove("ekush");
+//   return keys.toList()[Random().nextInt(appColorsThemes.length)];
+// }
+//
+// Future<void> saveTheme(String key) async {
+//   final SharedPreferences prefs = await SharedPreferences.getInstance();
+//   await prefs.setString('theme', key);
+// }
+//
+// Future<String?> loadTheme() async {
+//   final SharedPreferences prefs = await SharedPreferences.getInstance();
+//   return prefs.getString('theme');
+// }
 
 // Future<String> keyToSave() async {
 //   final selectedThemeKye = await loadTheme();
@@ -27,7 +30,7 @@ Future<String?> loadTheme() async {
 //   return keyToSave;
 // }
 
-final savedKeyProvider = FutureProvider<String?>((ref) => loadTheme());
+// final savedKeyProvider = FutureProvider<String?>((ref) => loadTheme());
 
 // final selectedThemeKyeProvider = StateProvider<String>((ref) => appColorsThemes.keys.first);
 

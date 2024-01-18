@@ -68,7 +68,7 @@ class _MenuItemState extends State<MenuItem> {
                   ? EdgeInsets.zero
                   : EdgeInsets.only(right: widget.width),
               duration: 100.milliseconds,
-              color: appColors.accentColor,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
           InkWell(
@@ -80,16 +80,16 @@ class _MenuItemState extends State<MenuItem> {
                   const SizedBox(width: 16),
                   Text(
                     "0${widget.serial}.",
-                    style: menuTextStyle.copyWith(
+                    style: menuTextStyle(context) .copyWith(
                       color: isHovered || (widget.selected && firstAnimate)
-                          ? appColors.foregroundColor
-                          : appColors.accentColor,
+                          ? Theme.of(context).colorScheme.tertiary
+                          : Theme.of(context).colorScheme.primary,
                     ),
                   ),
                   const SizedBox(width: 6),
                   Text(
                     widget.name,
-                    style: menuTextStyle,
+                    style: menuTextStyle(context) ,
                   ),
                   const SizedBox(width: 16),
                 ],
@@ -103,7 +103,7 @@ class _MenuItemState extends State<MenuItem> {
                 const Spacer(),
                 Container(
                   height: 1,
-                  color: appColors.accentColor,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               ],
             ),

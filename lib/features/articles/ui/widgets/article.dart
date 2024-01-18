@@ -19,6 +19,7 @@ class Article {
     final void Function(ContentBase)? goUp,
     final void Function(ContentBase)? goDown,
     final void Function(ContentBase, ContentType)? contentItemClick,
+    required BuildContext context,
   }) {
     return title.generateView(
       readOnly: readOnly,
@@ -27,6 +28,7 @@ class Article {
       goUp: goUp,
       goDown: goDown,
       contentItemClick: contentItemClick,
+      context: context,
     );
   }
 }

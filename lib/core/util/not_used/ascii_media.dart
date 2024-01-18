@@ -56,7 +56,7 @@ class _AsciiMediaState extends State<AsciiMedia> {
           TextSpan(
             text: density[mapToNewRange(255 - grey).toInt()],
             style: TextStyle(
-              color: appColors.foregroundColor.darken(100 - grey / 255 * 100),
+              color: Theme.of(context).colorScheme.tertiary.darken(100 - grey / 255 * 100),
             ),
           ),
         );

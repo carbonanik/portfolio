@@ -6,7 +6,6 @@ import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/features/projects/models/category_project.dart';
 import 'package:portfolio/features/projects/models/project.dart';
 import 'package:portfolio/features/common/ui/widgets/scrollable_row.dart';
-import 'package:portfolio/core/theme/colors.dart';
 import 'package:portfolio/core/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
 
@@ -75,28 +74,24 @@ final categories = [
   ProjectCategory(
     name: 'Kotlin Projects',
     projects: [
-      Project(
-          name: 'Tally Note',
-          description: 'Tally Note is a modern account saving apps. 📝',
-          tags: ["Kotlin", "Firebase"],
-          links: [
-            ProjectLink(
-              name: "Github",
-              link: 'https://github.com/carbonanik/TallyNote/#readme',
-            )
-          ]
-      ),
-      Project(
-          name: 'Messapp',
-          description: 'A messenger app 📱',
-          tags: ["Kotlin", "Python"],
-          links: [
-            ProjectLink(
-              name: "Github",
-              link: 'https://github.com/carbonanik/MessApp/#readme',
-            )
-          ]
-      )
+      Project(name: 'Tally Note', description: 'Tally Note is a modern account saving apps. 📝', tags: [
+        "Kotlin",
+        "Firebase"
+      ], links: [
+        ProjectLink(
+          name: "Github",
+          link: 'https://github.com/carbonanik/TallyNote/#readme',
+        )
+      ]),
+      Project(name: 'Messapp', description: 'A messenger app 📱', tags: [
+        "Kotlin",
+        "Python"
+      ], links: [
+        ProjectLink(
+          name: "Github",
+          link: 'https://github.com/carbonanik/MessApp/#readme',
+        )
+      ])
     ],
   ),
   ProjectCategory(
@@ -135,39 +130,30 @@ final categories = [
           ),
         ],
       ),
-      Project(
-        name: 'Grocery App (Animation)',
-        description: 'A simple grocery app 🛒',
-        tags: ["Flutter"],
-        links: [
-          ProjectLink(
-            name: "Github",
-            link: 'https://github.com/carbonanik/',
-          )
-        ]
-      ),
-      Project(
-        name: 'Ml Kit',
-        description: 'A simple ml kit app 🤖',
-        tags: ["Flutter"],
-        links: [
-          ProjectLink(
-            name: "Github",
-            link: 'https://github.com/carbonanik/',
-          )
-        ]
-      ),
-      Project(
-        name: 'Nested Todos',
-        description: 'A simple nested todos app 📝',
-        tags: ["Flutter"],
-        links: [
-          ProjectLink(
-            name: "Github",
-            link: 'https://github.com/carbonanik/',
-          )
-        ]
-      )
+      Project(name: 'Grocery App (Animation)', description: 'A simple grocery app 🛒', tags: [
+        "Flutter"
+      ], links: [
+        ProjectLink(
+          name: "Github",
+          link: 'https://github.com/carbonanik/',
+        )
+      ]),
+      Project(name: 'Ml Kit', description: 'A simple ml kit app 🤖', tags: [
+        "Flutter"
+      ], links: [
+        ProjectLink(
+          name: "Github",
+          link: 'https://github.com/carbonanik/',
+        )
+      ]),
+      Project(name: 'Nested Todos', description: 'A simple nested todos app 📝', tags: [
+        "Flutter"
+      ], links: [
+        ProjectLink(
+          name: "Github",
+          link: 'https://github.com/carbonanik/',
+        )
+      ])
     ],
   ),
 ];
@@ -181,8 +167,6 @@ class WorkPage extends StatefulWidget {
 }
 
 class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
-  final borderColor = appColors.accentColor.withOpacity(.2); //const Color(0xFF382A04);
-  final lineColor = appColors.accentColor.withOpacity(.4); //const Color(0xFF382A04);///backgroundTextColor;
   final lineWidth = 2.0;
   int selectedIndex = 0;
 
@@ -190,6 +174,9 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
+    final borderColor = Theme.of(context).colorScheme.primary.withOpacity(.2); //const Color(0xFF382A04);
+    final lineColor =
+        Theme.of(context).colorScheme.primary.withOpacity(.4); //const Color(0xFF382A04);///backgroundTextColor;
 
     return PageContainer(
       showClock: true,
@@ -205,16 +192,16 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
                 children: [
                   Icon(
                     Icons.folder,
-                    color: appColors.foregroundColor,
+                    color: Theme.of(context).colorScheme.tertiary,
                     size: context.adaptiveResponsiveWidth(desktop: 70),
                   ),
                   SizedBox(width: context.responsiveSize(desktop: 20)),
                   Text(
                     "Projects",
-                    style: titleTwoTextStyle.copyWith(
+                    style: titleTwoTextStyle(context) .copyWith(
                       fontSize: context.adaptiveResponsiveWidth(desktop: 32),
                       fontWeight: FontWeight.bold,
-                      color: appColors.foregroundColor,
+                      color: Theme.of(context).colorScheme.tertiary,
                     ),
                   )
                 ],
@@ -244,6 +231,8 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
                                 index: index,
                                 category: categories[index],
                                 width: width - context.adaptiveResponsiveWidth(desktop: 200, tablet: 200, mobile: 50),
+                                lineColor: lineColor,
+                                borderColor: borderColor,
                               ),
                             ],
                           ),
@@ -260,7 +249,13 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
     );
   }
 
-  Widget buildProjectCategoryItem({required int index, required ProjectCategory category, required double width}) {
+  Widget buildProjectCategoryItem({
+    required int index,
+    required ProjectCategory category,
+    required double width,
+    required Color lineColor,
+    required Color borderColor,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -281,16 +276,16 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
                 children: [
                   Icon(
                     index == selectedIndex ? Icons.folder_copy : Icons.folder,
-                    color: appColors.foregroundColor,
+                    color: Theme.of(context).colorScheme.tertiary,
                     size: context.adaptiveResponsiveWidth(desktop: 55),
                   ),
                   SizedBox(width: context.responsiveSize(desktop: 20)),
                   Text(
                     category.name,
-                    style: titleTwoTextStyle.copyWith(
+                    style: titleTwoTextStyle(context) .copyWith(
                       fontSize: context.adaptiveResponsiveWidth(desktop: 24),
                       fontWeight: FontWeight.bold,
-                      color: appColors.foregroundColor,
+                      color: Theme.of(context).colorScheme.tertiary,
                     ),
                   ),
                 ],

@@ -37,8 +37,8 @@ class EditableContentTitle extends StatelessWidget {
                       child: Icon(
                         Icons.arrow_upward,
                         color: goUp != null
-                            ? appColors.foregroundColorDark
-                            : appColors.foregroundColorDark.withOpacity(.3),
+                            ? Theme.of(context).colorScheme.inversePrimary
+                            : Theme.of(context).colorScheme.inversePrimary.withOpacity(.3),
                         size: 32,
                       ),
                     ),
@@ -51,8 +51,8 @@ class EditableContentTitle extends StatelessWidget {
                       child: Icon(
                         Icons.arrow_downward,
                         color: goDown != null
-                            ? appColors.foregroundColorDark
-                            : appColors.foregroundColorDark.withOpacity(.3),
+                            ? Theme.of(context).colorScheme.inversePrimary
+                            : Theme.of(context).colorScheme.inversePrimary.withOpacity(.3),
                         size: 32,
                       ),
                     ),
@@ -77,7 +77,7 @@ class EditableContentTitle extends StatelessWidget {
                       },
                       child:  Icon(
                         Icons.add,
-                        color: appColors.foregroundColorDark,
+                        color: Theme.of(context).colorScheme.inversePrimary,
                         size: 32,
                       ),
                     ),
@@ -86,7 +86,7 @@ class EditableContentTitle extends StatelessWidget {
                       onTap: close,
                       child:  Icon(
                         Icons.close,
-                        color: appColors.foregroundColorDark,
+                        color: Theme.of(context).colorScheme.inversePrimary,
                         size: 32,
                       ),
                     ),
@@ -96,7 +96,7 @@ class EditableContentTitle extends StatelessWidget {
           ),
         ),
         Divider(
-          color: appColors.foregroundColorDark,
+          color: Theme.of(context).colorScheme.inversePrimary,
         )
       ],
     );
@@ -109,7 +109,7 @@ class EditableContentTitle extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     showMenu(
       context: context,
-      color: appColors.backgroundColor,
+      color: Theme.of(context).colorScheme.background,
       position: RelativeRect.fromLTRB(
         offset.dx + size.width - 400,
         offset.dy,

@@ -4,22 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:portfolio/core/util/show_dialog_animated.dart';
 import 'package:portfolio/features/common/provider/blob_data_provider.dart';
 import 'package:portfolio/features/common/ui/widgets/arc_text.dart';
-import 'package:portfolio/features/common/ui/widgets/page_shared_content/page_container.dart';
 import 'package:portfolio/features/common/ui/widgets/step_text.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/gen/assets.gen.dart';
 import 'package:portfolio/gen/fonts.gen.dart';
 import 'package:portfolio/core/theme/colors.dart';
 import 'package:portfolio/core/theme/typography.dart';
-import 'package:portfolio/core/util/not_used/corner_cut_style_button2.dart';
 import 'package:sa4_migration_kit/sa4_migration_kit.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../../common/ui/widgets/corner_cut_style_button.dart';
+import 'package:portfolio/features/common/ui/widgets/corner_cut_style_button.dart';
 
 enum AnimProps {
   // Over Title
@@ -124,7 +120,7 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
             return MouseRegion(
               onEnter: (hovering) {
                 ref.read(blobDataProvider.notifier).update(
-                      color: appColors.foregroundColor,
+                      color: Theme.of(context).colorScheme.tertiary,
                       size: context.responsiveSize(desktop: 200),
                     );
               },
@@ -135,12 +131,12 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
                 width: context.responsiveSize(desktop: 400),
                 child: Text(
                   "Hi,",
-                  style: titleTwoTextStyle.copyWith(
-                    fontSize: context.responsiveSize(desktop: titleTwoTextStyle.fontSize!),
+                  style: titleTwoTextStyle(context) .copyWith(
+                    fontSize: context.responsiveSize(desktop: titleTwoTextStyle(context) .fontSize!),
                     shadows: [
                       Shadow(
                         blurRadius: 10,
-                        color: appColors.accentColor,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                     ],
                   ),
@@ -150,6 +146,7 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
           }),
           reduceRightMargin: animation.value.get(AnimProps.topTitleReduceRightMargin),
           increaseLeftMargin: animation.value.get(AnimProps.topTitleIncreaseLeftMargin),
+          context: context,
         ),
         // ? Title
         _animatedAppear(
@@ -157,7 +154,7 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
             return MouseRegion(
               onEnter: (hovering) {
                 ref.read(blobDataProvider.notifier).update(
-                      color: appColors.accentColor,
+                      color: Theme.of(context).colorScheme.primary,
                       size: context.responsiveSize(desktop: 400),
                       child: Stack(
                         alignment: Alignment.center,
@@ -165,16 +162,22 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
                           ArcText(
                             radius: context.responsiveSize(desktop: 120),
                             text: "Hey! I Am Anik.   Click the Click me!",
-                            textStyle: titleOneTextStyle.copyWith(
-                              color: appColors.backgroundColorLite,
+                            textStyle: titleOneTextStyle(context) .copyWith(
+                              color: Theme.of(context).colorScheme.secondary,
                               fontSize: context.responsiveSize(desktop: 44),
                             ),
                           ),
-                          Icon(
-                            Icons.play_arrow,
-                            color: appColors.backgroundColorLite,
-                            size: context.responsiveSize(desktop: 200),
-                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 30),
+                            child: SvgPicture.asset(
+                              Assets.image.flutter,
+                              colorFilter: ColorFilter.mode(
+                                Theme.of(context).colorScheme.secondary,
+                                BlendMode.srcIn,
+                              ),
+                              width: context.responsiveSize(desktop: 180),
+                            ),
+                          )
                         ],
                       ),
                     );
@@ -184,12 +187,12 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
               },
               child: StepText(
                 text: "I am Anik.",
-                style: titleOneTextStyle.copyWith(
-                  fontSize: context.responsiveSize(desktop: titleOneTextStyle.fontSize!),
+                style: titleOneTextStyle(context) .copyWith(
+                  fontSize: context.responsiveSize(desktop: titleOneTextStyle(context) .fontSize!),
                   shadows: [
                     Shadow(
                       blurRadius: 10,
-                      color: appColors.foregroundColor.withOpacity(.5),
+                      color: Theme.of(context).colorScheme.tertiary.withOpacity(.5),
                     ),
                   ],
                   fontFamily: FontFamily.iBMPlexMono,
@@ -200,7 +203,8 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
           }),
           reduceRightMargin: animation.value.get(AnimProps.titleReduceRightMargin),
           increaseLeftMargin: animation.value.get(AnimProps.titleIncreaseLeftMargin),
-          boxColor: appColors.foregroundColor,
+          boxColor: Theme.of(context).colorScheme.tertiary,
+          context: context,
         ),
         // ? Subtitle
         _animatedAppear(
@@ -208,12 +212,12 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
             width: size.width / 3 + 200,
             child: Text(
               "a coder, breaker, fixer.",
-              style: subtitleTextStyle.copyWith(
-                fontSize: context.responsiveSize(desktop: subtitleTextStyle.fontSize!),
+              style: subtitleTextStyle(context) .copyWith(
+                fontSize: context.responsiveSize(desktop: subtitleTextStyle(context) .fontSize!),
                 shadows: [
                   Shadow(
                     blurRadius: 10,
-                    color: appColors.accentColor,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 ],
               ),
@@ -221,6 +225,7 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
           ),
           reduceRightMargin: animation.value.get(AnimProps.subtitleReduceRightMargin),
           increaseLeftMargin: animation.value.get(AnimProps.subtitleIncreaseLeftMargin),
+          context: context,
         ),
         const SizedBox(height: 50),
         // ? Description
@@ -231,14 +236,15 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
               "I’m a software engineer specializing in building (and occasionally designing) "
               "exceptional digital experiences. Currently, I’m focused on building accessible, "
               "human-centered products.",
-              style: paragraphTextStyle.copyWith(
-                fontSize: context.responsiveSize(desktop: paragraphTextStyle.fontSize!),
+              style: paragraphTextStyle(context) .copyWith(
+                fontSize: context.responsiveSize(desktop: paragraphTextStyle(context) .fontSize!),
               ),
             ),
           ),
           reduceRightMargin: animation.value.get(AnimProps.descriptionReduceRightMargin),
           increaseLeftMargin: animation.value.get(AnimProps.descriptionIncreaseLeftMargin),
-          boxColor: appColors.foregroundColorDark,
+          boxColor: Theme.of(context).colorScheme.inversePrimary,
+          context: context,
         ),
         const SizedBox(height: 50),
         // ? Button
@@ -252,7 +258,8 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
           ),
           reduceRightMargin: animation.value.get(AnimProps.buttonReduceRightMargin),
           increaseLeftMargin: animation.value.get(AnimProps.buttonIncreaseLeftMargin),
-          boxColor: appColors.foregroundColorDark,
+          boxColor: Theme.of(context).colorScheme.inversePrimary,
+          context: context,
         ),
       ],
     );
@@ -264,6 +271,7 @@ Widget _animatedAppear({
   required reduceRightMargin,
   required increaseLeftMargin,
   Color? boxColor,
+  required BuildContext context,
 }) {
   return Stack(
     children: [
@@ -277,7 +285,7 @@ Widget _animatedAppear({
             right: reduceRightMargin,
             left: increaseLeftMargin,
           ),
-          color: boxColor ?? appColors.accentColor,
+          color: boxColor ?? Theme.of(context).colorScheme.primary,
         ),
       ),
     ],
@@ -286,11 +294,6 @@ Widget _animatedAppear({
 
 Widget buildDialog(BuildContext context) {
   final height = MediaQuery.of(context).size.height;
-  double dialogHeight = 20;
-
-  Timer(200.milliseconds, () {
-    dialogHeight = height - 200;
-  });
   return AlertDialog(
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -298,7 +301,7 @@ Widget buildDialog(BuildContext context) {
           Text(
             "Resume",
             style: TextStyle(
-              color: appColors.foregroundColorDark,
+              color: Theme.of(context).colorScheme.inversePrimary,
               fontWeight: FontWeight.bold,
               fontSize: 22,
             ),
@@ -309,16 +312,16 @@ Widget buildDialog(BuildContext context) {
             },
             child: Icon(
               Icons.close,
-              color: appColors.foregroundColorDark,
+              color: Theme.of(context).colorScheme.inversePrimary,
             ),
           )
         ],
       ),
-      backgroundColor: appColors.backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       surfaceTintColor: Colors.grey,
       shape: RoundedRectangleBorder(
         side: BorderSide(
-          color: appColors.foregroundColorDark,
+          color: Theme.of(context).colorScheme.inversePrimary,
           width: 2,
         ),
       ),
@@ -338,7 +341,7 @@ Widget buildDialog(BuildContext context) {
                       ),
                       Text(
                         "SHEIKH ANIK",
-                        style: titleOneTextStyle.copyWith(
+                        style: titleOneTextStyle(context) .copyWith(
                           fontSize: context.responsiveSize(desktop: 40, tablet: 36, mobile: 30),
                           fontFamily: FontFamily.iBMPlexMono,
                         ),
@@ -349,7 +352,7 @@ Widget buildDialog(BuildContext context) {
                       ),
                       Text(
                         "Flutter Developer",
-                        style: paragraphTextStyle.copyWith(
+                        style: paragraphTextStyle(context) .copyWith(
                             fontSize: context.responsiveSize(desktop: 24),
                             fontFamily: FontFamily.iBMPlexMono,
                             fontWeight: FontWeight.bold),
@@ -358,7 +361,7 @@ Widget buildDialog(BuildContext context) {
                         height: 20,
                       ),
                       SvgPicture.asset(Assets.image.flutter,
-                          colorFilter: ColorFilter.mode(appColors.foregroundColorDark, BlendMode.srcIn),
+                          colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.inversePrimary, BlendMode.srcIn),
                           width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
                           height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
                           semanticsLabel: 'logo'),
@@ -368,7 +371,7 @@ Widget buildDialog(BuildContext context) {
                       Text(
                         "Enthusiastic App developer with 5 years of experience cooking up clean code for fast-paced businesses. "
                         "Excited to jazz up products and whip up awesome user experiences.",
-                        style: paragraphTextStyle.copyWith(
+                        style: paragraphTextStyle(context) .copyWith(
                           fontSize: context.responsiveSize(desktop: fontSize_22),
                           fontFamily: FontFamily.cabin,
                         ),
@@ -379,7 +382,7 @@ Widget buildDialog(BuildContext context) {
                       ),
                       Text(
                         "PROFESSIONAL SKILLS",
-                        style: titleOneTextStyle.copyWith(
+                        style: titleOneTextStyle(context) .copyWith(
                             fontSize: context.responsiveSize(desktop: 32), fontFamily: FontFamily.iBMPlexMono),
                       ),
                       const SizedBox(
@@ -392,7 +395,7 @@ Widget buildDialog(BuildContext context) {
       
       In the automation realm, I wield Jenkins, Ansible, and ShellScript for tasks like CI/CD and backups. Command-line proficiency in Linux is second nature to me.
                         """,
-                        style: paragraphTextStyle.copyWith(
+                        style: paragraphTextStyle(context) .copyWith(
                           fontSize: context.responsiveSize(desktop: fontSize_22),
                           fontFamily: FontFamily.cabin,
                         ),
@@ -402,50 +405,62 @@ Widget buildDialog(BuildContext context) {
                         height: 20,
                       ),
                       Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                        SvgPicture.asset(Assets.image.firebase,
-                            colorFilter: ColorFilter.mode(appColors.foregroundColorDark, BlendMode.srcIn),
-                            width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
-                            height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
-                            semanticsLabel: 'firebase'),
+                        SvgPicture.asset(
+                          Assets.image.firebase,
+                          colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.inversePrimary, BlendMode.srcIn),
+                          width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                          height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                          semanticsLabel: 'firebase',
+                        ),
                         const Gap(20),
-                        SvgPicture.asset(Assets.image.python,
-                            colorFilter: ColorFilter.mode(appColors.foregroundColorDark, BlendMode.srcIn),
-                            width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
-                            height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
-                            semanticsLabel: 'python'),
+                        SvgPicture.asset(
+                          Assets.image.python,
+                          colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.inversePrimary, BlendMode.srcIn),
+                          width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                          height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                          semanticsLabel: 'python',
+                        ),
                         const Gap(20),
-                        SvgPicture.asset(Assets.image.postgres,
-                            colorFilter: ColorFilter.mode(appColors.foregroundColorDark, BlendMode.srcIn),
-                            width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
-                            height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
-                            semanticsLabel: 'postgres'),
+                        SvgPicture.asset(
+                          Assets.image.postgres,
+                          colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.inversePrimary, BlendMode.srcIn),
+                          width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                          height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                          semanticsLabel: 'postgres',
+                        ),
                         const Gap(20),
-                        SvgPicture.asset(Assets.image.docker,
-                            colorFilter: ColorFilter.mode(appColors.foregroundColorDark, BlendMode.srcIn),
-                            width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
-                            height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
-                            semanticsLabel: 'docker'),
+                        SvgPicture.asset(
+                          Assets.image.docker,
+                          colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.inversePrimary, BlendMode.srcIn),
+                          width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                          height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                          semanticsLabel: 'docker',
+                        ),
                         const Gap(20),
-                        SvgPicture.asset(Assets.image.linux,
-                            colorFilter: ColorFilter.mode(appColors.foregroundColorDark, BlendMode.srcIn),
-                            width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
-                            height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
-                            semanticsLabel: 'linux'),
+                        SvgPicture.asset(
+                          Assets.image.linux,
+                          colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.inversePrimary, BlendMode.srcIn),
+                          width: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                          height: context.responsiveSize(desktop: 50, tablet: 40, mobile: 30),
+                          semanticsLabel: 'linux',
+                        ),
                       ]),
                       const SizedBox(
                         height: 40,
                       ),
                       Text(
                         "EDUCATION",
-                        style: titleOneTextStyle.copyWith(
-                            fontSize: context.responsiveSize(desktop: 24), fontFamily: FontFamily.iBMPlexMono),
+                        style: titleOneTextStyle(context) .copyWith(
+                          fontSize: context.responsiveSize(desktop: 24),
+                          fontFamily: FontFamily.iBMPlexMono,
+                        ),
                       ),
                       const SizedBox(
                         height: 20,
                       ),
                       Text(
                         "Diploma in electronics",
-                        style: paragraphTextStyle.copyWith(
+                        style: paragraphTextStyle(context) .copyWith(
                             fontSize: context.responsiveSize(desktop: fontSize_18), fontFamily: FontFamily.iBMPlexMono),
                       ),
                       const SizedBox(
@@ -453,7 +468,7 @@ Widget buildDialog(BuildContext context) {
                       ),
                       Text(
                         "BSc in Computer Science",
-                        style: paragraphTextStyle.copyWith(
+                        style: paragraphTextStyle(context) .copyWith(
                             fontSize: context.responsiveSize(desktop: fontSize_18), fontFamily: FontFamily.iBMPlexMono),
                       ),
                       const SizedBox(

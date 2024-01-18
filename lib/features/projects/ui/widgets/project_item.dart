@@ -1,13 +1,11 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/core/util/show_dialog_animated.dart';
-import 'package:portfolio/features/common/ui/widgets/page_shared_content/page_container.dart';
 import 'package:portfolio/features/common/paths/color_splash_painter.dart';
 import 'package:portfolio/features/common/paths/corner_cut_border_clipper.dart';
 import 'package:portfolio/features/common/ui/widgets/corner_cut_style_button.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/features/projects/models/project.dart';
-import 'package:portfolio/core/theme/colors.dart';
 import 'package:portfolio/core/theme/typography.dart';
 import 'package:portfolio/gen/fonts.gen.dart';
 import 'package:supercharged/supercharged.dart';
@@ -36,7 +34,6 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
   bool hovered = false;
 
   // String title = widget.project.name;
-  final defaultBorderColor = appColors.accentColor.withOpacity(.2);
 
   late AnimationController _titleAnimationController;
   late AnimationController _borderAnimationController;
@@ -112,7 +109,7 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
               width: 3,
               cornerRadius: context.responsiveSize(desktop: 80, tablet: 80, mobile: 60),
             ),
-            child: Container(color: widget.borderColor ?? defaultBorderColor),
+            child: Container(color: widget.borderColor ?? Theme.of(context).colorScheme.primary.withOpacity(.2)),
           ),
         ),
         Positioned.fill(
@@ -150,7 +147,7 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
           // ? Project description in project card
           Text(
             widget.project.description,
-            style: paragraphTextStyle.copyWith(fontSize: context.adaptiveResponsiveWidth(desktop: fontSize_18)),
+            style: paragraphTextStyle(context) .copyWith(fontSize: context.adaptiveResponsiveWidth(desktop: fontSize_18)),
             textAlign: TextAlign.right,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
@@ -178,7 +175,7 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
   }
 
   MouseRegion buildAnimatedTitle() {
-    final style = titleOneTextStyle.copyWith(
+    final style = titleOneTextStyle(context) .copyWith(
       fontSize: context.adaptiveResponsiveWidth(desktop: 40, tablet: 40, mobile: 30),
       fontFamily: FontFamily.iBMPlexMono,
     );
@@ -206,7 +203,7 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
             TextSpan(
               text: widget.project.name.substring(_titleAnimation.value.toInt()),
               style: style.copyWith(
-                color: appColors.foregroundColor.darken(70),
+                color: Theme.of(context).colorScheme.tertiary.darken(70),
               ),
             ),
           ],
@@ -218,7 +215,7 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
   Widget buildTitleMobile(String title) {
     return Text(
       title,
-      style: titleOneTextStyle.copyWith(
+      style: titleOneTextStyle(context) .copyWith(
         fontSize: context.adaptiveResponsiveWidth(desktop: 0, tablet: 0, mobile: 30),
         fontFamily: FontFamily.iBMPlexMono,
       ),
@@ -247,16 +244,16 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
             },
             child: Icon(
               Icons.close,
-              color: appColors.foregroundColorDark,
+              color: Theme.of(context).colorScheme.inversePrimary,
             ),
           )
         ],
       ),
-      backgroundColor: appColors.backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       surfaceTintColor: Colors.grey,
       shape: RoundedRectangleBorder(
         side: BorderSide(
-          color: appColors.foregroundColorDark,
+          color: Theme.of(context).colorScheme.inversePrimary,
           width: 2,
         ),
       ),
@@ -271,7 +268,7 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
             ),
             Text(
               project.name,
-              style: titleOneTextStyle.copyWith(
+              style: titleOneTextStyle(context) .copyWith(
                 fontSize: context.responsiveSize(desktop: 40, tablet: 36, mobile: 30),
               ),
             ),
@@ -280,7 +277,7 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
             ),
             Text(
               project.description,
-              style: paragraphTextStyle.copyWith(
+              style: paragraphTextStyle(context) .copyWith(
                 fontSize: context.responsiveSize(desktop: fontSize_18),
               ),
             ),
@@ -323,7 +320,7 @@ class _ProjectItemViewState extends State<ProjectItemView> with TickerProviderSt
   Icon buildProjectIconPlaceholder(BuildContext context) {
     return Icon(
       EvaIcons.grid,
-      color: appColors.foregroundColorDark,
+      color: Theme.of(context).colorScheme.inversePrimary,
       size: context.adaptiveResponsiveWidth(
         desktop: 80,
         tablet: 80,

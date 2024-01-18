@@ -3,11 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:portfolio/core/router/app_router.dart';
 import 'package:portfolio/core/theme/selected_theme_provider.dart';
 import 'package:portfolio/core/theme/colors.dart';
+import 'package:portfolio/core/theme/theme_provider.dart';
+import 'package:portfolio/custom_page.dart';
+import 'package:portfolio/features/basics/contact_page.dart';
 import 'package:portfolio/gen/fonts.gen.dart';
 
 void main() async {
-  final savedKey = await loadTheme();
-  appColors = appColorsThemes[savedKey ?? getRandomThemeKey()]!;
+  // final savedKey = await loadTheme();
+  // appColors = appColorsThemes[savedKey ?? getInitialRandomThemeKey()]!;
   runApp(ProviderScope(child: MyApp()));
 }
 
@@ -18,20 +21,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Portfolio',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: appColors.primarySwatch,
-        scaffoldBackgroundColor: appColors.backgroundColor,
-        textTheme: Theme.of(context).textTheme.apply(
-              bodyColor: appColors.foregroundColor,
-              displayColor: appColors.foregroundColor,
-              fontFamily: FontFamily.cabin,
-            ),
-      ),
-      routerConfig: _router.config(),
-    );
+    return Consumer(builder: (context, ref, child) {
+      final themeData = ref.watch(themeProvider).themeData.value;
+      return MaterialApp.router(
+        title: 'Portfolio',
+        debugShowCheckedModeBanner: false,
+        theme: themeData,
+        // ThemeData(
+        //   primarySwatch: appColors.primarySwatch,
+        //   scaffoldBackgroundColor: Theme.of(context).colorScheme.background,
+        //   textTheme: Theme.of(context).textTheme.apply(
+        //         bodyColor: Theme.of(context).colorScheme.tertiary,
+        //         displayColor: Theme.of(context).colorScheme.tertiary,
+        //         fontFamily: FontFamily.cabin,
+        //       ),
+        // ),
+        routerConfig: _router.config(),
+      );
+    });
   }
 }
 

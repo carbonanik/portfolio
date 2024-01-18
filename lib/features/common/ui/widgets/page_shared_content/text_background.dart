@@ -21,11 +21,11 @@ orld! Hello World! Hello World! Hello W\n
 d! Hello World! Hello World! Hello Worl\n
 lo World! Hello World! Hello World! Hel\n
 World! Hello World! Hello World! Hello\n""",
-        style: backgroundTextStyle.copyWith(
+        style: backgroundTextStyle(context) .copyWith(
           fontSize: context.responsiveSize(
-            desktop: backgroundTextStyle.fontSize!,
-            tablet: backgroundTextStyle.fontSize!,
-            mobile: backgroundTextStyle.fontSize! * .8,
+            desktop: backgroundTextStyle(context) .fontSize!,
+            tablet: backgroundTextStyle(context) .fontSize!,
+            mobile: backgroundTextStyle(context) .fontSize! * .8,
           ),
         ),
         softWrap: false,

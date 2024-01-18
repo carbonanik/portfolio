@@ -48,7 +48,7 @@ class _WebScrollAnimationState extends State<WebScrollAnimation> {
                 width: screenSize.width,
                 child: Text(
                   "Overlay Text",
-                  style: titleOneTextStyle.copyWith(fontSize: 400),
+                  style: titleOneTextStyle(context) .copyWith(fontSize: 400),
                 ),
               ),
               Image.asset(
@@ -60,12 +60,12 @@ class _WebScrollAnimationState extends State<WebScrollAnimation> {
               Container(
                 height: screenSize.height,
                 width: screenSize.width,
-                color: appColors.foregroundColor,
+                color: Theme.of(context).colorScheme.tertiary,
                 child: Stack(
                   children: [
                     Text(
                       "Section Three",
-                      style: titleOneTextStyle.copyWith(color: appColors.backgroundColor),
+                      style: titleOneTextStyle(context) .copyWith(color: Theme.of(context).colorScheme.background),
                     ),
                     Positioned(right: 50, child: Image.asset(Assets.image.mockAppUi2.path))
                   ],

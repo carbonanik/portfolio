@@ -68,7 +68,7 @@ class _RandomAppearAnimationTextState extends State<RandomAppearAnimationText> w
             fontFamily: "Cabin",
             fontSize: context.responsiveSize(desktop:  300),
             fontWeight: FontWeight.w600,
-            color: appColors.backgroundColorLite,
+            color: Theme.of(context).colorScheme.secondary,
           ),
     );
   }

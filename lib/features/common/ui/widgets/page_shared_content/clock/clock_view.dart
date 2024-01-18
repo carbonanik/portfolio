@@ -40,7 +40,7 @@ class _ClockViewState extends State<ClockView> {
         child: Transform.rotate(
           angle: -pi / 2,
           child: CustomPaint(
-            painter: ClockPainter(),
+            painter: ClockPainter(context: context),
           ),
         ));
   }

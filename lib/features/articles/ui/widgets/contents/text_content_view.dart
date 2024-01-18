@@ -11,6 +11,6 @@ class TextContentView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(textContent.text, style: basicStyle);
+    return Text(textContent.text, style: basicStyle(context) );
   }
 }

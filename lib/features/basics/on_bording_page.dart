@@ -52,14 +52,14 @@ class _OnBoardPageState extends State<OnBoardPage> {
           Center(
             child: TweenAnimationBuilder(
               tween: ColorTween(
-                begin: appColors.backgroundColor,
-                end: appColors.accentColor,
+                begin: Theme.of(context).colorScheme.background,
+                end: Theme.of(context).colorScheme.primary,
               ),
               duration: 1.seconds,
               builder: (BuildContext context, Color? color, __) {
                 return Text(
                   "welcome,",
-                  style: titleTwoTextStyle.copyWith(fontSize: context.responsiveSize(desktop:  200, mobile: 70), color: color),
+                  style: titleTwoTextStyle(context) .copyWith(fontSize: context.responsiveSize(desktop:  200, mobile: 70), color: color),
                 );
               },
             ),
@@ -139,7 +139,7 @@ class _RowOfBoxState extends State<RowOfBox> {
               child: Center(
                 child: AnimatedContainer(
                   duration: 400.milliseconds,
-                  color: appColors.backgroundColorLite,
+                  color: Theme.of(context).colorScheme.secondary,
                   height: minZero(widget.rowBoxCount - widget.boxReduce) <= index ? 0 : widget.boxHeight.toDouble(),
                   width: minZero(widget.rowBoxCount - widget.boxReduce) <= index ? 0 : widget.boxWidth.toDouble(),
                 ),

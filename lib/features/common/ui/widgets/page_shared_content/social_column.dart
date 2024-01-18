@@ -1,10 +1,8 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:portfolio/core/theme/selected_theme_provider.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/random_appear_animation_text.dart';
-import 'package:portfolio/core/theme/colors.dart';
 import 'package:portfolio/core/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -65,13 +63,13 @@ class _SocialColumnState extends ConsumerState<SocialColumn> with TickerProvider
               height: size.height / 1.4,
               width: context.responsiveSize(desktop: 30, tablet: 30, mobile: 20),
               padding: const EdgeInsets.only(bottom: 10),
-              color: appColors.accentColor.withOpacity(.8),
+              color: Theme.of(context).colorScheme.primary.withOpacity(.8),
             ),
             Container(
               height: size.height / 5,
               width: context.responsiveSize(desktop: 30, tablet: 30, mobile: 20),
               padding: const EdgeInsets.only(bottom: 10),
-              color: appColors.accentColor.darken(70),
+              color: Theme.of(context).colorScheme.primary.darken(70),
             ),
             SizedBox(
               height: size.height / 1.2,
@@ -118,12 +116,12 @@ class _SocialColumnState extends ConsumerState<SocialColumn> with TickerProvider
               },
               runOnHover: true,
               text: "Follow me",
-              style: menuTextStyle.copyWith(
-                color: appColors.accentColor.darken(30),
+              style: menuTextStyle(context) .copyWith(
+                color: Theme.of(context).colorScheme.primary.darken(30),
                 fontSize: context.responsiveSize(
-                  desktop: menuTextStyle.fontSize!,
-                  tablet: menuTextStyle.fontSize!,
-                  mobile: menuTextStyle.fontSize! - 4,
+                  desktop: menuTextStyle(context) .fontSize!,
+                  tablet: menuTextStyle(context) .fontSize!,
+                  mobile: menuTextStyle(context) .fontSize! - 4,
                 ),
               ),
             ),
@@ -193,7 +191,7 @@ class _VerticalSocialItemState extends State<VerticalSocialItem> with TickerProv
                 transform: Matrix4.translationValues(30, 0, 0),
                 child: Icon(
                   widget.item.icon,
-                  color: appColors.foregroundColor,
+                  color: Theme.of(context).colorScheme.tertiary,
                 ),
               ),
             ),
@@ -216,12 +214,12 @@ class _VerticalSocialItemState extends State<VerticalSocialItem> with TickerProv
         ),
         child: Text(
           widget.item.shortName,
-          style: menuTextStyle.copyWith(
-            color: appColors.backgroundColor,
+          style: menuTextStyle(context) .copyWith(
+            color: Theme.of(context).colorScheme.background,
             fontSize: context.responsiveSize(
-              desktop: menuTextStyle.fontSize!,
-              tablet: menuTextStyle.fontSize!,
-              mobile: menuTextStyle.fontSize! - 4,
+              desktop: menuTextStyle(context) .fontSize!,
+              tablet: menuTextStyle(context) .fontSize!,
+              mobile: menuTextStyle(context) .fontSize! - 4,
             ),
           ),
         ),

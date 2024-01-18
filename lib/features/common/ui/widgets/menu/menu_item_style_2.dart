@@ -83,12 +83,12 @@ class _MenuItemThemeState extends State<MenuItemTheme> with SingleTickerProvider
                       Container(
                         width: 10,
                         height: 22,
-                        color: appColors.accentColor,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                       const SizedBox(width: 16),
                       Text(
                         widget.name,
-                        style: menuTextStyle,
+                        style: menuTextStyle(context) ,
                       ),
                       const SizedBox(width: 16),
                     ],
@@ -103,15 +103,15 @@ class _MenuItemThemeState extends State<MenuItemTheme> with SingleTickerProvider
                         const SizedBox(width: 36),
                         Text(
                           nextName,
-                          style: menuTextStyle.copyWith(
-                            color: appColorsThemes[nextName]?.foregroundColor ?? appColors.foregroundColor,
+                          style: menuTextStyle(context) .copyWith(
+                            color: appColorsThemes[nextName]?.foregroundColor ?? Theme.of(context).colorScheme.tertiary,
                           ),
                         ),
                         const SizedBox(width: 36),
                         Container(
                           width: 10,
                           height: 22,
-                          color: appColorsThemes[nextName]?.accentColor ?? appColors.accentColor,
+                          color: appColorsThemes[nextName]?.accentColor ?? Theme.of(context).colorScheme.primary,
                         ),
                         const SizedBox(width: 16),
                       ],

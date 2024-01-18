@@ -2,8 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:portfolio/core/theme/selected_theme_provider.dart';
-import 'package:portfolio/core/theme/colors.dart';
 import 'package:portfolio/core/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
 
@@ -84,7 +82,7 @@ class _CustomLoadingAnimationState extends ConsumerState<CustomLoadingAnimation>
                         0,
                       ),
                       width: 50,
-                      color: index % 2 == 0 ? appColors.backgroundColor : appColors.accentColor,
+                      color: index % 2 == 0 ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.primary,
                     ),
                   ),
                 ).toList(),
@@ -97,7 +95,7 @@ class _CustomLoadingAnimationState extends ConsumerState<CustomLoadingAnimation>
             offset: const Offset(0, 100),
             child: Text(
               " ${_loadingPercentageAnimation.value.toInt()}%",
-              style: titleTwoTextStyle.copyWith(color: appColors.accentColor, fontSize: 52),
+              style: titleTwoTextStyle(context) .copyWith(color: Theme.of(context).colorScheme.primary, fontSize: 52),
             ),
           ),
         ),

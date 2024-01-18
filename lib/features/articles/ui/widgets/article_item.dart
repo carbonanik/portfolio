@@ -30,7 +30,7 @@ class ArticleItem extends StatefulWidget {
 
 class _ArticleItemState extends State<ArticleItem> with SingleTickerProviderStateMixin {
   String title = "Python programming Tutorial for biggners";
-  final defaultBorderColor = appColors.accentColor;
+  late final Color defaultBorderColor = Theme.of(context).colorScheme.primary;
   final hoverOffset = const Offset(-.02, -.02);
   final hoverDuration = 200.milliseconds;
   final hoverCurve = Curves.fastOutSlowIn;
@@ -41,7 +41,6 @@ class _ArticleItemState extends State<ArticleItem> with SingleTickerProviderStat
   @override
   void initState() {
     super.initState();
-
     _slideAnimationController = AnimationController(duration: hoverDuration, vsync: this);
     _slideAnimation = Tween<Offset>(
       begin: Offset.zero,
@@ -112,11 +111,11 @@ class _ArticleItemState extends State<ArticleItem> with SingleTickerProviderStat
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                  color: appColors.accentColor.darken(30),
+                  color: Theme.of(context).colorScheme.primary.darken(30),
                   width: 3,
                 ),
                 right: BorderSide(
-                  color: appColors.accentColor.darken(30),
+                  color: Theme.of(context).colorScheme.primary.darken(30),
                   width: 3,
                 ),
               ),
@@ -169,7 +168,7 @@ class _ArticleItemState extends State<ArticleItem> with SingleTickerProviderStat
                 filled: true,
               ),
               child: Container(
-                color: appColors.accentColor.darken(90).withOpacity(.4),
+                color: Theme.of(context).colorScheme.primary.darken(90).withOpacity(.4),
               ),
             ),
           ),
@@ -195,7 +194,7 @@ class _ArticleItemState extends State<ArticleItem> with SingleTickerProviderStat
               cornerRadius: context.adaptiveResponsiveWidth(desktop: 80, tablet: 80, mobile: 60),
             ),
             child: Container(
-              color: appColors.accentColor,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
         ),
@@ -212,7 +211,7 @@ class _ArticleItemState extends State<ArticleItem> with SingleTickerProviderStat
         children: [
           Text(
             "#Python, #Docker, #API",
-            style: subtitleTextStyle.copyWith(
+            style: subtitleTextStyle(context).copyWith(
               fontSize: context.adaptiveResponsiveWidth(
                 desktop: 16,
                 tablet: 16,
@@ -224,7 +223,7 @@ class _ArticleItemState extends State<ArticleItem> with SingleTickerProviderStat
           ),
           Text(
             title,
-            style: titleOneTextStyle.copyWith(
+            style: titleOneTextStyle(context).copyWith(
               fontSize: context.adaptiveResponsiveWidth(
                 desktop: 30,
                 tablet: 26,

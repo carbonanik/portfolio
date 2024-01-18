@@ -161,8 +161,8 @@
 //   late AnimationController _nextButtonController;
 //
 //   bool isLoading = false;
-//   final borderColor = appColors.accentColor.withOpacity(.2);
-//   final lineColor = appColors.accentColor.withOpacity(.4);
+//   final borderColor = Theme.of(context).colorScheme.primary.withOpacity(.2);
+//   final lineColor = Theme.of(context).colorScheme.primary.withOpacity(.4);
 //   final lineWidth = 2.0;
 //   BlobHoverData blobHoverData = const BlobHoverData.initial();
 //   Map<String, int> selectedIndexes = {};
@@ -198,17 +198,17 @@
 //                     children: [
 //                       Icon(
 //                         Icons.folder,
-//                         color: appColors.foregroundColor,
+//                         color: Theme.of(context).colorScheme.tertiary,
 //                         size: 70,
 //                       ),
 //                       const SizedBox(width: 20),
 //                       // ? The project title
 //                       Text(
 //                         "Projects",
-//                         style: titleTwoTextStyle.copyWith(
+//                         style: titleTwoTextStyle(context) .copyWith(
 //                           fontSize: 32,
 //                           fontWeight: FontWeight.bold,
-//                           color: appColors.foregroundColor,
+//                           color: Theme.of(context).colorScheme.tertiary,
 //                         ),
 //                       )
 //                     ],
@@ -292,16 +292,16 @@
 //                   children: [
 //                     Icon(
 //                       index == selectedIndex ? Icons.folder_copy : Icons.folder,
-//                       color: appColors.foregroundColor,
+//                       color: Theme.of(context).colorScheme.tertiary,
 //                       size: 55,
 //                     ),
 //                     const SizedBox(width: 20),
 //                     Text(
 //                       category.name,
-//                       style: titleTwoTextStyle.copyWith(
+//                       style: titleTwoTextStyle(context) .copyWith(
 //                         fontSize: 24,
 //                         fontWeight: FontWeight.bold,
-//                         color: appColors.foregroundColor,
+//                         color: Theme.of(context).colorScheme.tertiary,
 //                       ),
 //                     ),
 //                   ],
@@ -384,7 +384,7 @@
 //             child: RawMaterialButton(
 //               onPressed: () {},
 //               elevation: 2.0,
-//               fillColor: appColors.accentColor.withOpacity(.1),
+//               fillColor: Theme.of(context).colorScheme.primary.withOpacity(.1),
 //               padding: const EdgeInsets.all(15.0),
 //               shape: const CircleBorder(),
 //               child: RotatedBox(
@@ -427,7 +427,7 @@
 //   bool hovered = false;
 //
 //   // String title = widget.project.name;
-//   final defaultBorderColor = appColors.accentColor.withOpacity(.2);
+//   final defaultBorderColor = Theme.of(context).colorScheme.primary.withOpacity(.2);
 //
 //   late AnimationController _titleAnimationController;
 //   late AnimationController _borderAnimationController;
@@ -551,7 +551,7 @@
 //                 duration: 1000.milliseconds,
 //                 curve: Curves.ease,
 //                 color:
-//                 imageHovered ? appColors.backgroundColor.withOpacity(0) : appColors.backgroundColor.withOpacity(.2),
+//                 imageHovered ? Theme.of(context).colorScheme.background.withOpacity(0) : Theme.of(context).colorScheme.background.withOpacity(.2),
 //               ),
 //             )
 //           ],
@@ -584,7 +584,7 @@
 //             // },
 //             child: Icon(
 //               Icons.folder,
-//               color: appColors.foregroundColorDark,
+//               color: Theme.of(context).colorScheme.inversePrimary,
 //               size: 80,
 //             ),
 //           ),
@@ -612,12 +612,12 @@
 //                   transform: Matrix4.translationValues(0, -10, 0),
 //                   child: Text(
 //                     widget.project.name.substring(0, _titleAnimation.value.toInt()),
-//                     style: titleOneTextStyle.copyWith(fontSize: 46, fontFamily: ibmPlexMono),
+//                     style: titleOneTextStyle(context) .copyWith(fontSize: 46, fontFamily: ibmPlexMono),
 //                   ),
 //                 ),
 //                 Text(
 //                   widget.project.name.substring(_titleAnimation.value.toInt()),
-//                   style: titleOneTextStyle.copyWith(fontSize: 46, fontFamily: ibmPlexMono),
+//                   style: titleOneTextStyle(context) .copyWith(fontSize: 46, fontFamily: ibmPlexMono),
 //                 ),
 //               ],
 //             ),
@@ -627,7 +627,7 @@
 //           ),
 //           Text(
 //             "This is the real project i have made,\n you can believe me.",
-//             style: paragraphTextStyle.copyWith(fontSize: fontSize_18),
+//             style: paragraphTextStyle(context) .copyWith(fontSize: fontSize_18),
 //             textAlign: leftItem ? TextAlign.right : TextAlign.left,
 //           ),
 //           const SizedBox(height: 40),

@@ -29,7 +29,7 @@ class MouseFollower extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(blobHoverData.size / 2),
                     border:
-                        blobHoverData.color == null ? Border.all(color: appColors.accentColor.withOpacity(.2)) : null,
+                        blobHoverData.color == null ? Border.all(color: Theme.of(context).colorScheme.primary.withOpacity(.2)) : null,
                     color: blobHoverData.color,
                   ),
                 ),

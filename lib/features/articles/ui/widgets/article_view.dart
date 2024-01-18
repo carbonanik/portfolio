@@ -60,7 +60,7 @@ class _ArticleViewState extends State<ArticleView> {
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 20),
-              child: Text("#${widget.article.tags.join(", #")}", style: subtitleStyle),
+              child: Text("#${widget.article.tags.join(", #")}", style: subtitleStyle(context) ),
             ),
             ...List.generate(
               widget.article.contents.length,

@@ -107,7 +107,7 @@ class _BlogPageState extends ConsumerState<BlogPage> with TickerProviderStateMix
                         },
                         child: Text(
                           "Read Articles",
-                          style: titleOneTextStyle.copyWith(
+                          style: titleOneTextStyle(context) .copyWith(
                             fontSize: context.adaptiveResponsiveWidth(desktop: 56),
                           ),
                         ),
@@ -120,13 +120,13 @@ class _BlogPageState extends ConsumerState<BlogPage> with TickerProviderStateMix
                         return Text(
                           subtitle.substring(0, titleAnimValue.toInt()) +
                               (_titleAnimationController.isAnimating || blinkingAnimValue ? "_" : ""),
-                          style: subtitleTextStyle.copyWith(
+                          style: subtitleTextStyle(context) .copyWith(
                             height: 1.5,
-                            fontSize: context.adaptiveResponsiveWidth(desktop: subtitleTextStyle.fontSize!),
+                            fontSize: context.adaptiveResponsiveWidth(desktop: subtitleTextStyle(context) .fontSize!),
                             shadows: [
                               Shadow(
                                 blurRadius: 10,
-                                color: appColors.accentColor,
+                                color: Theme.of(context).colorScheme.primary,
                               ),
                             ],
                           ),
@@ -216,7 +216,7 @@ class _BlogPageState extends ConsumerState<BlogPage> with TickerProviderStateMix
                                   Positioned.fill(
                                     child: Container(
                                       padding: const EdgeInsets.all(6.0),
-                                      color: appColors.accentColor.darken(30),
+                                      color: Theme.of(context).colorScheme.primary.darken(30),
                                     ),
                                   ),
                                   Consumer(builder: (context, ref, child) {
@@ -239,13 +239,13 @@ class _BlogPageState extends ConsumerState<BlogPage> with TickerProviderStateMix
                                             : Matrix4.translationValues(-3, -3, 0),
                                         padding: const EdgeInsets.all(6.0),
                                         color: selectedTag.contains(tags[index])
-                                            ? appColors.accentColor.darken(80)
-                                            : appColors.accentColor.darken(60),
+                                            ? Theme.of(context).colorScheme.primary.darken(80)
+                                            : Theme.of(context).colorScheme.primary.darken(60),
                                         child: Row(
                                           children: [
                                             Icon(
                                               Icons.sell,
-                                              color: appColors.accentColor.darken(30),
+                                              color: Theme.of(context).colorScheme.primary.darken(30),
                                               size: 14,
                                             ),
                                             const SizedBox(width: 8.0),

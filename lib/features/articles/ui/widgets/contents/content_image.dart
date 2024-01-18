@@ -21,6 +21,7 @@ class ContentImage extends ContentBase {
     final void Function(ContentBase content)? goUp,
     final void Function(ContentBase content)? goDown,
     final void Function(ContentBase content, ContentType type)? contentItemClick,
+    required BuildContext context,
   }) {
     Widget content;
     if (path != null) {

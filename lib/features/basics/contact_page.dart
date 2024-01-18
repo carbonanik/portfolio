@@ -13,9 +13,10 @@ class ContactPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageContainer(
       showClock: false,
+      showMadeWithText: false,
+      showSocial: false,
       menuItem: "Contact",
       children: [
-        // const AsciiMedia(),
         GlitchEffect(
           child: Padding(
             padding: const EdgeInsets.only(top: 50),
@@ -25,7 +26,7 @@ class ContactPage extends StatelessWidget {
                 children: [
                   Text(
                     "sheikhanikbd@gmail.com",
-                    style: titleOneTextStyle.copyWith(
+                    style: titleOneTextStyle(context) .copyWith(
                       fontFamily: FontFamily.iBMPlexMono,
                       fontSize: 48,
                     ),
@@ -33,7 +34,7 @@ class ContactPage extends StatelessWidget {
                   const SizedBox(height: 20),
                   Text(
                     "+880 1766 785027",
-                    style: titleOneTextStyle.copyWith(
+                    style: titleOneTextStyle(context) .copyWith(
                       fontFamily: FontFamily.iBMPlexMono,
                       fontSize: 48,
                     ),

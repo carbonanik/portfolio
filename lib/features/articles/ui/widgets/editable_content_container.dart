@@ -29,7 +29,7 @@ class EditableContentContainer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        color: appColors.foregroundColorDark.withOpacity(.02),
+        color: Theme.of(context).colorScheme.inversePrimary.withOpacity(.02),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

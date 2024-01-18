@@ -50,7 +50,7 @@ class ArticleListPage extends StatelessWidget {
                                 maxLines: 4,
                                 style:  TextStyle(
                                   fontFamily: "Cabin",
-                                      fontSize: 22, fontWeight: FontWeight.w400, color: appColors.foregroundColorDark
+                                      fontSize: 22, fontWeight: FontWeight.w400, color: Theme.of(context).colorScheme.inversePrimary
                                     // height: 2
                                   ),
 
@@ -64,7 +64,7 @@ class ArticleListPage extends StatelessWidget {
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
                                     height: 1,
-                                    color: appColors.accentColor),
+                                    color: Theme.of(context).colorScheme.primary),
                               ),
 
                           ],

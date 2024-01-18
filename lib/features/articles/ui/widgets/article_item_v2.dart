@@ -27,12 +27,12 @@ class ArticleItemV2 extends StatefulWidget {
   final double width;
 
   @override
-  State<ArticleItemV2> createState() => _ArticleItemState();
+  State<ArticleItemV2> createState() => _ArticleItemStateV2();
 }
 
-class _ArticleItemState extends State<ArticleItemV2> with SingleTickerProviderStateMixin {
+class _ArticleItemStateV2 extends State<ArticleItemV2> with SingleTickerProviderStateMixin {
   String title = "Python programming Tutorial for biggners";
-  final defaultBorderColor = appColors.accentColor;
+  late final Color defaultBorderColor = Theme.of(context).colorScheme.primary;
   final hoverOffset = const Offset(-.02, -.02);
   final hoverDuration = 200.milliseconds;
   final hoverCurve = Curves.fastOutSlowIn;
@@ -43,7 +43,6 @@ class _ArticleItemState extends State<ArticleItemV2> with SingleTickerProviderSt
   @override
   void initState() {
     super.initState();
-
     _slideAnimationController = AnimationController(duration: hoverDuration, vsync: this);
     _slideAnimation = Tween<Offset>(
       begin: Offset.zero,
@@ -111,11 +110,11 @@ class _ArticleItemState extends State<ArticleItemV2> with SingleTickerProviderSt
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
-                color: appColors.foregroundColor.darken(70),
+                color: Theme.of(context).colorScheme.tertiary.darken(70),
                 width: 3,
               ),
               right: BorderSide(
-                color: appColors.foregroundColor.darken(70),
+                color: Theme.of(context).colorScheme.tertiary.darken(70),
                 width: 3,
               ),
             ),
@@ -171,7 +170,7 @@ class _ArticleItemState extends State<ArticleItemV2> with SingleTickerProviderSt
               filled: true,
             ),
             child: Container(
-              color: appColors.accentColor.darken(90).withOpacity(.4),
+              color: Theme.of(context).colorScheme.primary.darken(90).withOpacity(.4),
             ),
           ),
         ),
@@ -198,7 +197,7 @@ class _ArticleItemState extends State<ArticleItemV2> with SingleTickerProviderSt
               cornerRadius: context.adaptiveResponsiveWidth(desktop: 80, tablet: 80, mobile: 60),
             ),
             child: Container(
-              color: appColors.accentColor.darken(80),
+              color: Theme.of(context).colorScheme.primary.darken(80),
             ),
           ),
         ),
@@ -215,7 +214,7 @@ class _ArticleItemState extends State<ArticleItemV2> with SingleTickerProviderSt
         children: [
           Text(
             "#${widget.article.tags.join(", #")}",
-            style: subtitleTextStyle.copyWith(
+            style: subtitleTextStyle(context) .copyWith(
               fontSize: context.adaptiveResponsiveWidth(
                 desktop: 16,
                 tablet: 16,
@@ -227,7 +226,7 @@ class _ArticleItemState extends State<ArticleItemV2> with SingleTickerProviderSt
           ),
           Text(
             widget.article.title.text,
-            style: titleOneTextStyle.copyWith(
+            style: titleOneTextStyle(context) .copyWith(
               fontSize: context.adaptiveResponsiveWidth(
                 desktop: 30,
                 tablet: 26,

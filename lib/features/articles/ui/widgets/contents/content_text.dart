@@ -25,9 +25,10 @@ class ContentText extends ContentBase {
     final void Function(ContentBase content)? goUp,
     final void Function(ContentBase content)? goDown,
     final void Function(ContentBase content, ContentType type)? contentItemClick,
+    required BuildContext context,
   }) {
     if (readOnly) {
-      return Text(text, style: basicStyle);
+      return Text(text, style: basicStyle(context) );
     }
 
     return EditableContentContainer(
@@ -43,9 +44,9 @@ class ContentText extends ContentBase {
           },
           maxLines: 5000,
           minLines: 1,
-          style: basicStyle,
+          style: basicStyle(context) ,
           controller: controller,
-          decoration: inputUnderlineStyle,
+          decoration: inputUnderlineStyle(context) ,
         ),
         title: "Text",
         close: () => close?.call(this),

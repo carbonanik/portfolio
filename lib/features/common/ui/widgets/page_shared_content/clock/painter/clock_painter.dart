@@ -4,6 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/core/theme/colors.dart';
 
 class ClockPainter extends CustomPainter {
+  ClockPainter({
+    required this.context,
+  });
+
+  final BuildContext context;
+
   var dateTime = DateTime.now();
 
   @override
@@ -16,12 +22,12 @@ class ClockPainter extends CustomPainter {
     final radius = min(centerX, centerY);
 
     final centerDotBrash = Paint()
-      ..color = appColors.backgroundColorLite
+      ..color = Theme.of(context).colorScheme.secondary
       ..style = PaintingStyle.fill;
 
     final secHandBrush = Paint()
       ..shader = RadialGradient(
-        colors: [appColors.accentColor.withOpacity(.7), appColors.accentColor],
+        colors: [Theme.of(context).colorScheme.primary.withOpacity(.7), Theme.of(context).colorScheme.primary],
       ).createShader(Rect.fromCircle(center: center, radius: radius))
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
@@ -29,7 +35,7 @@ class ClockPainter extends CustomPainter {
 
     final minHandBrush = Paint()
       ..shader = RadialGradient(
-        colors: [appColors.accentColor.withOpacity(.5), appColors.accentColor],
+        colors: [Theme.of(context).colorScheme.primary.withOpacity(.5), Theme.of(context).colorScheme.primary],
       ).createShader(Rect.fromCircle(center: center, radius: radius))
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
@@ -37,14 +43,14 @@ class ClockPainter extends CustomPainter {
 
     final hourHandBrush = Paint()
       ..shader = RadialGradient(
-        colors: [appColors.accentColor.withOpacity(.3), appColors.accentColor],
+        colors: [Theme.of(context).colorScheme.primary.withOpacity(.3), Theme.of(context).colorScheme.primary],
       ).createShader(Rect.fromCircle(center: center, radius: radius))
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 10;
 
     final dashLineBrush = Paint()
-      ..color = appColors.accentColor.withOpacity(.1)
+      ..color = Theme.of(context).colorScheme.primary.withOpacity(.1)
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 5;

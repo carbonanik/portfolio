@@ -2,10 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:portfolio/core/theme/selected_theme_provider.dart';
 import 'package:portfolio/features/common/paths/dotted_circle_painter.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
-import 'package:portfolio/core/theme/colors.dart';
 import 'package:supercharged/supercharged.dart';
 
 class ScrollableRow extends StatefulWidget {
@@ -27,7 +25,6 @@ class ScrollableRow extends StatefulWidget {
 }
 
 class _ScrollableRowState extends State<ScrollableRow> with TickerProviderStateMixin {
-
   int currentProjectIndex = 0;
   final _scrollController = ScrollController();
 
@@ -38,7 +35,6 @@ class _ScrollableRowState extends State<ScrollableRow> with TickerProviderStateM
 
   @override
   void dispose() {
-
     _scrollController.dispose();
     super.dispose();
   }
@@ -77,28 +73,30 @@ class _ScrollableRowState extends State<ScrollableRow> with TickerProviderStateM
               ),
             ),
             if (!context.isMobile)
-              AnimatedNextButton(turns: 3, onPressed: () {
-                currentProjectIndex = (currentProjectIndex + 1) % widget.itemCount;
+              AnimatedNextButton(
+                  turns: 3,
+                  onPressed: () {
+                    currentProjectIndex = (currentProjectIndex + 1) % widget.itemCount;
 
-                final double offset = currentProjectIndex * (widget.itemTotalWidth ?? 500);
-                // print("width$width");
-                // print("offset-left${_scrollController.position.maxScrollExtent - offset + 160}");
-                // if (_scrollController.position.maxScrollExtent - offset > 0) {
-                _scrollController.animateTo(
-                  offset,
-                  duration: 1.seconds,
-                  curve: Curves.easeInOutCubic,
-                );
-                // } else {
-                //   currentProjectIndex = 0;
-                //
-                //   _scrollController.animateTo(
-                //     0,
-                //     duration: 1.seconds,
-                //     curve: Curves.easeInOutCubic,
-                //   );
-                // }
-              }),
+                    final double offset = currentProjectIndex * (widget.itemTotalWidth ?? 500);
+                    // print("width$width");
+                    // print("offset-left${_scrollController.position.maxScrollExtent - offset + 160}");
+                    // if (_scrollController.position.maxScrollExtent - offset > 0) {
+                    _scrollController.animateTo(
+                      offset,
+                      duration: 1.seconds,
+                      curve: Curves.easeInOutCubic,
+                    );
+                    // } else {
+                    //   currentProjectIndex = 0;
+                    //
+                    //   _scrollController.animateTo(
+                    //     0,
+                    //     duration: 1.seconds,
+                    //     curve: Curves.easeInOutCubic,
+                    //   );
+                    // }
+                  }),
           ],
         ),
       ],
@@ -118,7 +116,7 @@ class AnimatedNextButton extends ConsumerStatefulWidget {
 
 class _AnimatedNextButtonState extends ConsumerState<AnimatedNextButton> with SingleTickerProviderStateMixin {
   late AnimationController _nextButtonController;
-  final lineColor = appColors.accentColor.withOpacity(.4);
+  late final Color lineColor = Theme.of(context).colorScheme.primary.withOpacity(.4);
 
   @override
   void initState() {
@@ -146,7 +144,7 @@ class _AnimatedNextButtonState extends ConsumerState<AnimatedNextButton> with Si
                 return Transform.rotate(
                   angle: _nextButtonController.value * 2.0 * pi,
                   child: CustomPaint(
-                    painter: DottedCirclePainter(color: appColors.accentColor.withOpacity(.4)),
+                    painter: DottedCirclePainter(color: Theme.of(context).colorScheme.primary.withOpacity(.4)),
                     child: Container(),
                   ),
                 );
@@ -163,7 +161,7 @@ class _AnimatedNextButtonState extends ConsumerState<AnimatedNextButton> with Si
             child: RawMaterialButton(
               onPressed: widget.onPressed,
               elevation: 2.0,
-              fillColor: appColors.accentColor.withOpacity(.1),
+              fillColor: Theme.of(context).colorScheme.primary.withOpacity(.1),
               padding: const EdgeInsets.all(15.0),
               shape: const CircleBorder(),
               child: RotatedBox(

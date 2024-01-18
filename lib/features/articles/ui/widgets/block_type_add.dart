@@ -22,10 +22,10 @@ class BlockTypeAdd extends StatelessWidget {
         onTap: onTap,
         child: Container(
           padding: const EdgeInsets.all(8),
-          color: appColors.accentColor.withOpacity(.3),
+          color: Theme.of(context).colorScheme.primary.withOpacity(.3),
           child: Text(
             text,
-            style: subtitleStyle,
+            style: subtitleStyle(context) ,
             textAlign: TextAlign.center,
           ),
         ),

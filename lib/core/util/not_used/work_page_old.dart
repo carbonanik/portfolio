@@ -41,8 +41,8 @@
 //
 //   late Animation<TimelineValue<_AnimProps>> animation;
 //   bool isLoading = false;
-//   final borderColor = appColors.accentColor; //const Color(0xFF382A04);
-//   final lineColor = appColors.accentColor; //const Color(0xFF382A04);///backgroundTextColor;
+//   final borderColor = Theme.of(context).colorScheme.primary; //const Color(0xFF382A04);
+//   final lineColor = Theme.of(context).colorScheme.primary; //const Color(0xFF382A04);///backgroundTextColor;
 //   final lineWidth = 1.0;
 //   BlobHoverData blobHoverData = const BlobHoverData.initial();
 //
@@ -175,13 +175,13 @@
 //                       });
 //                     },
 //                     elevation: 2.0,
-//                     fillColor: appColors.accentColor.withOpacity(.1),
+//                     fillColor: Theme.of(context).colorScheme.primary.withOpacity(.1),
 //                     padding: const EdgeInsets.all(18.0),
 //                     shape: const CircleBorder(),
 //                     child: Icon(
 //                       Icons.keyboard_double_arrow_down_rounded,
 //                       size: 35.0,
-//                       color: appColors.accentColor,
+//                       color: Theme.of(context).colorScheme.primary,
 //                     ),
 //                   ),
 //                 ),

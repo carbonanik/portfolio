@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
-import 'package:portfolio/core/theme/colors.dart';
 import 'package:portfolio/core/theme/typography.dart';
 import 'package:portfolio/features/common/paths/corner_cut_border_clipper.dart';
 import 'package:supercharged/supercharged.dart';
@@ -54,14 +53,14 @@ class _CornerCutButtonState extends State<CornerCutButton> with TickerProviderSt
             Positioned.fill(
               child: Container(
                 decoration: BoxDecoration(
-                  color: widget.transparent ? null : appColors.backgroundColor,
+                  color: widget.transparent ? null : Theme.of(context).colorScheme.background,
                   border: Border(
                     bottom: BorderSide(
-                      color: appColors.foregroundColor.withOpacity(.5),
+                      color: Theme.of(context).colorScheme.tertiary.withOpacity(.5),
                       width: pointerDown ? 1 : 3,
                     ),
                     right: BorderSide(
-                      color: appColors.foregroundColor.withOpacity(.5),
+                      color: Theme.of(context).colorScheme.tertiary.withOpacity(.5),
                       width: pointerDown ? 1 : 3,
                     ),
                   ),
@@ -87,7 +86,7 @@ class _CornerCutButtonState extends State<CornerCutButton> with TickerProviderSt
                       widget.text,
                       style: TextStyle(
                         fontSize: widget.fontSize ?? context.adaptiveResponsiveWidth(desktop: fontSize_22),
-                        color: appColors.foregroundColor,
+                        color: Theme.of(context).colorScheme.tertiary,
                         fontFamily: "IBMPlexMono",
                       ),
                     ),
@@ -97,7 +96,7 @@ class _CornerCutButtonState extends State<CornerCutButton> with TickerProviderSt
                       clipper: CornerCutBorderClipper(
                           cornerRadius: widget.cornerCutRadius ?? context.adaptiveResponsiveWidth(desktop: 18), width: 2),
                       child: Container(
-                        color: appColors.accentColor,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
                   ),

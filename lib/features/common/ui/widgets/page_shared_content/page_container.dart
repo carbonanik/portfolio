@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -105,7 +107,34 @@ class _PageContainerState extends State<PageContainer> with TickerProviderStateM
     return Stack(
       alignment: AlignmentDirectional.center,
       children: [
-        // ?*
+        if (false)
+          AnimatedPositioned(
+            duration: 3000.milliseconds,
+            curve: Curves.linearToEaseOut,
+            top: mouseY - 100,
+            left: mouseX - 100,
+            child: Container(
+              height: 200,
+              width: 200,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary.withOpacity(.4),
+                shape: BoxShape.circle,
+              ),
+            ),
+          ),
+
+        // ? Blur
+        Positioned.fill(
+          child: ClipRect(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 40, sigmaY: 40),
+              child: Container(
+                color: Colors.transparent,
+              ),
+            ),
+          ),
+        ),
+        // ? Text Background
         TextBackground(
           onTap: () async {
             if (!context.isMobile) {
@@ -133,6 +162,7 @@ class _PageContainerState extends State<PageContainer> with TickerProviderStateM
             right: context.responsiveSize(desktop: 70, tablet: 70, mobile: 40),
             child: const ClockView(),
           ),
+        // ? Mouse Follower
         if (!context.isMobile)
           AnimatedPositioned(
             duration: 800.milliseconds,
@@ -179,7 +209,7 @@ class _PageContainerState extends State<PageContainer> with TickerProviderStateM
 
         // Image.asset(
         //   Assets.image.carbonLogo.path,
-        //   color: appColors.accentColor.darken(30),
+        //   color: Theme.of(context).colorScheme.primary.darken(30),
         //   width: context.responsiveSize(desktop: 120, tablet: 100, mobile: 80),
         //   cacheWidth: 120,
         //   cacheHeight: 98,
@@ -196,7 +226,7 @@ class _PageContainerState extends State<PageContainer> with TickerProviderStateM
       return MouseRegion(
         onEnter: (event) {
           ref.read(blobDataProvider.notifier).update(
-                color: appColors.foregroundColor,
+                color: Theme.of(context).colorScheme.tertiary,
                 size: context.responsiveSize(desktop: 200),
                 child: Stack(
                   alignment: Alignment.center,
@@ -204,12 +234,12 @@ class _PageContainerState extends State<PageContainer> with TickerProviderStateM
                     ArcText(
                       radius: context.responsiveSize(desktop: 60),
                       text: "Made with Flutter.   Made with flutter.",
-                      textStyle: titleOneTextStyle.copyWith(
-                        color: appColors.accentColor.darken(30),
+                      textStyle: titleOneTextStyle(context) .copyWith(
+                        color: Theme.of(context).colorScheme.primary.darken(30),
                         fontSize: context.responsiveSize(desktop: 22),
                       ),
                     ),
-                    Icon(Icons.favorite, size: 100, color: appColors.accentColor),
+                    Icon(Icons.favorite, size: 100, color: Theme.of(context).colorScheme.primary),
                   ],
                 ),
               );
@@ -224,23 +254,23 @@ class _PageContainerState extends State<PageContainer> with TickerProviderStateM
           children: [
             Text(
               "Made with",
-              style: subtitleTextStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 16),
+              style: subtitleTextStyle(context) .copyWith(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             const Gap(10),
             Icon(
               Icons.favorite,
-              color: appColors.accentColor,
+              color: Theme.of(context).colorScheme.primary,
               size: 16,
             ),
             const Gap(10),
             Text(
               "Flutter",
-              style: subtitleTextStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 16),
+              style: subtitleTextStyle(context) .copyWith(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             const Gap(10),
             SvgPicture.asset(
               Assets.image.flutter,
-              colorFilter: ColorFilter.mode(appColors.accentColor, BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.primary, BlendMode.srcIn),
               width: 14,
               height: 14,
               semanticsLabel: 'logo',

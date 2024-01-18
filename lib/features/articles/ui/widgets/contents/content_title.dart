@@ -28,6 +28,7 @@ class ContentTitle extends ContentBase {
     final void Function(ContentBase content)? goUp,
     final void Function(ContentBase content)? goDown,
     final void Function(ContentBase content, ContentType type)? contentItemClick,
+    required BuildContext context,
   }) {
     if (readOnly) {
       return Text(text, style: bigTitleTwo);
@@ -53,7 +54,7 @@ class ContentTitle extends ContentBase {
             minLines: 1,
             style: bigTitleTwo,
             controller: controller,
-            decoration: inputUnderlineStyle,
+            decoration: inputUnderlineStyle(context) ,
           )
         : EditableContentContainer(
             content: TextField(
@@ -70,7 +71,7 @@ class ContentTitle extends ContentBase {
               minLines: 1,
               style: bigTitleTwo,
               controller: controller,
-              decoration: inputUnderlineStyle,
+              decoration: inputUnderlineStyle(context) ,
             ),
             title: "Title",
             close: () => close?.call(this),

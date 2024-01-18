@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:portfolio/core/theme/selected_theme_provider.dart';
 import 'package:portfolio/features/common/paths/step_clipper.dart';
 import 'package:portfolio/core/theme/colors.dart';
 
@@ -10,6 +8,7 @@ class StepText extends StatelessWidget {
     required this.style,
     super.key,
   });
+
   final String text;
   final TextStyle style;
 
@@ -19,8 +18,8 @@ class StepText extends StatelessWidget {
       shaderCallback: (Rect bounds) {
         return LinearGradient(
           colors: <Color>[
-            appColors.foregroundColor.withOpacity(.5),
-            appColors.colorBurst ?? appColors.accentColor.withOpacity(.5),
+            Theme.of(context).colorScheme.tertiary.withOpacity(.5),
+            Theme.of(context).colorScheme.primary,
           ],
         ).createShader(bounds);
       },

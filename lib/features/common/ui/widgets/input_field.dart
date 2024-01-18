@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
-import 'package:portfolio/core/theme/colors.dart';
 
 class InputField extends StatelessWidget {
   const InputField({
@@ -38,7 +37,7 @@ class InputField extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
-                    color: appColors.accentColor,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 )
               : const SizedBox(),
@@ -49,11 +48,11 @@ class InputField extends StatelessWidget {
             obscureText: obscureText,
             validator: validator,
             onChanged: onChanged,
-            style: TextStyle(color: appColors.foregroundColor, fontWeight: FontWeight.bold, fontSize: 32, height: .0),
+            style: TextStyle(color: Theme.of(context).colorScheme.tertiary, fontWeight: FontWeight.bold, fontSize: 32, height: .0),
             decoration: InputDecoration(
               prefixIcon:  Icon(
                 Icons.arrow_forward_ios,
-                color: appColors.accentColor,
+                color: Theme.of(context).colorScheme.primary,
               ),
               contentPadding: EdgeInsets.only(
                 top: context.adaptiveResponsiveWidth(desktop: 20, tablet: 20, mobile: 10),
@@ -63,27 +62,27 @@ class InputField extends StatelessWidget {
               ),
               hintText: hint,
               hintStyle: TextStyle(
-                color: appColors.accentColor.darken(70),
+                color: Theme.of(context).colorScheme.primary.darken(70),
                 fontWeight: FontWeight.normal,
                 fontSize: context.adaptiveResponsiveWidth(desktop: 32, tablet: 32, mobile: 24),
               ),
               enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(0),
                   borderSide: BorderSide(
-                    color: appColors.accentColor.darken(70),
+                    color: Theme.of(context).colorScheme.primary.darken(70),
                     width: 3,
                   )),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(0),
                 borderSide: BorderSide(
-                  color: appColors.accentColor.darken(30),
+                  color: Theme.of(context).colorScheme.primary.darken(30),
                   width: 3,
                 ),
               ),
             ),
             cursorWidth: 20,
             cursorHeight: 3,
-            cursorColor: appColors.colorBurst,
+            cursorColor: Theme.of(context).colorScheme.primary,
           ),
         ],
       ),
@@ -114,7 +113,7 @@ class InputField extends StatelessWidget {
 //     TextDirection? textDirection,
 //   }) {
 //     var paint = Paint();
-//     paint.color = borderColor ?? appColors.accentColor;
+//     paint.color = borderColor ?? Theme.of(context).colorScheme.primary;
 //     paint.strokeWidth = 1.0;
 //
 //     double h = rect.height;

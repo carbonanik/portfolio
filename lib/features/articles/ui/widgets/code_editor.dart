@@ -50,7 +50,7 @@ class _CodeEditorState extends State<CodeEditor> {
   Widget build(BuildContext context) {
     late Color background;
     if (widget.readOnly == true) {
-      background = appColors.backgroundColor.withOpacity(0.8);
+      background = Theme.of(context).colorScheme.background.withOpacity(0.8);
     } else {
       background = Colors.transparent;
     }
@@ -67,7 +67,7 @@ class _CodeEditorState extends State<CodeEditor> {
               onChanged: widget.onChanged,
               readOnly: widget.readOnly,
               lineNumbers: false,
-              background: appColors.foregroundColorDark.withOpacity(.1),
+              background: Theme.of(context).colorScheme.inversePrimary.withOpacity(.1),
             ),
           ),
           if (widget.readOnly)
@@ -82,7 +82,7 @@ class _CodeEditorState extends State<CodeEditor> {
                   padding: const EdgeInsets.all(8),
                   child: Icon(
                     Icons.copy,
-                    color: appColors.foregroundColor.withOpacity(0.5),
+                    color: Theme.of(context).colorScheme.tertiary.withOpacity(0.5),
                   ),
                 ),
               ),

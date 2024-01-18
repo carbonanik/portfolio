@@ -114,7 +114,7 @@ class _TopMenuBarCollapsedState extends State<TopMenuBarCollapsed> with SingleTi
                                 width: context.adaptiveResponsiveHeight(desktop: 40),
                                 height: context.adaptiveResponsiveHeight(desktop: 5),
                                 child: Container(
-                                  color: appColors.foregroundColor,
+                                  color: Theme.of(context).colorScheme.tertiary,
                                 ),
                               ),
                               SizedBox(
@@ -124,7 +124,7 @@ class _TopMenuBarCollapsedState extends State<TopMenuBarCollapsed> with SingleTi
                                 width: context.adaptiveResponsiveHeight(desktop: 30),
                                 height: context.adaptiveResponsiveHeight(desktop: 5),
                                 child: Container(
-                                  color: appColors.foregroundColor,
+                                  color: Theme.of(context).colorScheme.tertiary,
                                 ),
                               ),
                             ],
@@ -155,11 +155,11 @@ class _TopMenuBarCollapsedState extends State<TopMenuBarCollapsed> with SingleTi
                     decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
-                          color: appColors.foregroundColor.darken(70),
+                          color: Theme.of(context).colorScheme.tertiary.darken(70),
                           width: 3,
                         ),
                         right: BorderSide(
-                          color: appColors.foregroundColor.darken(70),
+                          color: Theme.of(context).colorScheme.tertiary.darken(70),
                           width: 3,
                         ),
                       ),
@@ -192,7 +192,7 @@ class _TopMenuBarCollapsedState extends State<TopMenuBarCollapsed> with SingleTi
                           width: 2,
                         ),
                         child: Container(
-                          color: appColors.accentColor,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
                     ),
@@ -211,7 +211,7 @@ class _TopMenuBarCollapsedState extends State<TopMenuBarCollapsed> with SingleTi
     List<String> menuItems,
   ) {
     return Container(
-      color: appColors.accentColor.darken(90).withOpacity(.9),
+      color: Theme.of(context).colorScheme.primary.darken(90).withOpacity(.9),
       // height: 00,
       child: Stack(
         children: [
@@ -328,14 +328,14 @@ class _MenuItemCollapsedState extends State<MenuItemCollapsed> with SingleTicker
           Text(
             // "0${widget.serial}.",
             _blinkAnimation.value > 1 ? "__." : "0${widget.serial}.",
-            style: menuTextStyle.copyWith(
-              color: appColors.accentColor,
+            style: menuTextStyle(context) .copyWith(
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
           const SizedBox(width: 6),
           Text(
             widget.name, // + (_blinkAnimation.value > 1 ? "_" : ""),
-            style: menuTextStyle,
+            style: menuTextStyle(context) ,
           ),
           const SizedBox(width: 16),
         ],

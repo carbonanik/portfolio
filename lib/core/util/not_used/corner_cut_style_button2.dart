@@ -47,14 +47,14 @@
 //             Positioned.fill(
 //               child: Container(
 //                 decoration: BoxDecoration(
-//                   color: widget.transparent ? null : appColors.backgroundColor,
+//                   color: widget.transparent ? null : Theme.of(context).colorScheme.background,
 //                   border: Border(
 //                     bottom: BorderSide(
-//                       color: appColors.foregroundColor.withOpacity(.5),
+//                       color: Theme.of(context).colorScheme.tertiary.withOpacity(.5),
 //                       width: pointerDown ? 1 : 3,
 //                     ),
 //                     right: BorderSide(
-//                       color: appColors.foregroundColor.withOpacity(.5),
+//                       color: Theme.of(context).colorScheme.tertiary.withOpacity(.5),
 //                       width: pointerDown ? 1 : 3,
 //                     ),
 //                   ),
@@ -84,11 +84,11 @@
 //                   style: ButtonStyle(
 //                     shadowColor: MaterialStateProperty.all(Colors.white),
 //                     backgroundColor: MaterialStateProperty.all(
-//                       widget.transparent ? appColors.accentColor.withOpacity(.05) : appColors.backgroundColorLite,
+//                       widget.transparent ? Theme.of(context).colorScheme.primary.withOpacity(.05) : Theme.of(context).colorScheme.secondary,
 //                     ),
 //                     shape: MaterialStateProperty.all(
 //                       BeveledRectangleBorder(
-//                         side: BorderSide(color: appColors.accentColor),
+//                         side: BorderSide(color: Theme.of(context).colorScheme.primary),
 //                         borderRadius: BorderRadius.only(
 //                           topLeft: Radius.circular(widget.cornerCutRadius ?? corner),
 //                         ),
@@ -107,7 +107,7 @@
 //                       widget.text!,
 //                       style: TextStyle(
 //                         fontSize: widget.fontSize ?? context.adaptiveResponsiveWidth(desktop: fontSize_22),
-//                         color: appColors.foregroundColor,
+//                         color: Theme.of(context).colorScheme.tertiary,
 //                         fontFamily: "IBMPlexMono",
 //                       ),
 //                     ),
