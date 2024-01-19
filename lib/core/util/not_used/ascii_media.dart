@@ -8,8 +8,6 @@ import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/gen/assets.gen.dart';
 import 'package:image/image.dart' as img;
 import 'package:portfolio/gen/fonts.gen.dart';
-import 'package:portfolio/core/theme/colors.dart';
-import 'package:supercharged/supercharged.dart';
 
 class AsciiMedia extends StatefulWidget {
   const AsciiMedia({super.key});

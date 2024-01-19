@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/core/theme/colors.dart';
 
 class EditableContentTitle extends StatelessWidget {
   final String text;

@@ -17,7 +17,6 @@ import 'package:portfolio/features/common/ui/widgets/menu/top_menu_bar.dart';
 import 'package:portfolio/features/common/ui/widgets/menu/top_menu_bar_collapsed.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/random_appear_animation_text.dart';
-import 'package:portfolio/core/theme/colors.dart';
 import 'package:portfolio/gen/assets.gen.dart';
 import 'package:supercharged/supercharged.dart';
 

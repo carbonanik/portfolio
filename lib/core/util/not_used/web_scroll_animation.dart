@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:portfolio/core/theme/colors.dart';
 import 'package:portfolio/core/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
 
@@ -26,7 +25,6 @@ class _WebScrollAnimationState extends State<WebScrollAnimation> {
         onPointerSignal: (pointerSignal) {
           if (pointerSignal is PointerScrollEvent) {
             // do something when scrolled
-            print(pointerSignal.scrollDelta.dy);
 
             desiredOffset += pointerSignal.scrollDelta.dy;
             desiredOffset = desiredOffset.clamp(0, screenSize.height * 3);

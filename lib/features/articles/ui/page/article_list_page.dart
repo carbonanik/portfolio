@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:portfolio/core/theme/selected_theme_provider.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/text_background.dart';
-import 'package:portfolio/core/theme/colors.dart';
 
 class ArticleListPage extends StatelessWidget {
   const ArticleListPage({super.key});

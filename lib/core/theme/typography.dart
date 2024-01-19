@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/core/theme/colors.dart';
 import 'package:portfolio/gen/fonts.gen.dart';
 
 // ? Fonts

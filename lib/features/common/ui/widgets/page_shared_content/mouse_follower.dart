@@ -1,8 +1,6 @@
-import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:portfolio/core/theme/colors.dart';
 import 'package:portfolio/features/common/provider/blob_data_provider.dart';
 import 'package:supercharged/supercharged.dart';
 

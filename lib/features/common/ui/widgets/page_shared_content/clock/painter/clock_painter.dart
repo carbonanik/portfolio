@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:portfolio/core/theme/colors.dart';
 
 class ClockPainter extends CustomPainter {
   ClockPainter({

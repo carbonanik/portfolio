@@ -67,7 +67,6 @@ class _PagerState extends State<Pager> {
         if (_pageController.position.haveDimensions) {
           value = index.toDouble() - (_pageController.page ?? 0);
           value = (value * 0.038).clamp(-1, 1);
-          print("value $value index $index");
         }
         return Transform.rotate(
           angle: pi * value,

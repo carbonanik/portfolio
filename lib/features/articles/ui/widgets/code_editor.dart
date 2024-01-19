@@ -1,11 +1,8 @@
 import 'package:code_text_field/code_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:highlight/highlight.dart';
-import 'package:portfolio/core/theme/selected_theme_provider.dart';
 import 'package:portfolio/gen/fonts.gen.dart';
-import 'package:portfolio/core/theme/colors.dart';
 
 class CodeEditor extends StatefulWidget {
   final String source;

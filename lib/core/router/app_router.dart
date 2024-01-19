@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:portfolio/features/articles/models/article.dart';
 import 'package:portfolio/features/articles/ui/page/article_open_page.dart';
 import 'package:portfolio/features/articles/ui/page/blog_page.dart';
 import 'package:portfolio/features/basics/about/about_page.dart';

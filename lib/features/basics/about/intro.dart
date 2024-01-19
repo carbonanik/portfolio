@@ -10,7 +10,6 @@ import 'package:portfolio/features/common/ui/widgets/step_text.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/gen/assets.gen.dart';
 import 'package:portfolio/gen/fonts.gen.dart';
-import 'package:portfolio/core/theme/colors.dart';
 import 'package:portfolio/core/theme/typography.dart';
 import 'package:sa4_migration_kit/sa4_migration_kit.dart';
 import 'package:supercharged/supercharged.dart';

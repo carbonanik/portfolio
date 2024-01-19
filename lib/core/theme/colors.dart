@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/core/theme/selected_theme_provider.dart';
 
 /// random color
 // const randomColor1 = Color(0xffFF934F);

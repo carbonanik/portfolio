@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/features/common/paths/step_clipper.dart';
-import 'package:portfolio/core/theme/colors.dart';
 
 class StepText extends StatelessWidget {
   const StepText({

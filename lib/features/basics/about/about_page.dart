@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/page_container.dart';
 import 'package:portfolio/features/basics/about/intro.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
-import 'package:portfolio/core/util/experiment_widget.dart';
 
 @RoutePage()
 class AboutPage extends StatefulWidget {

@@ -1,8 +1,4 @@
-import 'dart:math';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:portfolio/core/theme/colors.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 // String getInitialRandomThemeKey() {
 //   final keys = appColorsThemes.keys.toList();
