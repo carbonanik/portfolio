@@ -74,8 +74,6 @@ class _PageContainerState extends State<PageContainer> with TickerProviderStateM
   double mouseY = 0;
   bool reGurGur = true;
 
-  // late BlobHoverData blobHoverData;
-
   void _updateLocation(PointerHoverEvent event) {
     setState(() {
       mouseX = event.localPosition.dx;
@@ -86,7 +84,6 @@ class _PageContainerState extends State<PageContainer> with TickerProviderStateM
   @override
   void initState() {
     super.initState();
-    // blobHoverData = widget.blobHoverData;
   }
 
   @override
