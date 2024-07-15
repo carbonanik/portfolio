@@ -1,6 +1,7 @@
 class Article {
   final String id;
   final TitleContent title;
+  final String featuredImage;
   final String author;
   final List<String> tags;
   final List<Content> contents;
@@ -9,6 +10,7 @@ class Article {
   const Article({
     required this.id,
     required this.title,
+    required this.featuredImage,
     required this.author,
     required this.tags,
     required this.contents,

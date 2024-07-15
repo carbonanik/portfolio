@@ -22,6 +22,12 @@ class MyApp extends StatelessWidget {
         theme: themeData,
         routerConfig: _router.config(),
       );
+      // return MaterialApp(
+      //   title: 'Portfolio',
+      //   debugShowCheckedModeBanner: false,
+      //   theme: themeData,
+      //   home: const ArticleListPage(),
+      // );
     });
   }
 }

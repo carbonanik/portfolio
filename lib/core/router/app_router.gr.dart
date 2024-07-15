@@ -21,6 +21,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const AboutPage(),
       );
     },
+    ArticleListPageRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const ArticleListPage(),
+      );
+    },
     ArticleOpenPageRoute.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<ArticleOpenPageRouteArgs>(
@@ -44,6 +50,14 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const ContactPage(),
+      );
+    },
+    CreateArticlePageRoute.name: (routeData) {
+      final args = routeData.argsAs<CreateArticlePageRouteArgs>(
+          orElse: () => const CreateArticlePageRouteArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: CreateArticlePage(key: args.key),
       );
     },
     OnBoardPageRoute.name: (routeData) {
@@ -71,6 +85,20 @@ class AboutPageRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'AboutPageRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [ArticleListPage]
+class ArticleListPageRoute extends PageRouteInfo<void> {
+  const ArticleListPageRoute({List<PageRouteInfo>? children})
+      : super(
+          ArticleListPageRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ArticleListPageRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -140,6 +168,35 @@ class ContactPageRoute extends PageRouteInfo<void> {
   static const String name = 'ContactPageRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [CreateArticlePage]
+class CreateArticlePageRoute extends PageRouteInfo<CreateArticlePageRouteArgs> {
+  CreateArticlePageRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CreateArticlePageRoute.name,
+          args: CreateArticlePageRouteArgs(key: key),
+          initialChildren: children,
+        );
+
+  static const String name = 'CreateArticlePageRoute';
+
+  static const PageInfo<CreateArticlePageRouteArgs> page =
+      PageInfo<CreateArticlePageRouteArgs>(name);
+}
+
+class CreateArticlePageRouteArgs {
+  const CreateArticlePageRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'CreateArticlePageRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for

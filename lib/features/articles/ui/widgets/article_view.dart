@@ -5,7 +5,6 @@ import 'package:portfolio/features/articles/ui/widgets/contents/code_content_vie
 import 'package:portfolio/features/articles/ui/widgets/contents/image_content_view.dart';
 import 'package:portfolio/features/articles/ui/widgets/contents/text_content_view.dart';
 import 'package:portfolio/features/articles/ui/widgets/contents/title_content_view.dart';
-import 'package:smooth_scroll_multiplatform/smooth_scroll_multiplatform.dart';
 
 class ArticleView extends StatefulWidget {
   final Article article;
@@ -20,20 +19,6 @@ class ArticleView extends StatefulWidget {
 }
 
 class _ArticleViewState extends State<ArticleView> {
-  late ScrollController _scrollController;
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController = ScrollController();
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -44,50 +29,26 @@ class _ArticleViewState extends State<ArticleView> {
         left: needExtraPadding ? (width - 1000) / 2 : 30,
         right: needExtraPadding ? (width - 1000) / 2 : 30,
       ),
-      child: DynMouseScroll(
-        // durationMS: 500,
-        // scrollSpeed: 4.4,
-        // animationCurve: Curves.easeOutQuart,
-        builder: (context, controller, physics) => ListView(
-          controller: controller,
-          physics: physics,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 30),
-              child: TitleContentView(title: widget.article.title),
-            ),
-            Padding(
+      child: ListView(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 30),
+            child: TitleContentView(title: widget.article.title),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 20),
+            child: Text("#${widget.article.tags.join(", #")}",
+                style: subtitleStyle(context)),
+          ),
+          ...List.generate(
+            widget.article.contents.length,
+            (index) => Padding(
               padding: const EdgeInsets.only(bottom: 20),
-              child: Text("#${widget.article.tags.join(", #")}", style: subtitleStyle(context) ),
+              child: contentToView(widget.article.contents[index]),
             ),
-            ...List.generate(
-              widget.article.contents.length,
-              (index) => Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: contentToView(widget.article.contents[index]),
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
-
-      // ListView.builder(
-      //   controller: _scrollController,
-      //   physics: const NeverScrollableScrollPhysics(),
-      //   itemCount: widget.article.contents.length + 1,
-      //   itemBuilder: (context, index) {
-      //     if (index == 0) {
-      //       return Padding(
-      //         padding: const EdgeInsets.only(bottom: 30),
-      //         child: TitleContentView(title: widget.article.title),
-      //       );
-      //     }
-      //     return Padding(
-      //       padding: const EdgeInsets.only(bottom: 20),
-      //       child: contentToView(widget.article.contents[index - 1]),
-      //     );
-      //   },
-      // ),
     );
   }
 

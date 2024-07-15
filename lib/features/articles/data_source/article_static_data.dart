@@ -13,6 +13,7 @@ final staticArticles = [
   Article(
     id: "bb176939-c2d5-4584-a9f2-66595632379a",
     title: const TitleContent(text: "Function Decorator Python"),
+    featuredImage: "image/banner.png",
     tags: ["Python"],
     author: "✏️ the coder",
     publishedAt: DateTime.now(),
@@ -26,6 +27,7 @@ final staticArticles = [
   Article(
     id: "6fe51f87-0376-44ee-944d-3770bd18e690",
     title: const TitleContent(text: "Learn javascript in 10 minutes"),
+    featuredImage: "image/banner.png",
     tags: ["Javascript"],
     author: "✏️ the coder",
     publishedAt: DateTime.now(),
@@ -39,6 +41,7 @@ final staticArticles = [
   Article(
     id: "11817e01-20ec-441a-8064-853ae2d934b7",
     title: const TitleContent(text: "Build your first Flutter App"),
+    featuredImage: "image/banner.png",
     tags: ["Flutter"],
     author: "✏️ the coder",
     publishedAt: DateTime.now(),
@@ -51,6 +54,7 @@ final staticArticles = [
   Article(
     id: "4acdecc5-4044-4c57-8c04-f6dd886fd77d",
     title: const TitleContent(text: "Build a nginx server"),
+    featuredImage: "image/banner.png",
     tags: ["Linux", "Docker"],
     author: "✏️ the coder",
     publishedAt: DateTime.now(),
@@ -64,6 +68,7 @@ final staticArticles = [
   Article(
     id: "bdd5f35c-9095-4165-b8fd-2f04e427a54c",
     title: const TitleContent(text: "Basic SQLite Database"),
+    featuredImage: "image/banner.png",
     tags: ["Database"],
     author: "✏️ the coder",
     publishedAt: DateTime.now(),
@@ -77,6 +82,7 @@ final staticArticles = [
   Article(
     id: "bdd5f35c-9095-4165-b8fd-2f04e427a54c",
     title: const TitleContent(text: "25 Basic Linux Commands For Beginners"),
+    featuredImage: "image/banner.png",
     tags: ["Linux"],
     author: "✏️ the coder",
     publishedAt: DateTime.now(),
@@ -90,6 +96,7 @@ final staticArticles = [
   Article(
     id: "39e309d4-9dcc-469d-be0f-f1ba487efb2a",
     title: const TitleContent(text: "Machine Learning Tutorial in Python"),
+    featuredImage: "image/banner.png",
     tags: ["Python"],
     author: "✏️ the coder",
     publishedAt: DateTime.now(),
@@ -103,6 +110,7 @@ final staticArticles = [
   Article(
     id: "c8d13c34-2106-49f1-91e2-892a107a40cf",
     title: const TitleContent(text: "Function Decorator Python"),
+    featuredImage: "image/banner.png",
     tags: ["Python"],
     author: "✏️ the coder",
     publishedAt: DateTime.now(),
@@ -116,6 +124,7 @@ final staticArticles = [
   Article(
     id: "0bc571ab-4fbf-4ff2-8749-8836e948c03f",
     title: const TitleContent(text: "Function Decorator Python"),
+    featuredImage: "image/banner.png",
     tags: ["Python"],
     author: "✏️ the coder",
     publishedAt: DateTime.now(),
@@ -129,6 +138,7 @@ final staticArticles = [
   Article(
     id: "0cc7afd7-d1b0-4daa-bc8b-70524b020ae5",
     title: const TitleContent(text: "Function Decorator Python"),
+    featuredImage: "image/banner.png",
     tags: ["python"],
     author: "✏️ the coder",
     publishedAt: DateTime.now(),
