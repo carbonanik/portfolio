@@ -69,7 +69,8 @@ class PageContainer extends StatefulWidget {
   State<PageContainer> createState() => _PageContainerState();
 }
 
-class _PageContainerState extends State<PageContainer> with TickerProviderStateMixin {
+class _PageContainerState extends State<PageContainer>
+    with TickerProviderStateMixin {
   double mouseX = 0;
   double mouseY = 0;
   bool reGurGur = true;
@@ -152,21 +153,13 @@ class _PageContainerState extends State<PageContainer> with TickerProviderStateM
             child: RandomAppearAnimationText(text: widget.menuItem!),
           ),
         // ? Clock
-        if (widget.showClock)
+        if (false && widget.showClock)
           Positioned(
             bottom: 30,
             right: context.responsiveSize(desktop: 70, tablet: 70, mobile: 40),
             child: const ClockView(),
           ),
-        // ? Mouse Follower
-        if (!context.isMobile)
-          AnimatedPositioned(
-            duration: 800.milliseconds,
-            curve: Curves.elasticOut,
-            top: mouseY - 200,
-            left: mouseX - 200,
-            child: const MouseFollower(),
-          ),
+
         // ? Made with Flutter
         if (widget.showMadeWithText)
           Positioned(
@@ -176,6 +169,15 @@ class _PageContainerState extends State<PageContainer> with TickerProviderStateM
           ),
         // ? content goes here
         ...widget.children,
+        // ? Mouse Follower
+        if (!context.isMobile)
+          AnimatedPositioned(
+            duration: 800.milliseconds,
+            curve: Curves.elasticOut,
+            top: mouseY - 200,
+            left: mouseX - 200,
+            child: const MouseFollower(showMagnifier: true,),
+          ),
         // ? Social Column
         if (widget.showSocial)
           const Positioned(
@@ -197,20 +199,6 @@ class _PageContainerState extends State<PageContainer> with TickerProviderStateM
                     selectedItem: widget.menuItem,
                   ),
           ),
-        // ? Logo
-        // Positioned(
-        //   top: 10,
-        //   left: 20,
-        //   child:
-
-        // Image.asset(
-        //   Assets.image.carbonLogo.path,
-        //   color: Theme.of(context).colorScheme.primary.darken(30),
-        //   width: context.responsiveSize(desktop: 120, tablet: 100, mobile: 80),
-        //   cacheWidth: 120,
-        //   cacheHeight: 98,
-        // ),
-        // ),
         // ? Loading
         if (widget.isLoading) const CustomLoadingAnimation(),
       ],
@@ -230,12 +218,14 @@ class _PageContainerState extends State<PageContainer> with TickerProviderStateM
                     ArcText(
                       radius: context.responsiveSize(desktop: 60),
                       text: "Made with Flutter.   Made with flutter.",
-                      textStyle: titleOneTextStyle(context) .copyWith(
+                      textStyle: titleOneTextStyle(context).copyWith(
                         color: Theme.of(context).colorScheme.primary.darken(30),
                         fontSize: context.responsiveSize(desktop: 22),
                       ),
                     ),
-                    Icon(Icons.favorite, size: 100, color: Theme.of(context).colorScheme.primary),
+                    Icon(Icons.favorite,
+                        size: 100,
+                        color: Theme.of(context).colorScheme.primary),
                   ],
                 ),
               );
@@ -250,7 +240,8 @@ class _PageContainerState extends State<PageContainer> with TickerProviderStateM
           children: [
             Text(
               "Made with",
-              style: subtitleTextStyle(context) .copyWith(fontWeight: FontWeight.bold, fontSize: 16),
+              style: subtitleTextStyle(context)
+                  .copyWith(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             const Gap(10),
             Icon(
@@ -261,12 +252,14 @@ class _PageContainerState extends State<PageContainer> with TickerProviderStateM
             const Gap(10),
             Text(
               "Flutter",
-              style: subtitleTextStyle(context) .copyWith(fontWeight: FontWeight.bold, fontSize: 16),
+              style: subtitleTextStyle(context)
+                  .copyWith(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             const Gap(10),
             SvgPicture.asset(
               Assets.image.flutter,
-              colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.primary, BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(
+                  Theme.of(context).colorScheme.primary, BlendMode.srcIn),
               width: 14,
               height: 14,
               semanticsLabel: 'logo',

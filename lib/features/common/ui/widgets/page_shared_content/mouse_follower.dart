@@ -1,11 +1,15 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:portfolio/features/common/provider/blob_data_provider.dart';
 import 'package:supercharged/supercharged.dart';
 
 class MouseFollower extends StatelessWidget {
-  const MouseFollower({super.key});
+  final bool showMagnifier;
+
+  const MouseFollower({
+    this.showMagnifier = false,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +20,9 @@ class MouseFollower extends StatelessWidget {
         child: Center(
           child: Consumer(builder: (context, ref, child) {
             final blobHoverData = ref.watch(blobDataProvider);
+            final border = Border.all(
+                color: Theme.of(context).colorScheme.primary.withOpacity(.2));
+
             return Stack(
               alignment: Alignment.center,
               children: [
@@ -26,17 +33,30 @@ class MouseFollower extends StatelessWidget {
                   width: blobHoverData.size.toDouble(),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(blobHoverData.size / 2),
-                    border:
-                        blobHoverData.color == null ? Border.all(color: Theme.of(context).colorScheme.primary.withOpacity(.2)) : null,
-                    color: blobHoverData.color,
+                    border: (blobHoverData.color == null || showMagnifier)
+                        ? border
+                        : null,
+                    color: showMagnifier ? null : blobHoverData.color,
                   ),
+                  child: showMagnifier
+                      ? const RawMagnifier(
+                          decoration: MagnifierDecoration(
+                            shape: CircleBorder(),
+                          ),
+                          size: Size(double.infinity, double.infinity),
+                          magnificationScale: 2,
+                        )
+                      : null,
                 ),
-                AnimatedSwitcher(
-                  duration: 600.milliseconds,
-                  switchInCurve: const HalfCurve(),
-                  switchOutCurve: Curves.linear,
-                  child: blobHoverData.child == null ? const SizedBox() : Center(child: blobHoverData.child!),
-                ),
+                if (!showMagnifier)
+                  AnimatedSwitcher(
+                    duration: 600.milliseconds,
+                    switchInCurve: const HalfCurve(),
+                    switchOutCurve: Curves.linear,
+                    child: blobHoverData.child == null
+                        ? const SizedBox()
+                        : Center(child: blobHoverData.child!),
+                  ),
               ],
             );
           }),

@@ -14,11 +14,11 @@ class CustomLoadingAnimation extends ConsumerStatefulWidget {
 
 class _CustomLoadingAnimationState extends ConsumerState<CustomLoadingAnimation> with TickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
-    duration: 200.milliseconds,
+    duration: 300.milliseconds,
     vsync: this,
   )..repeat(reverse: false);
   late final AnimationController _loadingPercentageController = AnimationController(
-    duration: 1000.milliseconds,
+    duration: 5000.milliseconds,
     vsync: this,
   );
 

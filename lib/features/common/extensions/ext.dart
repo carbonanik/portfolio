@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 extension ColorExtension on Color {
   /// Darken the color by a specified [percent].
   Color darken(double percent) {
-    assert(percent >= 0 && percent <= 100, 'Percent should be between 0 and 100');
+    assert(
+        percent >= 0 && percent <= 100, 'Percent should be between 0 and 100');
 
     // Calculate the darken factor
     double factor = 1.0 - percent / 100.0;
 
     // Calculate the new color components
-    int red = (this.red * factor).round();
-    int green = (this.green * factor).round();
-    int blue = (this.blue * factor).round();
+    int red = (r * factor).round();
+    int green = (g * factor).round();
+    int blue = (b * factor).round();
 
     // Ensure the color components are in the valid range (0-255)
     red = red.clamp(0, 255);
@@ -23,15 +24,16 @@ extension ColorExtension on Color {
   }
 
   Color lighten(double percent) {
-    assert(percent >= 0 && percent <= 100, 'Percent should be between 0 and 100');
+    assert(
+        percent >= 0 && percent <= 100, 'Percent should be between 0 and 100');
 
     // Calculate the lighten factor
     double factor = percent / 100.0;
 
     // Calculate the new color components
-    int red = (this.red + (255 - this.red) * factor).round();
-    int green = (this.green + (255 - this.green) * factor).round();
-    int blue = (this.blue + (255 - this.blue) * factor).round();
+    int red = (r + (255 - r) * factor).round();
+    int green = (g + (255 - g) * factor).round();
+    int blue = (b + (255 - b) * factor).round();
 
     // Ensure the color components are in the valid range (0-255)
     red = red.clamp(0, 255);
@@ -85,8 +87,10 @@ extension ContextExtension on BuildContext {
     double? mobile,
   }) {
     final adaptiveDesktop = adaptiveHeight(desktop, idealDesktopHeight);
-    final adaptiveTablet = adaptiveHeight(tablet ?? desktop / 1.6, idealTabletHeight);
-    final adaptiveMobile = adaptiveHeight(mobile ?? desktop / 2, idealMobileHeight);
+    final adaptiveTablet =
+        adaptiveHeight(tablet ?? desktop / 1.6, idealTabletHeight);
+    final adaptiveMobile =
+        adaptiveHeight(mobile ?? desktop / 2, idealMobileHeight);
     if (isMobile) return adaptiveMobile;
     if (isTablet) return adaptiveTablet;
     return adaptiveDesktop;
@@ -98,8 +102,10 @@ extension ContextExtension on BuildContext {
     double? mobile,
   }) {
     final adaptiveDesktop = adaptiveWidth(desktop, idealDesktopWidth);
-    final adaptiveTablet = adaptiveWidth(tablet ?? desktop / 1.6, idealTabletWidth);
-    final adaptiveMobile = adaptiveWidth(mobile ?? desktop / 2, idealMobileWidth);
+    final adaptiveTablet =
+        adaptiveWidth(tablet ?? desktop / 1.6, idealTabletWidth);
+    final adaptiveMobile =
+        adaptiveWidth(mobile ?? desktop / 2, idealMobileWidth);
     if (isMobile) return adaptiveMobile;
     if (isTablet) return adaptiveTablet;
     return adaptiveDesktop;

@@ -4,6 +4,8 @@ import 'package:portfolio/features/common/ui/widgets/page_shared_content/page_co
 import 'package:portfolio/features/basics/about/intro.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
 
+import '../../../core/util/not_used/custom_gallery.dart';
+
 @RoutePage()
 class AboutPage extends StatefulWidget {
   const AboutPage({super.key});
@@ -18,6 +20,7 @@ class _AboutPageState extends State<AboutPage> {
     return PageContainer(
       menuItem: "About",
       showMadeWithText: true,
+      isLoading: false,
       children: [
         Positioned(
           top: 200,

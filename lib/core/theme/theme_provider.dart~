@@ -24,7 +24,7 @@ class ThemeProvider extends ChangeNotifier {
 
   /// get random theme key
   static String getInitialRandomThemeKey(List<String> removeKeys) {
-    // return 'sky_light';
+    return 'sky_light';
     final keys = appColorsThemes.keys.toList();
     if (removeKeys.isNotEmpty) {
       for (var removeKey in removeKeys) {
