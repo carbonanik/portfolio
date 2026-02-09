@@ -24,28 +24,34 @@ class BlogPage extends ConsumerStatefulWidget {
   ConsumerState<BlogPage> createState() => _BlogPageState();
 }
 
-class _BlogPageState extends ConsumerState<BlogPage> with TickerProviderStateMixin {
+class _BlogPageState extends ConsumerState<BlogPage>
+    with TickerProviderStateMixin {
   late AnimationController _titleAnimationController;
   late AnimationController _blinkAnimationController;
   late Animation<double> _titleAnimation;
 
-  final subtitle = "Python tutorial for everyone. if your are a noob this is for you. \nif you are a pro go home.";
+  final subtitle =
+      "Flutter tutorial for everyone. if your are starting this is for you. \nif you are a pro maybe not.";
 
   @override
   void initState() {
     super.initState();
-    _titleAnimationController = AnimationController(duration: 1000.milliseconds, vsync: this);
-    _blinkAnimationController = AnimationController(duration: 1000.milliseconds, vsync: this);
+    _titleAnimationController =
+        AnimationController(duration: 1000.milliseconds, vsync: this);
+    _blinkAnimationController =
+        AnimationController(duration: 1000.milliseconds, vsync: this);
 
     _titleAnimation = Tween<double>(
       begin: 0,
       end: subtitle.length.toDouble(),
     ).animate(_titleAnimationController)
       ..addListener(() {
-        if (_titleAnimation.value.toInt() == 0 && ref.read(titleAnimationState.notifier).state.toInt() != 0) {
+        if (_titleAnimation.value.toInt() == 0 &&
+            ref.read(titleAnimationState.notifier).state.toInt() != 0) {
           ref.read(titleAnimationState.notifier).state = _titleAnimation.value;
         }
-        if (_titleAnimation.value.toInt() > ref.read(titleAnimationState.notifier).state.toInt()) {
+        if (_titleAnimation.value.toInt() >
+            ref.read(titleAnimationState.notifier).state.toInt()) {
           ref.read(titleAnimationState.notifier).state = _titleAnimation.value;
         }
       });
@@ -90,8 +96,10 @@ class _BlogPageState extends ConsumerState<BlogPage> with TickerProviderStateMix
                 // ? Title & Subtitle
                 Padding(
                   padding: EdgeInsets.only(
-                    left: context.adaptiveResponsiveWidth(desktop: 100, tablet: 100, mobile: 40),
-                    right: context.adaptiveResponsiveWidth(desktop: 100, tablet: 100, mobile: 40),
+                    left: context.adaptiveResponsiveWidth(
+                        desktop: 100, tablet: 100, mobile: 40),
+                    right: context.adaptiveResponsiveWidth(
+                        desktop: 100, tablet: 100, mobile: 40),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,8 +114,9 @@ class _BlogPageState extends ConsumerState<BlogPage> with TickerProviderStateMix
                         },
                         child: Text(
                           "Read Articles",
-                          style: titleOneTextStyle(context) .copyWith(
-                            fontSize: context.adaptiveResponsiveWidth(desktop: 56),
+                          style: titleOneTextStyle(context).copyWith(
+                            fontSize:
+                                context.adaptiveResponsiveWidth(desktop: 56),
                           ),
                         ),
                       ),
@@ -115,13 +124,18 @@ class _BlogPageState extends ConsumerState<BlogPage> with TickerProviderStateMix
                       // ? Subtitle
                       Consumer(builder: (context, ref, child) {
                         final titleAnimValue = ref.watch(titleAnimationState);
-                        final blinkingAnimValue = ref.watch(blinkingAnimationState);
+                        final blinkingAnimValue =
+                            ref.watch(blinkingAnimationState);
                         return Text(
                           subtitle.substring(0, titleAnimValue.toInt()) +
-                              (_titleAnimationController.isAnimating || blinkingAnimValue ? "_" : ""),
-                          style: subtitleTextStyle(context) .copyWith(
+                              (_titleAnimationController.isAnimating ||
+                                      blinkingAnimValue
+                                  ? "_"
+                                  : ""),
+                          style: subtitleTextStyle(context).copyWith(
                             height: 1.5,
-                            fontSize: context.adaptiveResponsiveWidth(desktop: subtitleTextStyle(context) .fontSize!),
+                            fontSize: context.adaptiveResponsiveWidth(
+                                desktop: subtitleTextStyle(context).fontSize!),
                             shadows: [
                               Shadow(
                                 blurRadius: 10,
@@ -151,12 +165,17 @@ class _BlogPageState extends ConsumerState<BlogPage> with TickerProviderStateMix
                 final articles = ref.watch(searchedArticleProvider);
                 final double contentHeight = context.isMobile
                     ? context.adaptiveResponsiveWidth(desktop: 0, mobile: 240)
-                    : context.adaptiveResponsiveHeight(desktop: 400, tablet: 300);
-                final contentWidth = context.adaptiveResponsiveWidth(desktop: 340, tablet: 340, mobile: 200);
-                final horizontalSpace = context.adaptiveResponsiveHeight(desktop: 60, mobile: 20);
+                    : context.adaptiveResponsiveHeight(
+                        desktop: 400, tablet: 300);
+                final contentWidth = context.adaptiveResponsiveWidth(
+                    desktop: 340, tablet: 340, mobile: 200);
+                final horizontalSpace =
+                    context.adaptiveResponsiveHeight(desktop: 60, mobile: 20);
                 return Container(
-                  padding:
-                      EdgeInsets.only(left: 20, right: context.responsiveSize(desktop: 50, tablet: 50, mobile: 20)),
+                  padding: EdgeInsets.only(
+                      left: 20,
+                      right: context.responsiveSize(
+                          desktop: 50, tablet: 50, mobile: 20)),
                   // ? Horizontal list of article
                   child: ScrollableRow(
                     contentHeight: contentHeight,
@@ -187,7 +206,8 @@ class _BlogPageState extends ConsumerState<BlogPage> with TickerProviderStateMix
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                width: context.adaptiveResponsiveWidth(desktop: 600, tablet: 600, mobile: 300),
+                width: context.adaptiveResponsiveWidth(
+                    desktop: 600, tablet: 600, mobile: 300),
                 child: InputField(
                   hint: "Search",
                   onChanged: (value) {
@@ -215,36 +235,60 @@ class _BlogPageState extends ConsumerState<BlogPage> with TickerProviderStateMix
                                   Positioned.fill(
                                     child: Container(
                                       padding: const EdgeInsets.all(6.0),
-                                      color: Theme.of(context).colorScheme.primary.darken(30),
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary
+                                          .darken(30),
                                     ),
                                   ),
                                   Consumer(builder: (context, ref, child) {
-                                    final selectedTag = ref.watch(selectedTagProvider);
+                                    final selectedTag =
+                                        ref.watch(selectedTagProvider);
                                     return GestureDetector(
                                       onTap: () {
                                         if (selectedTag.contains(tags[index])) {
-                                          final selectedSearchTags = ref.read(selectedTagProvider)..remove(tags[index]);
-                                          ref.read(selectedTagProvider.notifier).state = [...selectedSearchTags];
+                                          final selectedSearchTags = ref
+                                              .read(selectedTagProvider)
+                                            ..remove(tags[index]);
+                                          ref
+                                              .read(
+                                                  selectedTagProvider.notifier)
+                                              .state = [...selectedSearchTags];
                                         } else {
-                                          ref.read(selectedTagProvider.notifier).state = [
+                                          ref
+                                              .read(
+                                                  selectedTagProvider.notifier)
+                                              .state = [
                                             ...ref.read(selectedTagProvider),
                                             tags[index]
                                           ];
                                         }
                                       },
                                       child: Container(
-                                        transform: selectedTag.contains(tags[index])
-                                            ? Matrix4.translationValues(-1, -1, 0)
-                                            : Matrix4.translationValues(-3, -3, 0),
+                                        transform:
+                                            selectedTag.contains(tags[index])
+                                                ? Matrix4.translationValues(
+                                                    -1, -1, 0)
+                                                : Matrix4.translationValues(
+                                                    -3, -3, 0),
                                         padding: const EdgeInsets.all(6.0),
                                         color: selectedTag.contains(tags[index])
-                                            ? Theme.of(context).colorScheme.primary.darken(80)
-                                            : Theme.of(context).colorScheme.primary.darken(60),
+                                            ? Theme.of(context)
+                                                .colorScheme
+                                                .primary
+                                                .darken(80)
+                                            : Theme.of(context)
+                                                .colorScheme
+                                                .primary
+                                                .darken(60),
                                         child: Row(
                                           children: [
                                             Icon(
                                               Icons.sell,
-                                              color: Theme.of(context).colorScheme.primary.darken(30),
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary
+                                                  .darken(30),
                                               size: 14,
                                             ),
                                             const SizedBox(width: 8.0),
