@@ -58,7 +58,10 @@ class _OnBoardPageState extends State<OnBoardPage> {
               builder: (BuildContext context, Color? color, __) {
                 return Text(
                   "welcome,",
-                  style: titleTwoTextStyle(context) .copyWith(fontSize: context.responsiveSize(desktop:  200, mobile: 70), color: color),
+                  style: titleTwoTextStyle(context).copyWith(
+                      fontSize:
+                          context.responsiveSize(desktop: 200, mobile: 70),
+                      color: color),
                 );
               },
             ),
@@ -138,9 +141,14 @@ class _RowOfBoxState extends State<RowOfBox> {
               child: Center(
                 child: AnimatedContainer(
                   duration: 400.milliseconds,
-                  color: Theme.of(context).colorScheme.secondary,
-                  height: minZero(widget.rowBoxCount - widget.boxReduce) <= index ? 0 : widget.boxHeight.toDouble(),
-                  width: minZero(widget.rowBoxCount - widget.boxReduce) <= index ? 0 : widget.boxWidth.toDouble(),
+                  color: Theme.of(context).colorScheme.primary,
+                  height:
+                      minZero(widget.rowBoxCount - widget.boxReduce) <= index
+                          ? 0
+                          : widget.boxHeight.toDouble(),
+                  width: minZero(widget.rowBoxCount - widget.boxReduce) <= index
+                      ? 0
+                      : widget.boxWidth.toDouble(),
                 ),
               ),
             ),
