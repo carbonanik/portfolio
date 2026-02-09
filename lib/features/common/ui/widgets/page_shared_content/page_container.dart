@@ -69,7 +69,8 @@ class PageContainer extends StatefulWidget {
   State<PageContainer> createState() => _PageContainerState();
 }
 
-class _PageContainerState extends State<PageContainer> with TickerProviderStateMixin {
+class _PageContainerState extends State<PageContainer>
+    with TickerProviderStateMixin {
   double mouseX = 0;
   double mouseY = 0;
   bool reGurGur = true;
@@ -104,16 +105,17 @@ class _PageContainerState extends State<PageContainer> with TickerProviderStateM
       alignment: AlignmentDirectional.center,
       children: [
         if (false)
+          // ignore: dead_code
           AnimatedPositioned(
             duration: 3000.milliseconds,
             curve: Curves.linearToEaseOut,
-            top: mouseY - 100,
-            left: mouseX - 100,
+            top: mouseY - 200,
+            left: mouseX - 200,
             child: Container(
-              height: 200,
-              width: 200,
+              height: 400,
+              width: 400,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary.withOpacity(.4),
+                color: Theme.of(context).colorScheme.primary.withOpacity(.1),
                 shape: BoxShape.circle,
               ),
             ),
@@ -230,12 +232,14 @@ class _PageContainerState extends State<PageContainer> with TickerProviderStateM
                     ArcText(
                       radius: context.responsiveSize(desktop: 60),
                       text: "Made with Flutter.   Made with flutter.",
-                      textStyle: titleOneTextStyle(context) .copyWith(
+                      textStyle: titleOneTextStyle(context).copyWith(
                         color: Theme.of(context).colorScheme.primary.darken(30),
                         fontSize: context.responsiveSize(desktop: 22),
                       ),
                     ),
-                    Icon(Icons.favorite, size: 100, color: Theme.of(context).colorScheme.primary),
+                    Icon(Icons.favorite,
+                        size: 100,
+                        color: Theme.of(context).colorScheme.primary),
                   ],
                 ),
               );
@@ -250,7 +254,8 @@ class _PageContainerState extends State<PageContainer> with TickerProviderStateM
           children: [
             Text(
               "Made with",
-              style: subtitleTextStyle(context) .copyWith(fontWeight: FontWeight.bold, fontSize: 16),
+              style: subtitleTextStyle(context)
+                  .copyWith(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             const Gap(10),
             Icon(
@@ -261,12 +266,14 @@ class _PageContainerState extends State<PageContainer> with TickerProviderStateM
             const Gap(10),
             Text(
               "Flutter",
-              style: subtitleTextStyle(context) .copyWith(fontWeight: FontWeight.bold, fontSize: 16),
+              style: subtitleTextStyle(context)
+                  .copyWith(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             const Gap(10),
             SvgPicture.asset(
               Assets.image.flutter,
-              colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.primary, BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(
+                  Theme.of(context).colorScheme.primary, BlendMode.srcIn),
               width: 14,
               height: 14,
               semanticsLabel: 'logo',

@@ -30,7 +30,8 @@ class MenuItemTheme extends StatefulWidget {
   State<MenuItemTheme> createState() => _MenuItemThemeState();
 }
 
-class _MenuItemThemeState extends State<MenuItemTheme> with SingleTickerProviderStateMixin {
+class _MenuItemThemeState extends State<MenuItemTheme>
+    with SingleTickerProviderStateMixin {
   bool isHovered = false;
   late AnimationController _slideAnimationController;
   late Animation<Offset> _slideAnimation;
@@ -44,13 +45,35 @@ class _MenuItemThemeState extends State<MenuItemTheme> with SingleTickerProvider
 
   @override
   void initState() {
-    _slideAnimationController = AnimationController(duration: 300.milliseconds, vsync: this);
+    _slideAnimationController =
+        AnimationController(duration: 300.milliseconds, vsync: this);
     _slideAnimation = Tween<Offset>(
       begin: Offset.zero,
       end: const Offset(-1, 0),
     ).animate(_slideAnimationController);
     nextName = widget.next(widget.name);
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant MenuItemTheme oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.name != widget.name) {
+      // Theme changed!
+      // If we were showing the nextName (animation at 1.0),
+      // we jump back to 0.0 instantly.
+      // Visually this is seamless because widget.name is now what nextName was.
+      _slideAnimationController.reset();
+
+      // Calculate the NEW next name
+      setState(() {
+        nextName = widget.next(widget.name);
+      });
+
+      // If we are still hovered (or if we want to auto-slide to the next one on tap),
+      // we start sliding again.
+      _slideAnimationController.forward();
+    }
   }
 
   @override
@@ -67,7 +90,11 @@ class _MenuItemThemeState extends State<MenuItemTheme> with SingleTickerProvider
       },
       child: ClipRRect(
         child: InkWell(
-          onTap: () => widget.onTap?.call(nextName),
+          onTap: () {
+            // Trigger the tap with the current nextName
+            widget.onTap?.call(nextName);
+            // The rest of the animation logic is handled in didUpdateWidget
+          },
           splashFactory: NoSplash.splashFactory,
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
@@ -88,7 +115,7 @@ class _MenuItemThemeState extends State<MenuItemTheme> with SingleTickerProvider
                       const SizedBox(width: 16),
                       Text(
                         widget.name,
-                        style: menuTextStyle(context) ,
+                        style: menuTextStyle(context),
                       ),
                       const SizedBox(width: 16),
                     ],
@@ -103,15 +130,17 @@ class _MenuItemThemeState extends State<MenuItemTheme> with SingleTickerProvider
                         const SizedBox(width: 36),
                         Text(
                           nextName,
-                          style: menuTextStyle(context) .copyWith(
-                            color: appColorsThemes[nextName]?.foregroundColor ?? Theme.of(context).colorScheme.tertiary,
+                          style: menuTextStyle(context).copyWith(
+                            color: appColorsThemes[nextName]?.foregroundColor ??
+                                Theme.of(context).colorScheme.tertiary,
                           ),
                         ),
                         const SizedBox(width: 36),
                         Container(
                           width: 10,
                           height: 22,
-                          color: appColorsThemes[nextName]?.accentColor ?? Theme.of(context).colorScheme.primary,
+                          color: appColorsThemes[nextName]?.accentColor ??
+                              Theme.of(context).colorScheme.primary,
                         ),
                         const SizedBox(width: 16),
                       ],

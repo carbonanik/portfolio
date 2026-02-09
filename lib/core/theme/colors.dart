@@ -69,15 +69,15 @@ const appColorsThemes = {
     foregroundColorDark: Color(0xffb4a0ec),
     // colorBurst: Color(0xFFAA00FF),
   ),
-  "pink": AppColors(
-    primarySwatch: Colors.pink,
-    accentColor: Color(0xFFFF4081),
-    backgroundColor: Color(0xff11030b),
-    backgroundColorLite: Color(0xff1e0613),
-    foregroundColor: Color(0xffe8b8d2),
-    foregroundColorDark: Color(0xffec97c4),
-    // colorBurst: Color(0xFFf60b45),
-  ),
+  // "pink": AppColors(
+  //   primarySwatch: Colors.pink,
+  //   accentColor: Color(0xFFFF4081),
+  //   backgroundColor: Color(0xff11030b),
+  //   backgroundColorLite: Color(0xff1e0613),
+  //   foregroundColor: Color(0xffe8b8d2),
+  //   foregroundColorDark: Color(0xffec97c4),
+  //   // colorBurst: Color(0xFFf60b45),
+  // ),
   "mono": AppColors(
     primarySwatch: Colors.grey,
     accentColor: Color(0xff6e6e6e),
@@ -120,6 +120,16 @@ class AppColors {
   final Color backgroundColorLite;
   final Color foregroundColor;
   final Color foregroundColorDark;
+
+  ThemeData get themeData => ThemeData(
+        colorScheme: ColorScheme.dark(
+          primary: accentColor,
+          background: backgroundColor,
+          secondary: backgroundColorLite,
+          tertiary: foregroundColor,
+          inversePrimary: foregroundColorDark,
+        ),
+      );
 
   const AppColors({
     required this.primarySwatch,

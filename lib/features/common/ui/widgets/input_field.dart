@@ -48,23 +48,35 @@ class InputField extends StatelessWidget {
             obscureText: obscureText,
             validator: validator,
             onChanged: onChanged,
-            style: TextStyle(color: Theme.of(context).colorScheme.tertiary, fontWeight: FontWeight.bold, fontSize: 32, height: .0),
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.tertiary,
+              fontWeight: FontWeight.bold,
+              fontSize: context.adaptiveResponsiveWidth(
+                  desktop: 32, tablet: 32, mobile: 24),
+              fontFamily: "IBMPlexMono",
+              height: 1.2,
+            ),
             decoration: InputDecoration(
-              prefixIcon:  Icon(
+              prefixIcon: Icon(
                 Icons.arrow_forward_ios,
                 color: Theme.of(context).colorScheme.primary,
               ),
               contentPadding: EdgeInsets.only(
-                top: context.adaptiveResponsiveWidth(desktop: 20, tablet: 20, mobile: 10),
-                bottom: context.adaptiveResponsiveWidth(desktop: 20, tablet: 20, mobile: 10),
-                left: context.adaptiveResponsiveWidth(desktop: 20, tablet: 20, mobile: 10),
-                right: context.adaptiveResponsiveWidth(desktop: 20, tablet: 20, mobile: 10),
+                top: context.adaptiveResponsiveWidth(
+                    desktop: 20, tablet: 20, mobile: 10),
+                bottom: context.adaptiveResponsiveWidth(
+                    desktop: 20, tablet: 20, mobile: 10),
+                left: context.adaptiveResponsiveWidth(
+                    desktop: 20, tablet: 20, mobile: 10),
+                right: context.adaptiveResponsiveWidth(
+                    desktop: 20, tablet: 20, mobile: 10),
               ),
               hintText: hint,
               hintStyle: TextStyle(
                 color: Theme.of(context).colorScheme.primary.darken(70),
                 fontWeight: FontWeight.normal,
-                fontSize: context.adaptiveResponsiveWidth(desktop: 32, tablet: 32, mobile: 24),
+                fontSize: context.adaptiveResponsiveWidth(
+                    desktop: 32, tablet: 32, mobile: 24),
               ),
               enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(0),
@@ -80,8 +92,9 @@ class InputField extends StatelessWidget {
                 ),
               ),
             ),
-            cursorWidth: 20,
-            cursorHeight: 3,
+            cursorWidth: 15,
+            cursorHeight: context.adaptiveResponsiveWidth(
+                desktop: 32, tablet: 32, mobile: 24),
             cursorColor: Theme.of(context).colorScheme.primary,
           ),
         ],

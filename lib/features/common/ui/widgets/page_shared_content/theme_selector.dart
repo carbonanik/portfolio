@@ -12,18 +12,15 @@ class ThemeSelector extends StatelessWidget {
       final theme = ref.watch(themeProvider).themeData;
       final notifier = ref.read(themeProvider.notifier);
 
-      return InkWell(
-              child: MenuItemTheme(
-                name: theme.key,
-                next: (name) {
-                  return notifier.nextRandomKey();
-                },
-                onTap: (name) async {
-                  notifier.setThemeByKey(name);
-                  // window.location.reload();
-                },
-              ),
-            );
+      return MenuItemTheme(
+        name: theme.key,
+        next: (name) {
+          return notifier.nextRandomKey();
+        },
+        onTap: (name) async {
+          notifier.setThemeByKey(name);
+        },
+      );
     });
   }
 }

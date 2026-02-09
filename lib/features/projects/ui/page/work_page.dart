@@ -28,7 +28,8 @@ final categories = [
       ),
       Project(
         name: 'Logic Builder',
-        description: 'Friendly 👋 and lightweight 🎈 tool 🔬 to Design digital logic circuits 🧮',
+        description:
+            'Friendly 👋 and lightweight 🎈 tool 🔬 to Design digital logic circuits 🧮',
         tags: ["Flutter"],
         imagePath:
             "https://raw.githubusercontent.com/carbonanik/logic_builder/master/screenshot/logic-builder-logo.png",
@@ -36,6 +37,10 @@ final categories = [
           ProjectLink(
             name: "Github",
             link: 'https://github.com/carbonanik/logic_builder/#readme',
+          ),
+          ProjectLink(
+            name: "Live",
+            link: 'https://logic-builder-carbondev.web.app/',
           ),
         ],
       ),
@@ -74,15 +79,19 @@ final categories = [
   ProjectCategory(
     name: 'Kotlin Projects',
     projects: [
-      Project(name: 'Tally Note', description: 'Tally Note is a modern account saving apps. 📝', tags: [
-        "Kotlin",
-        "Firebase"
-      ], links: [
-        ProjectLink(
-          name: "Github",
-          link: 'https://github.com/carbonanik/TallyNote/#readme',
-        )
-      ]),
+      Project(
+          name: 'Tally Note',
+          description: 'Tally Note is a modern account saving apps. 📝',
+          tags: [
+            "Kotlin",
+            "Firebase"
+          ],
+          links: [
+            ProjectLink(
+              name: "Github",
+              link: 'https://github.com/carbonanik/TallyNote/#readme',
+            )
+          ]),
       Project(name: 'Messapp', description: 'A messenger app 📱', tags: [
         "Kotlin",
         "Python"
@@ -130,14 +139,18 @@ final categories = [
           ),
         ],
       ),
-      Project(name: 'Grocery App (Animation)', description: 'A simple grocery app 🛒', tags: [
-        "Flutter"
-      ], links: [
-        ProjectLink(
-          name: "Github",
-          link: 'https://github.com/carbonanik/',
-        )
-      ]),
+      Project(
+          name: 'Grocery App (Animation)',
+          description: 'A simple grocery app 🛒',
+          tags: [
+            "Flutter"
+          ],
+          links: [
+            ProjectLink(
+              name: "Github",
+              link: 'https://github.com/carbonanik/',
+            )
+          ]),
       Project(name: 'Ml Kit', description: 'A simple ml kit app 🤖', tags: [
         "Flutter"
       ], links: [
@@ -146,14 +159,18 @@ final categories = [
           link: 'https://github.com/carbonanik/',
         )
       ]),
-      Project(name: 'Nested Todos', description: 'A simple nested todos app 📝', tags: [
-        "Flutter"
-      ], links: [
-        ProjectLink(
-          name: "Github",
-          link: 'https://github.com/carbonanik/',
-        )
-      ])
+      Project(
+          name: 'Nested Todos',
+          description: 'A simple nested todos app 📝',
+          tags: [
+            "Flutter"
+          ],
+          links: [
+            ProjectLink(
+              name: "Github",
+              link: 'https://github.com/carbonanik/',
+            )
+          ])
     ],
   ),
 ];
@@ -174,9 +191,14 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-    final borderColor = Theme.of(context).colorScheme.primary.withOpacity(.2); //const Color(0xFF382A04);
-    final lineColor =
-        Theme.of(context).colorScheme.primary.withOpacity(.4); //const Color(0xFF382A04);///backgroundTextColor;
+    final borderColor = Theme.of(context)
+        .colorScheme
+        .primary
+        .withOpacity(.2); //const Color(0xFF382A04);
+    final lineColor = Theme.of(context)
+        .colorScheme
+        .primary
+        .withOpacity(.4); //const Color(0xFF382A04);///backgroundTextColor;
 
     return PageContainer(
       showClock: true,
@@ -198,7 +220,7 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
                   SizedBox(width: context.responsiveSize(desktop: 20)),
                   Text(
                     "Projects",
-                    style: titleTwoTextStyle(context) .copyWith(
+                    style: titleTwoTextStyle(context).copyWith(
                       fontSize: context.adaptiveResponsiveWidth(desktop: 32),
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).colorScheme.tertiary,
@@ -210,11 +232,16 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(width: context.adaptiveResponsiveWidth(desktop: 34)),
+                    SizedBox(
+                        width: context.adaptiveResponsiveWidth(desktop: 34)),
                     // ? side line
                     Container(
                       width: lineWidth,
-                      height: height - context.responsiveSize(desktop: 100, tablet: 200, mobile: 150), // line height
+                      height: height -
+                          context.responsiveSize(
+                              desktop: 100,
+                              tablet: 200,
+                              mobile: 150), // line height
                       color: lineColor,
                     ),
                     SingleChildScrollView(
@@ -230,7 +257,9 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
                               buildProjectCategoryItem(
                                 index: index,
                                 category: categories[index],
-                                width: width - context.adaptiveResponsiveWidth(desktop: 200, tablet: 200, mobile: 50),
+                                width: width -
+                                    context.adaptiveResponsiveWidth(
+                                        desktop: 200, tablet: 200, mobile: 50),
                                 lineColor: lineColor,
                                 borderColor: borderColor,
                               ),
@@ -282,7 +311,7 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
                   SizedBox(width: context.responsiveSize(desktop: 20)),
                   Text(
                     category.name,
-                    style: titleTwoTextStyle(context) .copyWith(
+                    style: titleTwoTextStyle(context).copyWith(
                       fontSize: context.adaptiveResponsiveWidth(desktop: 24),
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).colorScheme.tertiary,
@@ -316,9 +345,12 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
               child: index == selectedIndex
                   ? Builder(
                       builder: (context) {
-                        final contentHeight = context.adaptiveResponsiveWidth(desktop: 380, tablet: 340, mobile: 260);
-                        final contentWidth = context.adaptiveResponsiveWidth(desktop: 380, tablet: 340, mobile: 220);
-                        final horizontalSpace = context.adaptiveResponsiveWidth(desktop: 60, mobile: 20);
+                        final contentHeight = context.adaptiveResponsiveWidth(
+                            desktop: 380, tablet: 340, mobile: 260);
+                        final contentWidth = context.adaptiveResponsiveWidth(
+                            desktop: 380, tablet: 340, mobile: 220);
+                        final horizontalSpace = context.adaptiveResponsiveWidth(
+                            desktop: 60, mobile: 20);
 
                         return ScrollableRow(
                           contentHeight: contentHeight,

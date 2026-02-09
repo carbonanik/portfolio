@@ -59,6 +59,7 @@ dependencies:
   universal_html: ^2.2.4
   flutter_svg: ^2.0.9
   gap: ^3.0.1
+  http: ^1.1.0
   # dart pub global activate flutter_gen
   # flutter packages pub run build_runner build
   # flutter_staggered_animations: ^1.1.1

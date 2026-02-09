@@ -23,9 +23,9 @@ class CreateArticlePage extends StatefulWidget {
     title: ContentTitle(text: "Function Decorator Python"),
     contents: [
       ContentSubtitle(text: "✏️ the coder"),
-      ContentText(text: longText),
+      ContentText(text: "longText"),
       ContentImage(path: "image/banner.png"),
-      ContentCode(code: sourceCode, language: "python"),
+      ContentCode(code: "def function_decorator(func):", language: "python"),
     ],
   );
 
@@ -46,19 +46,23 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
         children: [
           const TextBackground(),
           Row(
-            mainAxisAlignment: screenSize.width > 1200 ? MainAxisAlignment.center : MainAxisAlignment.start,
+            mainAxisAlignment: screenSize.width > 1200
+                ? MainAxisAlignment.center
+                : MainAxisAlignment.start,
             children: [
               SizedBox(
                 width: screenSize.width > 1200 ? 800 : screenSize.width - 200,
                 child: AnimatedList(
                   key: _listKey,
-                  initialItemCount: widget.article.contents.length + 1, // added 1 for header
+                  initialItemCount:
+                      widget.article.contents.length + 1, // added 1 for header
                   itemBuilder: (context, index, animation) {
                     if (index == 0) {
                       // generate header first
                       return widget.article.generateHeadlineView(
                         readOnly: readOnly,
-                        updated: updated, context: context,
+                        updated: updated,
+                        context: context,
                       );
                     }
 
@@ -107,13 +111,15 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
                     BlockTypeAdd(
                       text: "Text",
                       onTap: () => add(
-                        ContentText(text: longText),
+                        ContentText(text: "longText"),
                       ),
                     ),
                     BlockTypeAdd(
                       text: "Code",
                       onTap: () => add(
-                        ContentCode(code: sourceCode, language: "python"),
+                        ContentCode(
+                            code: "def function_decorator(func):",
+                            language: "python"),
                       ),
                     ),
                   ],
@@ -274,7 +280,8 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
         updated: updated,
         goUp: isFirstItem ? null : goUp,
         goDown: isLastItem ? null : goDown,
-        contentItemClick: insert, context: context,
+        contentItemClick: insert,
+        context: context,
       ),
     );
   }
@@ -289,8 +296,9 @@ ContentBase contentTypeToContent(ContentType type) {
     case ContentType.image:
       return ContentImage(path: "image/banner.png");
     case ContentType.text:
-      return ContentText(text: longText);
+      return ContentText(text: "longText");
     case ContentType.code:
-      return ContentCode(code: sourceCode, language: "python");
+      return ContentCode(
+          code: "def function_decorator(func):", language: "python");
   }
 }
