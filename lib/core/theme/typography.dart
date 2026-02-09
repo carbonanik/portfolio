@@ -18,7 +18,7 @@ const fontWeight_800 = FontWeight.w800;
 const fontWeight_600 = FontWeight.w600;
 const fontWeight_400 = FontWeight.w400;
 
-TextStyle titleOneTextStyle (BuildContext context) => TextStyle(
+TextStyle titleOneTextStyle(BuildContext context) => TextStyle(
       // fontFamily: FontFamily.cabin,
       fontSize: fontSize_100,
       height: 1,
@@ -26,7 +26,7 @@ TextStyle titleOneTextStyle (BuildContext context) => TextStyle(
       color: Theme.of(context).colorScheme.tertiary,
     );
 
-TextStyle titleTwoTextStyle (BuildContext context) => TextStyle(
+TextStyle titleTwoTextStyle(BuildContext context) => TextStyle(
       fontFamily: FontFamily.iBMPlexMono,
       fontSize: fontSize_26,
       height: 1,
@@ -34,7 +34,7 @@ TextStyle titleTwoTextStyle (BuildContext context) => TextStyle(
       color: Theme.of(context).colorScheme.primary,
     );
 
-TextStyle subtitleTextStyle (BuildContext context) => TextStyle(
+TextStyle subtitleTextStyle(BuildContext context) => TextStyle(
       fontFamily: FontFamily.iBMPlexMono,
       fontSize: fontSize_18,
       height: 1,
@@ -42,7 +42,7 @@ TextStyle subtitleTextStyle (BuildContext context) => TextStyle(
       color: Theme.of(context).colorScheme.primary,
     );
 
-TextStyle paragraphTextStyle (BuildContext context) => TextStyle(
+TextStyle paragraphTextStyle(BuildContext context) => TextStyle(
       // fontFamily: FontFamily.cabin,
       fontSize: fontSize_22,
       fontWeight: fontWeight_400,
@@ -52,17 +52,17 @@ TextStyle paragraphTextStyle (BuildContext context) => TextStyle(
       height: 1.3,
     );
 
-TextStyle menuTextStyle (BuildContext context) => TextStyle(
+TextStyle menuTextStyle(BuildContext context) => TextStyle(
       fontFamily: FontFamily.iBMPlexMono,
       fontSize: fontSize_22,
       fontWeight: fontWeight_600,
       color: Theme.of(context).colorScheme.tertiary,
     );
 
-TextStyle backgroundTextStyle (BuildContext context) => TextStyle(
+TextStyle backgroundTextStyle(BuildContext context) => TextStyle(
       // fontFamily: FontFamily.cabin,
       fontSize: fontSize_200,
       fontWeight: fontWeight_400,
-      color: Theme.of(context).colorScheme.secondary.withOpacity(.3),
+      color: Theme.of(context).colorScheme.secondary.withValues(alpha: .3),
       height: .5,
     );

@@ -564,7 +564,7 @@ Widget buildDialog(BuildContext context) {
                 onTap: () async {
                   await launchUrl(
                     Uri.parse(
-                        "https://docs.google.com/document/d/1JAdnnn9_ftkRjSac_MsAsUhtbGmW7iX3yraUi5xn8GU/export?format=pdf"),
+                        "https://docs.google.com/document/d/1A0mdj6lHr-93pZiccGQJD9vAchW2A0A5tZh6J2mdNMc/export?format=pdf"),
                   );
                 },
               ),
