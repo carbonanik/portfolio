@@ -13,7 +13,6 @@ import 'package:portfolio/features/common/ui/widgets/page_shared_content/text_ba
 import 'package:supercharged/supercharged.dart';
 import '../../../../core/util/not_used/skeleton_button.dart';
 import '../../data_source/article_static_data.dart';
-import 'article_open_page.dart';
 
 @RoutePage()
 class CreateArticlePage extends StatefulWidget {
@@ -46,19 +45,23 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
         children: [
           const TextBackground(),
           Row(
-            mainAxisAlignment: screenSize.width > 1200 ? MainAxisAlignment.center : MainAxisAlignment.start,
+            mainAxisAlignment: screenSize.width > 1200
+                ? MainAxisAlignment.center
+                : MainAxisAlignment.start,
             children: [
               SizedBox(
                 width: screenSize.width > 1200 ? 800 : screenSize.width - 200,
                 child: AnimatedList(
                   key: _listKey,
-                  initialItemCount: widget.article.contents.length + 1, // added 1 for header
+                  initialItemCount:
+                      widget.article.contents.length + 1, // added 1 for header
                   itemBuilder: (context, index, animation) {
                     if (index == 0) {
                       // generate header first
                       return widget.article.generateHeadlineView(
                         readOnly: readOnly,
-                        updated: updated, context: context,
+                        updated: updated,
+                        context: context,
                       );
                     }
 
@@ -274,7 +277,8 @@ class _CreateArticlePageState extends State<CreateArticlePage> {
         updated: updated,
         goUp: isFirstItem ? null : goUp,
         goDown: isLastItem ? null : goDown,
-        contentItemClick: insert, context: context,
+        contentItemClick: insert,
+        context: context,
       ),
     );
   }
