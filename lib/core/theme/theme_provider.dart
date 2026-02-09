@@ -7,8 +7,14 @@ final themeProvider = ChangeNotifierProvider((ref) => ThemeProvider());
 
 class ThemeProvider extends ChangeNotifier {
   ThemeProvider() {
-    final key = getInitialRandomThemeKey(["pink", "ekush"]);
-    _themeData = MapEntry(key, appColorsThemes[key]!.themeData);
+    const bool isRandom = false;
+    // ignore: dead_code
+    if (isRandom) {
+      final key = getInitialRandomThemeKey(["pink", "ekush"]);
+      _themeData = MapEntry(key, appColorsThemes[key]!.themeData);
+    } else {
+      _themeData = MapEntry("canary", appColorsThemes["canary"]!.themeData);
+    }
   }
 
   late MapEntry<String, ThemeData> _themeData;
