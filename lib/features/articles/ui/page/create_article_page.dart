@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/features/articles/ui/widgets/block_type_add.dart';
 import 'package:portfolio/features/articles/ui/widgets/input_block_title.dart';
@@ -12,10 +11,7 @@ import 'package:portfolio/features/articles/ui/widgets/contents/content_title.da
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/text_background.dart';
 import 'package:supercharged/supercharged.dart';
 import '../../../../core/util/not_used/skeleton_button.dart';
-import '../../data_source/article_static_data.dart';
-import 'article_open_page.dart';
 
-@RoutePage()
 class CreateArticlePage extends StatefulWidget {
   CreateArticlePage({super.key});
 

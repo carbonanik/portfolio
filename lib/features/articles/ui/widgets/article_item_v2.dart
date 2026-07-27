@@ -1,6 +1,5 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:portfolio/core/router/app_router.dart';
+import 'package:go_router/go_router.dart';
 import 'package:portfolio/features/articles/models/article.dart';
 import 'package:portfolio/features/common/paths/corner_cut_border_clipper.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
@@ -25,7 +24,8 @@ class ArticleItemV2 extends StatefulWidget {
   State<ArticleItemV2> createState() => _ArticleItemStateV2();
 }
 
-class _ArticleItemStateV2 extends State<ArticleItemV2> with SingleTickerProviderStateMixin {
+class _ArticleItemStateV2 extends State<ArticleItemV2>
+    with SingleTickerProviderStateMixin {
   String title = "Python programming Tutorial for biggners";
   late final Color defaultBorderColor = Theme.of(context).colorScheme.primary;
   final hoverOffset = const Offset(-.02, -.02);
@@ -38,7 +38,8 @@ class _ArticleItemStateV2 extends State<ArticleItemV2> with SingleTickerProvider
   @override
   void initState() {
     super.initState();
-    _slideAnimationController = AnimationController(duration: hoverDuration, vsync: this);
+    _slideAnimationController =
+        AnimationController(duration: hoverDuration, vsync: this);
     _slideAnimation = Tween<Offset>(
       begin: Offset.zero,
       end: const Offset(-10, -10),
@@ -71,7 +72,8 @@ class _ArticleItemStateV2 extends State<ArticleItemV2> with SingleTickerProvider
           }
         },
         onTap: () {
-          AutoRouter.of(context).push(ArticleOpenPageRoute(id: widget.article.id));
+          // AutoRouter.of(context).push(ArticleOpenPageRoute(id: widget.article.id));
+          context.push("/blog/${widget.article.id}");
         },
         child: context.isMobile
             ? buildArticleView()
@@ -161,11 +163,16 @@ class _ArticleItemStateV2 extends State<ArticleItemV2> with SingleTickerProvider
           child: ClipPath(
             clipper: CornerCutBorderClipper(
               width: 10,
-              cornerRadius: context.adaptiveResponsiveWidth(desktop: 80, tablet: 80, mobile: 60),
+              cornerRadius: context.adaptiveResponsiveWidth(
+                  desktop: 80, tablet: 80, mobile: 60),
               filled: true,
             ),
             child: Container(
-              color: Theme.of(context).colorScheme.primary.darken(90).withOpacity(.4),
+              color: Theme.of(context)
+                  .colorScheme
+                  .primary
+                  .darken(90)
+                  .withOpacity(.4),
             ),
           ),
         ),
@@ -189,7 +196,8 @@ class _ArticleItemStateV2 extends State<ArticleItemV2> with SingleTickerProvider
           child: ClipPath(
             clipper: CornerCutBorderClipper(
               width: 4,
-              cornerRadius: context.adaptiveResponsiveWidth(desktop: 80, tablet: 80, mobile: 60),
+              cornerRadius: context.adaptiveResponsiveWidth(
+                  desktop: 80, tablet: 80, mobile: 60),
             ),
             child: Container(
               color: Theme.of(context).colorScheme.primary.darken(80),
@@ -202,14 +210,15 @@ class _ArticleItemStateV2 extends State<ArticleItemV2> with SingleTickerProvider
 
   Widget articleDetail() {
     return Padding(
-      padding: EdgeInsets.only(top: context.responsiveSize(desktop: 40, tablet: 40, mobile: 40)),
+      padding: EdgeInsets.only(
+          top: context.responsiveSize(desktop: 40, tablet: 40, mobile: 40)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             "#${widget.article.tags.join(", #")}",
-            style: subtitleTextStyle(context) .copyWith(
+            style: subtitleTextStyle(context).copyWith(
               fontSize: context.adaptiveResponsiveWidth(
                 desktop: 16,
                 tablet: 16,
@@ -221,7 +230,7 @@ class _ArticleItemStateV2 extends State<ArticleItemV2> with SingleTickerProvider
           ),
           Text(
             widget.article.title.text,
-            style: titleOneTextStyle(context) .copyWith(
+            style: titleOneTextStyle(context).copyWith(
               fontSize: context.adaptiveResponsiveWidth(
                 desktop: 30,
                 tablet: 26,

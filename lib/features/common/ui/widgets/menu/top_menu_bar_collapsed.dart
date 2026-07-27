@@ -1,8 +1,7 @@
 import 'dart:async';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:portfolio/core/router/app_router.dart';
+import 'package:go_router/go_router.dart';
 import 'package:portfolio/features/common/paths/corner_cut_border_clipper.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/theme_selector.dart';
@@ -21,7 +20,8 @@ class TopMenuBarCollapsed extends StatefulWidget {
   State<TopMenuBarCollapsed> createState() => _TopMenuBarCollapsedState();
 }
 
-class _TopMenuBarCollapsedState extends State<TopMenuBarCollapsed> with SingleTickerProviderStateMixin {
+class _TopMenuBarCollapsedState extends State<TopMenuBarCollapsed>
+    with SingleTickerProviderStateMixin {
   bool isMenuOpened = false;
   final menuItems = [
     "About",
@@ -102,26 +102,34 @@ class _TopMenuBarCollapsedState extends State<TopMenuBarCollapsed> with SingleTi
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(right: context.adaptiveResponsiveHeight(desktop: 14)),
+                          padding: EdgeInsets.only(
+                              right: context.adaptiveResponsiveHeight(
+                                  desktop: 14)),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(
-                                height: context.adaptiveResponsiveHeight(desktop: 28),
+                                height: context.adaptiveResponsiveHeight(
+                                    desktop: 28),
                               ),
                               SizedBox(
-                                width: context.adaptiveResponsiveHeight(desktop: 40),
-                                height: context.adaptiveResponsiveHeight(desktop: 5),
+                                width: context.adaptiveResponsiveHeight(
+                                    desktop: 40),
+                                height: context.adaptiveResponsiveHeight(
+                                    desktop: 5),
                                 child: Container(
                                   color: Theme.of(context).colorScheme.tertiary,
                                 ),
                               ),
                               SizedBox(
-                                height: context.adaptiveResponsiveHeight(desktop: 6),
+                                height: context.adaptiveResponsiveHeight(
+                                    desktop: 6),
                               ),
                               SizedBox(
-                                width: context.adaptiveResponsiveHeight(desktop: 30),
-                                height: context.adaptiveResponsiveHeight(desktop: 5),
+                                width: context.adaptiveResponsiveHeight(
+                                    desktop: 30),
+                                height: context.adaptiveResponsiveHeight(
+                                    desktop: 5),
                                 child: Container(
                                   color: Theme.of(context).colorScheme.tertiary,
                                 ),
@@ -154,11 +162,13 @@ class _TopMenuBarCollapsedState extends State<TopMenuBarCollapsed> with SingleTi
                     decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
-                          color: Theme.of(context).colorScheme.tertiary.darken(70),
+                          color:
+                              Theme.of(context).colorScheme.tertiary.darken(70),
                           width: 3,
                         ),
                         right: BorderSide(
-                          color: Theme.of(context).colorScheme.tertiary.darken(70),
+                          color:
+                              Theme.of(context).colorScheme.tertiary.darken(70),
                           width: 3,
                         ),
                       ),
@@ -187,7 +197,8 @@ class _TopMenuBarCollapsedState extends State<TopMenuBarCollapsed> with SingleTi
                       height: context.adaptiveResponsiveHeight(desktop: 70),
                       child: ClipPath(
                         clipper: CornerCutBorderClipper(
-                          cornerRadius: context.adaptiveResponsiveHeight(desktop: 20),
+                          cornerRadius:
+                              context.adaptiveResponsiveHeight(desktop: 20),
                           width: 2,
                         ),
                         child: Container(
@@ -234,16 +245,16 @@ class _TopMenuBarCollapsedState extends State<TopMenuBarCollapsed> with SingleTi
                         closeMenu();
                         switch (item) {
                           case "About":
-                            go(const AboutPageRoute(), context, index);
+                            go("/about", context, index);
                             break;
                           case "Blog":
-                            go(const BlogPageRoute(), context, index);
+                            go("/blog", context, index);
                             break;
                           case "Work":
-                            go(const WorkPageRoute(), context, index);
+                            go("/work", context, index);
                             break;
                           case "Contact":
-                            go(const ContactPageRoute(), context, index);
+                            go("/contact", context, index);
                             break;
                           default:
                         }
@@ -264,10 +275,11 @@ class _TopMenuBarCollapsedState extends State<TopMenuBarCollapsed> with SingleTi
     );
   }
 
-  void go(PageRouteInfo route, BuildContext context, int index) async {
+  void go(String route, BuildContext context, int index) async {
     Timer(500.milliseconds, () {
       if (widget.selectedItem != menuItems[index]) {
-        AutoRouter.of(context).push(route);
+        // AutoRouter.of(context).push(route);
+        context.push(route);
       }
     });
   }
@@ -292,14 +304,16 @@ class MenuItemCollapsed extends StatefulWidget {
   State<MenuItemCollapsed> createState() => _MenuItemCollapsedState();
 }
 
-class _MenuItemCollapsedState extends State<MenuItemCollapsed> with SingleTickerProviderStateMixin {
+class _MenuItemCollapsedState extends State<MenuItemCollapsed>
+    with SingleTickerProviderStateMixin {
   late AnimationController _blinkAnimationController;
   late Animation<double> _blinkAnimation;
 
   @override
   void initState() {
     super.initState();
-    _blinkAnimationController = AnimationController(duration: 1000.milliseconds, vsync: this);
+    _blinkAnimationController =
+        AnimationController(duration: 1000.milliseconds, vsync: this);
     _blinkAnimation = Tween<double>(
       begin: 0,
       end: 2,
@@ -327,14 +341,14 @@ class _MenuItemCollapsedState extends State<MenuItemCollapsed> with SingleTicker
           Text(
             // "0${widget.serial}.",
             _blinkAnimation.value > 1 ? "__." : "0${widget.serial}.",
-            style: menuTextStyle(context) .copyWith(
+            style: menuTextStyle(context).copyWith(
               color: Theme.of(context).colorScheme.primary,
             ),
           ),
           const SizedBox(width: 6),
           Text(
             widget.name, // + (_blinkAnimation.value > 1 ? "_" : ""),
-            style: menuTextStyle(context) ,
+            style: menuTextStyle(context),
           ),
           const SizedBox(width: 16),
         ],

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:http/http.dart' as http;
@@ -11,7 +10,6 @@ import 'package:portfolio/features/common/ui/widgets/corner_cut_style_button.dar
 import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/gen/fonts.gen.dart';
 
-@RoutePage()
 class ContactPage extends StatefulWidget {
   const ContactPage({super.key});
 

@@ -1,15 +1,13 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/features/articles/data_source/article_static_data.dart';
 import 'package:portfolio/features/articles/ui/widgets/article_view.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/page_container.dart';
 
-@RoutePage()
 class ArticleOpenPage extends StatelessWidget {
   final String id;
 
   const ArticleOpenPage({
-    @PathParam('id') required this.id,
+    required this.id,
     super.key,
   });
 
@@ -18,7 +16,8 @@ class ArticleOpenPage extends StatelessWidget {
     return PageContainer(
       menuItem: 'Blog',
       children: [
-        ArticleView(article: staticArticles.firstWhere((element) => element.id == id)),
+        ArticleView(
+            article: staticArticles.firstWhere((element) => element.id == id)),
       ],
     );
   }

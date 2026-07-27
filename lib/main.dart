@@ -8,9 +8,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
-
-  final _router = AppRouter();
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +18,7 @@ class MyApp extends StatelessWidget {
         title: 'Portfolio',
         debugShowCheckedModeBanner: false,
         theme: themeData,
-        routerConfig: _router.config(),
+        routerConfig: AppRouter.router,
       );
       // return MaterialApp(
       //   title: 'Portfolio',

@@ -1,5 +1,4 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:portfolio/features/articles/ui/page/article_list_page.dart';
 import 'package:portfolio/features/articles/ui/page/article_open_page.dart';
 import 'package:portfolio/features/articles/ui/page/blog_page.dart';
@@ -7,50 +6,74 @@ import 'package:portfolio/features/basics/about/about_page.dart';
 import 'package:portfolio/features/basics/contact_page.dart';
 import 'package:portfolio/features/basics/on_bording_page.dart';
 import 'package:portfolio/features/projects/ui/page/work_page.dart';
+import 'package:portfolio/features/projects/ui/page/project_detail_page.dart';
 import 'package:portfolio/features/articles/ui/page/create_article_page.dart';
+import 'package:portfolio/features/projects/models/project.dart';
 
-part 'app_router.gr.dart';
-
-@AutoRouterConfig(
-  replaceInRouteName: 'route',
-)
-class AppRouter extends _$AppRouter {
-  @override
-  RouteType get defaultRouteType => const RouteType.custom();
-
-  @override
-  List<AutoRoute> get routes => [
-        AutoRoute(
-          initial: true,
-          page: OnBoardPageRoute.page,
+class AppRouter {
+  static final GoRouter router = GoRouter(
+    initialLocation: '/',
+    routes: [
+      GoRoute(
+        path: '/',
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: OnBoardPage(),
         ),
-        AutoRoute(
-          path: '/about',
-          page: AboutPageRoute.page,
+      ),
+      GoRoute(
+        path: '/about',
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: AboutPage(),
         ),
-        AutoRoute(
-          path: '/work',
-          page: WorkPageRoute.page,
+      ),
+      GoRoute(
+        path: '/work',
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: WorkPage(),
         ),
-        AutoRoute(
-          path: '/blog',
-          page: BlogPageRoute.page,
+      ),
+      GoRoute(
+        path: '/blog',
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: BlogPage(),
         ),
-        AutoRoute(
-          path: '/contact',
-          page: ContactPageRoute.page,
+      ),
+      GoRoute(
+        path: '/contact',
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: ContactPage(),
         ),
-        AutoRoute(
-          path: '/articles',
-          page: ArticleListPageRoute.page,
+      ),
+      GoRoute(
+        path: '/articles',
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: ArticleListPage(),
         ),
-        AutoRoute(
-          path: '/article/:id',
-          page: ArticleOpenPageRoute.page,
+      ),
+      GoRoute(
+        path: '/blog/:id',
+        pageBuilder: (context, state) {
+          final id = state.pathParameters['id']!;
+          return NoTransitionPage(
+            child: ArticleOpenPage(id: id),
+          );
+        },
+      ),
+      GoRoute(
+        path: '/project-detail',
+        pageBuilder: (context, state) {
+          final project = state.extra as Project;
+          return NoTransitionPage(
+            child: ProjectDetailPage(project: project),
+          );
+        },
+      ),
+      GoRoute(
+        path: '/create-article',
+        pageBuilder: (context, state) => NoTransitionPage(
+          child: CreateArticlePage(),
         ),
-        AutoRoute(
-          path: '/create-article',
-          page: CreateArticlePageRoute.page,
-        ),
-      ];
+      ),
+    ],
+  );
 }

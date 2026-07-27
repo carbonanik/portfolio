@@ -1,6 +1,5 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:portfolio/core/router/app_router.dart';
+import 'package:go_router/go_router.dart';
 import 'package:portfolio/features/articles/models/article.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/page_container.dart';
 import 'package:portfolio/features/common/paths/corner_cut_border_clipper.dart';
@@ -25,7 +24,8 @@ class ArticleItem extends StatefulWidget {
   State<ArticleItem> createState() => _ArticleItemState();
 }
 
-class _ArticleItemState extends State<ArticleItem> with SingleTickerProviderStateMixin {
+class _ArticleItemState extends State<ArticleItem>
+    with SingleTickerProviderStateMixin {
   String title = "Python programming Tutorial for biggners";
   late final Color defaultBorderColor = Theme.of(context).colorScheme.primary;
   final hoverOffset = const Offset(-.02, -.02);
@@ -38,7 +38,8 @@ class _ArticleItemState extends State<ArticleItem> with SingleTickerProviderStat
   @override
   void initState() {
     super.initState();
-    _slideAnimationController = AnimationController(duration: hoverDuration, vsync: this);
+    _slideAnimationController =
+        AnimationController(duration: hoverDuration, vsync: this);
     _slideAnimation = Tween<Offset>(
       begin: Offset.zero,
       end: const Offset(-10, -10),
@@ -71,7 +72,8 @@ class _ArticleItemState extends State<ArticleItem> with SingleTickerProviderStat
           }
         },
         onTap: () {
-          AutoRouter.of(context).push(ArticleOpenPageRoute(id: widget.article.id));
+          // AutoRouter.of(context).push(ArticleOpenPageRoute(id: widget.article.id));
+          context.push("/blog/${widget.article.id}");
         },
         child: context.isMobile
             ? buildArticleView()
@@ -138,7 +140,8 @@ class _ArticleItemState extends State<ArticleItem> with SingleTickerProviderStat
       children: [
         Container(
           // ? card width will be taken from this width
-          width: context.adaptiveResponsiveWidth(desktop: 340, tablet: 340, mobile: 200),
+          width: context.adaptiveResponsiveWidth(
+              desktop: 340, tablet: 340, mobile: 200),
         ),
         // ? image
         Positioned.fill(
@@ -146,7 +149,8 @@ class _ArticleItemState extends State<ArticleItem> with SingleTickerProviderStat
             child: ClipPath(
               clipper: CornerCutBorderClipper(
                 width: 10,
-                cornerRadius: context.adaptiveResponsiveWidth(desktop: 80, tablet: 80, mobile: 60),
+                cornerRadius: context.adaptiveResponsiveWidth(
+                    desktop: 80, tablet: 80, mobile: 60),
                 filled: true,
               ),
               child: Image.asset(
@@ -161,11 +165,16 @@ class _ArticleItemState extends State<ArticleItem> with SingleTickerProviderStat
             child: ClipPath(
               clipper: CornerCutBorderClipper(
                 width: 10,
-                cornerRadius: context.adaptiveResponsiveWidth(desktop: 80, tablet: 80, mobile: 60),
+                cornerRadius: context.adaptiveResponsiveWidth(
+                    desktop: 80, tablet: 80, mobile: 60),
                 filled: true,
               ),
               child: Container(
-                color: Theme.of(context).colorScheme.primary.darken(90).withOpacity(.4),
+                color: Theme.of(context)
+                    .colorScheme
+                    .primary
+                    .darken(90)
+                    .withOpacity(.4),
               ),
             ),
           ),
@@ -188,7 +197,8 @@ class _ArticleItemState extends State<ArticleItem> with SingleTickerProviderStat
           child: ClipPath(
             clipper: CornerCutBorderClipper(
               width: 4,
-              cornerRadius: context.adaptiveResponsiveWidth(desktop: 80, tablet: 80, mobile: 60),
+              cornerRadius: context.adaptiveResponsiveWidth(
+                  desktop: 80, tablet: 80, mobile: 60),
             ),
             child: Container(
               color: Theme.of(context).colorScheme.primary,
@@ -201,7 +211,8 @@ class _ArticleItemState extends State<ArticleItem> with SingleTickerProviderStat
 
   Widget articleDetail() {
     return Padding(
-      padding: EdgeInsets.only(top: context.responsiveSize(desktop: 40, tablet: 40, mobile: 40)),
+      padding: EdgeInsets.only(
+          top: context.responsiveSize(desktop: 40, tablet: 40, mobile: 40)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisSize: MainAxisSize.min,

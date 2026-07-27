@@ -1,13 +1,11 @@
 import 'dart:async';
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:portfolio/core/router/app_router.dart';
+import 'package:go_router/go_router.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/text_background.dart';
 import 'package:portfolio/core/theme/typography.dart';
 import 'package:supercharged/supercharged.dart';
 
-@RoutePage()
 class OnBoardPage extends StatefulWidget {
   const OnBoardPage({super.key});
 
@@ -20,7 +18,7 @@ class _OnBoardPageState extends State<OnBoardPage> {
   void initState() {
     super.initState();
     Timer(2.seconds, () {
-      AutoRouter.of(context).replace(const AboutPageRoute());
+      context.go('/about');
 
       // Navigator.pushReplacement(
       //   context,

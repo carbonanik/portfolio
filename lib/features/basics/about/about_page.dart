@@ -1,10 +1,8 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/page_container.dart';
 import 'package:portfolio/features/basics/about/intro.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
 
-@RoutePage()
 class AboutPage extends StatefulWidget {
   const AboutPage({super.key});
 

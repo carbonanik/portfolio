@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/page_container.dart';
 import 'package:portfolio/features/projects/ui/widgets/project_item.dart';
@@ -18,7 +17,62 @@ final categories = [
         name: 'Grocery Shop',
         description:
             'Complete e-commerce app 🛒 with robust performannce 🚀 & beautiful ui✨. And with a python backend 💻.',
-        tags: ["Flutter", "Python"],
+        tags: ["Flutter", "Python", "Firebase", "REST API"],
+        platform: "Android & iOS",
+        role: "Full-stack Flutter Developer",
+        problemStatement:
+            "Users struggled to shop for groceries online because existing apps were slow, had complicated checkout processes, and didn't provide real-time inventory updates.",
+        goals: [
+          "Reduce checkout time by 50%",
+          "Implement real-time stock tracking",
+          "Create a visually appealing and intuitive UI",
+        ],
+        constraints: [
+          "Tight 3-month development cycle",
+          "Integration with a legacy inventory API",
+          "Targeting low-end Android devices",
+        ],
+        thinkingProcess: [
+          "I chose Clean Architecture with BLoC to ensure scalability and testability.",
+          "I implemented a reactive UI that updates instantly when data changes.",
+          "I focused on minimizing the number of taps required to complete a purchase.",
+        ],
+        designDecisions: [
+          "Used a vibrant yet clean color palette to evoke freshness.",
+          "Implemented a 'Quick Add' feature for frequent items.",
+          "Used skeleton loaders to improve perceived performance during data fetching.",
+        ],
+        technicalImplementation: [
+          "Used BLoC for predictable state management.",
+          "Implemented Dio for efficient API requests and interceptors.",
+          "Used Hive for local caching of product data and user preferences.",
+        ],
+        challenges: [
+          ChallengeSolution(
+            challenge: "Slow API response for search results.",
+            solution:
+                "Implemented debouncing on the search input and client-side filtering for already loaded categories.",
+          ),
+          ChallengeSolution(
+            challenge: "Complex cart logic with various discounts.",
+            solution:
+                "Developed a dedicated calculation engine within the business logic layer to handle complex pricing rules consistently.",
+          ),
+        ],
+        results: [
+          "Successfully launched on Play Store and App Store.",
+          "Users reported high satisfaction with the ease of use.",
+          "App remains smooth and responsive even with thousands of products.",
+        ],
+        futureImprovements: [
+          "Implement voice-activated search.",
+          "Add personalized product recommendations based on shopping habits.",
+        ],
+        screenshots: [
+          "https://raw.githubusercontent.com/carbonanik/grocery_app/master/screenshots/home.png",
+          "https://raw.githubusercontent.com/carbonanik/grocery_app/master/screenshots/product_detail.png",
+          "https://raw.githubusercontent.com/carbonanik/grocery_app/master/screenshots/cart.png",
+        ],
         links: [
           ProjectLink(
             name: "Github",
@@ -175,7 +229,6 @@ final categories = [
   ),
 ];
 
-@RoutePage()
 class WorkPage extends StatefulWidget {
   const WorkPage({super.key});
 

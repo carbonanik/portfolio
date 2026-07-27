@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:portfolio/features/articles/state/provider/filtered_article_provider.dart';
@@ -16,7 +15,6 @@ import 'package:supercharged/supercharged.dart';
 final titleAnimationState = StateProvider.autoDispose<double>((ref) => 0);
 final blinkingAnimationState = StateProvider.autoDispose<bool>((ref) => true);
 
-@RoutePage()
 class BlogPage extends ConsumerStatefulWidget {
   const BlogPage({super.key});
 

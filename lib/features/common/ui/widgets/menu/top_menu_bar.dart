@@ -1,6 +1,5 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:portfolio/core/router/app_router.dart';
+import 'package:go_router/go_router.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/features/common/ui/widgets/menu/menu_item.dart';
 import 'package:portfolio/features/common/ui/widgets/page_shared_content/theme_selector.dart';
@@ -52,22 +51,26 @@ class TopMenuBar extends StatelessWidget {
                     switch (item) {
                       case "About":
                         if (selectedItem != menuItems[index]) {
-                          AutoRouter.of(context).push(const AboutPageRoute());
+                          context.push("/about");
+                          // AutoRouter.of(context).push(const AboutPageRoute());
                         }
                         break;
                       case "Blog":
                         if (selectedItem != menuItems[index]) {
-                          AutoRouter.of(context).push(const BlogPageRoute());
+                          context.push("/blog");
+                          // AutoRouter.of(context).push(const BlogPageRoute());
                         }
                         break;
                       case "Work":
                         if (selectedItem != menuItems[index]) {
-                          AutoRouter.of(context).push(const WorkPageRoute());
+                          context.push("/work");
+                          // AutoRouter.of(context).push(const WorkPageRoute());
                         }
                         break;
                       case "Contact":
                         if (selectedItem != menuItems[index]) {
-                          AutoRouter.of(context).push(const ContactPageRoute());
+                          context.push("/contact");
+                          // AutoRouter.of(context).push(const ContactPageRoute());
                         }
                         break;
                       default:
