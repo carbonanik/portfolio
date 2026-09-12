@@ -18,21 +18,322 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="Carbon Anik - Flutter Developer Portfolio">
 
   <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="digital_logic_sim_2">
+  <meta name="apple-mobile-web-app-title" content="Carbon Anik">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>digital_logic_sim_2</title>
+  <title>Carbon Anik - Flutter Developer</title>
   <link rel="manifest" href="manifest.json">
+
+  <style>
+    /* Prevent any white flash on initial load */
+    html, body {
+      background-color: #000000;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    #loading-screen {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #000000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 999999;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  visibility 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    #loading-screen.fade-out {
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(1.02);
+      pointer-events: none;
+    }
+
+    .loading-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+      position: relative;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* Ambient soft background glow */
+    .loading-glow {
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, rgba(0, 0, 0, 0) 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Modern minimal spinner */
+    .spinner-wrapper {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .spinner-track {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .spinner-arc {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 1.5px solid transparent;
+      border-top-color: #ffffff;
+      border-right-color: rgba(255, 255, 255, 0.35);
+      animation: sleek-spin 0.9s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+      filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.4));
+    }
+
+    .spinner-core {
+      width: 6px;
+      height: 6px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+      animation: sleek-pulse 2.2s ease-in-out infinite;
+    }
+
+    /* Brand typography and loading bar */
+    .loading-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-title {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      margin: 0;
+      padding-left: 0.28em; /* optical alignment */
+      background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0.55) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .loading-bar {
+      width: 120px;
+      height: 1.5px;
+      background-color: rgba(255, 255, 255, 0.08);
+      border-radius: 2px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .loading-bar-indicator {
+      position: absolute;
+      top: 0;
+      left: -60%;
+      width: 55%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.85) 50%, transparent 100%);
+      animation: sleek-shimmer 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    @keyframes sleek-spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes sleek-pulse {
+      0%, 100% {
+        opacity: 0.35;
+        transform: scale(0.85);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.15);
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.95);
+      }
+    }
+
+    @keyframes sleek-shimmer {
+      0% {
+        left: -60%;
+      }
+      100% {
+        left: 120%;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div id="loading-screen" role="status" aria-label="Loading portfolio">
+    <div class="loading-glow"></div>
+    <div class="loading-content">
+      <div class="spinner-wrapper">
+        <div class="spinner-track"></div>
+        <div class="spinner-arc"></div>
+        <div class="spinner-core"></div>
+      </div>
+      <div class="loading-brand">
+        <div class="brand-title">CARBON ANIK</div>
+        <div class="loading-bar">
+          <div class="loading-bar-indicator"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      let isFlutterLoaded = false;
+
+      function hideLoader() {
+        if (isFlutterLoaded) return;
+        isFlutterLoaded = true;
+
+        const loader = document.getElementById('loading-screen');
+        if (!loader) return;
+
+        // Brief delay allowing the first Flutter frame to paint cleanly
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            loader.classList.add('fade-out');
+            setTimeout(() => {
+              if (loader.parentNode) {
+                loader.parentNode.removeChild(loader);
+              }
+            }, 600);
+          }, 150);
+        });
+      }
+
+      window.dismissFlutterLoader = hideLoader;
+      window.addEventListener('flutter-first-frame', hideLoader);
+
+      // Intercept _flutter.loader so we know exactly when runApp() finishes
+      let _flutterObj = window._flutter;
+
+      function interceptLoader(flutterInstance) {
+        if (!flutterInstance) return;
+        let _loader = flutterInstance.loader;
+
+        Object.defineProperty(flutterInstance, 'loader', {
+          configurable: true,
+          enumerable: true,
+          get() {
+            return _loader;
+          },
+          set(newLoader) {
+            _loader = newLoader;
+            if (_loader && typeof _loader.load === 'function') {
+              const origLoad = _loader.load.bind(_loader);
+              _loader.load = function(options) {
+                options = options || {};
+                const origEntrypoint = options.onEntrypointLoaded;
+                options.onEntrypointLoaded = async function(engineInitializer) {
+                  let appRunner;
+                  if (origEntrypoint) {
+                    appRunner = await origEntrypoint(engineInitializer);
+                  } else {
+                    appRunner = await engineInitializer.initializeEngine();
+                    await appRunner.runApp();
+                  }
+                  hideLoader();
+                  return appRunner;
+                };
+                return origLoad(options);
+              };
+            }
+          }
+        });
+
+        if (_loader) {
+          flutterInstance.loader = _loader;
+        }
+      }
+
+      Object.defineProperty(window, '_flutter', {
+        configurable: true,
+        enumerable: true,
+        get() {
+          return _flutterObj;
+        },
+        set(val) {
+          _flutterObj = val;
+          interceptLoader(val);
+        }
+      });
+
+      if (_flutterObj) {
+        interceptLoader(_flutterObj);
+      }
+
+      // Fallback 1: MutationObserver watching for Flutter DOM elements
+      const observer = new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+          for (const node of mutation.addedNodes) {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              const tag = node.tagName ? node.tagName.toLowerCase() : '';
+              if (tag === 'flutter-view' || tag === 'flt-glass-pane' || (node.querySelector && node.querySelector('flutter-view, flt-glass-pane'))) {
+                hideLoader();
+                observer.disconnect();
+                return;
+              }
+            }
+          }
+        }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+
+      // Fallback 2: Maximum safety timeout (8 seconds)
+      setTimeout(() => {
+        if (document.querySelector('flutter-view, flt-glass-pane')) {
+          hideLoader();
+        }
+      }, 8000);
+    })();
+  </script>
+
   <!--
     You can customize the "flutter_bootstrap.js" script.
     This is useful to provide a custom configuration to the Flutter loader
