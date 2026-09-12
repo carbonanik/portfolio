@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'data.dart';
+
 void main() {
   runApp(const PortfolioApp());
 }
@@ -12,7 +14,7 @@ class PortfolioApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Carbon Anik',
+      title: 'Anik - Flutter Developer',
       theme: ThemeData(
         brightness: Brightness.dark,
         scaffoldBackgroundColor: Colors.black,
@@ -226,7 +228,7 @@ class _Brand extends StatelessWidget {
         ),
         const SizedBox(width: 10),
         Text(
-          'Carbon Anik',
+          kBrandName,
           style: GoogleFonts.inter(
             fontSize: 19,
             fontWeight: FontWeight.w700,
@@ -296,10 +298,10 @@ class _HeroSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const _Eyebrow('FLUTTER DEVELOPER'),
+        const _Eyebrow(kHeroEyebrow),
         const SizedBox(height: 22),
         Text(
-          'Building beautiful\napps with Flutter',
+          kHeroHeadline,
           style: GoogleFonts.inter(
             fontSize: mobile ? 45 : 54,
             height: 1.08,
@@ -312,7 +314,7 @@ class _HeroSection extends StatelessWidget {
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 500),
           child: Text(
-            'I build cross-platform mobile applications that are\nfast, beautiful and provide exceptional user experiences.',
+            kHeroSubtitle,
             style: GoogleFonts.inter(
               fontSize: mobile ? 14 : 15,
               height: 1.65,
@@ -412,10 +414,10 @@ class _AboutSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const _Eyebrow('ABOUT ME'),
+          const _Eyebrow(kAboutEyebrow),
           const SizedBox(height: 16),
           Text(
-            'Hi, I’m Anik\nFlutter Developer',
+            kAboutHeadline,
             style: GoogleFonts.inter(
               fontSize: mobile ? 30 : 34,
               height: 1.05,
@@ -425,9 +427,7 @@ class _AboutSection extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            'I’m a self-taught Flutter developer with a passion for building\n'
-            'clean, scalable and user-friendly mobile applications.\n'
-            'I love turning ideas into real products.',
+            kAboutBio,
             style: GoogleFonts.inter(
               fontSize: 13,
               height: 1.55,
@@ -435,22 +435,12 @@ class _AboutSection extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          const Wrap(
+          Wrap(
             spacing: 30,
             runSpacing: 18,
             children: [
-              _Stat(
-                  icon: Icons.timelapse_rounded,
-                  value: '5+',
-                  label: 'Years Experience'),
-              _Stat(
-                  icon: Icons.work_outline_rounded,
-                  value: '20+',
-                  label: 'Projects Completed'),
-              _Stat(
-                  icon: Icons.thumb_up_alt_outlined,
-                  value: '100%',
-                  label: 'Client Satisfaction'),
+              for (final s in kAboutStats)
+                _Stat(icon: s.icon, value: s.value, label: s.label),
             ],
           ),
           const SizedBox(height: 24),
@@ -546,17 +536,6 @@ class _Stat extends StatelessWidget {
 class _SkillsSection extends StatelessWidget {
   const _SkillsSection();
 
-  static const skills = [
-    ('Flutter', Icons.flutter_dash_rounded, Color(0xFF19A7E8)),
-    ('Dart', Icons.change_history_rounded, Color(0xFF48A9E6)),
-    ('Firebase', Icons.local_fire_department_rounded, Color(0xFFFFB000)),
-    ('Riverpod', Icons.hub_outlined, Color(0xFF4CA5DB)),
-    ('Hive', Icons.hexagon_rounded, Color(0xFFF2C839)),
-    ('REST API', Icons.api_rounded, Color(0xFFE7E7E7)),
-    ('Git', Icons.alt_route_rounded, Color(0xFFF1502F)),
-    ('Docker', Icons.directions_boat_filled_rounded, Color(0xFF2496ED)),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -579,13 +558,13 @@ class _SkillsSection extends StatelessWidget {
               spacing: gap,
               runSpacing: gap,
               children: [
-                for (final skill in skills)
+                for (final skill in kSkills)
                   SizedBox(
                     width: itemWidth,
                     child: _SkillCard(
-                      name: skill.$1,
-                      icon: skill.$2,
-                      color: skill.$3,
+                      name: skill.name,
+                      icon: skill.icon,
+                      color: skill.color,
                     ),
                   ),
               ],
@@ -632,37 +611,6 @@ class _SkillCard extends StatelessWidget {
 class _ProjectsSection extends StatelessWidget {
   const _ProjectsSection();
 
-  static const projects = [
-    _ProjectData(
-      title: 'Gari Bhai',
-      subtitle: 'Ride Sharing App',
-      description: 'A complete ride sharing solution\nwith real-time tracking.',
-      tags: ['Flutter', 'Firebase'],
-      icon: Icons.commute_rounded,
-    ),
-    _ProjectData(
-      title: 'Tour Shongi',
-      subtitle: 'Travel Companion',
-      description: 'Travel app with places, guides\nand trip management.',
-      tags: ['Flutter', 'Hive', 'Maps'],
-      icon: Icons.landscape_rounded,
-    ),
-    _ProjectData(
-      title: 'Wrangle Wave',
-      subtitle: 'Mechanic App',
-      description: 'Vehicle service app for garages\nand customers.',
-      tags: ['Flutter', 'Stripe', 'Firebase'],
-      icon: Icons.build_circle_outlined,
-    ),
-    _ProjectData(
-      title: 'Instant Shop',
-      subtitle: 'E-commerce App',
-      description: 'Multi-vendor e-commerce\napp with modern UI.',
-      tags: ['Flutter', 'Riverpod'],
-      icon: Icons.shopping_bag_outlined,
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -692,7 +640,7 @@ class _ProjectsSection extends StatelessWidget {
               spacing: gap,
               runSpacing: gap,
               children: [
-                for (final p in projects)
+                for (final p in kProjects)
                   SizedBox(
                     width: itemWidth,
                     child: _ProjectCard(data: p),
@@ -709,7 +657,7 @@ class _ProjectsSection extends StatelessWidget {
 class _ProjectCard extends StatelessWidget {
   const _ProjectCard({required this.data});
 
-  final _ProjectData data;
+  final ProjectData data;
 
   @override
   Widget build(BuildContext context) {
@@ -778,22 +726,6 @@ class _ProjectCard extends StatelessWidget {
   }
 }
 
-class _ProjectData {
-  const _ProjectData({
-    required this.title,
-    required this.subtitle,
-    required this.description,
-    required this.tags,
-    required this.icon,
-  });
-
-  final String title;
-  final String subtitle;
-  final String description;
-  final List<String> tags;
-  final IconData icon;
-}
-
 class _Tag extends StatelessWidget {
   const _Tag(this.text);
 
@@ -819,27 +751,6 @@ class _Tag extends StatelessWidget {
 class _ExperienceSection extends StatelessWidget {
   const _ExperienceSection();
 
-  static const entries = [
-    (
-      '2022 – Present',
-      'Flutter Developer (Remote)',
-      'KLwecoo (Upwork)',
-      'Building cross-platform mobile apps\nfor clients worldwide.'
-    ),
-    (
-      '2021 – 2022',
-      'Flutter Developer',
-      'Softenin, Dhaka',
-      'Developed and maintained multiple\nproduction apps.'
-    ),
-    (
-      '2020 – 2021',
-      'Android Developer (Kotlin)',
-      'ApexDv, Dhaka',
-      'Worked on native Android apps\nusing Kotlin and MVVM.'
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -859,9 +770,9 @@ class _ExperienceSection extends StatelessWidget {
             final narrow = constraints.maxWidth < 700;
             return Column(
               children: [
-                for (int i = 0; i < entries.length; i++) ...[
-                  _ExperienceRow(data: entries[i], narrow: narrow),
-                  if (i != entries.length - 1) const SizedBox(height: 20),
+                for (int i = 0; i < kExperience.length; i++) ...[
+                  _ExperienceRow(data: kExperience[i], narrow: narrow),
+                  if (i != kExperience.length - 1) const SizedBox(height: 20),
                 ],
               ],
             );
@@ -878,7 +789,7 @@ class _ExperienceRow extends StatelessWidget {
     required this.narrow,
   });
 
-  final (String, String, String, String) data;
+  final ExperienceData data;
   final bool narrow;
 
   @override
@@ -894,17 +805,17 @@ class _ExperienceRow extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(data.$1,
+            Text(data.period,
                 style: const TextStyle(color: Color(0xFF9D9D9D), fontSize: 11)),
             const SizedBox(height: 10),
-            Text(data.$2,
+            Text(data.role,
                 style:
                     const TextStyle(fontSize: 13, fontWeight: FontWeight.w700)),
-            Text(data.$3,
+            Text(data.company,
                 style:
                     const TextStyle(color: Color(0xFF909090), fontSize: 10.5)),
             const SizedBox(height: 12),
-            Text(data.$4,
+            Text(data.description,
                 style: const TextStyle(
                     color: Color(0xFFAAAAAA), fontSize: 11.5, height: 1.5)),
           ],
@@ -918,7 +829,7 @@ class _ExperienceRow extends StatelessWidget {
         SizedBox(
           width: 150,
           child: Text(
-            data.$1,
+            data.period,
             style: const TextStyle(color: Color(0xFF989898), fontSize: 12),
           ),
         ),
@@ -949,13 +860,13 @@ class _ExperienceRow extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                data.$2,
+                data.role,
                 style:
                     const TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
               ),
               const SizedBox(height: 5),
               Text(
-                data.$3,
+                data.company,
                 style:
                     const TextStyle(fontSize: 10.5, color: Color(0xFF929292)),
               ),
@@ -965,7 +876,7 @@ class _ExperienceRow extends StatelessWidget {
         Expanded(
           flex: 3,
           child: Text(
-            data.$4,
+            data.description,
             style: const TextStyle(
               fontSize: 11.5,
               height: 1.55,
@@ -988,36 +899,32 @@ class _Footer extends StatelessWidget {
     final intro = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const _Eyebrow('LET’S WORK TOGETHER'),
+        const _Eyebrow(kContactEyebrow),
         const SizedBox(height: 16),
         const Text(
-          'Have a project in mind? Let’s build something amazing together.',
+          kContactTagline,
           style: TextStyle(fontSize: 11.5, color: Color(0xFF949494)),
         ),
       ],
     );
 
-    final contact = const Column(
+    final contact = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _ContactLine(Icons.mail_outline_rounded, 'anik.mis085@gmail.com'),
-        SizedBox(height: 12),
-        _ContactLine(Icons.phone_outlined, '+880 1234-567890'),
-        SizedBox(height: 12),
-        _ContactLine(Icons.location_on_outlined, 'Dhaka, Bangladesh'),
+        for (int i = 0; i < kContactLines.length; i++) ...[
+          _ContactLine(kContactLines[i].icon, kContactLines[i].text),
+          if (i != kContactLines.length - 1) const SizedBox(height: 12),
+        ],
       ],
     );
 
-    final social = const Row(
+    final social = Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        _SocialIcon(Icons.code_rounded),
-        SizedBox(width: 22),
-        _SocialIcon(Icons.business_center_outlined),
-        SizedBox(width: 22),
-        _SocialIcon(Icons.alternate_email_rounded),
-        SizedBox(width: 22),
-        _SocialIcon(Icons.language_rounded),
+        for (int i = 0; i < kSocialIcons.length; i++) ...[
+          _SocialIcon(kSocialIcons[i].icon),
+          if (i != kSocialIcons.length - 1) const SizedBox(width: 22),
+        ],
       ],
     );
 
@@ -1053,7 +960,7 @@ class _Footer extends StatelessWidget {
           const Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              '© 2024 Carbon Anik. All rights reserved.',
+              kCopyrightText,
               style: TextStyle(fontSize: 10.5, color: Color(0xFF737373)),
             ),
           ),
