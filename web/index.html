@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <!--
     If you are serving your web app in a path other than the root, change the
@@ -19,138 +18,29 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description"
-    content="Sheikh Anik - Software Engineer Portfolio. Specialist in Flutter and modern digital experiences.">
+  <meta name="description" content="A new Flutter project.">
 
   <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="Sheikh Anik">
+  <meta name="apple-mobile-web-app-title" content="digital_logic_sim_2">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>Sheikh Anik | Portfolio</title>
+  <title>digital_logic_sim_2</title>
   <link rel="manifest" href="manifest.json">
-
-  <style>
-    body {
-      background-color: #0b0900;
-      margin: 0;
-      padding: 0;
-    }
-
-    #loading-loader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #0b0900;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      transition: opacity 0.5s ease-out;
-    }
-
-    .skew-container {
-      width: 100%;
-      height: 100px;
-      overflow: hidden;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transform: skewX(-30deg);
-    }
-
-    .skew-pattern {
-      width: 250%;
-      height: 100%;
-      background: repeating-linear-gradient(90deg,
-          #0b0900 0px,
-          #0b0900 50px,
-          #eaad13 50px,
-          #eaad13 100px);
-      animation: slide 0.3s linear infinite;
-    }
-
-    @keyframes slide {
-      from {
-        transform: translateX(-100px);
-      }
-
-      to {
-        transform: translateX(0);
-      }
-    }
-
-    .loading-text {
-      color: #eaad13;
-      font-family: monospace;
-      font-size: 52px;
-      margin-top: 50px;
-      font-weight: bold;
-    }
-  </style>
-
-  <script>
-    // The value below is injected by flutter build, do not touch.
-    var serviceWorkerVersion = null;
-  </script>
-  <!-- This script adds the flutter initialization JS code -->
-  <script src="flutter.js" defer></script>
 </head>
-
 <body>
-  <div id="loading-loader">
-    <div class="skew-container">
-      <div class="skew-pattern"></div>
-    </div>
-    <div class="loading-text" id="loading-percentage">0%</div>
-  </div>
+  <!--
+    You can customize the "flutter_bootstrap.js" script.
+    This is useful to provide a custom configuration to the Flutter loader
+    or to give the user feedback during the initialization process.
 
-  <script>
-    (function () {
-      var percentageElement = document.getElementById('loading-percentage');
-      var loader = document.getElementById('loading-loader');
-      var progress = 0;
-
-      var interval = setInterval(function () {
-        if (progress < 95) {
-          progress += Math.random() * 5;
-          if (progress > 95) progress = 95;
-          percentageElement.innerText = Math.floor(progress) + '%';
-        }
-      }, 100);
-
-      window.addEventListener('load', function (ev) {
-        // Download main.dart.js
-        _flutter.loader.loadEntrypoint({
-          serviceWorker: {
-            serviceWorkerVersion: serviceWorkerVersion,
-          }
-        }).then(function (engineInitializer) {
-          return engineInitializer.initializeEngine();
-        }).then(function (appRunner) {
-          return appRunner.runApp();
-        }).then(function () {
-          // Fade out and remove loader
-          clearInterval(interval);
-          percentageElement.innerText = '100%';
-          setTimeout(function () {
-            loader.style.opacity = '0';
-            setTimeout(function () {
-              loader.remove();
-            }, 500);
-          }, 200);
-        });
-      });
-    })();
-  </script>
+    For more details:
+    * https://docs.flutter.dev/platform-integration/web/initialization
+  -->
+  <script src="flutter_bootstrap.js" async></script>
 </body>
-
 </html>

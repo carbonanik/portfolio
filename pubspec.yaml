@@ -38,6 +38,7 @@ dependencies:
   flutter_svg: ^2.0.9
   gap: ^3.0.1
   http: ^1.1.0
+  google_fonts: ^8.2.1
 
 dev_dependencies:
   flutter_test:
@@ -52,12 +53,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/image/
-
-  shaders:
-    - assets/shaders/ui_glitch.frag
-    - assets/shaders/ui_ascii_2.frag
-    - assets/shaders/ui_ascii_3.frag
+    - assets/images/
 
   fonts:
     - family: IBMPlexMono
