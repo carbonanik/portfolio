@@ -220,11 +220,11 @@ class ContactLineData {
 const List<ContactLineData> kContactLines = [
   ContactLineData(
     icon: Icons.mail_outline_rounded,
-    text: 'anik.mis085@gmail.com',
+    text: 'sheikhanikbd@gmail.com',
   ),
   ContactLineData(
     icon: Icons.phone_outlined,
-    text: '+880 1234-567890',
+    text: '+880 1766-785027',
   ),
   ContactLineData(
     icon: Icons.location_on_outlined,
