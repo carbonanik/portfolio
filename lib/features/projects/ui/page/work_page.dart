@@ -4,9 +4,7 @@ import 'package:portfolio/features/projects/ui/widgets/project_item.dart';
 import 'package:portfolio/features/common/extensions/ext.dart';
 import 'package:portfolio/features/projects/models/category_project.dart';
 import 'package:portfolio/features/projects/models/project.dart';
-import 'package:portfolio/features/common/ui/widgets/scrollable_row.dart';
 import 'package:portfolio/core/theme/typography.dart';
-import 'package:supercharged/supercharged.dart';
 
 const des = "This is the real project i have made, you can believe me.";
 final categories = [
@@ -236,14 +234,18 @@ class WorkPage extends StatefulWidget {
   State<WorkPage> createState() => _WorkPageState();
 }
 
-class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
-  final lineWidth = 2.0;
+class _WorkPageState extends State<WorkPage> {
   int selectedIndex = 0;
+
+  ProjectCategory get selectedCategory => categories[selectedIndex];
+
+  void selectCategory(int index) {
+    if (selectedIndex == index) return;
+    setState(() => selectedIndex = index);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
     final borderColor = Theme.of(context)
         .colorScheme
         .primary
@@ -259,174 +261,421 @@ class _WorkPageState extends State<WorkPage> with TickerProviderStateMixin {
       children: [
         Positioned.fill(
           left: context.adaptiveResponsiveWidth(desktop: 100, mobile: 10),
+          right: context.adaptiveResponsiveWidth(desktop: 70, mobile: 10),
           top: context.responsiveSize(desktop: 100, tablet: 100, mobile: 80),
+          bottom: context.responsiveSize(desktop: 90, tablet: 90, mobile: 84),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Icon(
-                    Icons.folder,
-                    color: Theme.of(context).colorScheme.tertiary,
-                    size: context.adaptiveResponsiveWidth(desktop: 70),
-                  ),
-                  SizedBox(width: context.responsiveSize(desktop: 20)),
-                  Text(
-                    "Projects",
-                    style: titleTwoTextStyle(context).copyWith(
-                      fontSize: context.adaptiveResponsiveWidth(desktop: 32),
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.tertiary,
-                    ),
-                  )
-                ],
+              _WorkHeader(
+                projectCount: categories.fold<int>(
+                  0,
+                  (count, category) => count + category.projects.length,
+                ),
               ),
+              SizedBox(height: context.responsiveSize(desktop: 34, mobile: 20)),
               Expanded(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                        width: context.adaptiveResponsiveWidth(desktop: 34)),
-                    // ? side line
-                    Container(
-                      width: lineWidth,
-                      height: height -
-                          context.responsiveSize(
-                              desktop: 100,
-                              tablet: 200,
-                              mobile: 150), // line height
-                      color: lineColor,
-                    ),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Column(
+                child: context.isMobile
+                    ? Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: List.generate(
-                          categories.length,
-                          (index) => Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: height * .04),
-                              buildProjectCategoryItem(
-                                index: index,
-                                category: categories[index],
-                                width: width -
-                                    context.adaptiveResponsiveWidth(
-                                        desktop: 200, tablet: 200, mobile: 50),
-                                lineColor: lineColor,
+                        children: [
+                          _CategoryStrip(
+                            selectedIndex: selectedIndex,
+                            onSelected: selectCategory,
+                          ),
+                          SizedBox(
+                            height: context.responsiveSize(
+                              desktop: 0,
+                              mobile: 18,
+                            ),
+                          ),
+                          Expanded(
+                            child: AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 220),
+                              switchInCurve: Curves.easeOutCubic,
+                              switchOutCurve: Curves.easeInCubic,
+                              child: _ProjectGrid(
+                                key: ValueKey(selectedIndex),
+                                category: selectedCategory,
                                 borderColor: borderColor,
                               ),
-                            ],
+                            ),
                           ),
-                        ),
+                        ],
+                      )
+                    : Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: context.responsiveSize(
+                              desktop: 300,
+                              tablet: 250,
+                            ),
+                            child: _CategoryRail(
+                              lineColor: lineColor,
+                              selectedIndex: selectedIndex,
+                              onSelected: selectCategory,
+                            ),
+                          ),
+                          SizedBox(
+                            width: context.responsiveSize(
+                              desktop: 28,
+                              tablet: 20,
+                            ),
+                          ),
+                          Expanded(
+                            child: AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 220),
+                              switchInCurve: Curves.easeOutCubic,
+                              switchOutCurve: Curves.easeInCubic,
+                              child: _ProjectGrid(
+                                key: ValueKey(selectedIndex),
+                                category: selectedCategory,
+                                borderColor: borderColor,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-              )
+              ),
             ],
           ),
         ),
       ],
     );
   }
+}
 
-  Widget buildProjectCategoryItem({
-    required int index,
-    required ProjectCategory category,
-    required double width,
-    required Color lineColor,
-    required Color borderColor,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+class _WorkHeader extends StatelessWidget {
+  const _WorkHeader({required this.projectCount});
+
+  final int projectCount;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
       children: [
-        Row(
-          children: [
-            Container(
-              width: context.adaptiveResponsiveWidth(desktop: 100, mobile: 30),
-              height: lineWidth,
-              color: lineColor,
-            ),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  selectedIndex = index == selectedIndex ? -1 : index;
-                });
-              },
-              child: Row(
-                children: [
-                  Icon(
-                    index == selectedIndex ? Icons.folder_copy : Icons.folder,
-                    color: Theme.of(context).colorScheme.tertiary,
-                    size: context.adaptiveResponsiveWidth(desktop: 55),
-                  ),
-                  SizedBox(width: context.responsiveSize(desktop: 20)),
-                  Text(
-                    category.name,
-                    style: titleTwoTextStyle(context).copyWith(
-                      fontSize: context.adaptiveResponsiveWidth(desktop: 24),
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.tertiary,
-                    ),
-                  ),
-                ],
-              ),
-            )
-          ],
+        Icon(
+          Icons.folder_special_rounded,
+          color: Theme.of(context).colorScheme.tertiary,
+          size: context.adaptiveResponsiveWidth(
+            desktop: 70,
+            tablet: 54,
+            mobile: 44,
+          ),
         ),
-        AnimatedSize(
-          duration: 300.milliseconds,
-          curve: Curves.fastOutSlowIn,
-          child: SizedBox(
-            width: width,
-            child: AnimatedSwitcher(
-              duration: 300.milliseconds,
-              transitionBuilder: (Widget child, Animation<double> animation) {
-                final offsetAnimation = Tween<Offset>(
-                  begin: const Offset(0.0, -0.2),
-                  end: Offset.zero,
-                ).animate(animation);
-                return FadeTransition(
-                  opacity: animation,
-                  child: SlideTransition(
-                    position: offsetAnimation,
-                    child: child,
-                  ),
-                );
-              },
-              child: index == selectedIndex
-                  ? Builder(
-                      builder: (context) {
-                        final contentHeight = context.adaptiveResponsiveWidth(
-                            desktop: 380, tablet: 340, mobile: 260);
-                        final contentWidth = context.adaptiveResponsiveWidth(
-                            desktop: 380, tablet: 340, mobile: 220);
-                        final horizontalSpace = context.adaptiveResponsiveWidth(
-                            desktop: 60, mobile: 20);
-
-                        return ScrollableRow(
-                          contentHeight: contentHeight,
-                          itemTotalWidth: contentWidth + horizontalSpace,
-                          itemCount: category.projects.length,
-                          itemBuilder: (context, index) {
-                            return Row(
-                              children: [
-                                SizedBox(width: horizontalSpace),
-                                ProjectItemView(
-                                  project: category.projects[index],
-                                  borderColor: borderColor,
-                                  width: contentWidth,
-                                  height: contentHeight,
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      },
-                    )
-                  : const SizedBox(),
+        SizedBox(width: context.responsiveSize(desktop: 20, mobile: 12)),
+        Text(
+          "Projects",
+          style: titleTwoTextStyle(context).copyWith(
+            fontSize: context.adaptiveResponsiveWidth(
+              desktop: 32,
+              tablet: 30,
+              mobile: 26,
             ),
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).colorScheme.tertiary,
+          ),
+        ),
+        SizedBox(width: context.responsiveSize(desktop: 18, mobile: 10)),
+        DecoratedBox(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Theme.of(context).colorScheme.primary.withOpacity(.25),
+            ),
+            color: Theme.of(context).colorScheme.primary.withOpacity(.08),
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            child: Text(
+              "$projectCount files",
+              style: subtitleTextStyle(context).copyWith(
+                fontSize: context.responsiveSize(
+                  desktop: 14,
+                  tablet: 13,
+                  mobile: 12,
+                ),
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _CategoryRail extends StatelessWidget {
+  const _CategoryRail({
+    required this.lineColor,
+    required this.selectedIndex,
+    required this.onSelected,
+  });
+
+  final Color lineColor;
+  final int selectedIndex;
+  final ValueChanged<int> onSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Container(width: 2, color: lineColor),
+        const SizedBox(width: 18),
+        Expanded(
+          child: ListView.separated(
+            padding: EdgeInsets.zero,
+            itemCount: categories.length,
+            separatorBuilder: (context, index) => const SizedBox(height: 14),
+            itemBuilder: (context, index) {
+              final category = categories[index];
+              return _FolderButton(
+                category: category,
+                selected: selectedIndex == index,
+                onTap: () => onSelected(index),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _CategoryStrip extends StatelessWidget {
+  const _CategoryStrip({
+    required this.selectedIndex,
+    required this.onSelected,
+  });
+
+  final int selectedIndex;
+  final ValueChanged<int> onSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 58,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemCount: categories.length,
+        separatorBuilder: (context, index) => const SizedBox(width: 10),
+        itemBuilder: (context, index) {
+          final category = categories[index];
+          return _FolderButton(
+            category: category,
+            selected: selectedIndex == index,
+            compact: true,
+            onTap: () => onSelected(index),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _FolderButton extends StatelessWidget {
+  const _FolderButton({
+    required this.category,
+    required this.selected,
+    required this.onTap,
+    this.compact = false,
+  });
+
+  final ProjectCategory category;
+  final bool selected;
+  final bool compact;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return Semantics(
+      button: true,
+      selected: selected,
+      label: category.name,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(6),
+        onTap: onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 160),
+          curve: Curves.easeOutCubic,
+          width: compact ? null : double.infinity,
+          padding: EdgeInsets.symmetric(
+            horizontal: compact ? 12 : 14,
+            vertical: compact ? 10 : 14,
+          ),
+          decoration: BoxDecoration(
+            color: selected
+                ? colorScheme.primary.withOpacity(.12)
+                : colorScheme.background.withOpacity(.22),
+            border: Border.all(
+              color: selected
+                  ? colorScheme.tertiary.withOpacity(.85)
+                  : colorScheme.primary.withOpacity(.18),
+            ),
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: Row(
+            mainAxisSize: compact ? MainAxisSize.min : MainAxisSize.max,
+            children: [
+              Icon(
+                selected ? Icons.folder_open_rounded : Icons.folder_rounded,
+                color: selected ? colorScheme.tertiary : colorScheme.primary,
+                size: context.responsiveSize(
+                  desktop: 28,
+                  tablet: 26,
+                  mobile: 22,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Flexible(
+                child: Text(
+                  category.name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: titleTwoTextStyle(context).copyWith(
+                    fontSize: context.responsiveSize(
+                      desktop: 18,
+                      tablet: 16,
+                      mobile: 14,
+                    ),
+                    fontWeight: selected ? FontWeight.w800 : FontWeight.w600,
+                    color:
+                        selected ? colorScheme.tertiary : colorScheme.primary,
+                  ),
+                ),
+              ),
+              if (!compact) ...[
+                const SizedBox(width: 8),
+                Text(
+                  category.projects.length.toString().padLeft(2, "0"),
+                  style: subtitleTextStyle(context).copyWith(
+                    fontSize: 12,
+                    color: colorScheme.inversePrimary.withOpacity(.7),
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ProjectGrid extends StatelessWidget {
+  const _ProjectGrid({
+    super.key,
+    required this.category,
+    required this.borderColor,
+  });
+
+  final ProjectCategory category;
+  final Color borderColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final spacing = context.responsiveSize(
+          desktop: 24,
+          tablet: 20,
+          mobile: 16,
+        );
+        final columns = context.isMobile
+            ? 1
+            : constraints.maxWidth > 980
+                ? 2
+                : 1;
+        final cardWidth =
+            (constraints.maxWidth - spacing * (columns - 1)) / columns;
+        final cardHeight = context.responsiveSize(
+          desktop: 360,
+          tablet: 330,
+          mobile: 278,
+        );
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _SelectedFolderTitle(category: category),
+            SizedBox(height: context.responsiveSize(desktop: 22, mobile: 14)),
+            Expanded(
+              child: GridView.builder(
+                padding: EdgeInsets.only(
+                  right: context.isMobile ? 0 : 16,
+                  bottom: 24,
+                ),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: columns,
+                  crossAxisSpacing: spacing,
+                  mainAxisSpacing: spacing,
+                  mainAxisExtent: cardHeight,
+                ),
+                itemCount: category.projects.length,
+                itemBuilder: (context, index) {
+                  return RepaintBoundary(
+                    child: ProjectItemView(
+                      project: category.projects[index],
+                      borderColor: borderColor,
+                      width: cardWidth,
+                      height: cardHeight,
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _SelectedFolderTitle extends StatelessWidget {
+  const _SelectedFolderTitle({required this.category});
+
+  final ProjectCategory category;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return Row(
+      children: [
+        Icon(
+          Icons.folder_open_rounded,
+          color: colorScheme.tertiary,
+          size: context.responsiveSize(desktop: 34, tablet: 30, mobile: 26),
+        ),
+        const SizedBox(width: 12),
+        Flexible(
+          child: Text(
+            category.name,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: titleTwoTextStyle(context).copyWith(
+              color: colorScheme.tertiary,
+              fontWeight: FontWeight.bold,
+              fontSize: context.responsiveSize(
+                desktop: 24,
+                tablet: 22,
+                mobile: 18,
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 10),
+        Text(
+          "${category.projects.length} projects",
+          style: subtitleTextStyle(context).copyWith(
+            fontSize: context.responsiveSize(
+              desktop: 14,
+              tablet: 13,
+              mobile: 12,
+            ),
+            color: colorScheme.inversePrimary.withOpacity(.65),
           ),
         ),
       ],

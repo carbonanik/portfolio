@@ -143,12 +143,14 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
           child: Consumer(builder: (context, ref, child) {
             return MouseRegion(
               onEnter: (hovering) {
+                return;
                 ref.read(blobDataProvider.notifier).update(
                       color: Theme.of(context).colorScheme.tertiary,
                       size: context.responsiveSize(desktop: 200),
                     );
               },
               onExit: (event) {
+                return;
                 ref.read(blobDataProvider.notifier).reset();
               },
               child: SizedBox(
@@ -180,20 +182,21 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
           child: Consumer(builder: (context, ref, child) {
             return MouseRegion(
               onEnter: (hovering) {
+                return;
                 ref.read(blobDataProvider.notifier).update(
                       color: Theme.of(context).colorScheme.primary,
-                      size: context.responsiveSize(desktop: 400),
+                      size: context.responsiveSize(desktop: 300),
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
-                          ArcText(
-                            radius: context.responsiveSize(desktop: 120),
-                            text: "Hey! I Am Anik.   Click the Click me!",
-                            textStyle: titleOneTextStyle(context).copyWith(
-                              color: Theme.of(context).colorScheme.secondary,
-                              fontSize: context.responsiveSize(desktop: 44),
-                            ),
-                          ),
+                          // ArcText(
+                          //   radius: context.responsiveSize(desktop: 120),
+                          //   text: "Hey! I Am Anik.   Click the Click me!",
+                          //   textStyle: titleOneTextStyle(context).copyWith(
+                          //     color: Theme.of(context).colorScheme.secondary,
+                          //     fontSize: context.responsiveSize(desktop: 44),
+                          //   ),
+                          // ),
                           Padding(
                             padding: const EdgeInsets.only(right: 30),
                             child: SvgPicture.asset(
@@ -210,6 +213,7 @@ class _IntroState extends State<Intro> with TickerProviderStateMixin {
                     );
               },
               onExit: (event) {
+                return;
                 ref.read(blobDataProvider.notifier).reset();
               },
               child: StepText(
