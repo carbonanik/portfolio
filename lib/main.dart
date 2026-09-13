@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'data.dart';
 
@@ -23,6 +22,7 @@ class PortfolioApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,
+        fontFamily: 'Inter',
         scaffoldBackgroundColor: background,
         colorScheme: const ColorScheme.dark(
           primary: Color(0xFFF4F4F5),
@@ -30,7 +30,7 @@ class PortfolioApp extends StatelessWidget {
           onSurface: Color(0xFFF4F4F5),
         ),
         splashFactory: InkSparkle.splashFactory,
-        textTheme: GoogleFonts.interTextTheme(ThemeData.dark().textTheme),
+        textTheme: ThemeData.dark().textTheme.apply(fontFamily: 'Inter'),
       ),
       home: const PortfolioPage(),
     );
@@ -87,53 +87,67 @@ class _PortfolioPageState extends State<PortfolioPage> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         const SizedBox(height: 8),
-                        _Navbar(
-                          mobile: mobile,
-                          onHome: () => _goTo(homeKey),
-                          onAbout: () => _goTo(aboutKey),
-                          onSkills: () => _goTo(skillsKey),
-                          onProjects: () => _goTo(projectsKey),
-                          onExperience: () => _goTo(experienceKey),
-                          onContact: () => _goTo(contactKey),
+                        _Reveal(
+                          delay: const Duration(milliseconds: 100),
+                          offset: const Offset(0, -0.05),
+                          child: _Navbar(
+                            mobile: mobile,
+                            onHome: () => _goTo(homeKey),
+                            onAbout: () => _goTo(aboutKey),
+                            onSkills: () => _goTo(skillsKey),
+                            onProjects: () => _goTo(projectsKey),
+                            onExperience: () => _goTo(experienceKey),
+                            onContact: () => _goTo(contactKey),
+                          ),
                         ),
                         SizedBox(height: mobile ? 54 : 42),
                         Container(
                           key: homeKey,
-                          child: _Reveal(
-                            child: _HeroSection(
-                              mobile: mobile,
-                              onWork: () => _goTo(projectsKey),
-                              onContact: () => _goTo(contactKey),
-                            ),
+                          child: _HeroSection(
+                            mobile: mobile,
+                            onWork: () => _goTo(projectsKey),
+                            onContact: () => _goTo(contactKey),
                           ),
                         ),
                         SizedBox(height: mobile ? 62 : 54),
                         Container(
                           key: aboutKey,
                           child: _Reveal(
-                            delay: const Duration(milliseconds: 80),
+                            delay: const Duration(milliseconds: 700),
                             child: _AboutSection(mobile: mobile),
                           ),
                         ),
                         const SizedBox(height: 54),
                         Container(
                           key: skillsKey,
-                          child: const _SkillsSection(),
+                          child: _Reveal(
+                            delay: const Duration(milliseconds: 700),
+                            child: const _SkillsSection(),
+                          ),
                         ),
                         const SizedBox(height: 58),
                         Container(
                           key: projectsKey,
-                          child: const _ProjectsSection(),
+                          child: _Reveal(
+                            delay: const Duration(milliseconds: 700),
+                            child: const _ProjectsSection(),
+                          ),
                         ),
                         const SizedBox(height: 62),
                         Container(
                           key: experienceKey,
-                          child: const _ExperienceSection(),
+                          child: _Reveal(
+                            delay: const Duration(milliseconds: 700),
+                            child: const _ExperienceSection(),
+                          ),
                         ),
                         const SizedBox(height: 62),
                         Container(
                           key: contactKey,
-                          child: _Footer(mobile: mobile),
+                          child: _Reveal(
+                            delay: const Duration(milliseconds: 700),
+                            child: _Footer(mobile: mobile),
+                          ),
                         ),
                         const SizedBox(height: 30),
                       ],
@@ -268,11 +282,12 @@ class _Brand extends StatelessWidget {
         const SizedBox(width: 11),
         Text(
           kBrandName,
-          style: GoogleFonts.inter(
+          style: const TextStyle(
+            fontFamily: 'Inter',
             fontSize: 17,
             letterSpacing: -.3,
             fontWeight: FontWeight.w700,
-            color: const Color(0xFFF2F3F5),
+            color: Color(0xFFF2F3F5),
           ),
         ),
       ],
@@ -349,52 +364,66 @@ class _HeroSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const _Eyebrow(kHeroEyebrow),
+        _Reveal(
+          delay: const Duration(milliseconds: 150),
+          child: const _Eyebrow(kHeroEyebrow),
+        ),
         const SizedBox(height: 20),
-        ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 660),
-          child: Text(
-            kHeroHeadline,
-            style: GoogleFonts.inter(
-              fontSize: mobile ? 43 : 58,
-              height: 1.04,
-              letterSpacing: mobile ? -2 : -3.1,
-              fontWeight: FontWeight.w800,
-              color: const Color(0xFFF4F4F5),
+        _Reveal(
+          delay: const Duration(milliseconds: 250),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 660),
+            child: Text(
+              kHeroHeadline,
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontSize: mobile ? 43 : 58,
+                height: 1.04,
+                letterSpacing: mobile ? -2 : -3.1,
+                fontWeight: FontWeight.w800,
+                color: const Color(0xFFF4F4F5),
+              ),
             ),
           ),
         ),
         const SizedBox(height: 20),
-        ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 520),
-          child: Text(
-            kHeroSubtitle,
-            style: GoogleFonts.inter(
-              fontSize: mobile ? 14 : 15,
-              height: 1.7,
-              letterSpacing: -.1,
-              color: const Color(0xFF9EA3AB),
+        _Reveal(
+          delay: const Duration(milliseconds: 350),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 520),
+            child: Text(
+              kHeroSubtitle,
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontSize: mobile ? 14 : 15,
+                height: 1.7,
+                letterSpacing: -.1,
+                color: const Color(0xFF9EA3AB),
+              ),
             ),
           ),
         ),
         const SizedBox(height: 30),
-        Wrap(
-          spacing: 12,
-          runSpacing: 12,
-          children: [
-            _ActionButton(
-              label: 'View My Work',
-              icon: Icons.arrow_outward_rounded,
-              onTap: onWork,
-              filled: true,
-            ),
-            _ActionButton(
-              label: 'Contact Me',
-              icon: Icons.mail_outline_rounded,
-              onTap: onContact,
-              filled: false,
-            ),
-          ],
+        _Reveal(
+          delay: const Duration(milliseconds: 450),
+          child: Wrap(
+            spacing: 12,
+            runSpacing: 12,
+            children: [
+              _ActionButton(
+                label: 'View My Work',
+                icon: Icons.arrow_outward_rounded,
+                onTap: onWork,
+                filled: true,
+              ),
+              _ActionButton(
+                label: 'Contact Me',
+                icon: Icons.mail_outline_rounded,
+                onTap: onContact,
+                filled: false,
+              ),
+            ],
+          ),
         ),
       ],
     );
@@ -403,10 +432,14 @@ class _HeroSection extends StatelessWidget {
       height: mobile ? 410 : 470,
       child: Align(
         alignment: Alignment.centerRight,
-        child: _FloatingAsset(
-          child: Image.asset(
-            'assets/images/phone_mockup_removebg.png',
-            fit: BoxFit.contain,
+        child: _Reveal(
+          delay: const Duration(milliseconds: 550),
+          offset: const Offset(0.05, 0),
+          child: _FloatingAsset(
+            child: Image.asset(
+              'assets/images/phone_mockup_removebg.webp',
+              fit: BoxFit.contain,
+            ),
           ),
         ),
       ),
@@ -536,7 +569,7 @@ class _AboutSection extends StatelessWidget {
       child: AspectRatio(
         aspectRatio: 1,
         child: Image.asset(
-          'assets/images/profile.png',
+          'assets/images/profile.webp',
           fit: BoxFit.cover,
         ),
       ),
@@ -551,7 +584,8 @@ class _AboutSection extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             kAboutHeadline,
-            style: GoogleFonts.inter(
+            style: TextStyle(
+              fontFamily: 'Inter',
               fontSize: mobile ? 29 : 36,
               height: 1.08,
               letterSpacing: -1.5,
@@ -562,10 +596,11 @@ class _AboutSection extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             kAboutBio,
-            style: GoogleFonts.inter(
+            style: const TextStyle(
+              fontFamily: 'Inter',
               fontSize: 13.2,
               height: 1.7,
-              color: const Color(0xFFA6ABB3),
+              color: Color(0xFFA6ABB3),
             ),
           ),
           const SizedBox(height: 24),
@@ -1400,10 +1435,12 @@ class _Reveal extends StatefulWidget {
   const _Reveal({
     required this.child,
     this.delay = Duration.zero,
+    this.offset = const Offset(0, .04),
   });
 
   final Widget child;
   final Duration delay;
+  final Offset offset;
 
   @override
   State<_Reveal> createState() => _RevealState();
@@ -1411,42 +1448,49 @@ class _Reveal extends StatefulWidget {
 
 class _RevealState extends State<_Reveal> with SingleTickerProviderStateMixin {
   late final AnimationController controller;
-  Timer? timer;
 
   @override
   void initState() {
     super.initState();
     controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 650),
+      duration: const Duration(milliseconds: 750),
     );
-    timer = Timer(widget.delay, () {
-      if (mounted) controller.forward();
+
+    Future.delayed(widget.delay, () {
+      if (mounted) {
+        controller.forward();
+      }
     });
   }
 
   @override
   void dispose() {
-    timer?.cancel();
     controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final curved = CurvedAnimation(
+    final animation = CurvedAnimation(
       parent: controller,
       curve: Curves.easeOutCubic,
     );
 
     return FadeTransition(
-      opacity: curved,
+      opacity: animation,
       child: SlideTransition(
         position: Tween<Offset>(
-          begin: const Offset(0, .025),
+          begin: widget.offset,
           end: Offset.zero,
-        ).animate(curved),
-        child: widget.child,
+        ).animate(animation),
+        child: ScaleTransition(
+          scale: Tween<double>(
+            begin: .98,
+            end: 1,
+          ).animate(animation),
+          child: widget.child,
+        ),
       ),
     );
   }

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 // BRAND / GENERAL
 // ─────────────────────────────────────────────
 
-const String kBrandName = 'Carbon Anik';
+const String kBrandName = 'Sheikh Anik';
 const String kCopyrightText = '© 2026 Carbon Anik. All rights reserved.';
 
 // ─────────────────────────────────────────────
@@ -75,42 +75,42 @@ class SkillData {
 const List<SkillData> kSkills = [
   SkillData(
     name: 'Flutter',
-    logoAsset: 'assets/logos/flutter.png',
+    logoAsset: 'assets/logos/flutter.webp',
     color: Color(0xFF19A7E8),
   ),
   SkillData(
     name: 'Dart',
-    logoAsset: 'assets/logos/dart.png',
+    logoAsset: 'assets/logos/dart.webp',
     color: Color(0xFF48A9E6),
   ),
   SkillData(
     name: 'Firebase',
-    logoAsset: 'assets/logos/firebase.png',
+    logoAsset: 'assets/logos/firebase.webp',
     color: Color(0xFFFFB000),
   ),
   SkillData(
     name: 'Riverpod',
-    logoAsset: 'assets/logos/riverpod.png',
+    logoAsset: 'assets/logos/riverpod.webp',
     color: Color(0xFF4CA5DB),
   ),
   SkillData(
     name: 'Hive',
-    logoAsset: 'assets/logos/hive.png',
+    logoAsset: 'assets/logos/hive.webp',
     color: Color(0xFFF2C839),
   ),
   SkillData(
     name: 'REST API',
-    logoAsset: 'assets/logos/rest_api.png',
+    logoAsset: 'assets/logos/rest_api.webp',
     color: Color(0xFFE7E7E7),
   ),
   SkillData(
     name: 'Git',
-    logoAsset: 'assets/logos/git.png',
+    logoAsset: 'assets/logos/git.webp',
     color: Color(0xFFF1502F),
   ),
   SkillData(
     name: 'Docker',
-    logoAsset: 'assets/logos/docker.png',
+    logoAsset: 'assets/logos/docker.webp',
     color: Color(0xFF2496ED),
   ),
 ];

@@ -38,7 +38,6 @@ dependencies:
   flutter_svg: ^2.0.9
   gap: ^3.0.1
   http: ^1.1.0
-  google_fonts: ^8.2.1
 
 dev_dependencies:
   flutter_test:
@@ -64,3 +63,13 @@ flutter:
     - family: Cabin
       fonts:
         - asset: fonts/Cabin_VariableFont.ttf
+
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+        - asset: assets/fonts/Inter-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Inter-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Inter-Bold.ttf
+          weight: 700
