@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 // ─────────────────────────────────────────────
 
 const String kBrandName = 'Carbon Anik';
-const String kCopyrightText = '© 2024 Carbon Anik. All rights reserved.';
+const String kCopyrightText = '© 2026 Carbon Anik. All rights reserved.';
 
 // ─────────────────────────────────────────────
 // HERO SECTION
@@ -42,12 +42,12 @@ class StatData {
 const List<StatData> kAboutStats = [
   StatData(
     icon: Icons.timelapse_rounded,
-    value: '5+',
+    value: '3+',
     label: 'Years Experience',
   ),
   StatData(
     icon: Icons.work_outline_rounded,
-    value: '20+',
+    value: '15+',
     label: 'Projects Completed',
   ),
   StatData(
@@ -64,53 +64,53 @@ const List<StatData> kAboutStats = [
 class SkillData {
   const SkillData({
     required this.name,
-    required this.icon,
+    required this.logoAsset,
     required this.color,
   });
   final String name;
-  final IconData icon;
+  final String logoAsset;
   final Color color;
 }
 
 const List<SkillData> kSkills = [
   SkillData(
     name: 'Flutter',
-    icon: Icons.flutter_dash_rounded,
+    logoAsset: 'assets/logos/flutter.png',
     color: Color(0xFF19A7E8),
   ),
   SkillData(
     name: 'Dart',
-    icon: Icons.change_history_rounded,
+    logoAsset: 'assets/logos/dart.png',
     color: Color(0xFF48A9E6),
   ),
   SkillData(
     name: 'Firebase',
-    icon: Icons.local_fire_department_rounded,
+    logoAsset: 'assets/logos/firebase.png',
     color: Color(0xFFFFB000),
   ),
   SkillData(
     name: 'Riverpod',
-    icon: Icons.hub_outlined,
+    logoAsset: 'assets/logos/riverpod.png',
     color: Color(0xFF4CA5DB),
   ),
   SkillData(
     name: 'Hive',
-    icon: Icons.hexagon_rounded,
+    logoAsset: 'assets/logos/hive.png',
     color: Color(0xFFF2C839),
   ),
   SkillData(
     name: 'REST API',
-    icon: Icons.api_rounded,
+    logoAsset: 'assets/logos/rest_api.png',
     color: Color(0xFFE7E7E7),
   ),
   SkillData(
     name: 'Git',
-    icon: Icons.alt_route_rounded,
+    logoAsset: 'assets/logos/git.png',
     color: Color(0xFFF1502F),
   ),
   SkillData(
     name: 'Docker',
-    icon: Icons.directions_boat_filled_rounded,
+    logoAsset: 'assets/logos/docker.png',
     color: Color(0xFF2496ED),
   ),
 ];
@@ -239,8 +239,15 @@ class SocialIconData {
 }
 
 const List<SocialIconData> kSocialIcons = [
-  SocialIconData(icon: Icons.code_rounded), // GitHub
-  SocialIconData(icon: Icons.business_center_outlined), // LinkedIn
-  SocialIconData(icon: Icons.alternate_email_rounded), // Twitter / X
-  SocialIconData(icon: Icons.language_rounded), // Website
+  SocialIconData(
+      icon: Icons.code_rounded, url: 'https://github.com/carbonanik'), // GitHub
+  SocialIconData(
+      icon: Icons.business_center_outlined,
+      url: 'https://linkedin.com/in/carbonanik'), // LinkedIn
+  SocialIconData(
+      icon: Icons.alternate_email_rounded,
+      url: 'https://twitter.com/carbonanik'), // Twitter / X
+  SocialIconData(
+      icon: Icons.language_rounded,
+      url: 'https://carbonanik.web.app'), // Website
 ];

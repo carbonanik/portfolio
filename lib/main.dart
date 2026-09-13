@@ -693,7 +693,7 @@ class _SkillsSection extends StatelessWidget {
                     width: itemWidth,
                     child: _SkillCard(
                       name: skill.name,
-                      icon: skill.icon,
+                      logoAsset: skill.logoAsset,
                       color: skill.color,
                     ),
                   ),
@@ -709,12 +709,12 @@ class _SkillsSection extends StatelessWidget {
 class _SkillCard extends StatelessWidget {
   const _SkillCard({
     required this.name,
-    required this.icon,
+    required this.logoAsset,
     required this.color,
   });
 
   final String name;
-  final IconData icon;
+  final String logoAsset;
   final Color color;
 
   @override
@@ -726,7 +726,12 @@ class _SkillCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, color: color.withValues(alpha: .88), size: 34),
+            Image.asset(
+              logoAsset,
+              width: 38,
+              height: 38,
+              fit: BoxFit.contain,
+            ),
             const SizedBox(height: 10),
             Text(
               name,
@@ -1004,10 +1009,10 @@ class _ExperienceRow extends StatelessWidget {
                   Container(
                     width: 9,
                     height: 9,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFADB2BA),
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFADB2BA),
                       shape: BoxShape.circle,
-                      boxShadow: const [
+                      boxShadow: [
                         BoxShadow(
                           color: Color(0x336A7079),
                           blurRadius: 8,
@@ -1075,12 +1080,12 @@ class _Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final intro = Column(
+    const intro = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const _Eyebrow(kContactEyebrow),
-        const SizedBox(height: 16),
-        const Text(
+        _Eyebrow(kContactEyebrow),
+        SizedBox(height: 16),
+        Text(
           kContactTagline,
           style: TextStyle(
             fontSize: 11.5,
@@ -1116,7 +1121,7 @@ class _Footer extends StatelessWidget {
       child: Column(
         children: [
           if (mobile) ...[
-            Align(alignment: Alignment.centerLeft, child: intro),
+            const Align(alignment: Alignment.centerLeft, child: intro),
             const SizedBox(height: 26),
             Align(alignment: Alignment.centerLeft, child: contact),
             const SizedBox(height: 26),
@@ -1125,7 +1130,7 @@ class _Footer extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(flex: 5, child: intro),
+                const Expanded(flex: 5, child: intro),
                 Expanded(flex: 3, child: contact),
                 Expanded(
                   flex: 2,

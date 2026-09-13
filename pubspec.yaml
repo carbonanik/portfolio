@@ -54,6 +54,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/logos/
 
   fonts:
     - family: IBMPlexMono
