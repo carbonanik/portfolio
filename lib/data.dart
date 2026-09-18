@@ -12,10 +12,10 @@ const String kCopyrightText = '© 2026 Carbon Anik. All rights reserved.';
 // ─────────────────────────────────────────────
 
 const String kHeroEyebrow = 'FLUTTER DEVELOPER';
-const String kHeroHeadline = 'Building beautiful\napps with Flutter';
+const String kHeroHeadline = 'Clean code.\nA human touch.';
 const String kHeroSubtitle =
-    'I build cross-platform mobile applications that are\n'
-    'fast, beautiful and provide exceptional user experiences.';
+    'I build mobile apps that work smoothly and feel familiar, \n'
+    'combining Flutter development with care for the person on the other side of the screen.';
 
 // ─────────────────────────────────────────────
 // ABOUT SECTION
@@ -136,11 +136,20 @@ class ProjectData {
 
 const List<ProjectData> kProjects = [
   ProjectData(
-    title: 'Gari Bhai',
-    subtitle: 'Ride Sharing App',
-    description: 'A complete ride sharing solution\nwith real-time tracking.',
-    tags: ['Flutter', 'Firebase'],
-    icon: Icons.commute_rounded,
+    title: 'Plnze',
+    subtitle: 'Communication and Collaboration App',
+    description:
+        'Real time chat voice and video calls\nwith instant and scheduled meeting.',
+    tags: ['Flutter', 'Agora', 'Bloc'],
+    icon: Icons.people_alt_rounded,
+  ),
+  ProjectData(
+    title: 'Digital Logic Sim',
+    subtitle: 'Digital Logic Circuit Simulator',
+    description:
+        'Interactive logic circuit simulator\nwith gates, wires and real-time logic.',
+    tags: ['Flutter', 'Custom Rendering', 'Logic Simulation'],
+    icon: Icons.account_tree_rounded,
   ),
   ProjectData(
     title: 'Tour Shongi',
@@ -153,7 +162,7 @@ const List<ProjectData> kProjects = [
     title: 'Wrangle Wave',
     subtitle: 'Mechanic App',
     description: 'Vehicle service app for garages\nand customers.',
-    tags: ['Flutter', 'Stripe', 'Firebase'],
+    tags: ['Flutter', 'Stripe', 'Google Maps'],
     icon: Icons.build_circle_outlined,
   ),
   ProjectData(
@@ -162,6 +171,14 @@ const List<ProjectData> kProjects = [
     description: 'Multi-vendor e-commerce\napp with modern UI.',
     tags: ['Flutter', 'Riverpod'],
     icon: Icons.shopping_bag_outlined,
+  ),
+  ProjectData(
+    title: 'Gari Bhai',
+    subtitle: 'Vehicle Rental & Hailing App',
+    description:
+        'A vehicle rental and hailing app\nfor seamless transportation.',
+    tags: ['Flutter', 'REST API', 'Riverpod'],
+    icon: Icons.commute_rounded,
   ),
 ];
 
@@ -207,6 +224,8 @@ const List<ExperienceData> kExperience = [
 // CONTACT / FOOTER SECTION
 // ─────────────────────────────────────────────
 
+const String kContactMeLink = 'http://linkedin.com/in/carbonanik';
+
 const String kContactEyebrow = 'LET\u2019S WORK TOGETHER';
 const String kContactTagline =
     'Have a project in mind? Let\u2019s build something amazing together.';
@@ -233,21 +252,25 @@ const List<ContactLineData> kContactLines = [
 ];
 
 class SocialIconData {
-  const SocialIconData({required this.icon, this.url});
+  const SocialIconData({required this.icon, this.logo, this.url});
   final IconData icon;
+  final String? logo;
   final String? url; // optional – add URLs when ready
 }
 
 const List<SocialIconData> kSocialIcons = [
   SocialIconData(
-      icon: Icons.code_rounded, url: 'https://github.com/carbonanik'), // GitHub
+      logo: 'assets/logos/social/github.webp',
+      icon: Icons.code_rounded,
+      url: 'https://github.com/carbonanik'), // GitHub
   SocialIconData(
+      logo: 'assets/logos/social/linkedin.webp',
       icon: Icons.business_center_outlined,
       url: 'https://linkedin.com/in/carbonanik'), // LinkedIn
-  SocialIconData(
-      icon: Icons.alternate_email_rounded,
-      url: 'https://twitter.com/carbonanik'), // Twitter / X
-  SocialIconData(
-      icon: Icons.language_rounded,
-      url: 'https://carbonanik.web.app'), // Website
+  // SocialIconData(
+  //     icon: Icons.alternate_email_rounded,
+  //     url: 'https://x.com/carbonanik'), // Twitter / X
+  // SocialIconData(
+  //     icon: Icons.language_rounded,
+  //     url: 'https://carbonanik.web.app'), // Website
 ];

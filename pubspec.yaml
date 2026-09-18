@@ -14,30 +14,14 @@ dependencies:
 
 
   cupertino_icons: ^1.0.6
-  code_text_field: ^1.1.0
-  highlight: ^0.7.0
-  flutter_highlight: ^0.7.0
-  simple_animations: ^5.0.2
-  supercharged: ^2.1.1
   image: ^4.1.3
-  eva_icons_flutter: ^3.1.0
   collection: ^1.16.0
-  flutter_shaders: ^0.1.2
-  matrix4_transform: ^2.0.1
-  flutter_gallery_3d: ^1.1.1
-  sa4_migration_kit: ^1.0.0
   uuid: ^4.2.1
   url_launcher: ^6.2.2
-  smooth_scroll_multiplatform: ^1.0.8
   go_router: ^13.0.0
-  riverpod: ^2.4.9
-  flutter_riverpod: ^2.4.9
-  shared_preferences: ^2.2.2
   firebase_core: ^2.24.2
-  universal_html: ^2.2.4
-  flutter_svg: ^2.0.9
-  gap: ^3.0.1
   http: ^1.1.0
+  url_launcher_plus: ^1.2.0
 
 dev_dependencies:
   flutter_test:
@@ -54,6 +38,7 @@ flutter:
   assets:
     - assets/images/
     - assets/logos/
+    - assets/logos/social/
 
   fonts:
     - family: IBMPlexMono

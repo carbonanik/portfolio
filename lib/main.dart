@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'data.dart';
 
@@ -106,7 +107,11 @@ class _PortfolioPageState extends State<PortfolioPage> {
                           child: _HeroSection(
                             mobile: mobile,
                             onWork: () => _goTo(projectsKey),
-                            onContact: () => _goTo(contactKey),
+                            onContact: () async {
+                              await launchUrl(Uri.parse(kContactMeLink),
+                                  mode: LaunchMode.externalApplication);
+                              // open contact me link in a new tab
+                            },
                           ),
                         ),
                         SizedBox(height: mobile ? 62 : 54),
@@ -120,25 +125,25 @@ class _PortfolioPageState extends State<PortfolioPage> {
                         const SizedBox(height: 54),
                         Container(
                           key: skillsKey,
-                          child: _Reveal(
-                            delay: const Duration(milliseconds: 700),
-                            child: const _SkillsSection(),
+                          child: const _Reveal(
+                            delay: Duration(milliseconds: 700),
+                            child: _SkillsSection(),
                           ),
                         ),
                         const SizedBox(height: 58),
                         Container(
                           key: projectsKey,
-                          child: _Reveal(
-                            delay: const Duration(milliseconds: 700),
-                            child: const _ProjectsSection(),
+                          child: const _Reveal(
+                            delay: Duration(milliseconds: 700),
+                            child: _ProjectsSection(),
                           ),
                         ),
                         const SizedBox(height: 62),
                         Container(
                           key: experienceKey,
-                          child: _Reveal(
-                            delay: const Duration(milliseconds: 700),
-                            child: const _ExperienceSection(),
+                          child: const _Reveal(
+                            delay: Duration(milliseconds: 700),
+                            child: _ExperienceSection(),
                           ),
                         ),
                         const SizedBox(height: 62),
@@ -280,9 +285,9 @@ class _Brand extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 11),
-        Text(
+        const Text(
           kBrandName,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 17,
             letterSpacing: -.3,
@@ -364,9 +369,9 @@ class _HeroSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _Reveal(
-          delay: const Duration(milliseconds: 150),
-          child: const _Eyebrow(kHeroEyebrow),
+        const _Reveal(
+          delay: Duration(milliseconds: 150),
+          child: _Eyebrow(kHeroEyebrow),
         ),
         const SizedBox(height: 20),
         _Reveal(
@@ -594,9 +599,9 @@ class _AboutSection extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          Text(
+          const Text(
             kAboutBio,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Inter',
               fontSize: 13.2,
               height: 1.7,
@@ -804,7 +809,7 @@ class _ProjectsSection extends StatelessWidget {
                 : constraints.maxWidth > 600
                     ? 2
                     : 1;
-            final gap = 14.0;
+            const gap = 14.0;
             final itemWidth =
                 (constraints.maxWidth - gap * (columns - 1)) / columns;
 
@@ -812,7 +817,7 @@ class _ProjectsSection extends StatelessWidget {
               spacing: gap,
               runSpacing: gap,
               children: [
-                for (final p in kProjects)
+                for (final p in kProjects.take(4))
                   SizedBox(
                     width: itemWidth,
                     child: _ProjectCard(data: p),
@@ -892,15 +897,143 @@ class _ProjectCard extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              Wrap(
-                spacing: 6,
-                runSpacing: 6,
-                children: [
-                  for (final tag in data.tags) _Tag(tag),
-                ],
-              ),
+              _TagScroller(tags: data.tags),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _TagScroller extends StatefulWidget {
+  const _TagScroller({required this.tags});
+
+  final List<String> tags;
+
+  @override
+  State<_TagScroller> createState() => _TagScrollerState();
+}
+
+class _TagScrollerState extends State<_TagScroller> {
+  final controller = ScrollController();
+  bool canScrollBack = false;
+  bool canScrollForward = false;
+
+  @override
+  void initState() {
+    super.initState();
+    controller.addListener(_updateScrollButtons);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _updateScrollButtons();
+    });
+  }
+
+  void _updateScrollButtons() {
+    if (!mounted || !controller.hasClients) return;
+
+    final nextBack = controller.offset > 1;
+    final nextForward =
+        controller.offset < controller.position.maxScrollExtent - 1;
+    if (nextBack != canScrollBack || nextForward != canScrollForward) {
+      setState(() {
+        canScrollBack = nextBack;
+        canScrollForward = nextForward;
+      });
+    }
+  }
+
+  Future<void> _scrollTo(double offset) async {
+    await controller.animateTo(
+      offset,
+      duration: const Duration(milliseconds: 260),
+      curve: Curves.easeOutCubic,
+    );
+  }
+
+  @override
+  void dispose() {
+    controller
+      ..removeListener(_updateScrollButtons)
+      ..dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 28,
+      child: Stack(
+        children: [
+          Expanded(
+            child: ListView.separated(
+              controller: controller,
+              scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
+              itemCount: widget.tags.length,
+              separatorBuilder: (_, __) => const SizedBox(width: 6),
+              itemBuilder: (_, index) => _Tag(widget.tags[index]),
+            ),
+          ),
+          if (canScrollBack) ...[
+            Positioned(
+              left: 0,
+              top: 0,
+              bottom: 0,
+              child: _TagScrollButton(
+                icon: Icons.chevron_left_rounded,
+                tooltip: 'Scroll tags to start',
+                onTap: () => _scrollTo(0),
+              ),
+            ),
+            const SizedBox(width: 5),
+          ],
+          if (canScrollForward) ...[
+            const SizedBox(width: 5),
+            Positioned(
+              right: 0,
+              top: 0,
+              bottom: 0,
+              child: _TagScrollButton(
+                icon: Icons.chevron_right_rounded,
+                tooltip: 'Scroll tags to end',
+                onTap: () => _scrollTo(controller.position.maxScrollExtent),
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class _TagScrollButton extends StatelessWidget {
+  const _TagScrollButton({
+    required this.icon,
+    required this.tooltip,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String tooltip;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Tooltip(
+      message: tooltip,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(14),
+        child: Container(
+          width: 28,
+          height: 28,
+          decoration: BoxDecoration(
+            color: const Color(0xFF14171A),
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: const Color(0xFF23262B)),
+          ),
+          child: Icon(icon, size: 18, color: const Color(0xFF9BA1AA)),
         ),
       ),
     );
@@ -1145,7 +1278,7 @@ class _Footer extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         for (int i = 0; i < kSocialIcons.length; i++) ...[
-          _SocialIcon(kSocialIcons[i].icon),
+          _SocialIcon(kSocialIcons[i]),
           if (i != kSocialIcons.length - 1) const SizedBox(width: 10),
         ],
       ],
@@ -1200,27 +1333,39 @@ class _ContactLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, size: 15, color: const Color(0xFFAEB3BB)),
-        const SizedBox(width: 12),
-        Text(
-          text,
-          style: const TextStyle(
-            fontSize: 11.7,
-            color: Color(0xFFD8DADE),
+    return InkWell(
+      onTap: () async {
+        if (icon == Icons.mail_outline_rounded) {
+          await launchUrl(Uri.parse('mailto:$text'));
+        } else if (icon == Icons.phone_outlined) {
+          await launchUrl(Uri.parse('tel:$text'));
+        } else if (icon == Icons.location_on_outlined) {
+          await launchUrl(Uri.parse(
+              'https://www.google.com/maps/search/?api=1&query=$text'));
+        }
+      },
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 15, color: const Color(0xFFAEB3BB)),
+          const SizedBox(width: 12),
+          Text(
+            text,
+            style: const TextStyle(
+              fontSize: 11.7,
+              color: Color(0xFFD8DADE),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
 
 class _SocialIcon extends StatefulWidget {
-  const _SocialIcon(this.icon);
+  const _SocialIcon(this.socialIconData);
 
-  final IconData icon;
+  final SocialIconData socialIconData;
 
   @override
   State<_SocialIcon> createState() => _SocialIconState();
@@ -1248,11 +1393,21 @@ class _SocialIconState extends State<_SocialIcon> {
             color: hovered ? const Color(0xFF393D44) : const Color(0xFF25282D),
           ),
         ),
-        child: Icon(
-          widget.icon,
-          size: 18,
-          color: hovered ? const Color(0xFFF0F1F2) : const Color(0xFFB4B8C0),
-        ),
+        child: widget.socialIconData.logo != null
+            ? ClipRRect(
+                borderRadius: BorderRadius.circular(11),
+                child: Image.asset(
+                  widget.socialIconData.logo!,
+                  width: 18,
+                  height: 18,
+                ),
+              )
+            : Icon(
+                widget.socialIconData.icon,
+                size: 18,
+                color:
+                    hovered ? const Color(0xFFF0F1F2) : const Color(0xFFB4B8C0),
+              ),
       ),
     );
   }
