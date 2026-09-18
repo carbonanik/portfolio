@@ -201,22 +201,25 @@ class ExperienceData {
 
 const List<ExperienceData> kExperience = [
   ExperienceData(
-    period: '2022 – Present',
-    role: 'Flutter Developer (Remote)',
-    company: 'KLwecoo (Upwork)',
-    description: 'Building cross-platform mobile apps\nfor clients worldwide.',
+    period: '2026 – Present',
+    role: 'Mid-Level Flutter Developer',
+    company: 'Antripe',
+    description: 'Developing Plnze, a professional communication '
+        'app with chat, calls, meetings, and news.',
   ),
   ExperienceData(
-    period: '2021 – 2022',
+    period: '2025 – 2026',
     role: 'Flutter Developer',
-    company: 'Softenin, Dhaka',
-    description: 'Developed and maintained multiple\nproduction apps.',
+    company: 'Join-Venture AI',
+    description: 'Stabilized and rebuilt complex apps using '
+        'Clean Architecture, Maps, and real-time systems.',
   ),
   ExperienceData(
-    period: '2020 – 2021',
-    role: 'Android Developer (Kotlin)',
-    company: 'ApexDv, Dhaka',
-    description: 'Worked on native Android apps\nusing Kotlin and MVVM.',
+    period: '2023 – 2025',
+    role: 'Flutter Developer',
+    company: 'Nagalay / Codes Break',
+    description: 'Built booking platforms and client apps from '
+        'scratch, leading a small development team.',
   ),
 ];
 
