@@ -897,143 +897,15 @@ class _ProjectCard extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              _TagScroller(tags: data.tags),
+              Wrap(
+                spacing: 6,
+                runSpacing: 6,
+                children: [
+                  for (final tag in data.tags) _Tag(tag),
+                ],
+              ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class _TagScroller extends StatefulWidget {
-  const _TagScroller({required this.tags});
-
-  final List<String> tags;
-
-  @override
-  State<_TagScroller> createState() => _TagScrollerState();
-}
-
-class _TagScrollerState extends State<_TagScroller> {
-  final controller = ScrollController();
-  bool canScrollBack = false;
-  bool canScrollForward = false;
-
-  @override
-  void initState() {
-    super.initState();
-    controller.addListener(_updateScrollButtons);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _updateScrollButtons();
-    });
-  }
-
-  void _updateScrollButtons() {
-    if (!mounted || !controller.hasClients) return;
-
-    final nextBack = controller.offset > 1;
-    final nextForward =
-        controller.offset < controller.position.maxScrollExtent - 1;
-    if (nextBack != canScrollBack || nextForward != canScrollForward) {
-      setState(() {
-        canScrollBack = nextBack;
-        canScrollForward = nextForward;
-      });
-    }
-  }
-
-  Future<void> _scrollTo(double offset) async {
-    await controller.animateTo(
-      offset,
-      duration: const Duration(milliseconds: 260),
-      curve: Curves.easeOutCubic,
-    );
-  }
-
-  @override
-  void dispose() {
-    controller
-      ..removeListener(_updateScrollButtons)
-      ..dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 28,
-      child: Stack(
-        children: [
-          Expanded(
-            child: ListView.separated(
-              controller: controller,
-              scrollDirection: Axis.horizontal,
-              physics: const BouncingScrollPhysics(),
-              itemCount: widget.tags.length,
-              separatorBuilder: (_, __) => const SizedBox(width: 6),
-              itemBuilder: (_, index) => _Tag(widget.tags[index]),
-            ),
-          ),
-          if (canScrollBack) ...[
-            Positioned(
-              left: 0,
-              top: 0,
-              bottom: 0,
-              child: _TagScrollButton(
-                icon: Icons.chevron_left_rounded,
-                tooltip: 'Scroll tags to start',
-                onTap: () => _scrollTo(0),
-              ),
-            ),
-            const SizedBox(width: 5),
-          ],
-          if (canScrollForward) ...[
-            const SizedBox(width: 5),
-            Positioned(
-              right: 0,
-              top: 0,
-              bottom: 0,
-              child: _TagScrollButton(
-                icon: Icons.chevron_right_rounded,
-                tooltip: 'Scroll tags to end',
-                onTap: () => _scrollTo(controller.position.maxScrollExtent),
-              ),
-            ),
-          ],
-        ],
-      ),
-    );
-  }
-}
-
-class _TagScrollButton extends StatelessWidget {
-  const _TagScrollButton({
-    required this.icon,
-    required this.tooltip,
-    required this.onTap,
-  });
-
-  final IconData icon;
-  final String tooltip;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Tooltip(
-      message: tooltip,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(14),
-        child: Container(
-          width: 28,
-          height: 28,
-          decoration: BoxDecoration(
-            color: const Color(0xFF14171A),
-            borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: const Color(0xFF23262B)),
-          ),
-          child: Icon(icon, size: 18, color: const Color(0xFF9BA1AA)),
         ),
       ),
     );
