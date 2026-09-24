@@ -191,59 +191,48 @@ class _Navbar extends StatelessWidget {
   Widget build(BuildContext context) {
     final navItems = <MapEntry<String, VoidCallback>>[
       MapEntry('Home', onHome),
-      MapEntry('About', onAbout),
-      MapEntry('Skills', onSkills),
       MapEntry('Projects', onProjects),
-      MapEntry('Experience', onExperience),
+      MapEntry('About', onAbout),
       MapEntry('Contact', onContact),
     ];
 
     return Container(
-      height: 68,
-      padding: EdgeInsets.symmetric(horizontal: mobile ? 16 : 20),
-      decoration: BoxDecoration(
-        color: const Color(0xCC0C0E11),
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: const Color(0xFF1D2025)),
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0x24000000),
-            blurRadius: 30,
-            offset: Offset(0, 10),
+      height: 74,
+      decoration: const BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: Color(0xFF1B2026),
+            width: 1,
           ),
-        ],
+        ),
       ),
       child: Row(
         children: [
           const _Brand(),
           const Spacer(),
           if (!mobile) ...[
-            for (final item in navItems)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: _NavButton(
-                  text: item.key,
-                  onTap: item.value,
-                  active: item.key == 'Home',
-                ),
-              ),
-            const SizedBox(width: 14),
-            _ActionButton(
-              label: 'Download CV',
-              icon: Icons.download_rounded,
-              onTap: () {},
-              filled: false,
-              compact: true,
+            Row(
+              children: [
+                for (int i = 0; i < navItems.length; i++) ...[
+                  _NavButton(
+                    text: navItems[i].key,
+                    onTap: navItems[i].value,
+                    active: navItems[i].key == 'Home',
+                  ),
+                  if (i != navItems.length - 1) const SizedBox(width: 26),
+                ],
+              ],
             ),
+            const SizedBox(width: 40),
+            const _NavbarSocials(),
           ] else
             PopupMenuButton<VoidCallback>(
               tooltip: 'Menu',
-              icon: const Icon(Icons.menu_rounded, size: 22),
-              color: const Color(0xFF111318),
+              color: const Color(0xFF111418),
               surfaceTintColor: Colors.transparent,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(14),
-                side: const BorderSide(color: Color(0xFF24272C)),
+              icon: const Icon(
+                Icons.menu_rounded,
+                color: Color(0xFFD5D9DE),
               ),
               onSelected: (callback) => callback(),
               itemBuilder: (_) => [
@@ -265,37 +254,15 @@ class _Brand extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          width: 31,
-          height: 31,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: const Color(0xFF34373D)),
-            color: const Color(0xFF121418),
-          ),
-          child: Transform.rotate(
-            angle: .78,
-            child: const Icon(
-              Icons.close_rounded,
-              color: Color(0xFFB7BBC2),
-              size: 17,
-            ),
-          ),
-        ),
-        const SizedBox(width: 11),
-        const Text(
-          kBrandName,
-          style: TextStyle(
-            fontFamily: 'Inter',
-            fontSize: 17,
-            letterSpacing: -.3,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFFF2F3F5),
-          ),
-        ),
-      ],
+    return const Text(
+      'ANIK',
+      style: TextStyle(
+        fontFamily: 'Inter',
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+        letterSpacing: 6,
+        color: Color(0xFFE8ECF0),
+      ),
     );
   }
 }
@@ -318,34 +285,127 @@ class _NavButton extends StatefulWidget {
 class _NavButtonState extends State<_NavButton> {
   bool hovered = false;
 
+  static const accent = Colors.white; // Color(0xFF24B8F2);
+
   @override
   Widget build(BuildContext context) {
     final highlighted = widget.active || hovered;
 
     return MouseRegion(
+      cursor: SystemMouseCursors.click,
       onEnter: (_) => setState(() => hovered = true),
       onExit: (_) => setState(() => hovered = false),
-      child: InkWell(
+      child: GestureDetector(
         onTap: widget.onTap,
-        borderRadius: BorderRadius.circular(10),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 180),
-          curve: Curves.easeOut,
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          decoration: BoxDecoration(
-            color: hovered ? const Color(0xFF15181C) : Colors.transparent,
-            borderRadius: BorderRadius.circular(10),
+        behavior: HitTestBehavior.opaque,
+        child: SizedBox(
+          height: 74,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              const Spacer(),
+              AnimatedDefaultTextStyle(
+                duration: const Duration(milliseconds: 160),
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 14,
+                  fontWeight: widget.active ? FontWeight.w600 : FontWeight.w500,
+                  color: highlighted ? accent : const Color(0xFF9CA3AD),
+                ),
+                child: Text(widget.text),
+              ),
+              const Spacer(),
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 180),
+                width: widget.active ? 52 : (hovered ? 36 : 0),
+                height: 2,
+                decoration: BoxDecoration(
+                  color: highlighted ? accent : Colors.transparent,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ],
           ),
-          child: Text(
-            widget.text,
-            style: TextStyle(
-              fontSize: 12.5,
-              fontWeight: highlighted ? FontWeight.w600 : FontWeight.w500,
-              color: highlighted
-                  ? const Color(0xFFF2F3F5)
-                  : const Color(0xFF9CA1AA),
-            ),
-          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _NavbarSocials extends StatelessWidget {
+  const _NavbarSocials();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Row(
+      children: [
+        _NavbarSocialButton(
+          asset: 'assets/logos/social/github.webp',
+          url: 'https://github.com/carbonanik',
+        ),
+        SizedBox(width: 22),
+        _NavbarSocialButton(
+          asset: 'assets/logos/social/linkedin.webp',
+          url: 'https://linkedin.com/in/carbonanik',
+        ),
+        SizedBox(width: 22),
+        _NavbarSocialButton(
+          icon: Icons.mail_outline_rounded,
+          url: 'mailto:sheikhanikbd@gmail.com',
+        ),
+      ],
+    );
+  }
+}
+
+class _NavbarSocialButton extends StatefulWidget {
+  const _NavbarSocialButton({
+    required this.url,
+    this.asset,
+    this.icon,
+  });
+
+  final String url;
+  final String? asset;
+  final IconData? icon;
+
+  @override
+  State<_NavbarSocialButton> createState() => _NavbarSocialButtonState();
+}
+
+class _NavbarSocialButtonState extends State<_NavbarSocialButton> {
+  bool hovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => hovered = true),
+      onExit: (_) => setState(() => hovered = false),
+      child: GestureDetector(
+        onTap: () async {
+          await launchUrl(
+            Uri.parse(widget.url),
+            mode: LaunchMode.externalApplication,
+          );
+        },
+        child: AnimatedOpacity(
+          duration: const Duration(milliseconds: 160),
+          opacity: hovered ? 1 : .72,
+          child: widget.asset != null
+              ? Image.asset(
+                  widget.asset!,
+                  width: 21,
+                  height: 21,
+                  fit: BoxFit.contain,
+                )
+              : Icon(
+                  widget.icon,
+                  size: 22,
+                  color: hovered
+                      ? const Color(0xFFFFFFFF)
+                      : const Color(0xFFD1D5DB),
+                ),
         ),
       ),
     );
@@ -569,15 +629,23 @@ class _AboutSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final image = ClipRRect(
-      borderRadius: BorderRadius.circular(18),
-      child: AspectRatio(
-        aspectRatio: 1,
-        child: Image.asset(
-          'assets/images/profile.webp',
-          fit: BoxFit.cover,
+    final image = Stack(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(18),
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: Image.asset(
+              'assets/images/profile.webp',
+              fit: BoxFit.cover,
+            ),
+          ),
         ),
-      ),
+        Image.asset(
+          'assets/images/build_better_apps.webp',
+          height: mobile ? 120 : 140,
+        ),
+      ],
     );
 
     final content = Padding(
